@@ -17,6 +17,10 @@ const projetsRouter = require('./routes/projetsRoutes');
 const conflitsRouter = require('./routes/conflitsRoutes');
 const annotationsRouter = require('./routes/annotationsRoutes');
 const notificationsRouter = require('./routes/notificationsRoutes');
+const signUpVisitorRouter = require('./routes/signUpVisitorRoutes');
+const signUpExpertRouter = require('./routes/signUpExpertRoutes');
+const adminValidationRouter = require('./routes/adminValidationRoutes');
+
 
 //using routes : 
 
@@ -25,8 +29,12 @@ app.use('/api/experts', expertsRouter);
 app.use('/api/sections', sectionsRouter);
 app.use('/api/projets', projetsRouter);
 app.use('/api/conflits', conflitsRouter);
+app.use('/api/annotations', annotationsRouter)
 app.use('/api/notifications', notificationsRouter);
-
+app.use(express.json());
+app.use('/api/signup/visitors', signUpVisitorRouter);
+app.use('/api/signup/experts', signUpExpertRouter);
+app.use('/api/validate-expert', adminValidationRouter);
 
 
 // declaring our own modules :

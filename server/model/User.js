@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         required: true,
-        default: 'visitor'
+        default: process.env.VISITOR_ROLE
     },
     userValide: {
         type: Boolean,

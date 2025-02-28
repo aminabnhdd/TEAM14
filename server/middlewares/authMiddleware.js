@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const {verify} = require('jsonwebtoken');
 
 
 const validateToken = async (req,res,next)=>{
@@ -16,6 +16,7 @@ const validateToken = async (req,res,next)=>{
         req.user = validToken;
         if (validToken) return next();
     } catch (error) {
+        console.log(error);
         res.sendStatus(401);
     }
 }

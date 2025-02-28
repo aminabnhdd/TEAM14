@@ -4,6 +4,9 @@ const {userModel,expertModel} = require('../model/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+const AdminRole = process.env.ADMIN_ROLE;
+const ExpertRole = process.env.EXPERT_ROLE;
+
 
 
 router.post('/signup/visitor',async (req,res)=>{
@@ -38,7 +41,7 @@ router.post('/signup/expert',async (req,res)=>{
 
 
 
-    const user = await expertModel.create({nom:nom,prenom:prenom,role:'expert',discipline:discipline,labo:labo,etablissement:etablissement,niveau:niveau,email:email,password:hashedpwd});
+    const user = await expertModel.create({nom:nom,prenom:prenom,role:ExpertRole,discipline:discipline,labo:labo,etablissement:etablissement,niveau:niveau,email:email,password:hashedpwd});
 
     res.json('success');
 
@@ -59,8 +62,8 @@ router.post('/login',async (req,res)=>{
     if (!user.userValide) return res.status(403).json({err:"account not validated yet"});
 
     
-    const accessToken = jwt.sign({username:user.username},process.env.ACCESS_TOKEN_SECRET,{expiresIn:'900s'});
-    const refreshToken = jwt.sign({username:user.username,id:user._id},process.env.REFRESH_TOKEN_SECRET,{expiresIn:'1d'});
+    const accessToken = jwt.sign({nom:user.nom,prenom:user.prenom,email:user.email,role:user.role},process.env.ACCESS_TOKEN_SECRET,{expiresIn:'900s'});
+    const refreshToken = jwt.sign({nom:user.nom,prenom:user.prenom,email:user.email,role:user.role},process.env.REFRESH_TOKEN_SECRET,{expiresIn:'1d'});
 
     user.refreshToken = refreshToken;
     await user.save();
@@ -68,7 +71,7 @@ router.post('/login',async (req,res)=>{
     
     res.cookie('jwt',refreshToken,{ httpOnly:true,maxAge:1000*3600*24,sameSite:'none',secure:true});
 
-    res.json({refreshToken:refreshToken,accessToken:accessToken,username:user.username,id:user._id,role:user.role});
+    res.json({refreshToken:refreshToken,accessToken:accessToken,prenom:user.prenom,nom:user.nom,id:user._id,role:user.role});
 
 
 });

@@ -10,6 +10,8 @@ const cors = require('cors');
 // declaring our own modules :
 
 const dbConn = require('./config/dbConn');
+const authRouter = require('./routes/auth');
+const projectRouter = require('./routes/projects');
 
 
 const PORT = process.env.PORT;
@@ -29,7 +31,8 @@ app.use(cors());
 
 
 
-
+app.use('/auth',authRouter);
+app.use('/projects',projectRouter);
 
 
 

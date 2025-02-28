@@ -11,7 +11,7 @@ const adminRole = process.env.ADMIN_ROLE;
 
 
 
-router.post('/add/:userId',validateToken,validateRole(adminRole),async (req,res)=>{
+router.post('/add/:userId',validateToken,validateRole(expertRole,adminRole),async (req,res)=>{
     try {
         const {titre,type,style} = req.body;
 

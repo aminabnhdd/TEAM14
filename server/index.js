@@ -7,14 +7,37 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 
-// declaring our own modules :
 
-const dbConn = require('./config/dbConn');
+//defining endpoints : 
+
+const adminRouter = require('./routes/admin');
+const signUpRouter = require('./routes/signup');
 const authRouter = require('./routes/auth');
 const projectRouter = require('./routes/projects');
 
 
-const PORT = process.env.PORT;
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+
+
+//using routes : 
+
+app.use('/auth', authRouter);
+app.use('/projects', projectRouter);
+app.use('/api/signup', signUpRouter);
+app.use('/api/admin/validate-expert', adminRouter);
+app.use('/auth', authRouter);
+
+// declaring our own modules :
+
+const dbConn = require('./config/dbConn');
+
+
+
+
+const PORT = process.env.PORT || 5000;
 
 
 // calling the DB connection module (connect the database)
@@ -24,15 +47,13 @@ dbConn();
 // some middlewares to properly handle request formats and cors 
 
 
-app.use(express.urlencoded({extended:false}));
-app.use(express.json());
+
 
 app.use(cors());
 
 
 
-app.use('/auth',authRouter);
-app.use('/projects',projectRouter);
+
 
 
 
@@ -42,9 +63,9 @@ app.use('/projects',projectRouter);
 
 // starting the server and the DB
 
-mongoose.connection.once('open',()=>{
+mongoose.connection.once('open', () => {
     console.log('connected to mongodb');
-    app.listen(PORT,()=>{
-        console.log('server running on port :',PORT);
+    app.listen(PORT, () => {
+        console.log('server running on port :', PORT);
     })
 });

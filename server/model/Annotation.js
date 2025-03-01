@@ -33,4 +33,4 @@ const annotationSchema = new mongoose.Schema({
 
 const annotationModel = mongoose.model("Annotation", annotationSchema);
 
-module.exports = annotationModel;
+module.exports =annotationModel;

@@ -74,5 +74,5 @@ const expertModel = userModel.discriminator("Expert", expertSchema);
 
 
 
-module.exports = {userModel,expertModel};
+module.exports ={userModel,expertModel};
 

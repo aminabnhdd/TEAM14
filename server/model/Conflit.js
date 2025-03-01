@@ -27,4 +27,4 @@ const conflitSchema = new mongoose.Schema({
 
 const conflitModel = mongoose.model("Conflit", conflitSchema);
 
-module.exports = conflitModel;
+module.exports =conflitModel;

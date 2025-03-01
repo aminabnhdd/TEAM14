@@ -1,19 +1,44 @@
 var express = require('express');
 var router = express.Router();
-require("../model/user");
-const Expert = require("../model/user");
+const { userModel, expertModel } = require("../model/user");
 const bcrypt = require('bcrypt');
 
 
 
-router.post("/", async(req, res) => {
+router.post("/visitors", async(req, res) => {
+    try {
+        const { nom, prenom, email, password } = req.body;
+
+        //Hash the password
+        const hashedPwd = await bcrypt.hash(password, 10);
+
+        //create the user
+        const user = new userModel({
+            nom,
+            prenom,
+            email,
+            password: hashedPwd,
+            role: "visitor"
+        });
+
+        await user.save();
+        res.send("user registered sucessfully");
+        res.status(201).json({ user });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
+
+
+router.post("/experts", async(req, res) => {
     try {
         const { nom, prenom, email, password, discipline, labo, etablissement, niveau, projets } = req.body;
 
         //Hash the password
         const hashedPwd = await bcrypt.hash(password, 10);
 
-        const expert = new Expert({
+        const expert = new expertModel({
             nom,
             prenom,
             email,
@@ -34,5 +59,6 @@ router.post("/", async(req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
+
 
 module.exports = router;

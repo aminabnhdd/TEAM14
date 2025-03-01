@@ -37,7 +37,8 @@ const userSchema = new mongoose.Schema({
     }
 }, { timestamps: true }); //timestamps manages automatically two fields createdat and updatedat
 
-const User = mongoose.model("User", userSchema);
+const userModel = mongoose.model("User", userSchema);
+
 
 
 const expertSchema = new mongoose.Schema({
@@ -65,9 +66,6 @@ const expertSchema = new mongoose.Schema({
 })
 
 
-const Expert = User.discriminator("Expert", expertSchema);
+const expertModel = userModel.discriminator("Expert", expertSchema);
 
-
-
-
-module.exports = { User, Expert };
+module.exports = { userModel, expertModel };

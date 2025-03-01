@@ -10,31 +10,22 @@ const cors = require('cors');
 
 //defining endpoints : 
 
-const usersRouter = require('./routes/usersRoutes');
-const expertsRouter = require('./routes/expertsRoutes');
-const sectionsRouter = require('./routes/sectionsRoutes');
-const projetsRouter = require('./routes/projetsRoutes');
-const conflitsRouter = require('./routes/conflitsRoutes');
-const annotationsRouter = require('./routes/annotationsRoutes');
-const notificationsRouter = require('./routes/notificationsRoutes');
-const signUpVisitorRouter = require('./routes/signUpVisitorRoutes');
-const signUpExpertRouter = require('./routes/signUpExpertRoutes');
-const adminValidationRouter = require('./routes/adminValidationRoutes');
+const adminRouter = require('./routes/admin');
+const signUpRouter = require('./routes/signup');
+const projetsRouter = require('./routes/projets');
 
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 //using routes : 
 
-app.use('/api/users', usersRouter);
-app.use('/api/experts', expertsRouter);
-app.use('/api/sections', sectionsRouter);
+
+
+
 app.use('/api/projets', projetsRouter);
-app.use('/api/conflits', conflitsRouter);
-app.use('/api/annotations', annotationsRouter)
-app.use('/api/notifications', notificationsRouter);
-app.use(express.json());
-app.use('/api/signup/visitors', signUpVisitorRouter);
-app.use('/api/signup/experts', signUpExpertRouter);
-app.use('/api/validate-expert', adminValidationRouter);
+app.use('/api/signup', signUpRouter);
+app.use('/api/admin/validate-expert', adminRouter);
 
 
 // declaring our own modules :

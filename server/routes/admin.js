@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const User = require("../model/user");
+const { userModel, expertModel } = require("../model/user");
 const validateExpert = require('../controllers/adminValidationController')
 
 
-router.put("/validate-expert/:expertId", validateExpert);
+router.put("/:expertId", validateExpert);
 
 module.exports = router;

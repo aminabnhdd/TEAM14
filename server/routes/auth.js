@@ -24,7 +24,7 @@ router.post('/signup/visitor',async (req,res)=>{
 
     const user = await userModel.create({nom:nom,prenom:prenom,email:email,password:hashedpwd});
 
-    res.json('success');
+    res.json('account successfully created waiting for admin validation');
 
 });
 
@@ -43,7 +43,8 @@ router.post('/signup/expert',async (req,res)=>{
 
     const user = await expertModel.create({nom:nom,prenom:prenom,role:ExpertRole,discipline:discipline,labo:labo,etablissement:etablissement,niveau:niveau,email:email,password:hashedpwd});
 
-    res.json('success');
+    res.json('account successfully created waiting for admin validation');
+
 
 });
 

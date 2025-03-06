@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
-
+const cookieParser = require('cookie-parser');
 
 
 //defining endpoints : 
@@ -18,7 +18,7 @@ const profileRouter = require("./routes/profil")
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
+app.use(cookieParser());
 
 
 //using routes : 

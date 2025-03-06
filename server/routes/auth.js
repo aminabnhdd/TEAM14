@@ -100,8 +100,8 @@ router.post('/login', async(req, res) => {
     if (!user.userValide) return res.status(403).json({ err: "account not validated yet" });
 
 
-    const accessToken = jwt.sign({ nom: user.nom, prenom: user.prenom, email: user.email, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '900s' });
-    const refreshToken = jwt.sign({ nom: user.nom, prenom: user.prenom, email: user.email, role: user.role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
+    const accessToken = jwt.sign({id: user._id , nom: user.nom, prenom: user.prenom, email: user.email, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '900s' });
+    const refreshToken = jwt.sign({id: user._id ,nom: user.nom, prenom: user.prenom, email: user.email, role: user.role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
 
 
     user.refreshToken = refreshToken;

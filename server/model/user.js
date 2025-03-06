@@ -1,4 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+
+
 
 
 const userSchema = new mongoose.Schema({
@@ -20,25 +22,26 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         match: [/^\S+@\S+\.\S+$/, 'Invalid email format']
     },
-    password: {
+    password:{
         type: String,
-        required: true,
-        trim: true
+        required: true
     },
     role: {
         type: String,
         required: true,
-        enum: ['admin', 'visitor', 'expert'],
-        default: 'visitor'
+        default: process.env.VISITOR_ROLE
     },
     userValide: {
         type: Boolean,
         default: false
+    },
+    refreshToken:{
+        type:String,
+        default:""
     }
 }, { timestamps: true }); //timestamps manages automatically two fields createdat and updatedat
 
 const userModel = mongoose.model("User", userSchema);
-
 
 
 const expertSchema = new mongoose.Schema({
@@ -59,8 +62,8 @@ const expertSchema = new mongoose.Schema({
         required: true
     },
     projets: {
-        type: [String],
-        required: true
+        type: [mongoose.SchemaTypes.ObjectId],
+        default:[]
     }
 
 })
@@ -68,4 +71,8 @@ const expertSchema = new mongoose.Schema({
 
 const expertModel = userModel.discriminator("Expert", expertSchema);
 
-module.exports = { userModel, expertModel };
+
+
+
+module.exports = {userModel,expertModel};
+

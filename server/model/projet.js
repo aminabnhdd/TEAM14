@@ -14,13 +14,11 @@ const projetSchema = new mongoose.Schema({
     },
     coord: {
         type: String,
-        required: true,
-        unique: true,
+        default:"",
         trim: true
     },
     localisation: {
         type: String,
-        required: true,
         trim: true
     },
     style: {
@@ -30,17 +28,10 @@ const projetSchema = new mongoose.Schema({
     },
     photoUrl: {
         type: String,
-        required: true,
-        validate: {
-            validator: function(v) {
-                return /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(v);
-            },
-            message: props => `${props.value} is not a valid URL!`
-        }
+        default:""
     },
     dateConstruction: {
         type: Date,
-        required: true
     },
     chef: {
         type: mongoose.Schema.Types.ObjectId,
@@ -50,12 +41,10 @@ const projetSchema = new mongoose.Schema({
     collaborateurs: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Expert",
-        required: true,
     }],
     demandes: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Expert",
-        required: true,
     }],
     sections: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -65,11 +54,10 @@ const projetSchema = new mongoose.Schema({
     archivePar: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true,
     },
     archive: {
         type: Boolean,
-        required: true
+        default:false
     },
 }, { timestamps: true });
 

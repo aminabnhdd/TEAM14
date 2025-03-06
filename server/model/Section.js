@@ -20,12 +20,10 @@ const sectionSchema = new mongoose.Schema({
     annotations: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Annotation",
-        required: true,
     }],
     conflits: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Conflit",
-        required: true
+        ref: "Conflit"
     }
 });
 

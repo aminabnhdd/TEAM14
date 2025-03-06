@@ -11,9 +11,9 @@ const cors = require('cors');
 //defining endpoints : 
 
 const adminRouter = require('./routes/admin');
-const signUpRouter = require('./routes/signup');
 const authRouter = require('./routes/auth');
 const projectRouter = require('./routes/projects');
+const profilRouter = require('./routes/profil');
 
 
 
@@ -26,9 +26,8 @@ app.use(express.json());
 
 app.use('/auth', authRouter);
 app.use('/projects', projectRouter);
-app.use('/api/signup', signUpRouter);
-app.use('/api/admin/validate-expert', adminRouter);
-app.use('/auth', authRouter);
+app.use('/admin', adminRouter);
+app.use('/profil', profilRouter);
 
 // declaring our own modules :
 

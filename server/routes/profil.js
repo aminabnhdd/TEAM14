@@ -2,7 +2,10 @@ const express = require("express");
 const router = express.Router();
 const { userModel, expertModel } = require("../model/user");
 const validateToken = require("../middlewares/authMiddleware");
+const {validateRole} = require("../middlewares/roleMiddleware");
 const bcrypt = require("bcrypt");
+const expertRole = process.env.EXPERT_ROLE;
+const adminRole = process.env.ADMIN_ROLE;
 
 router.get("/mon-compte", validateToken, async (req, res) => {
   try {
@@ -110,7 +113,7 @@ router.put("/mon-compte/changer-mdp", validateToken, async (req, res) => {
     }
   });
 
-router.get("/:id", validateToken, validateRole([expertRole, adminRole]), async (req, res) => {
+router.get("/:id", validateToken, validateRole(expertRole, adminRole), async (req, res) => {
   try {
     const expertId = req.params.id; 
 

@@ -14,6 +14,7 @@ const adminRouter = require('./routes/admin');
 const authRouter = require('./routes/auth');
 const projectRouter = require('./routes/projects');
 const profilRouter = require('./routes/profil');
+const uploadRouter = require('./routes/upload');
 
 
 
@@ -28,6 +29,7 @@ app.use('/auth', authRouter);
 app.use('/projects', projectRouter);
 app.use('/admin', adminRouter);
 app.use('/profil', profilRouter);
+app.use('/images', uploadRouter);
 
 // declaring our own modules :
 

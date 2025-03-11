@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
-
+const cookieParser = require( 'cookie-parser');
 
 
 //defining endpoints : 
@@ -15,12 +15,14 @@ const authRouter = require('./routes/auth');
 const projectRouter = require('./routes/projects');
 const profilRouter = require('./routes/profil');
 const uploadRouter = require('./routes/upload');
+const editeurRouter = require('./routes/editeur');
+const notificationsRouter = require('./routes/notifications');
 
 
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
+app.use(cookieParser())
 
 
 //using routes : 
@@ -30,6 +32,8 @@ app.use('/projects', projectRouter);
 app.use('/admin', adminRouter);
 app.use('/profil', profilRouter);
 app.use('/images', uploadRouter);
+app.use('/editeur',editeurRouter);
+app.use('/notifications',notificationsRouter);
 
 // declaring our own modules :
 

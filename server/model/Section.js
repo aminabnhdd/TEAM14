@@ -14,7 +14,6 @@ const sectionSchema = new mongoose.Schema({
     },
     contenu: {
         type: String,
-        required: true,
         trim: true
     },
     annotations: [{

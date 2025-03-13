@@ -32,12 +32,15 @@ router.put("/:conflitId/valider",validateToken,validateProjectOwner, async (req,
         .findById(conflit.projetId)
         .populate("collaborateurs");
       const section = await sectionModel.findById(conflit.sectionId);
-
+      console.log(section._id);
       const expert = projet.collaborateurs.find(
         (collab) =>
           collab.discipline &&
           collab.discipline.toLowerCase().includes(section.type.toLowerCase())
       );
+
+      section.conflits.push(conflit._id);
+      await section.save();
 
       const people = [...new Set([projet.chef, conflit.signaleur, expert].filter(Boolean))];
 

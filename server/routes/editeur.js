@@ -39,8 +39,6 @@ router.post("/conflits/:projetId/:sectionId", validateToken, isCollaborator, asy
         });
         await conflit.save();
 
-        section.conflits.push(conflit._id);
-        await section.save();
 
         const notification = new notificationModel({
             type: "conflitSignale",

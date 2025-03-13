@@ -1,0 +1,48 @@
+const transporter = require("../config/nodeMailer");
+
+const sendAccountStatusEmail = async ({ to, username, status }) => {
+  if (!to || !username || !status) {
+    throw new Error("Missing email parameters");
+  }
+
+  const subject = status === "accepted" 
+    ? "Votre compte a été approuvé !" 
+    : "Mise à jour sur votre demande de compte";
+
+  const htmlMessage = status === "accepted"
+    ? `
+      <h2>Félicitations, ${username} !</h2>
+      <p>Votre demande de création de compte a été approuvée.</p>
+      <p>Vous pouvez maintenant vous connecter et utiliser notre plateforme.</p>
+      <a href="https://athar.com" style="display: inline-block; padding: 10px 20px; background-color: #28a745; color: #fff; text-decoration: none; border-radius: 5px;">Se connecter</a>
+      <p>Merci d'utiliser notre service.</p>
+    `
+    : `
+      <h2>Bonjour ${username},</h2>
+      <p>Nous avons examiné votre demande de compte.</p>
+      <p>Malheureusement, nous ne pouvons pas l'approuver pour le moment.</p>
+      <p>Si vous pensez qu'il y a une erreur, veuillez créez votre compte à nouveau.</p>
+      <a href="https://athar.com" style="display: inline-block; padding: 10px 20px; background-color: #dc3545; color: #fff; text-decoration: none; border-radius: 5px;">Contacter le support</a>
+    `;
+
+  const textMessage = status === "accepted"
+    ? `Félicitations ${username} ! Votre compte a été approuvé. Vous pouvez maintenant vous connecter: https://athar.com`
+    : `Bonjour ${username}, votre demande de compte a été refusée. Si vous avez des questions, contactez-nous: athar.e14.esi@gmail.com`;
+
+  try {
+    await transporter.sendMail({
+      from: `"Support Admin" <${process.env.EMAIL}>`,
+      to,
+      subject,
+      text: textMessage, 
+      html: htmlMessage,
+    });
+
+    console.log(`Email envoyé à ${to} - Statut: ${status}`);
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de l'email:", error);
+    throw new Error("Échec de l'envoi de l'email");
+  }
+};
+
+module.exports = sendAccountStatusEmail;

@@ -9,7 +9,7 @@ const ExpertRole = process.env.EXPERT_ROLE;
 
 
 
-router.post('/signup/visitor', async(req, res) => {
+router.post('/signup/visiteur', async(req, res) => {
     const { nom, prenom, email, password } = req.body;
 
     try {
@@ -26,6 +26,7 @@ router.post('/signup/visitor', async(req, res) => {
             prenom,
             email,
             password: hashedPwd,
+            userValide: "true",
             role: "visitor"
         });
 
@@ -60,7 +61,7 @@ router.post('/signup/expert', async(req, res) => {
             prenom,
             email,
             password: hashedPwd,
-            role: "expert",
+            role: ExpertRole,
             userValide: false,
             discipline,
             labo,
@@ -70,8 +71,16 @@ router.post('/signup/expert', async(req, res) => {
         });
 
         await expert.save();
-        res.send("account created sucessfully awaiting for admin validation ! ");
-        res.status(201).json({ expert });
+        res.status(201).json({
+            message: "Account created successfully, awaiting admin validation!",
+            expert: {
+                id: expert.id,
+                nom: expert.nom,
+                prenom: expert.prenom,
+                email: expert.email,
+                role: expert.role
+            }
+        });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -98,8 +107,8 @@ router.post('/login', async(req, res) => {
     if (!user.userValide) return res.status(403).json({ err: "account not validated yet" });
 
 
-    const accessToken = jwt.sign({ nom: user.nom, prenom: user.prenom, email: user.email, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '900s' });
-    const refreshToken = jwt.sign({ nom: user.nom, prenom: user.prenom, email: user.email, role: user.role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
+    const accessToken = jwt.sign({ id: user.id, nom: user.nom, prenom: user.prenom, email: user.email, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '900s' });
+    const refreshToken = jwt.sign({ id: user.id, nom: user.nom, prenom: user.prenom, email: user.email, role: user.role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
 
     user.refreshToken = refreshToken;
     await user.save();

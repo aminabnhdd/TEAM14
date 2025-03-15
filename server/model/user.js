@@ -28,8 +28,7 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         required: true,
-        enum: ['admin', 'visitor', 'expert'],
-        default: 'visitor'
+        default: process.env.VISITOR_ROLE
     },
     userValide: {
         type: Boolean,
@@ -59,7 +58,7 @@ const expertSchema = new mongoose.Schema({
         required: true
     },
     projets: {
-        type: [String],
+        type: [String], //normally a ref to project
         required: true
     }
 

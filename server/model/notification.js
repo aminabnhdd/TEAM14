@@ -12,7 +12,7 @@ const notificationSchema = new mongoose.Schema({
         ref: "Projet",
         required: true,
     },
-    sendeId: {
+    senderId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Expert",
         required: true,

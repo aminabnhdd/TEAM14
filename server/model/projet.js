@@ -53,14 +53,23 @@ const projetSchema = new mongoose.Schema({
         required: true,
     }],
     demandes: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Expert",
-        required: true,
+
+        expert: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Expert",
+            required: true
+        },
+        status: {
+            type: String,
+            enum: ["pending", "accepted", "rejected"],
+            default: "pending"
+        }
+
     }],
     sections: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Section",
-        required: true,
+
     }],
     archivePar: {
         type: mongoose.Schema.Types.ObjectId,
@@ -71,6 +80,9 @@ const projetSchema = new mongoose.Schema({
         type: Boolean,
         required: true
     },
+    keywords: {
+
+    }
 }, { timestamps: true });
 
 const projetModel = mongoose.model("Projet", projetSchema);

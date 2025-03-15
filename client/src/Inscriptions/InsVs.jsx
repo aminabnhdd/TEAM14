@@ -4,6 +4,7 @@ import "../Insctiptions styles/InsVs.css";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";  
 
 function InsVs({ connexionPopUP, hide, hideAll }) {
   const [visible, setVisible] = useState(false);
@@ -47,7 +48,15 @@ function InsVs({ connexionPopUP, hide, hideAll }) {
 
   const handleSubmit = () => {
     if (validateForm()) {
-      console.log("Form submitted successfully");
+      axios.post("http://localhost:3001/auth/signup/visitor", formData)
+        .then((res) => {
+          // redirect to home page (we'll do it later)
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("Erreur lors de l'inscription");
+        });
     }
   };
 

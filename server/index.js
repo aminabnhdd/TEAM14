@@ -20,6 +20,7 @@ const uploadRouter = require('./routes/upload');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 
 // importing roles :
 const adminRole = process.env.ADMIN_ROLE;

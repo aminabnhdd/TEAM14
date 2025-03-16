@@ -1,32 +1,32 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../model/user');
+const User = require('./model/User');
 const jwt = require('jsonwebtoken');
 
 
 
-router.get('/',async(req,res)=>{
+router.get('/', async(req, res) => {
 
     const cookies = req.cookies;
-    if (!cookies?.jwt) return res.json({error:'no cookies'});
-    
+    if (!cookies ? .jwt) return res.json({ error: 'no cookies' });
+
 
 
     const refreshToken = cookies.jwt;
 
-    const user = await User.findOne({refreshToken:refreshToken});
+    const user = await User.findOne({ refreshToken: refreshToken });
 
-    if (!user) return res.json({error:'no user with this refresh Token'});
+    if (!user) return res.json({ error: 'no user with this refresh Token' });
 
-    const validRefresh = jwt.verify(user.refreshToken,process.env.REFRESH_TOKEN_SECRET);
+    const validRefresh = jwt.verify(user.refreshToken, process.env.REFRESH_TOKEN_SECRET);
 
     try {
         if (validRefresh) {
-            const accessToken = jwt.sign({email:user.email},process.env.ACCESS_TOKEN_SECRET,{expiresIn:'900s'});
-            res.json({id:user._id,accessToken:accessToken});
+            const accessToken = jwt.sign({ email: user.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '900s' });
+            res.json({ id: user._id, accessToken: accessToken });
         }
     } catch (error) {
-        res.json({error:'forbidden !'});
+        res.json({ error: 'forbidden !' });
     }
 
 

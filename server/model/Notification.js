@@ -24,8 +24,12 @@ const notificationSchema = new mongoose.Schema({
     },
     content: {
         type: String,
-        ref: "Expert",
         required: true,
+    },
+    conflitId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Conflit",
+        default: null
     },
     time: {
         type: Date,

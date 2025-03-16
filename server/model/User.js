@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         match: [/^\S+@\S+\.\S+$/, 'Invalid email format']
     },
-    password:{
+    password: {
         type: String,
         required: true
     },
@@ -35,9 +35,9 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    refreshToken:{
-        type:String,
-        default:""
+    refreshToken: {
+        type: String,
+        default: ""
     }
 }, { timestamps: true }); //timestamps manages automatically two fields createdat and updatedat
 
@@ -63,7 +63,7 @@ const expertSchema = new mongoose.Schema({
     },
     projets: {
         type: [mongoose.SchemaTypes.ObjectId],
-        default:[]
+        default: []
     }
 
 })
@@ -74,5 +74,4 @@ const expertModel = userModel.discriminator("Expert", expertSchema);
 
 
 
-module.exports = {userModel,expertModel};
-
+module.exports = { userModel, expertModel };

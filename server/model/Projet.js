@@ -14,7 +14,7 @@ const projetSchema = new mongoose.Schema({
     },
     coord: {
         type: String,
-        default:"",
+        default: "",
         trim: true
     },
     localisation: {
@@ -28,7 +28,7 @@ const projetSchema = new mongoose.Schema({
     },
     photoUrl: {
         type: String,
-        default:""
+        default: ""
     },
     dateConstruction: {
         type: Date,
@@ -57,7 +57,7 @@ const projetSchema = new mongoose.Schema({
     },
     archive: {
         type: Boolean,
-        default:false
+        default: false
     },
 }, { timestamps: true });
 

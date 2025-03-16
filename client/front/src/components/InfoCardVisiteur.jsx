@@ -2,12 +2,17 @@ import React from "react";
 import { FiEdit } from "react-icons/fi"; 
 import { useNavigate } from "react-router-dom"; 
 
+
 const InfoCardVisiteur = ({ name, lastName, email, phone }) => {
   const navigate = useNavigate(); 
-
   const handleEditClick = () => {
     navigate("/sauvegarde-visiteur"); 
   };
+
+  
+
+  
+  
 
   return (
     <div className="container">

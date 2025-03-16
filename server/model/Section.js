@@ -14,19 +14,16 @@ const sectionSchema = new mongoose.Schema({
     },
     contenu: {
         type: String,
-        required: true,
         trim: true
     },
     annotations: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Annotation",
-        required: true,
     }],
-    conflits: {
+    conflits: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Conflit",
-        required: true
-    }
+        ref: "Conflit"
+    }]
 });
 
 const sectionModel = mongoose.model("Section", sectionSchema);

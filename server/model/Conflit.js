@@ -22,6 +22,14 @@ const conflitSchema = new mongoose.Schema({
     },
     valide: {
         type: Boolean
+    },
+    content: {
+        type: String,
+        required: true,
+    },
+    lien: {
+        type: String,
+        required: false,
     }
 });
 

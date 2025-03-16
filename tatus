@@ -1,0 +1,50 @@
+* [33m1b4c529[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mEditeur[m[33m)[m tiptap basic functions
+[31m|[m * [33maa98407[m[33m ([m[1;35mrefs/stash[m[33m)[m WIP on Editeur: af4d831 Déplacement du setup front dans client
+[31m|[m[31m/[m[33m|[m 
+[31m|[m * [33m352021a[m index on Editeur: af4d831 Déplacement du setup front dans client
+[31m|[m[31m/[m  
+* [33maf4d831[m[33m ([m[1;31morigin/front-setup[m[33m, [m[1;32mfront-setup[m[33m)[m Déplacement du setup front dans client
+* [33m2307eab[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m routes revision
+* [33m2c538cc[m Delete server/model/annotation.js
+* [33mb66f442[m Delete server/model/conflit.js
+* [33m622f562[m Delete server/model/notification.js
+* [33mb81f95f[m Delete server/model/projet.js
+* [33md1e1dd9[m Delete server/model/section.js
+* [33m98b781d[m Delete server/model/user.js
+* [33md69ecab[m Delete server/.gitignore
+* [33m962595e[m Delete server/package-lock.json
+* [33m8adea22[m Delete server/.env
+[33m|[m * [33mc9feaf8[m[33m ([m[1;31morigin/razine[m[33m)[m auth revision
+[33m|[m * [33m2bad381[m model revision
+[33m|[m [34m|[m *   [33m49c21be[m[33m ([m[1;31morigin/profil[m[33m)[m Merge branch 'main' into profil
+[33m|[m [34m|[m [35m|[m[33m\[m  
+[33m|[m [34m|[m[33m_[m[35m|[m[33m/[m  
+[33m|[m[33m/[m[34m|[m [35m|[m   
+* [34m|[m [35m|[m [33m4914171[m last review signup/login
+* [34m|[m [35m|[m   [33me52e941[m signup/login
+[34m|[m[1;32m\[m [34m\[m [35m\[m  
+[34m|[m [1;32m|[m[34m/[m [35m/[m  
+[34m|[m[34m/[m[1;32m|[m [35m|[m   
+[34m|[m * [35m|[m [33ma62b56f[m[33m ([m[1;31morigin/signUp[m[33m)[m review signup
+[34m|[m * [35m|[m [33m78fd6aa[m signup
+[34m|[m * [35m|[m [33m092a64e[m[33m ([m[1;31morigin/bdd-setup[m[33m)[m bdd setup
+[34m|[m [1;32m|[m * [33mc3bb218[m Added paquet profil
+[34m|[m [1;32m|[m[34m/[m  
+[34m|[m[34m/[m[1;32m|[m   
+* [1;32m|[m   [33mc269a5b[m Merge pull request #2 from aminabnhdd/razine
+[1;33m|[m[1;34m\[m [1;32m\[m  
+[1;33m|[m * [1;32m|[m [33m8009f89[m ...
+[1;33m|[m[1;33m/[m [1;32m/[m  
+* [1;32m|[m   [33m6971aae[m Merge pull request #1 from aminabnhdd/razine
+[1;32m|[m[1;36m\[m [1;32m\[m  
+[1;32m|[m [1;36m|[m[1;32m/[m  
+[1;32m|[m[1;32m/[m[1;36m|[m   
+[1;32m|[m * [33m38186e8[m add project request with the admin and expert roles
+[1;32m|[m * [33m5c93761[m projects and admin route
+[1;32m|[m * [33m0311be0[m projet model revision
+[1;32m|[m * [33m1f4b0cd[m role middleware
+[1;32m|[m * [33mfba518b[m auth revision
+[1;32m|[m * [33m0947453[m models revision, auth route
+[1;32m|[m[1;32m/[m  
+* [33madbed6b[m this is just text files to make the general structure of the project clearer
+* [33me224b0c[m first commit

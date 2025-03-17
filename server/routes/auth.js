@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { userModel, expertModel } = require('./model/User');
+const { userModel, expertModel } = require('../model/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -9,44 +9,88 @@ const ExpertRole = process.env.EXPERT_ROLE;
 
 
 
-router.post('/signup/visitor', async(req, res) => {
-    const { nom, prenom, email, password } = req.body;
+router.post('/signup/visiteur', async(req, res) => {
+    const { name, lastname, email, password } = req.body;
 
+    try {
+        const foundUser = await userModel.findOne({ email: email });
 
-    const foundUser = await userModel.findOne({ email: email });
+        if (foundUser) return res.json({ error: 'email already taken' });
 
-    if (foundUser) return res.json({ error: 'email already taken' });
+        //Hash the password
+        const hashedPwd = await bcrypt.hash(password, 10);
 
+        //create the user
+        const user = new userModel({
+            name,
+            lastname,
+            email,
+            password: hashedPwd,
+            userValide: "true",
+            role: "visitor"
+        });
 
-    const hashedpwd = await bcrypt.hash(password, 10);
-
-
-
-    const user = await userModel.create({ nom: nom, prenom: prenom, email: email, password: hashedpwd });
-
-    res.json('account successfully created waiting for admin validation');
+        await user.save();
+        res.send("user registered sucessfully");
+        res.status(201).json({ user });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
 
 });
+
+
+
+
+
 
 router.post('/signup/expert', async(req, res) => {
-    const { nom, prenom, discipline, labo, etablissement, niveau, email, password } = req.body;
+    const { nom, prenom, email, password, discipline, labo, etablissement, niveau, projets } = req.body;
+
+    try {
+        const foundUser = await userModel.findOne({ email: email });
+
+        if (foundUser) return res.json({ error: 'email already taken' });
 
 
-    const foundUser = await userModel.findOne({ email: email });
+        //Hash the password
+        const hashedPwd = await bcrypt.hash(password, 10);
 
-    if (foundUser) return res.json({ error: 'email already taken' });
+        const expert = new expertModel({
+            nom,
+            prenom,
+            email,
+            password: hashedPwd,
+            role: ExpertRole,
+            userValide: false,
+            discipline,
+            labo,
+            etablissement,
+            niveau,
+            projets
+        });
 
-
-    const hashedpwd = await bcrypt.hash(password, 10);
-
-
-
-    const user = await expertModel.create({ nom: nom, prenom: prenom, role: ExpertRole, discipline: discipline, labo: labo, etablissement: etablissement, niveau: niveau, email: email, password: hashedpwd });
-
-    res.json('account successfully created waiting for admin validation');
-
+        await expert.save();
+        res.status(201).json({
+            message: "Account created successfully, awaiting admin validation!",
+            expert: {
+                id: expert.id,
+                nom: expert.nom,
+                prenom: expert.prenom,
+                email: expert.email,
+                role: expert.role
+            }
+        });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
 
 });
+
+
+
+
+
 
 router.post('/login', async(req, res) => {
 
@@ -63,8 +107,8 @@ router.post('/login', async(req, res) => {
     if (!user.userValide) return res.status(403).json({ err: "account not validated yet" });
 
 
-    const accessToken = jwt.sign({ nom: user.nom, prenom: user.prenom, email: user.email, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '900s' });
-    const refreshToken = jwt.sign({ nom: user.nom, prenom: user.prenom, email: user.email, role: user.role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
+    const accessToken = jwt.sign({ id: user.id, nom: user.nom, prenom: user.prenom, email: user.email, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '900s' });
+    const refreshToken = jwt.sign({ id: user.id, nom: user.nom, prenom: user.prenom, email: user.email, role: user.role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
 
     user.refreshToken = refreshToken;
     await user.save();

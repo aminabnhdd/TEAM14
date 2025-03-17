@@ -1,5 +1,8 @@
 require('dotenv').config();
 
+const { userModel } = require('./model/user');
+
+
 // declaring node modules we need : 
 const express = require('express');
 const app = express();
@@ -11,7 +14,6 @@ const cors = require('cors');
 //defining endpoints : 
 
 const adminRouter = require('./routes/admin');
-const signUpRouter = require('./routes/signup');
 const authRouter = require('./routes/auth');
 const projectRouter = require('./routes/projects');
 
@@ -26,8 +28,7 @@ app.use(express.json());
 
 app.use('/auth', authRouter);
 app.use('/projects', projectRouter);
-app.use('/api/signup', signUpRouter);
-app.use('/api/admin/validate-expert', adminRouter);
+app.use('/admin', adminRouter);
 app.use('/auth', authRouter);
 
 // declaring our own modules :
@@ -50,10 +51,6 @@ dbConn();
 
 
 app.use(cors());
-
-
-
-
 
 
 

@@ -7,6 +7,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";  
 
 function InsVs({ connexionPopUP, hide, hideAll }) {
+
   const [visible, setVisible] = useState(false);
   const [typo, setTypo] = useState("password");
   const [formData, setFormData] = useState({

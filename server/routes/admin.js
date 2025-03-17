@@ -1,7 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const { userModel, expertModel } = require("../model/user");
+
+
 const visitorRole = process.env.VISITOR_ROLE;
+
 
 const sendAccountStatusEmail = require("../middlewares/emailMiddleware");
 
@@ -46,6 +49,7 @@ router.put("/:userId", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
 
 router.get("/users/All", async(req, res) => {
     try {
@@ -129,6 +133,7 @@ router.get('/search/users', async (req, res) => {
         res.sendStatus(500);
     }
 });
+
 
 
 module.exports = router;

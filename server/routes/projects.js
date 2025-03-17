@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const projectModel = require('../model/projet');
-const sectionModel = require('../model/Section');
+const projectModel = require('../model/Projet');
+const sectionModel = require('../model/section');
 const {expertModel,userModel} = require('../model/user');
 const {validateRole} = require('../middlewares/roleMiddleware');
 const validateToken = require('../middlewares/authMiddleware');
@@ -117,4 +117,77 @@ router.get('/search/filters', validateToken, async (req, res) => {
 
 
 
+
+router.get("/sections/disponibles/:projetId", validateToken, async (req, res) => {
+    try {
+        const { projetId } = req.params;
+        const expertId = req.user.id; 
+
+        const projet = await projectModel.findById(projetId);
+        if (!projet) {
+            return res.status(404).json({ message: "Projet non trouvé." });
+        }
+
+        const expert = await userModel.findById(expertId);
+        if (!expert) {
+            return res.status(404).json({ message: "Utilisateur non trouvé." });
+        }
+        console.log("Expert discipline:", expert.discipline);
+        const existingSections = await sectionModel.find({ projetId }).select("type");
+
+        const existingSectionTypes = existingSections.map(sec => sec.type);
+        const availableSections = [];
+
+        // "Autre" is always available
+        if (!existingSectionTypes.includes("Autre")) {
+            availableSections.push("Autre");
+        }
+
+        // If the user is the project leader, they can add "Description"
+        if (projet.chef.toString() === expertId && !existingSectionTypes.includes("Description")) {
+            availableSections.push("Description");
+        }
+
+        // User can add the section matching their discipline
+        if (!existingSectionTypes.includes(expert.discipline)) {
+            availableSections.push(expert.discipline);
+        }
+
+        return res.status(200).json({ availableSections });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Erreur serveur." });
+    }
+});
+
+
+router.post("/ajoutersection", validateToken, async (req, res) => {
+    try {
+        const { projetId, type } = req.body;
+
+        const projet = await projectModel.findById(projetId);
+        if (!projet) {
+            return res.status(404).json({ message: "Projet non trouvé." });
+        }
+
+        const section = new sectionModel({
+            projetId,
+            type,
+            contenu: "",
+            annotations: [],
+            conflits: null
+        });
+
+        await section.save();
+        projet.sections.push(section._id);
+        await projet.save()
+
+        return res.status(201).json({ message: "Section ajoutée avec succès.", section });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Erreur serveur." });
+    }
+});
 module.exports = router;

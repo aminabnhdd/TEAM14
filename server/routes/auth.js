@@ -3,6 +3,8 @@ const router = express.Router();
 const {userModel,expertModel} = require('../model/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const cloudinary = require('../config/cloudinary');
+const upload = require('../middlewares/multerMiddleware');
 
 const AdminRole = process.env.ADMIN_ROLE;
 const ExpertRole = process.env.EXPERT_ROLE;
@@ -32,26 +34,40 @@ router.post('/signup/visitor',async (req,res)=>{
 
 });
 
-router.post('/signup/expert',async (req,res)=>{
+router.post('/signup/expert', upload.single('image'), async (req, res) => {
     try {
-        const {nom,prenom,discipline,labo,etablissement,niveau,email,password} = req.body;
+        const { nom, prenom, discipline, labo, etablissement, niveau, email, password } = req.body;
 
-        const foundUser = await userModel.findOne({email:email});
+        const foundUser = await userModel.findOne({ email });
+        if (foundUser) return res.status(400).json({ error: 'Email already taken' });
 
-        if (foundUser) return res.json({error:'email already taken'});
+        const hashedPwd = await bcrypt.hash(password, 10);
 
-        
-        const hashedpwd = await bcrypt.hash(password,10);
+        const result = await cloudinary.uploader.upload(req.file.path);
 
-        const user = await expertModel.create({nom:nom,prenom:prenom,role:ExpertRole,discipline:discipline,labo:labo,etablissement:etablissement,niveau:niveau,email:email,password:hashedpwd});
+        const user = await expertModel.create({
+            nom,
+            prenom,
+            role: ExpertRole,
+            discipline,
+            labo,
+            etablissement,
+            niveau,
+            email,
+            password: hashedPwd,
+            fileUrl: result.secure_url 
+        });
 
-        res.status(201).json('account successfully created ! waiting for admin validation');
+        res.status(201).json({ 
+            success: true, 
+            message: "Account successfully created! Waiting for admin validation",
+            user
+        });
+
     } catch (error) {
-        console.log(error);
-        res.sendStatus(500);
+        console.error(error);
+        res.status(500).json({ error: "Server error" });
     }
-    
-
 });
 
 router.post('/login',async (req,res)=>{

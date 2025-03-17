@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema({
     refreshToken:{
         type:String,
         default:""
+    },
+    pfp:{
+        type:String,
+        default:""
     }
 }, { timestamps: true }); //timestamps manages automatically two fields createdat and updatedat
 
@@ -64,6 +68,10 @@ const expertSchema = new mongoose.Schema({
     projets: {
         type: [mongoose.SchemaTypes.ObjectId],
         default:[]
+    },
+    fileUrl: {
+        type: String,
+        default: ""
     }
 
 })

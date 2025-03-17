@@ -45,4 +45,43 @@ const sendAccountStatusEmail = async ({ to, username, status }) => {
   }
 };
 
+
+const sendPasswordForgotten = async ({ to, username, status }) => {
+  if (!to || !username || !status) {
+    throw new Error("Missing email parameters");
+  }
+
+  const subject = status === "accepted" 
+    ? "Votre compte a été approuvé !" 
+    : "Mise à jour sur votre demande de compte";
+
+  const htmlMessage =  
+    `
+      <h2>Bonjour, ${username} !</h2>
+      <p>Voici un lien pour réinitialiser votre mot de passe.</p>
+      <a href="https://athar.com" style="display: inline-block; padding: 10px 20px; background-color: #28a745; color: #fff; text-decoration: none; border-radius: 5px;">Se connecter</a>
+      <p>Merci d'utiliser notre service.</p>
+    `;
+
+  const textMessage = status === "accepted"
+    ? `Félicitations ${username} ! Votre compte a été approuvé. Vous pouvez maintenant vous connecter: https://athar.com`
+    : `Bonjour ${username}, votre demande de compte a été refusée. Si vous avez des questions, contactez-nous: athar.e14.esi@gmail.com`;
+
+  try {
+    await transporter.sendMail({
+      from: `"Support Admin" <${process.env.EMAIL}>`,
+      to,
+      subject,
+      text: textMessage, 
+      html: htmlMessage,
+    });
+
+    console.log(`Email envoyé à ${to} - Statut: ${status}`);
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de l'email:", error);
+    throw new Error("Échec de l'envoi de l'email");
+  }
+};
+
+
 module.exports = sendAccountStatusEmail;

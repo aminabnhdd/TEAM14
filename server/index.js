@@ -21,13 +21,21 @@ const uploadRouter = require('./routes/upload');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+// importing roles :
+const adminRole = process.env.ADMIN_ROLE;
+const expertRole = process.env.EXPERT_ROLE;
+const visitorRole = process.env.VISITOR_ROLE;
+
+// importing middlewares : 
+const validateToken = require('./middlewares/authMiddleware');
+const {validateRole} = require('./middlewares/roleMiddleware');
 
 
 //using routes : 
 
 app.use('/auth', authRouter);
 app.use('/projects', projectRouter);
-app.use('/admin', adminRouter);
+app.use('/admin',adminRouter);
 app.use('/profil', profilRouter);
 app.use('/images', uploadRouter);
 

@@ -18,7 +18,7 @@ function App() {
       <Routes>
         
         <Route path="/profil-visiteur" element={<Layout><ProfilVisiteur /></Layout>} />
-        <Route path="/sauvegarde-visiteur" element={<Layout><SauVisiteur /></Layout>} />
+        <Route path="/modifier-visiteur" element={<Layout><SauVisiteur /></Layout>} />
         <Route path="/desactiver-visiteur" element={<Layout><DesactiverVisiteur /></Layout>} />
         <Route path="/profil-expert" element={<Layout><ProfilExpert /></Layout>} />
         <Route path="/sauvegarde-expert" element={<Layout><SauvExpert /></Layout>} />

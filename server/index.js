@@ -9,6 +9,12 @@ const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+app.use(cors({
+    origin: 'http://localhost:5173'
+}));
+
+
+
 
 
 //defining endpoints : 
@@ -18,9 +24,9 @@ const authRouter = require('./routes/auth');
 const projectRouter = require('./routes/projects');
 
 
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
 
 
 //using routes : 
@@ -49,9 +55,7 @@ dbConn();
 
 
 
-app.use(cors({
-    origin: 'http://localhost:5173'
-}));
+
 
 
 

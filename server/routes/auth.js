@@ -10,7 +10,7 @@ const ExpertRole = process.env.EXPERT_ROLE;
 
 
 router.post('/signup/visiteur', async(req, res) => {
-    const { name, lastname, email, password } = req.body;
+    const { name, lastName, email, password } = req.body;
 
     try {
         const foundUser = await userModel.findOne({ email: email });
@@ -23,7 +23,7 @@ router.post('/signup/visiteur', async(req, res) => {
         //create the user
         const user = new userModel({
             name,
-            lastname,
+            lastName,
             email,
             password: hashedPwd,
             userValide: "true",
@@ -45,7 +45,7 @@ router.post('/signup/visiteur', async(req, res) => {
 
 
 router.post('/signup/expert', async(req, res) => {
-    const { nom, prenom, email, password, discipline, labo, etablissement, niveau, projets } = req.body;
+    const { name, lastName, email, password, discipline, labo, etablissement, expertise, projets } = req.body;
 
     try {
         const foundUser = await userModel.findOne({ email: email });
@@ -57,8 +57,8 @@ router.post('/signup/expert', async(req, res) => {
         const hashedPwd = await bcrypt.hash(password, 10);
 
         const expert = new expertModel({
-            nom,
-            prenom,
+            name,
+            lastName,
             email,
             password: hashedPwd,
             role: ExpertRole,
@@ -66,7 +66,7 @@ router.post('/signup/expert', async(req, res) => {
             discipline,
             labo,
             etablissement,
-            niveau,
+            expertise,
             projets
         });
 

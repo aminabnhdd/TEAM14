@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    lastname: {
+    lastName: {
         type: String,
         required: true,
         trim: true
@@ -53,7 +53,7 @@ const expertSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    niveau: {
+    expertise: {
         type: String,
         required: true
     },

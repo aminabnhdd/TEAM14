@@ -18,7 +18,6 @@ const authRouter = require('./routes/auth');
 const projectRouter = require('./routes/projects');
 
 
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -50,7 +49,9 @@ dbConn();
 
 
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173'
+}));
 
 
 

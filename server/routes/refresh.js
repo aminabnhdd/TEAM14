@@ -8,7 +8,8 @@ const jwt = require('jsonwebtoken');
 router.get('/', async(req, res) => {
 
     const cookies = req.cookies;
-    if (!cookies ? .jwt) return res.json({ error: 'no cookies' });
+    if (!cookies ? .jwt)
+        return res.json({ error: 'no cookies' });
 
 
 

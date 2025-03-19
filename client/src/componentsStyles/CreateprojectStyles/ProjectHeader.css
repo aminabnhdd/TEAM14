@@ -1,0 +1,24 @@
+.project-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.project-header h1 {
+  align-self: stretch;
+  color: #2D2D2D;
+  font-family: Poppins, sans-serif;
+  font-size: 2.5vw; /* Taille relative à la largeur de l'écran */
+  font-weight: 700;
+  line-height: normal;
+}
+
+.project-header p {
+  align-self: stretch;
+  color: #2D2D2D;
+  font-family: Poppins, sans-serif;
+  font-size: 1.25vw;
+  font-weight: 500;
+  line-height: normal;
+}

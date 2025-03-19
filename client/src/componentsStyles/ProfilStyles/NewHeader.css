@@ -1,0 +1,34 @@
+.account-header {
+  width: 80%;
+  min-height: 80px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 10px; 
+  margin:0 auto ;
+  
+} 
+
+.header-title-container {
+  display: flex;
+  align-items: center; 
+  gap: 0.5rem;
+}
+
+.header-title {
+  color: var(--black, #2D2D2D);
+  font-family: Poppins;
+  font-size: 2rem; 
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin: 0; 
+  white-space: nowrap; 
+}
+
+.account-details {
+  background-color: var(--white);     
+  height: 10vh; 
+  position: relative;
+  width: 100%;
+}

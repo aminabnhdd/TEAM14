@@ -1,0 +1,50 @@
+.project-image-uploader {
+  width: 25%;
+  height: 63%;
+  border: 2px dashed #d3d3d3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F3F4F5;; /* Ajout d'un fond blanc */
+  border-radius: 8px; /* Coins légèrement arrondis */
+  padding: 3%;
+  position: absolute;
+  left: 21%;
+  top: 19%;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Légère ombre pour le contraste */
+}
+
+.image-placeholder {
+  text-align: center;
+  width: 80%;
+}
+
+.upload-icon-container {
+  width: 50px; /* Taille du cercle */
+  height: 50px;
+  background-color: white; /* Cercle blanc */
+  border-radius: 50%; /* Rend le cercle parfait */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Légère ombre pour le contraste */
+  margin: auto; /* Centrage */
+}
+
+.upload-icon {
+  width: 30px; /* Taille de l'icône */
+  height: auto;
+  opacity: 0.7;
+}
+
+p {
+  font-size: 14px;
+  color: #7a7a7a;
+}
+
+.uploaded-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5%;
+}

@@ -1,34 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState ,useEffect } from "react";
 import { ChevronDown } from "lucide-react"; 
-import "../../componentsStyles/CreateProjectStyles/ProjectForm.css";
+import "../../componentsStyles/CreateprojectStyles/ModifProjectForm.css";
 
 const ALLOWED_SECTION_TYPES = ["Architecture", "Archéologie", "Histoire", "Autre"];
 
-const ProjectForm = ({ error, onDataChange }) => {
+const ModifProjectForm = ({ error, onDataChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedType, setSelectedType] = useState("");
-  const [customType, setCustomType] = useState("");
+  const [customType, setCustomType] = useState(""); 
+  
+    const [formData, setFormData] = useState({
+      title: "",
+      type: "",
+      style: "",
+      date: "",
+      location: "",
+      latitude: "",
+      longitude: ""
+    });
+  
+    useEffect(() => {
+      onDataChange(formData);
+    }, [formData, onDataChange]); 
+  
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+    };
 
-  const [formData, setFormData] = useState({
-    title: "",
-    type: "",
-    style: "",
-    date: "",
-    location: "",
-    latitude: "",
-    longitude: ""
-  });
-
-  useEffect(() => {
-    onDataChange(formData);
-  }, [formData, onDataChange]); 
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
   };
-
-  const toggleDropdown = () => setIsOpen(!isOpen);
 
   const handleSelect = (type) => {
     setSelectedType(type);
@@ -42,7 +44,7 @@ const ProjectForm = ({ error, onDataChange }) => {
     }
   };
 
-  return (
+ return (
     <div className="project-form">
       <label className={`required ${error ? "error" : ""}`}>
         <span className="label-text">Titre du projet</span>
@@ -109,30 +111,4 @@ const ProjectForm = ({ error, onDataChange }) => {
   );
 };
 
-export default ProjectForm;
-
-/*
-LOGIQUE DU COMPOSANT :
-
-1. États internes :
-   - `isOpen` : Gère l'ouverture/fermeture du menu déroulant.
-   - `selectedType` : Stocke le type de ressource sélectionné.
-   - `customType` : Gère l'entrée utilisateur si le type "Autre" est choisi.
-   - `formData` : Contient les valeurs des champs du formulaire.
-
-2. Effet `useEffect` :
-   - Chaque fois que `formData` change, on appelle `onDataChange(formData)` pour envoyer les données au parent.
-
-3. Gestion des changements :
-   - `handleChange` met à jour `formData` à chaque modification d'un champ.
-
-4. Menu déroulant :
-   - `toggleDropdown` gère l'affichage du menu déroulant.
-   - `handleSelect` met à jour `selectedType`, ferme le menu et ajuste `formData`.
-   - Si "Autre" est sélectionné, un champ texte devient éditable pour entrer un type personnalisé.
-
-5. Affichage du formulaire :
-   - Chaque champ est lié à `formData`.
-   - les champs obligatoires ont une gestion spéciale d'erreurs avec `error`.
-*/
-
+export default ModifProjectForm;

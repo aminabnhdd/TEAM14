@@ -41,10 +41,10 @@ export default function BubbleMenuLink(props) {
       shouldShow={({ editor }) => editor.isActive("link")} // Show only for links
     >
       <div className="bg-white small-remark bubble-menu border rounded-[12px] border-neutral-400 flex items-center gap-2 pl-2 pr-2 py-1 h">
-      
+        
+        <Tooltip element={<OpenLinkButton editor={props.editor}/>} text="Ouvrir le lien" />
         <Tooltip element={<EditLinkButton editor={props.editor}/>} text="Modifier le lien" />
         <Tooltip element={<BreakLinkButton editor={props.editor}/>} text="Supprimer le lien" />
-        <Tooltip element={<OpenLinkButton editor={props.editor}/>} text="Ouvrir le lien" />
 
       </div>
     </BubbleMenu>

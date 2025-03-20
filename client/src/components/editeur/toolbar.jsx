@@ -11,12 +11,11 @@ import UnorderedListButton from "./buttons/unorderedListButton";
 import OrderedListButton from "./buttons/orderedListButtton";
 import BlockQuoteButton from "./buttons/blockQuoteButton";
 import LinkButton from "./buttons/linkButton";
-import InsertImageButton from "./buttons/insertImageButton";
+import InsertImageButton from "./buttons/insertImageButton.jsx.jsx";
 import InsertTableButton from "./buttons/insertTableButton";
 import UndoButton from "./buttons/undoButton";
 import RedoButton from "./buttons/redoButton.jsx";
 import AlignmentDropdown from "./buttons/alignementDropdown.jsx";
-
 export default function Toolbar(props){
 
     return(

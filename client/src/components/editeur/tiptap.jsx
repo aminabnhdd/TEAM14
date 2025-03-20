@@ -13,8 +13,13 @@ import TableRow from '@tiptap/extension-table-row'
 import Image from "@tiptap/extension-image";
 import './tooltip';
 import Toolbar from "./toolbar";
+import { Figure } from './figure';
+import { Figcaption } from './figcaption';
+import { ImageFigure } from './imageFigure';
 import BubbleMenuTable from "./bubbleMenuTable";
 import BubbleMenuLink from "./bubbleMenuLink";
+import BubbleMenuImage from "./bubbleMenuImage";
+
 export default function Tiptap()  {
   const newLocal = 'Éditer le contenu de la section architecture...';
   const editor = useEditor({
@@ -26,8 +31,17 @@ export default function Tiptap()  {
         }),
         Underline,
         BubbleMenu,
-        
-        Image,
+        Figure,
+        Figcaption,
+        ImageFigure.configure({
+          inline: false, // Ensure the image is a block element
+          draggable: false, // Ensure the image itself is not draggable
+        }),
+
+        Image.configure({
+          inline: false, // Ensure the image is a block element
+          draggable: false, // Ensure the image itself is not draggable
+        }),
     
       Table.configure({
         resizable: true,
@@ -109,6 +123,8 @@ export default function Tiptap()  {
       <BubbleMenuTable editor={editor}  />
 
       <BubbleMenuLink editor={editor}  />
+
+      <BubbleMenuImage editor={editor}  />
 
       <EditorContent className="p-4 max-h-[400px] overflow-y-auto text-black" editor={editor} />
     </div>

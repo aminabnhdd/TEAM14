@@ -13,7 +13,7 @@ export default function SizeDropdown(props){
               }
             }}
           >
-            <option value="paragraph">Paragraphe</option>
+            <option value="paragraph">Paragraphe &nbsp;</option>
             <option value="1">Titre 1</option>
             <option value="2">Titre 2</option>
             <option value="3">Titre 3</option>

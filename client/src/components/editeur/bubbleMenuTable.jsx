@@ -9,7 +9,7 @@ export default function BubbleMenuTable(props) {
   if (!props.editor) return null;
 
   return (
-    <BubbleMenu
+    <BubbleMenu 
   editor={props.editor}
   tippyOptions={{
     duration: 100,
@@ -29,13 +29,11 @@ export default function BubbleMenuTable(props) {
 
       if (tableElement) {
         const rect = tableElement.getBoundingClientRect();
-        console.log("Table bounding box:", rect); // Debugging: Log the bounding box
         return rect;
       }
 
       // Fallback to the cell's bounding box if no table is found
       const fallbackRect = node.getBoundingClientRect();
-      console.log("Fallback bounding box:", fallbackRect); // Debugging: Log the fallback bounding box
       return fallbackRect;
     },
   }}

@@ -11,7 +11,7 @@ export default function DeleteImageButton(props) {
       }}
       disabled={!props.editor.isActive("figure")} // Disable if no figure is active
     >
-      <FontAwesomeIcon icon={faTrash} className="w-5 h-5" />
+      <FontAwesomeIcon icon={faTrash} className="w-4 h-4" />
     </button>
   );
 }

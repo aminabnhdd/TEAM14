@@ -7,9 +7,9 @@ export default function OpenLinkButton(props){
             window.open(url, "_blank");
           }
         }}
-        className="p-1 hover:bg-neutral-100 rounded"
+        className="p-1  hover:bg-neutral-100 rounded w-30"
       >
-        <a>{props.editor.getAttributes('link').href}</a> 
+        <a className="block truncate max-w-full">{props.editor.getAttributes('link').href}</a> 
         
       </button>
     )       

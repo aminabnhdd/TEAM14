@@ -16,6 +16,8 @@ import InsertTableButton from "./buttons/insertTableButton";
 import UndoButton from "./buttons/undoButton";
 import RedoButton from "./buttons/redoButton.jsx";
 import AlignmentDropdown from "./buttons/alignementDropdown.jsx";
+import InsertVideoButton from "./insertVideoButton.jsx";
+
 export default function Toolbar(props){
 
     return(
@@ -49,6 +51,7 @@ export default function Toolbar(props){
 
         <div className="inline-flex px-2 border-r ">
           <Tooltip element={<InsertImageButton editor={props.editor}/>} text="Inserer image" />
+          <Tooltip element={<InsertVideoButton editor={props.editor}/>} text="Inserer vidéo" />
           <Tooltip element={<InsertTableButton editor={props.editor}/>} text="Inserer tableau" />
         </div>
         

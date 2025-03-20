@@ -19,7 +19,9 @@ import { ImageFigure } from './imageFigure';
 import BubbleMenuTable from "./bubbleMenuTable";
 import BubbleMenuLink from "./bubbleMenuLink";
 import BubbleMenuImage from "./bubbleMenuImage";
-
+import { Video } from "./video";
+import { VideoFigure } from "./videoFigure";
+import BubbleMenuVideo from "./bubbluMenuVideo";
 export default function Tiptap()  {
   const newLocal = 'Éditer le contenu de la section architecture...';
   const editor = useEditor({
@@ -33,6 +35,9 @@ export default function Tiptap()  {
         BubbleMenu,
         Figure,
         Figcaption,
+        Video,
+    VideoFigure,
+  
         ImageFigure.configure({
           inline: false, // Ensure the image is a block element
           draggable: false, // Ensure the image itself is not draggable
@@ -125,6 +130,7 @@ export default function Tiptap()  {
       <BubbleMenuLink editor={editor}  />
 
       <BubbleMenuImage editor={editor}  />
+      <BubbleMenuVideo editor={editor}  />
 
       <EditorContent className="p-4 max-h-[400px] overflow-y-auto text-black" editor={editor} />
     </div>

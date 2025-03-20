@@ -1,6 +1,6 @@
 import TipTap from "../../components/editeur/tiptap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 
 export default function Editor(){
@@ -34,6 +34,12 @@ export default function Editor(){
                         <TipTap/>
                         <p className="buttons text-black mt-4 mb-4">Gallerie</p>
                         <div className="border border-neutral-400 rounded-[12px] p-4 h-[200px] text-neutral-500">Ajouter des illustrations</div>
+                        <div className="text-left">
+                            <button className="buttons text-black bg-dune flex gap-[10px] py-4 px-10 rounded-[36px] items-center justify-center ">
+                                <FontAwesomeIcon icon={faFloppyDisk} className="mr-2 w-4 h-4"  />
+                                Sauvegarder
+                            </button>
+                        </div>
                         </div>
 
                         

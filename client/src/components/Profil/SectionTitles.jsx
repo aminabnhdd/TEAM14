@@ -1,0 +1,35 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "../../componentsStyles/ProfilStyles/SectionTitles.css";
+
+const SectionTitles = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="section-titles">
+      <div className="titles">
+        <span 
+          className="info-title"
+          onClick={() => navigate("/info-projets")}
+          style={{ cursor: "pointer" }} 
+        >
+          Informations
+        </span>
+        <span 
+          className="project-title"
+          onClick={() => navigate("/projets-expert")}
+          style={{ cursor: "pointer" }} 
+        >
+          Projets
+        </span>
+      </div>
+      <div className="underline"></div>
+    </div>
+  );
+};
+
+export default SectionTitles;
+
+
+
+

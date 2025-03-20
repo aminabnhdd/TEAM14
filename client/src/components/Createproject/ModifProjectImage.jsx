@@ -2,8 +2,8 @@ import React, { useState , useEffect  } from "react";
 import { ImagePlus } from "lucide-react"; 
 import "../../componentsStyles/CreateprojectStyles/ModifProjectImage.css";
 
-const ModifProjectImageUploader = ({ onImageChange }) => {
-  const [image, setImage] = useState(null);
+const ModifProjectImageUploader = ({ photoUrl ,onImageChange }) => {
+  const [image, setImage] = useState(photoUrl || null);
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -13,6 +13,12 @@ const ModifProjectImageUploader = ({ onImageChange }) => {
       onImageChange(imageUrl);
     }
   };
+
+  useEffect(() => {
+    if (photoUrl) {
+      setImage(photoUrl);
+    }
+  }, [photoUrl]);
 
     useEffect(() => {
       return () => {
@@ -37,7 +43,7 @@ const ModifProjectImageUploader = ({ onImageChange }) => {
             <div className="upload-icon-container">
               <ImagePlus className="upload-icon" />
             </div>
-            <p>Modifier l'image de votre projet</p>
+            <p className="Text-img">Modifier l'image de votre projet</p>
           </>
         )}
       </label>

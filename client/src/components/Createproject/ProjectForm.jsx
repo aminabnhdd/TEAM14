@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react"; 
 import "../../componentsStyles/CreateProjectStyles/ProjectForm.css";
 
-const ALLOWED_SECTION_TYPES = ["Architecture", "Archéologie", "Histoire", "Autre"];
+const ALLOWED_SECTION_TYPES = ["Kasbahs", "Palais", "Mosquées", "Temples","Autre"];
 
 const ProjectForm = ({ error, onDataChange }) => {
   const [isOpen, setIsOpen] = useState(false);

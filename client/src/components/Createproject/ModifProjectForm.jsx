@@ -2,7 +2,18 @@ import React, { useState ,useEffect } from "react";
 import { ChevronDown } from "lucide-react"; 
 import "../../componentsStyles/CreateprojectStyles/ModifProjectForm.css";
 
-const ALLOWED_SECTION_TYPES = ["Architecture", "Archéologie", "Histoire", "Autre"];
+const ALLOWED_SECTION_TYPES = ["Kasbahs", "Palais", "Mosquées", "Temples","Autre"];
+
+const initialData = [
+  {
+    titre: "Mosquée d'Alger",
+    type: "Mosquées",
+    coord: { latitude: "33.5731", longitude: "-7.5898" },
+    localisation: "Alger, Algerie",
+    style: "Architecture islamique",
+    dateConstruction: "1993",
+  }
+];
 
 const ModifProjectForm = ({ error, onDataChange }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,14 +21,21 @@ const ModifProjectForm = ({ error, onDataChange }) => {
   const [customType, setCustomType] = useState(""); 
   
     const [formData, setFormData] = useState({
-      title: "",
-      type: "",
-      style: "",
-      date: "",
-      location: "",
-      latitude: "",
-      longitude: ""
+      title: initialData[0].titre,
+      type:  initialData[0].type,
+      style: initialData[0].style,
+      date: initialData[0].dateConstruction,
+      location: initialData[0].localisation,
+      latitude: initialData[0].coord.latitude,
+      longitude: initialData[0].coord.longitude,
     });
+
+    useEffect(() => {
+      setSelectedType(formData.type);
+      if (formData.type !== "Autre") {
+        setCustomType("");
+      }
+    }, [formData.type]);
   
     useEffect(() => {
       onDataChange(formData);

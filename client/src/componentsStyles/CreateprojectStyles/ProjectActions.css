@@ -1,8 +1,9 @@
 .project-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 5%;
-  padding: 2% 5%;
+  gap: 3%;
+  padding: 1% 0%;
+  margin-right: 0%;
 }
 
 .cancel {

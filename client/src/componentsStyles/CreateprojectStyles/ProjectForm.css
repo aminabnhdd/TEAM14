@@ -2,11 +2,11 @@
 .project-form {
   display: flex;
   flex-direction: column;
-  gap: 0.75vh; 
-  width: 52%; 
-  margin-left: auto; 
-  margin-top: 1.5%;
+  gap: 0.75vh;
+  width: 55%;
+  margin-left: auto;
 }
+
 
 /* Labels */
 .project-form label {
@@ -89,7 +89,7 @@
 .dropdown-menu {
   top: 42%;
   position: absolute;
-  width: 31%;
+  width: 55%;
   background: white;
   border: 1px solid #A0A5A6;
   border-radius: 10px;

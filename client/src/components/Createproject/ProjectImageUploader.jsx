@@ -35,7 +35,7 @@ const ProjectImageUploader = ({ onImageChange }) => {
             <div className="upload-icon-container">
               <ImagePlus className="upload-icon" />
             </div>
-            <p>Ajoutez une image pour représenter votre projet</p>
+            <p className="Text-img">Ajoutez une image pour représenter votre projet</p>
           </>
         )}
       </label>

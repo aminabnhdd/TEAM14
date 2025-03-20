@@ -7,7 +7,8 @@ const ModifProjectActions = ({ onModify }) => {
     <div className="project-actions">
       <button className="cancel">Annuler</button>
       <button className="create" onClick={onModify}>
-        <Save size={20} style={{ marginRight: "8px" }} /> Sauvegarder
+      <Save className="icon-save" size={15} style={{ marginRight: "8px" }} />
+        Sauvegarder
       </button>
     </div>
   );

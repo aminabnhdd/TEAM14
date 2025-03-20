@@ -57,7 +57,7 @@ function InsEx({ nextPopUp, car, connexionPopUp, hideAll1 }) {
       <div className="main-page-two">
         <div className="back-home">
           <img src={image2} className="backHome-logo-two" />
-          <div className="pres">
+          <div className="pres2">
             <p className="pre">ATHAR, une </p>
             <p className="pre">communauté dédiée au</p>
             <p className="pre">patrimoine algérien.</p>
@@ -78,7 +78,7 @@ function InsEx({ nextPopUp, car, connexionPopUp, hideAll1 }) {
                 </p>
               </div>
 
-              <form className="info-two">
+              <form  className="info-two">
                 {[
                   { id: "nom", label: "Nom", type: "text" },
                   { id: "prenom", label: "Prénom", type: "text" },
@@ -86,6 +86,7 @@ function InsEx({ nextPopUp, car, connexionPopUp, hideAll1 }) {
                   { id: "telephone", label: "Téléphone", type: "tel" }
                 ].map(({ id, label, type }) => (
                   <div key={id} className="form-group-two">
+                    
                     <label className="label-two" htmlFor={id}>{label}</label>
                     <input
                       className={`input-two ${errors[id] ? "input-error" : ""}`}

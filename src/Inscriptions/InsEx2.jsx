@@ -40,7 +40,7 @@ function InsEx2({ nextPopUp2, prevPopUp, car2, connexionPopUP, hideAll2 }) {
       <div className="main-page-three">
         <div className="back-home">
           <img src={image2} className="backHome-logo-three" />
-          <div className="pres">
+          <div className="pres3">
             <p className="pre">ATHAR, une </p>
             <p className="pre">communauté dédiée au</p>
             <p className="pre">patrimoine algérien.</p>

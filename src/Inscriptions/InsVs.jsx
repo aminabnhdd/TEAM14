@@ -59,7 +59,7 @@ function InsVs({ connexionPopUP, hide, hideAll }) {
         </div>
         <div className="img-container-one">
           <img className="main-img-two" src={image} alt="img" />
-          <div className="pres">
+          <div className="pres1">
             <p className="pre">ATHAR, une </p>
             <p className="pre">communauté dédiée au</p>
             <p className="pre">patrimoine algérien.</p>

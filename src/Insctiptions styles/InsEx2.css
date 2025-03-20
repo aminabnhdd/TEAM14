@@ -98,7 +98,7 @@
     text-align: center;
     font-size: 24px;
     font-weight: 700;
-    margin-bottom: 5px;
+    margin-bottom: -7px;
 }
 
 .athar-three {
@@ -191,4 +191,16 @@
 
 .backHome-logo-three:hover {
     transform: translateY(10px);
+}
+
+.pres3{
+    position: absolute;
+    flex-direction: column;
+    bottom: 34px;
+    color: white;
+    font-size: 41px;
+    line-height: normal;
+    font-weight: 600;
+    left: 22px;
+    text-shadow: 0px 5px 20px rgba(0, 0, 0, 1);
 }

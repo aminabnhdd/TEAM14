@@ -1,4 +1,4 @@
-import TipTap from "./tiptap";
+import TipTap from "../../components/editeur/tiptap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
@@ -17,7 +17,7 @@ export default function Editor(){
                     <div className="mt-5 w-[86%] mx-auto mb-10">
                         <div className="flex justify-between mb-5">
                             <h1 className="titles text-black">Editer section</h1>
-                            <button className="buttons text-black">Afficher les annotations et les conflits
+                            <button title="this is a test" className="buttons text-black">Afficher les annotations et les conflits
                             <FontAwesomeIcon icon={faCaretDown} className="ml-[12px] w-5 h-5" />
                             </button>
                         </div>

@@ -1,16 +1,10 @@
 
-import PopUpManager from "./Pages";
-import Notif from "./notifications/Notif";
-import ConflitSignal from "./popUpsNotif/ConflitSignal";
-import ConflitChat from "./popUpsNotif/ConflitChat";
-import Collaboration from "./popUpsNotif/Collaboration";
-import Acceptation from "./popUpsNotif/Acceptation";
-import Refus from "./popUpsNotif/Refus";
-import ConflitRes from "./popUpsNotif/ConflitRes";
+import PopUpManager from "./pages/PageInsc";
+import Notif from "./pages/Notif";
+
 
 function App() {
 
-  const bool = true ;
   return (
     <div>
       {/* <PopUpManager/> */}

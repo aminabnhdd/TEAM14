@@ -8,31 +8,114 @@ const validateToken = require('../middlewares/authMiddleware');
 const expertRole = process.env.EXPERT_ROLE;
 const adminRole = process.env.ADMIN_ROLE;
 
+const cloudinary = require('../config/cloudinary');
+const upload = require('../middlewares/multerMiddleware');
 
-
-
-
-router.post('/add',validateToken,validateRole(expertRole,adminRole),async (req,res)=>{
+router.post('/add',upload.single("image"), validateToken, validateRole(expertRole, adminRole), async (req, res) => {
     try {
-        const projet = req.body;
 
-        const userID = req.user.id;
+        const { titre, type, latitude, longtitude, localisation, style, dateConstruction } = req.body;
+        const userID = req.user?.id;
+        let imageUrl = "";
+        if (req.file) {
+          const result = await cloudinary.uploader.upload(req.file.path);
+          imageUrl = result.secure_url;
+        }
 
-        const found = await projectModel.findOne({titre:projet.titre});
-        if (found) return res.status(403).json({err:"title already used "});
 
-        const author = await expertModel.findOne({_id:userID});
-        if (!author) return res.status(404).json({err:"expert not found !"});
-        const project = await projectModel.create({...projet,chef:userID,collaborateurs:[userID]});
-        await project.save();
-        author.projets = [...author.projets,project._id];
+        if (!userID) return res.status(401).json({ err: "Unauthorized - No user ID" });
+
+        if (!titre || !type) {
+            return res.status(400).json({ err: "Missing required fields" });
+        }
+
+        const found = await projectModel.findOne({ titre });
+        if (found) return res.status(403).json({ err: "Title already used" });
+
+
+        const author = await expertModel.findById(userID);
+        if (!author) return res.status(404).json({ err: "Expert not found!" });
+
+
+        const project = await projectModel.create({
+            titre,
+            type,
+            latitude: latitude || "",
+            longtitude: longtitude || "",
+            localisation: localisation || "",
+            style: style || "",
+            photoUrl: imageUrl || "",
+            dateConstruction: dateConstruction || "",
+            chef: userID,
+            collaborateurs: [userID],
+        });
+
+        author.projets.push(project._id);
         await author.save();
+
         res.json(project);
     } catch (error) {
-        console.log(error);
+        console.error("Error in /add route:", error);
         return res.sendStatus(500);
     }
+});
 
+
+router.get("/modifier/:id",  validateToken, validateRole(expertRole, adminRole),async (req, res) => {
+    try {
+        const { id } = req.params;
+        const project = await projectModel.findById(id);
+        if (!project) {
+            return res.status(404).json({ message: "Projet not found" });
+        }
+
+        res.json({
+            titre: project.titre,
+            type: project.type,
+            latitude: project.latitude,
+            longtitude: project.longtitude,
+            localisation: project.localisation,
+            style: project.style,
+            dateConstruction: project.dateConstruction,
+            photoUrl: project.photoUrl,
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+    }
+});
+
+router.put("/update/:id", upload.single("image"), validateToken, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { titre, type, latitude, longtitude, localisation, style, dateConstruction } = req.body;
+
+        let project = await projectModel.findById(id);
+        if (!project) {
+            return res.status(404).json({ err: "Project not found" });
+        }
+
+        let imageUrl = project.photoUrl; 
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(req.file.path);
+            imageUrl = result.secure_url;
+        }
+
+        project.titre = titre;
+        project.type = type;
+        project.latitude = latitude;
+        project.longtitude = longtitude;
+        project.localisation = localisation;
+        project.style = style;
+        project.dateConstruction = dateConstruction;
+        project.photoUrl = imageUrl;
+
+        await project.save();
+        res.json({ message: "Project updated successfully", project });
+    } catch (error) {
+        console.error("Error in /update route:", error);
+        res.sendStatus(500);
+    }
 });
 
 

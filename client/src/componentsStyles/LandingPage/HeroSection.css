@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+
+}
+
+.hero-content h1 {
+    color: var(--black, #2D2D2D);
+    text-align: center;
+    font-size: 35px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+#second {
+    margin-top: 30px;
+    /* Hide anything that goes beyond this container */
+    align-items: flex-end;
+
+
+}
+
+.outside-second {
+
+    position: relative;
+    height: 350px;
+
+    padding-bottom: 100px;
+}
+
+.hero-content p {
+    color: #2D2D2D;
+    max-width: 600px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 50;
+    margin-bottom: 30px;
+}
+
+
+
+.whole-gallery {
+    position: relative;
+    width: 100%;
+}
+
+
+.whole-gallery::after {
+    content: "";
+    position: absolute;
+    bottom: -100px;
+    top: 390px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120%;
+    height: 200px;
+    background:
+        linear-gradient(0deg, #E8C07D 0%, rgba(232, 192, 125, 0.90) 36.83%, rgba(232, 192, 125, 0.75) 58.42%, rgba(232, 192, 125, 0.50) 80%, rgba(232, 192, 125, 0.25) 90%, rgba(232, 192, 125, 0.13) 95%, rgba(232, 192, 125, 0.00) 100%),
+        linear-gradient(0deg, rgba(232, 192, 125, 0.00) 0%, rgba(232, 192, 125, 0.13) 5%, rgba(232, 192, 125, 0.25) 10%, rgba(232, 192, 125, 0.50) 20%, rgba(232, 192, 125, 0.75) 41.58%, rgba(232, 192, 125, 0.90) 63.17%, #E8C07D 100%);
+    pointer-events: none;
+    filter: blur(15px);
+    z-index: 1;
+
+
+}
+
+
+
+.bigbutton {
+    display: flex;
+    width: 180px;
+    padding: 12px 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 35px;
+    background: var(--brown, #C57642);
+    border: 2px solid var(--brown, #C57642);
+    cursor: pointer;
+    color: var(--white, #FEFEFE);
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 40px;
+    font-weight: 600;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.bigbutton:hover {
+    box-shadow: 0px 0px 15px rgba(197, 118, 66, 0.6);
+}
+
+
+.image-gallery {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 25px;
+    position: relative;
+    margin: auto;
+}
+
+#second div {
+    width: 300px;
+    height: 100px;
+    border-radius: 30px 30px 0 0;
+    position: relative;
+
+}
+
+#first div {
+    width: 300px;
+    height: 450px;
+    border-radius: 30px;
+    position: relative;
+
+}
+
+#second div::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+
+    left: 0;
+    width: 100%;
+    height: 20%;
+    /* Adjust this for how much of the fade you want */
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+}
+
+/* Positioning */
+.img1,
+.img5 {
+    transform: translateY(-160px);
+    /* Move up */
+}
+
+.img2,
+.img4 {
+    transform: translateY(-100px);
+    /* Move slightly down */
+}
+
+.img3 {
+    transform: translateY(0);
+    /* Keep in place (lowest) */
+}
+
+.img1 {
+    margin-left: -150px;
+    /* Moves half of it outside */
+}
+
+.img5 {
+    margin-right: -150px;
+    /* Moves half of it outside */
+}
+
+#second .img3::after {
+    height: 100%;
+}
+
+.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+.bg1 {
+    background-image: url('../../assets/image1.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.bg9 {
+    background-image: url('../../assets/image1.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.bg2 {
+    background-image: url('../../assets/image2.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.bg3 {
+    background-image: url('../../assets/image3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg4 {
+    background-image: url('../../assets/image4.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.bg5 {
+    background-image: url('../../assets/image5.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.bg10 {
+    background-image: url('../../assets/image2.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.bg9 {
+    background-image: url('../../assets/image1.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.bg6 {
+    background-image: url('../../assets/image4.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.bg7 {
+    background-image: url('../../assets/image5.jpg');
+    background-size: cover;
+    background-position: center;
+}

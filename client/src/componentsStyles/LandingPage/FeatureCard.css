@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Apply Poppins font to all elements */
+}
+
+.feature-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Blurred Ellipse Background */
+  .feature-card::before {
+    content: "";
+    position: absolute;
+    width: 70%;
+    height: 100%;
+
+    background: #C57642;
+    opacity: 0.1;
+    filter: blur(25px);
+    border-radius: 50%;
+    top: -1%;  
+    z-index: 0;
+  }
+  
+
+  .icon-container {
+    position: relative;
+    z-index: 1; /* Puts the icon above the background */
+    width: 80px;
+    height: 80px;
+    background: #C57642;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: -4px -4px 90px #C57642;
+  }
+  
+  .feature-icon {
+    width: 40px;
+    margin-left: 1px;
+    height: auto;
+  }
+
+  h3{
+    color: var(--black, #2D2D2D);
+text-align: center;
+
+
+font-size: 20px;
+
+font-weight: 550;
+
+  }
+
+  p{
+    color: var(--black, #2D2D2D);
+text-align: center;
+
+
+font-size: 15px;
+
+font-weight: 400;
+
+  }
+  
+
+  h3, p {
+    position: relative;
+    z-index: 1; 
+  }

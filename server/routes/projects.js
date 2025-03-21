@@ -8,31 +8,45 @@ const validateToken = require('../middlewares/authMiddleware');
 const expertRole = process.env.EXPERT_ROLE;
 const adminRole = process.env.ADMIN_ROLE;
 
+const cloudinary = require('../config/cloudinary');
+const upload = require('../middlewares/multerMiddleware');
 
 
-
-
-router.post('/add',validateToken,validateRole(expertRole,adminRole),async (req,res)=>{
+router.post('/add', validateToken, validateRole(expertRole, adminRole), upload.single("image"), async (req, res) => {
     try {
         const projet = req.body;
-
         const userID = req.user.id;
 
-        const found = await projectModel.findOne({titre:projet.titre});
-        if (found) return res.status(403).json({err:"title already used "});
+        const found = await projectModel.findOne({ titre: projet.titre });
+        if (found) return res.status(403).json({ err: "Title already used" });
 
-        const author = await expertModel.findOne({_id:userID});
-        if (!author) return res.status(404).json({err:"expert not found !"});
-        const project = await projectModel.create({...projet,chef:userID,collaborateurs:[userID]});
-        await project.save();
-        author.projets = [...author.projets,project._id];
-        await author.save();
+        const author = await expertModel.findById(userID);
+        if (!author) return res.status(404).json({ err: "Expert not found!" });
+
+        let photoUrl = "";
+
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(req.file.path);
+            photoUrl = result.secure_url;
+        }
+
+        const project = await projectModel.create({
+            ...projet,
+            chef: userID,
+            collaborateurs: [userID],
+            photoUrl 
+        });
+
+        author.projets.push(project._id);
+
+        
+        await Promise.all([project.save(), author.save()]);
+
         res.json(project);
     } catch (error) {
-        console.log(error);
-        return res.sendStatus(500);
+        console.error("Error adding project:", error);
+        return res.status(500).json({ err: "Internal Server Error" });
     }
-
 });
 
 
@@ -87,10 +101,6 @@ router.put('/restore/:projectID',validateToken,validateRole(expertRole,adminRole
 
 
 
-
-
-// ==> the next one isn't tested yet 
-
 router.get('/search/filters', validateToken, async (req, res) => {
     try {
         const filters = req.query.filters; 
@@ -116,7 +126,70 @@ router.get('/search/filters', validateToken, async (req, res) => {
 });
 
 
+router.get('/favorites', validateToken, async (req, res) => { 
+    try {
+        const user = await userModel.find({_id:req.user.id}); 
+        const projects = await projectModel.find({ _id: { $in: user.favorites } });
+        res.json(projects);
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(500);    
+    }
+ }); 
 
+
+ router.get('/all', validateToken, async (req, res) => {
+    try {
+        const projects = await projectModel.find();
+        res.json(projects);
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(500);
+    }
+});
+
+router.put('/modify/:projectID', validateToken, validateRole(expertRole, adminRole), upload.single("image"), async (req, res) => {
+    try {
+        let project = await projectModel.findById(req.params.projectID);
+        if (!project) return res.status(404).json({ err: "Project not found" });
+
+        const projet = req.body;
+        let photoUrl = project.photoUrl; 
+
+
+        if (req.file) {
+            if (project.photoUrl) {
+                const oldImagePublicId = project.photoUrl.split('/').pop().split('.')[0]; 
+                await cloudinary.uploader.destroy(oldImagePublicId); 
+            }
+            const result = await cloudinary.uploader.upload(req.file.path);
+            photoUrl = result.secure_url;
+        }
+
+
+        project = await projectModel.findByIdAndUpdate(
+            req.params.projectID,
+            { ...projet, photoUrl },
+            { new: true } 
+        );
+
+        res.json(project);
+    } catch (error) {
+        console.error("Error modifying project:", error);
+        return res.status(500).json({ err: "Internal Server Error" });
+    }
+});
+
+router.get('/get/:projectID',validateToken,async (req,res)=>{    
+    try {
+        const project = await projectModel.findById(req.params.projectID);
+        if (!project) return res.status(404).json({err:"project not found"});
+        res.json(project);
+    } catch (error) {
+        console.log(error);
+        return res.sendStatus(500);
+    }
+});
 
 router.get("/sections/disponibles/:projetId", validateToken, async (req, res) => {
     try {

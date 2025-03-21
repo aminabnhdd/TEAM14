@@ -42,7 +42,13 @@ const userSchema = new mongoose.Schema({
     pfp:{
         type:String,
         default:""
+    },
+    favorites:{
+        type:[mongoose.SchemaTypes.ObjectId],
+        default:[],
+        ref:"Projet"
     }
+
 }, { timestamps: true }); //timestamps manages automatically two fields createdat and updatedat
 
 const userModel = mongoose.model("User", userSchema);

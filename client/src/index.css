@@ -1,6 +1,11 @@
 
 @import "tailwindcss";
 
+
+html{
+  font-size: 14px;
+}
+
 * {
   font-family: poppins,sans-serif;
 }

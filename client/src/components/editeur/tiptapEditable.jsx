@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from 'react';
 import '../../componentsStyles/editeur/tiptap.css'
 import {BubbleMenu, EditorContent, useEditor } from "@tiptap/react";
 import Placeholder from '@tiptap/extension-placeholder'
@@ -22,8 +23,8 @@ import BubbleMenuImage from "./bubbleMenuImage";
 import { Video } from "./video";
 import { VideoFigure } from "./videoFigure";
 import BubbleMenuVideo from "./bubbluMenuVideo";
-export default function Tiptap()  {
-  const newLocal = 'Éditer le contenu de la section architecture...';
+export default function TiptapEditable({ setEditor,section })  {
+  const newLocal = `Éditer le contenu de la section ${section}...`;
   const editor = useEditor({
     editable: true,
     extensions: [
@@ -46,6 +47,7 @@ export default function Tiptap()  {
         Image.configure({
           inline: false, // Ensure the image is a block element
           draggable: false, // Ensure the image itself is not draggable
+        
         }),
     
       Table.configure({
@@ -118,13 +120,30 @@ export default function Tiptap()  {
             types: ["heading", "paragraph"], // Enables alignment for headings & paragraphs
           }),
     ], 
+    content: JSON.parse(localStorage.getItem('editorContent')) || '<p></p>',    onUpdate: ({ editor }) => {
+      // Save content to local storage whenever the editor updates
+      const jsonContent = editor.getJSON();
+      localStorage.setItem('editorContent', JSON.stringify(jsonContent));
+    },
   });
+
+  useEffect(() => {
+    if (editor) {
+      setEditor(editor);
+    }
+  }, [editor, setEditor]);
+
+  
 
   if (!editor) return null;
 
   return (
-    <div className="border border-neutral-400 rounded-[12px]">
-      <Toolbar editor={editor}  />
+    <>
+    <p className="buttons text-black mb-4">Contenu</p>
+    
+    
+    <div className=" border border-neutral-400  rounded-[12px] w-full">
+      <Toolbar editor={editor}  /> 
       <BubbleMenuTable editor={editor}  />
 
       <BubbleMenuLink editor={editor}  />
@@ -132,7 +151,8 @@ export default function Tiptap()  {
       <BubbleMenuImage editor={editor}  />
       <BubbleMenuVideo editor={editor}  />
 
-      <EditorContent className="p-4 max-h-[400px] overflow-y-auto text-black" editor={editor} />
+      <EditorContent className="p-4 max-h-[400px] break-words whitespace-pre-wrap  overflow-y-auto text-black w-full " editor={editor} />
     </div>
+    </>
   );
 };

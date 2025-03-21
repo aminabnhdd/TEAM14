@@ -1,0 +1,33 @@
+.search-container {
+    position: absolute;
+    display: inline-block;
+    left: 30%;
+    top: 40%;
+}
+
+.search-input {
+    width: 50vw;
+    height: 5vh;
+    display: flex;
+    padding-left: 8%;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    background-color: rgba(115, 115, 115, 0.5);
+    z-index: auto;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+}
+
+.search-icon {
+    position: absolute;
+    right: 95%;
+    top: 50%;
+    transform: translateY(-50%);
+    color: gray;
+    font-size: 1rem;
+    cursor: pointer;
+}

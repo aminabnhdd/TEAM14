@@ -1,0 +1,51 @@
+.side-nav {
+    position: relative;
+    width: 5vw;
+    height: 100vh;
+    margin: 0%;
+    padding: 0%;
+    position: fixed;
+    left: 0%;
+    top: 0;
+    background-color: #C57642;
+}
+
+.discover-icon {
+    position: absolute;
+    left: 20%;
+    top: 20%;
+    font-size: 1.5rem !important;
+}
+
+.favorite-icon {
+    position: absolute;
+    left: 20%;
+    top: 35%;
+    font-size: 1.5rem !important;
+}
+
+.document-icon {
+    position: absolute;
+    left: 20%;
+    top: 50%;
+    font-size: 1.5rem !important;
+}
+
+.notification-icon {
+    position: absolute;
+    top: 65%;
+    left: 20%;
+    font-size: 1.5rem !important;
+}
+
+@media (max-width: 768px) {
+    .side-nav {
+        width: 15vw;
+        /* Make it wider on smaller screens */
+    }
+    .discover-icon,
+    .favorite-icon {
+        font-size: 5vw !important;
+        /* Make icons larger on small screens */
+    }
+}

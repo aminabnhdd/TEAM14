@@ -26,11 +26,18 @@ ul, ol {
     font-weight: bold;
   }
   
+  .ProseMirror {
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    white-space: pre-wrap !important;
+    hyphens: auto;
+  }
   
   .ProseMirror:focus {
     outline: none !important;
     border: none !important;
     box-shadow: none !important;
+    
   }
 
   a {

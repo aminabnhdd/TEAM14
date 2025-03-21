@@ -1,0 +1,10 @@
+.main-content{
+    padding-left: 5vw;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding-left: 15vw;
+        /* Make it wider on smaller screens */
+    }
+}

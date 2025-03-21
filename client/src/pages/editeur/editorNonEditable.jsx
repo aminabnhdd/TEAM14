@@ -1,9 +1,11 @@
-import TipTap from "../../components/editeur/tiptap";
+import TiptapNonEditable from "../../components/editeur/tiptapNonEditable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown  } from "@fortawesome/free-solid-svg-icons";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { useState } from 'react';
 
-export default function Editor(){
+export default function EditorEditable(props){
+    const [editor, setEditor] = useState(null);
     return (<>
         <div className="flex">
             <aside className="bg-brown h-screen w-[80px] sticky top-0">
@@ -16,30 +18,25 @@ export default function Editor(){
                 <main className=" ">
                     <div className="mt-5 w-[86%] mx-auto mb-10">
                         <div className="flex justify-between mb-5">
-                            <h1 className="titles text-black">Editer section</h1>
-                            <button title="this is a test" className="buttons text-black">Afficher les annotations et les conflits
+                            <h1 className="titles text-black">Annoter section</h1>
+                            <button  className="buttons text-black">Afficher les annotations et les conflits
                             <FontAwesomeIcon icon={faCaretDown} className="ml-[12px] w-5 h-5" />
                             </button>
                         </div>
                         <div className=" px-10 py-7.5 border border-neutral-300 rounded-[12px]">
                         
                         <div className="flex justify-between mb-5">
-                            <h1 className="secondary-titles text-dune">Architecture</h1>
+                            <h1 className="secondary-titles text-dune">{props.section}</h1>
                             <button className="main-text text-warning ">
                             <FontAwesomeIcon icon={faTriangleExclamation} className="mr-2 w-4 h-4"  />
                             Signaler un conflit
                             </button>
                         </div>
-                        <p className="buttons text-black mb-4">Contenu</p>
-                        <TipTap/>
+                        {/* Pass the editor state and setter to Tiptap */}
+      <TiptapNonEditable setEditor={setEditor} section={props.section}/>
                         <p className="buttons text-black mt-4 mb-4">Gallerie</p>
                         <div className="border border-neutral-400 rounded-[12px] p-4 h-[200px] text-neutral-500">Ajouter des illustrations</div>
-                        <div className="text-left">
-                            <button className="buttons text-black bg-dune flex gap-[10px] py-4 px-10 rounded-[36px] items-center justify-center ">
-                                <FontAwesomeIcon icon={faFloppyDisk} className="mr-2 w-4 h-4"  />
-                                Sauvegarder
-                            </button>
-                        </div>
+                      
                         </div>
 
                         

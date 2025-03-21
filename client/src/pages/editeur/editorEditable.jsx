@@ -109,7 +109,8 @@ export default function EditorEditable(props){
     const [annotVisible, setAnnotVisible] = useState(false);
     const [annotExist, setAnnotExist] = useState(false);
     const [conflitExist, setConflitExist] = useState(false);
-
+console.log(annotExist)
+console.log(conflitExist)
     return (<>
         <div className="flex max-w-full">
             <SideNav className=""/>
@@ -124,7 +125,7 @@ export default function EditorEditable(props){
                         <div className="flex justify-between align-items mb-5">
                             <h1 className="titles text-black">Editer section</h1>
                             
-                            <DropDownButton section={props.section} annotVisible={annotVisible} setAnnotVisible={setAnnotVisible}/>
+                            <DropDownButton section={props.section} annotVisible={annotVisible} setAnnotVisible={setAnnotVisible} annotExist={annotExist} conflitExist={conflitExist} />
                         </div>
                         <div className="flex justify-between">
                         <div className={` px-10 py-7.5 border border-neutral-300 rounded-[12px] ${annotVisible ? "w-[70%]": "w-full"} `}>

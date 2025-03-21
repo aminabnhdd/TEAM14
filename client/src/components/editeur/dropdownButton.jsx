@@ -9,7 +9,8 @@ export default function DropDownButton(props){
        
     }
 
-
+    if (!props.annotExist && !props.conflitExist)
+{return null;} else
     if (props.annotVisible){
         return(
         <button onClick={openAnnot}  className="buttons text-black cursor-pointer">Cacher les annotations et les conflits

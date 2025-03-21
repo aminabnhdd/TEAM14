@@ -1,6 +1,6 @@
 import Annotation from "./annotation";
-
-export default function Annotations({annotations}){
+import { useEffect } from "react";
+export default function Annotations({annotations,setAnnotExist}){
  
 
     const projetId=1;
@@ -14,6 +14,11 @@ export default function Annotations({annotations}){
       
         return <Annotation key={annotation.id} auteur={annotation.auteur} content={annotation.content} />
 });
+
+useEffect(()=>{
+    setAnnotExist(validAnnotations.length>0)
+},[validAnnotations]);
+
     if  (annotationsElement.length > 0){
     return(
         <>

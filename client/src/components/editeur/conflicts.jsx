@@ -1,5 +1,5 @@
 import Conflict from "./conflict"
-
+import { useEffect } from "react";
 export default function Conflicts({conflits,setConflitExist}){
 
 
@@ -12,8 +12,12 @@ export default function Conflicts({conflits,setConflitExist}){
 
     const conflictsElement = validConflicts.map((conflict) => {
        
-        return <Conflict key={conflict.id} signaleur={conflict.signaleur} content={conflict.content} />
+        return <Conflict key={conflict.id} signaleur={conflict.signaleur} content={conflict.content} resolu={conflict.resolu} />
 });
+
+useEffect(()=>{
+    setConflitExist(validConflicts.length>0)
+},[validConflicts])
     if  (conflictsElement.length > 0){
     return(
         <>

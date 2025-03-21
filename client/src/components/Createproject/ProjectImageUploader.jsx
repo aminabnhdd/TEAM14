@@ -10,7 +10,7 @@ const ProjectImageUploader = ({ onImageChange }) => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setImage(imageUrl);
-      onImageChange(imageUrl);
+      onImageChange(file); 
     }
   };
 

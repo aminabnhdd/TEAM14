@@ -4,7 +4,7 @@ import Footer from "../../components/LandingPage/Footer";
 import Features from "../../components/LandingPage/Features";
 import FAQ from "../../components/LandingPage/Faq/FAQ";
 import HeroSection from "../../components/LandingPage/HeroSection";
-import InsChoice from "../../components/Riadh/InsChoice";
+import InsChoice from "../../components/LandingPage/InsChoice";
 import "../../pagesStyles/LandingPage/LandingPage.css";
 
 function LandingPage() {
@@ -31,7 +31,7 @@ function LandingPage() {
       </main>
       <Footer />
     </div>
-    <InsChoice popUp={popUp} setPopUp={setPopUp} />
+    <InsChoice popUp={popUp} setPopUp={closePopUp} />
     </>
   );
 }

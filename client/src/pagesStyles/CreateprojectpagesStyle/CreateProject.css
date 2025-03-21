@@ -1,8 +1,10 @@
 #root {
-  width: 100%;
+  width: 80%;
+  position: absolute;
   top: 2%;
   left: 10%;
 }
+
 .create-project-content {
   display: flex;
   justify-content: space-between;
@@ -18,7 +20,8 @@
   align-items: center;
   justify-content: center; 
   margin-top: 1%;
-  margin-left: 13%;
+  margin-left: 15%;
+
   gap: 2%; 
   color: red;
   font-size: 1.25vw;

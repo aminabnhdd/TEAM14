@@ -10,11 +10,11 @@ const ProjectForm = ({ error, onDataChange }) => {
   const [customType, setCustomType] = useState("");
 
   const [formData, setFormData] = useState({
-    title: "",
+    titre: "",
     type: "",
     style: "",
-    date: "",
-    location: "",
+    dateConstruction: "",
+    localisation: "",
     latitude: "",
     longitude: ""
   });
@@ -47,7 +47,7 @@ const ProjectForm = ({ error, onDataChange }) => {
       <label className={`required ${error ? "error" : ""}`}>
         <span className="label-text">Titre du projet</span>
         <input 
-          name="title"
+          name="titre"
           type="text" 
           placeholder="Ajoutez un titre" 
           value={formData.title}
@@ -89,11 +89,11 @@ const ProjectForm = ({ error, onDataChange }) => {
       </label>
 
       <label>Date de construction
-        <input name="date" type="text" placeholder="Entrez la date" value={formData.date} onChange={handleChange} />
+        <input name="dateConstruction" type="text" placeholder="Entrez la date" value={formData.date} onChange={handleChange} />
       </label>
 
       <label>Localisation
-        <input name="location" type="text" placeholder="Entrez la localisation" value={formData.location} onChange={handleChange} />
+        <input name="localisation" type="text" placeholder="Entrez la localisation" value={formData.location} onChange={handleChange} />
       </label>
 
       <label>Coordonnées</label>

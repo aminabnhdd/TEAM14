@@ -5,6 +5,7 @@ import ModifProjectForm from "../../components/Createproject/ModifProjectForm";
 import ModifProjectHeader from "../../components/Createproject/ModifProjectHeader";
 import ModifProjectImageUploader from "../../components/Createproject/ModifProjectImage";
 import "../../pagesStyles/CreateprojectpagesStyle/ModifyProject.css";
+import {UpdateProject } from "../../services/ModifyProject.js"; 
 
 const ModifyProject = () => {
   const [error, setError] = useState(false);
@@ -14,18 +15,37 @@ const ModifyProject = () => {
       setNewProject((prev) => ({ ...prev, ...data }));
     }, []);
   
-    const handleImageChange = (imageUrl) => {
-      setNewProject((prev) => ({ ...prev, image: imageUrl }));
+    const handleImageChange = (file) => {
+      setNewProject((prev) => ({ ...prev, image: file }));
     };
 
-  const handleModifyProject = () => {
-    if (!newProject.title || !newProject.type) {
-      setError(true);
-    } else {
+    const handleModifyProject = async (newProject) => {
+      if (!newProject.titre || !newProject.type) {
+          setError(true);
+          return;
+      }
+  
       setError(false);
-      console.log("Projet Modifié avec succès !", newProject);
-    }
+  
+      const formDataToSend = new FormData();
+      Object.keys(newProject).forEach((key) => {
+          if (key !== "image") {
+              formDataToSend.append(key, newProject[key]);
+          }
+      });
+  
+      if (newProject.image) {
+          formDataToSend.append("image", newProject.image, newProject.image.name);
+      }
+  
+      try {
+          const response = await UpdateProject(formDataToSend);
+          console.log("Projet updated :", response);
+      } catch (err) {
+          console.error("Erreur lors updating du projet :", err);
+      }
   };
+
 
   return (
     <>
@@ -40,7 +60,7 @@ const ModifyProject = () => {
           Les champs en rouge doivent être remplis pour modifier un projet
         </div>
       )}
-      <ModifProjectActions onModify={handleModifyProject} />
+      <ModifProjectActions onModify={() => handleModifyProject(newProject)} />
     </>
   );
 };

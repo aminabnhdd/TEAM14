@@ -2,10 +2,11 @@ import "../../componentsStyles/LandingPage/Navbar.css";
 import logo from '../../assets/logo.png';
 import React, { useState, useEffect } from "react";
 import { Link } from "react-scroll";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ openPopUp }) => {  // Receive openPopUp as a prop
   const [activeSection, setActiveSection] = useState("");
-
+  const navigate = useNavigate();
   useEffect(() => {
     const sections = document.querySelectorAll("section");
     const observer = new IntersectionObserver(
@@ -43,7 +44,7 @@ const Navbar = ({ openPopUp }) => {  // Receive openPopUp as a prop
       </ul>
 
       <div className="button-group">
-        <button className="button-outline">Se connecter</button>
+        <button className="button-outline" onClick={()=>   navigate("/login")}>Se connecter</button>
         <button className="button-filled" onClick={openPopUp}>S'inscrire</button>  
       </div>
     </nav>

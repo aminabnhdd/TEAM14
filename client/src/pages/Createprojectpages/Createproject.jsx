@@ -5,6 +5,7 @@ import ProjectForm from "../../components/Createproject/ProjectForm.jsx";
 import ProjectHeader from "../../components/Createproject/ProjectHeader.jsx";
 import ProjectImageUploader from "../../components/Createproject/ProjectImageUploader.jsx";
 import "../../pagesStyles/CreateprojectpagesStyle/CreateProject.css";
+import { addProject } from "../../services/projetService.js"; 
 
 const CreateProject = () => {
   const [error, setError] = useState(false);
@@ -14,18 +15,37 @@ const CreateProject = () => {
     setNewProject((prev) => ({ ...prev, ...data }));
   }, []);
 
-  const handleImageChange = (imageUrl) => {
-    setNewProject((prev) => ({ ...prev, image: imageUrl }));
+  const handleImageChange = (file) => {
+    setNewProject((prev) => ({ ...prev, image: file })); 
   };
 
-  const handleCreateProject = () => {
-    if (!newProject.title || !newProject.type) {
-      setError(true);
-    } else {
-      setError(false);
-      console.log("Projet créé avec succès !", newProject);
+
+  const handleCreateProject = async () => {
+    if (!newProject.titre || !newProject.type) {
+        setError(true);
+        return;
     }
-  };
+
+    setError(false);
+
+    const formDataToSend = new FormData();
+    Object.keys(newProject).forEach((key) => {
+        if (key !== "image") {
+            formDataToSend.append(key, newProject[key]);
+        }
+    });
+
+    if (newProject.image) {
+        formDataToSend.append("image", newProject.image, newProject.image.name);
+    }
+
+    try {
+        const response = await addProject(formDataToSend);
+        console.log("Projet ajouté :", response);
+    } catch (err) {
+        console.error("Erreur lors de l'ajout du projet :", err);
+    }
+};
 
   return (
     <>

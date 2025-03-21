@@ -1,30 +1,39 @@
-import React, { useState , useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import { ImagePlus } from "lucide-react"; 
 import "../../componentsStyles/CreateprojectStyles/ModifProjectImage.css";
+import { FetchProjectData } from "../../services/FetchProjectData.js";
 
-const ModifProjectImageUploader = ({ photoUrl ,onImageChange }) => {
-  const [image, setImage] = useState(photoUrl || null);
+const ModifProjectImageUploader = ({ onImageChange }) => {
+  const [image, setImage] = useState("");
+  const [file, setFile] = useState(null);
 
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl);
-      onImageChange(imageUrl);
-    }
-  };
 
   useEffect(() => {
-    if (photoUrl) {
-      setImage(photoUrl);
-    }
-  }, [photoUrl]);
+    const fetchData = async () => {
+      const data = await FetchProjectData();
+      if (data && data.photoUrl) {
+        setImage(data.photoUrl); 
+      }
+    };
 
-    useEffect(() => {
-      return () => {
-        if (image) URL.revokeObjectURL(image);
-      };
-    }, [image]);
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (file) URL.revokeObjectURL(image);
+    };
+  }, [file]);
+
+  const handleImageUpload = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      const imageUrl = URL.createObjectURL(selectedFile);
+      setImage(imageUrl);
+      setFile(selectedFile);
+      onImageChange(selectedFile); 
+    }
+  };
 
   return (
     <div className="project-image-uploader">

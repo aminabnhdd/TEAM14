@@ -84,13 +84,13 @@
 
 .baten1{
     color: white;
-    background-color: #E8C07D;
+    background-color: rgba(0, 128, 0, 0.845);
 }
 .baten2{
     color: #E8C07D;
     background-color: white;
-    border-color: #E8C07D;
-    border: 1px solid #E8C07D;
+    color: red;
+    border: 1px solid red;
 }
 
 .close-btn{

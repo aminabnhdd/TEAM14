@@ -98,7 +98,7 @@
 .transport{
     display: flex;
     color: #707778;
-    font-size: 1.1vw;
+    font-size: 13px;
     gap: 8.5%;
     margin-bottom: 0.8%;
 }

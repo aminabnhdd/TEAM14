@@ -9,7 +9,7 @@ return (
         <div className="main-bac-notif">
             <div className="notif-pop3">
                 <div className="Ti3">
-                <p >{el.tit} <span className="beige">{el.titChng}</span></p>
+                <p >{el.tit} <span className="beige"> {el.titChng}</span></p>
                 </div>
                 <img className="close-btn2" src={i} alt="fd" onClick={close} />
                 <div className="ktiba3">

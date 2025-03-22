@@ -9,7 +9,6 @@ html {
   --color-dune: #e8c07d;
   --color-warning: #ef4444;
   --color-success: #22c55e;
-  --color-neutral-500: #707778;
   --color-neutral-400: #a0a5a6;
   --color-neutral-300: #d1d4d5;
   --color-neutral-200: #e2e5e6;
@@ -51,6 +50,13 @@ html {
   box-sizing: border-box;
 }
 
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+} 
 /*body {
   background-color: var(--color-white);
   display: flex;

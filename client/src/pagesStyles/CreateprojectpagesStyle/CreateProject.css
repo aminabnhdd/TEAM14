@@ -1,5 +1,6 @@
 #root {
-  width: 100%;
+  width: 80%;
+  position: absolute;
   top: 2%;
   left: 10%;
 }

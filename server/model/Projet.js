@@ -19,11 +19,13 @@ const projetSchema = new mongoose.Schema({
     },
     longtitude: {
         type: String,
-        default:"",
+        required: true,
+        unique: true,
         trim: true
     },
     localisation: {
         type: String,
+        required: true,
         trim: true
     },
     style: {
@@ -40,15 +42,23 @@ const projetSchema = new mongoose.Schema({
     chef: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Expert",
-        required: true,
     },
     collaborateurs: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Expert",
     }],
     demandes: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Expert",
+
+        expert: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Expert",
+        },
+        status: {
+            type: String,
+            enum: ["pending", "accepted", "rejected"],
+            default: "pending"
+        }
+
     }],
     sections: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -60,8 +70,12 @@ const projetSchema = new mongoose.Schema({
     },
     archive: {
         type: Boolean,
-        default:false
+        required: true
     },
+    keywords: {
+        type: [String],
+        default: []
+    }
 }, { timestamps: true });
 
 const projetModel = mongoose.model("Projet", projetSchema);

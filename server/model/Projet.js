@@ -12,7 +12,12 @@ const projetSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    coord: {
+    latitude: {
+        type: String,
+        default:"",
+        trim: true
+    },
+    longtitude: {
         type: String,
         required: true,
         unique: true,
@@ -25,7 +30,6 @@ const projetSchema = new mongoose.Schema({
     },
     style: {
         type: String,
-        required: true,
         trim: true
     },
     photoUrl: {
@@ -59,11 +63,10 @@ const projetSchema = new mongoose.Schema({
     sections: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Section",
-
     }],
     archivePar: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "Expert",
     },
     archive: {
         type: Boolean,

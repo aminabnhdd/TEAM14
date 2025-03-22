@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { lazy, useState } from "react";
 import arrRight from "../../assets/arrow-right-solid.svg";
 import arrLeft from "../../assets/arrow-left-solid.svg";
 import "../../ComponentsStyles/Insctiptions styles/NewInsEx2.css"
@@ -8,7 +8,7 @@ function NewInsEx2 ({prevPopUp,fn,connexionPopUP}) {
     const [formData, setFormData] = useState({
         discipline: "",
         etablissement: "",
-
+        laboratoire: "",
         expertise: ""
       });
       const [errors, setErrors] = useState({});
@@ -30,6 +30,11 @@ function NewInsEx2 ({prevPopUp,fn,connexionPopUP}) {
     
       const handleSubmit = () => {
         if (validateForm()) {
+          if (localStorage.getItem("formData2")) {
+            localStorage.removeItem("formData2");
+            
+          }
+          localStorage.setItem("formData2", JSON.stringify(formData));
           fn();
         }
       };

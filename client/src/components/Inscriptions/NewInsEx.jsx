@@ -42,7 +42,11 @@ function NewInsEx ({connexionPopUp,fn}) {
     
       const handleSubmit = () => {
         if (validateForm()) {
-          fn()
+          if (localStorage.getItem("formData1")) {
+            localStorage.removeItem("formData1");
+          }
+          localStorage.setItem("formData1", JSON.stringify(formData));
+          fn();
         }
       };
     

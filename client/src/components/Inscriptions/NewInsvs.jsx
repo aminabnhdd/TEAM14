@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import axios from "axios";
 import "../../ComponentsStyles/Insctiptions styles/NewInsVs.css"
 
 
@@ -43,7 +44,15 @@ function NewInsvs ({connexionPopUP1}) {
 
   const handleSubmit = () => {
     if (validateForm()) {
-      console.log("Form submitted successfully");
+      axios.post("http://localhost:3001/auth/signup/visitor", formData)
+        .then((res) => {
+          // redirect to home page (we'll do it later)
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("Erreur lors de l'inscription");
+        });
     }
   };
 

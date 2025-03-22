@@ -11,6 +11,18 @@ function NewInsEx3({ prevPopUp2, connexionPopUp }) {
     const [popDem, setPopDem] = useState(false);
     const [preview, setPreview] = useState(null); // Store file preview URL
     const [borderColor, setBorderColor] = useState("#A0A5A6"); // Default border color
+    const [formData, setFormData] = useState({
+        nom: "",
+        prenom: "",
+        email: "",
+        telephone: "",
+        password: "",
+        discipline: "",
+        etablissement: "",
+        labo: "",
+        niveau: "",
+        image: null
+    });
 
     const handleFileChange = async (event) => {
         const selectedFiles = Array.from(event.target.files);
@@ -36,18 +48,14 @@ function NewInsEx3({ prevPopUp2, connexionPopUp }) {
         if (selectedFiles.length === 0) return;
        
         
-        const formData = new FormData();
-        selectedFiles.forEach((file) => {
-            formData.append("files", file);
-        });
+        const formData1 = JSON.parse(localStorage.getItem("formData1"));
+        const formData2 =  JSON.parse(localStorage.getItem("formData2"));
+        if (formData1 && formData2) {
 
-        try {
-            const response = await axios.post("/upload", formData, {
-                headers: { "Content-Type": "multipart/form-data" },
-            });
-            console.log("Upload successful:", response.data);
-        } catch (error) {
-            console.error("Upload failed:", error);
+           setFormData({...formData1, ...formData2,labo:formData2.laboratoire,niveau:formData2.expertise,image:selectedFiles[0] });
+            
+            localStorage.removeItem("formData1");
+            localStorage.removeItem("formData2");    
         }
         
       
@@ -58,7 +66,22 @@ function NewInsEx3({ prevPopUp2, connexionPopUp }) {
 
             setBorderColor("red"); // Set border to red if no file is uploaded
         } else {
-            setPopDem(true);
+            const data = new FormData();
+            for (const key in formData) {
+                if (formData[key] !== null) {
+                    data.append(key, formData[key]);
+                }
+            }
+            axios
+            .post("http://localhost:3001/auth/signup/expert", data,{headers:{"Content-Type":"multipart/form-data"}})
+            .then((res) => {
+                console.log(res.data);
+                setPopDem(true);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+            
         }
     };
 

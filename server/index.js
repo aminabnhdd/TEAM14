@@ -19,10 +19,16 @@ const editeurRouter = require('./routes/editeur');
 const notificationsRouter = require('./routes/notifications');
 
 
+const corsOptions = {
+    origin: ['http://localhost:5173'],
+    credentials: true, 
+};
 
-app.use(express.urlencoded({ extended: false }));
+
+
 app.use(express.json());
-app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors(corsOptions));
 app.use(cookieParser())
 
 

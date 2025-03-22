@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../../ComponentsStyles/popUps styles/Connexion.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import axios from "axios";
 
 function Connect({   mdpPopUp }) {
     const [visible, setVisible] = useState(false);
@@ -33,7 +34,13 @@ function Connect({   mdpPopUp }) {
 
     const handleSubmit = () => {
         if (validateForm()) {
-            console.log("Connexion réussie", formData);
+            axios.post("http://localhost:3001/auth/login", formData,{withCredentials:true})
+            .then((res) => {
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
         }
     };
 

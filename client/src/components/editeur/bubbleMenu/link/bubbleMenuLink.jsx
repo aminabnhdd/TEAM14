@@ -1,8 +1,8 @@
 import { BubbleMenu } from "@tiptap/react";
-import Tooltip from "./tooltip";
-import BreakLinkButton from "./buttons/breakLinkButton";
-import EditLinkButton from "./buttons/editLinkButton";
-import OpenLinkButton from "./buttons/openLinkButton";
+import Tooltip from "../../tooltip";
+import BreakLinkButton from "./breakLinkButton";
+import EditLinkButton from "./editLinkButton";
+import OpenLinkButton from "./openLinkButton";
 
 export default function BubbleMenuLink(props) {
   if (!props.editor) return null;

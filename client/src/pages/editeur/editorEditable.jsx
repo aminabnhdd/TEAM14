@@ -1,13 +1,13 @@
 import TiptapEditable from "../../components/editeur/tiptapEditable";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Conflicts from "../../components/editeur/conflicts";
 import Annotations from "../../components/editeur/annotations";
-import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import SaveButton from "../../components/editeur/saveButton";
 import { useState } from 'react';
 import SideNav from "../../components/SideNav";
 import "../../componentsStyles/editeur/editor.css"
 import DropDownButton from "../../components/editeur/dropdownButton";
+import SignalerConflit from "../../components/editeur/SignalerConflit";
+
 export default function EditorEditable(props){
 
     const [editor, setEditor] = useState(null);
@@ -117,7 +117,7 @@ console.log(conflitExist)
 
            
             <div className="flex-1 w-full bg-white main-content">
-                <div className="h-[106px]  px-10 py-5 w-full flex items-center justify-center bg-white sticky top-0 z-100">
+                <div className="h-[106px]  px-10 py-5 w-full flex items-center justify-center bg-white sticky top-0 z-10">
                     <div className="bg-neutral-200 w-full  h-full flex items-center pl-4"> Recherchere un projet</div>
                 </div>
                 <main className=" ">
@@ -132,10 +132,8 @@ console.log(conflitExist)
                         
                         <div className="flex justify-between mb-5">
                             <h1 className="secondary-titles text-dune">{props.section}</h1>
-                            <button className="main-text text-warning ">
-                            <FontAwesomeIcon icon={faTriangleExclamation} className="mr-2 w-4 h-4"  />
-                            Signaler un conflit
-                            </button>
+                            <SignalerConflit/>
+                        
                         </div>
                         {/* Pass the editor state and setter to Tiptap */}
       <TiptapEditable setEditor={setEditor} section={props.section}/>

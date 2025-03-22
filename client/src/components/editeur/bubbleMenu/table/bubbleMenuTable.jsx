@@ -1,9 +1,9 @@
 import { BubbleMenu } from "@tiptap/react";
-import ColonneDropdown from "./buttons/colonneDropdown";
-import CelluleDropdown from "./buttons/celluleDropdown";
-import LigneDropdown from "./buttons/ligneDropdown";
-import DeleteTableDropdown from "./buttons/deleteTableDropdown";
-import Tooltip from "./tooltip";
+import ColonneDropdown from "./colonneDropdown";
+import CelluleDropdown from "./celluleDropdown";
+import LigneDropdown from "./ligneDropdown";
+import DeleteTableDropdown from "./deleteTableDropdown";
+import Tooltip from "../../tooltip";
 
 export default function BubbleMenuTable(props) {
   if (!props.editor) return null;

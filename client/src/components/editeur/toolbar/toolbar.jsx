@@ -1,23 +1,22 @@
 import React from "react";
-import '../../componentsStyles/editeur/tiptap.css'
-
-import Tooltip from "./tooltip.jsx";
-import BoldButton from "./buttons/boldButton";
-import ItalicButton from "./buttons/italicButton";
-import StrikeButton from "./buttons/strikeButton";
-import UnderlineButton from "./buttons/underlineButton";
-import SizeDropdown from "./buttons/sizeDropDown";
-import UnorderedListButton from "./buttons/unorderedListButton";
-import OrderedListButton from "./buttons/orderedListButtton";
-import BlockQuoteButton from "./buttons/blockQuoteButton";
-import LinkButton from "./buttons/linkButton";
-import InsertImageButton from "./buttons/insertImageButton.jsx.jsx";
-import InsertTableButton from "./buttons/insertTableButton";
-import UndoButton from "./buttons/undoButton";
-import RedoButton from "./buttons/redoButton.jsx";
-import AlignmentDropdown from "./buttons/alignementDropdown.jsx";
+import '../../../componentsStyles/editeur/tiptap.css'
+import Tooltip from "../tooltip.jsx";
+import BoldButton from "./boldButton";
+import ItalicButton from "./italicButton";
+import StrikeButton from "./strikeButton";
+import UnderlineButton from "./underlineButton";
+import SizeDropdown from "./sizeDropDown";
+import UnorderedListButton from "./unorderedListButton";
+import OrderedListButton from "./orderedListButtton";
+import BlockQuoteButton from "./blockQuoteButton";
+import LinkButton from "./linkButton";
+import InsertImageButton from "./insertImageButton.jsx.jsx";
+import InsertTableButton from "./insertTableButton";
+import UndoButton from "./undoButton";
+import RedoButton from "./redoButton.jsx";
+import AlignmentDropdown from "./alignementDropdown.jsx";
 import InsertVideoButton from "./insertVideoButton.jsx";
-import AnnotationButton from "./annotationButton.jsx";
+import AnnotationButton from "../annotationButton.jsx";
 export default function Toolbar(props){
 
     return(

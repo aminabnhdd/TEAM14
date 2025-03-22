@@ -1,9 +1,9 @@
 import { BubbleMenu } from "@tiptap/react";
-import DeleteVideoButton from "./buttons/deleteVideoButton"; // Updated delete button
-import Tooltip from "./tooltip";
-import imageLeft from "../../assets/image-left.png";
-import imageCenter from "../../assets/image-center.png"; // Import the center alignment image
-import imageRight from "../../assets/image-right.png"; // Import the right alignment image
+import DeleteVideoButton from "./deleteVideoButton"; // Updated delete button
+import Tooltip from "../../tooltip";
+import imageLeft from "../../../../assets/image-left.png";
+import imageCenter from "../../../../assets/image-center.png"; // Import the center alignment image
+import imageRight from "../../../../assets/image-right.png"; // Import the right alignment image
 
 export default function BubbleMenuVideo(props) {
   if (!props.editor) {

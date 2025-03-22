@@ -13,16 +13,17 @@ import TableHeader from '@tiptap/extension-table-header'
 import TableRow from '@tiptap/extension-table-row'
 import Image from "@tiptap/extension-image";
 import './tooltip';
-import Toolbar from "./toolbar";
-import { Figure } from './figure';
-import { Figcaption } from './figcaption';
-import { ImageFigure } from './imageFigure';
-import BubbleMenuTable from "./bubbleMenuTable";
-import BubbleMenuLink from "./bubbleMenuLink";
-import BubbleMenuImage from "./bubbleMenuImage";
-import { Video } from "./video";
-import { VideoFigure } from "./videoFigure";
-import BubbleMenuVideo from "./bubbluMenuVideo";
+import Toolbar from "./toolbar/toolbar";
+import { Figure } from './nodes/figure';
+import { Figcaption } from './nodes/figcaption';
+import { ImageFigure } from './nodes/imageFigure';
+import { Video } from "./nodes/video";
+import { VideoFigure } from "./nodes/videoFigure";
+import BubbleMenuTable from "./bubbleMenu/table/bubbleMenuTable";
+import BubbleMenuLink from "./bubbleMenu/link/bubbleMenuLink";
+import BubbleMenuImage from "./bubbleMenu/image/bubbleMenuImage";
+import BubbleMenuVideo from "./bubbleMenu/video/bubbluMenuVideo";
+
 export default function TiptapEditable({ setEditor,section })  {
   const newLocal = `Éditer le contenu de la section ${section}...`;
   const editor = useEditor({

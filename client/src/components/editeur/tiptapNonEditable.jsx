@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect } from 'react';
 import '../../componentsStyles/editeur/tiptap.css'
 import {BubbleMenu, EditorContent, useEditor } from "@tiptap/react";
-import Placeholder from '@tiptap/extension-placeholder'
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
@@ -13,12 +12,13 @@ import TableHeader from '@tiptap/extension-table-header'
 import TableRow from '@tiptap/extension-table-row'
 import Image from "@tiptap/extension-image";
 import './tooltip';
-import { Figure } from './figure';
-import { Figcaption } from './figcaption';
-import { ImageFigure } from './imageFigure';
+import { Figure } from './nodes/figure';
+import { Figcaption } from './nodes/figcaption';
+import { ImageFigure } from './nodes/imageFigure';
+import { Video } from "./nodes/video";
+import { VideoFigure } from "./nodes/videoFigure";
 import AnnotationButton from "./annotationButton";
-import { Video } from "./video";
-import { VideoFigure } from "./videoFigure";
+
 export default function TiptapNonEditable({ setEditor,section })  {
   const editor = useEditor({
     editable: false,

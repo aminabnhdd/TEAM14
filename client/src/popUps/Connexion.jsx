@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../popUps styles/Connexion.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 function Connect({ car4, inscriptionPopUp, mdpPopUp }) {
     const [visible, setVisible] = useState(false);
@@ -34,7 +35,14 @@ function Connect({ car4, inscriptionPopUp, mdpPopUp }) {
 
     const handleSubmit = () => {
         if (validateForm()) {
-            console.log("Connexion réussie", formData);
+            axios.post("http://localhost:3001/auth/login", formData,{withCredentials:true})
+            .then((res) => {
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
         }
     };
 

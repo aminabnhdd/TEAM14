@@ -1,9 +1,8 @@
 import "../Insctiptions styles/InsEx3.css";
 import image2 from "../assets/Screenshot 2025-03-03 at 8.53.06 AM 2.png";
-
 import arrLeft from "../assets/arrow-left-solid.svg";
 import doc from "../assets/uil_file-upload-alt.png";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 function InsEx3({ prevPopUp2, car3, connexionPopUp, hideAll3, funct }) {
@@ -11,6 +10,19 @@ function InsEx3({ prevPopUp2, car3, connexionPopUp, hideAll3, funct }) {
     const [files, setFiles] = useState([]);
     const [uploading, setUploading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [formData, setFormData] = useState({
+        nom: "",
+        prenom: "",
+        email: "",
+        telephone: "",
+        password: "",
+        discipline: "",
+        etablissement: "",
+        labo: "",
+        niveau: "",
+        image: null
+    });
+    
 
     const handleFileChange = async (event) => {
         const selectedFiles = Array.from(event.target.files);
@@ -26,20 +38,16 @@ function InsEx3({ prevPopUp2, car3, connexionPopUp, hideAll3, funct }) {
     const uploadFiles = async (selectedFiles) => {
         if (selectedFiles.length === 0) return;
         setUploading(true);
-        
-        const formData = new FormData();
-        selectedFiles.forEach((file) => {
-            formData.append("files", file);
-        });
+        const formData1 = JSON.parse(localStorage.getItem("formData1"));
+        const formData2 =  JSON.parse(localStorage.getItem("formData2"));
+        if (formData1 && formData2) {
 
-        try {
-            const response = await axios.post("/upload", formData, {
-                headers: { "Content-Type": "multipart/form-data" },
-            });
-            console.log("Upload successful:", response.data);
-        } catch (error) {
-            console.error("Upload failed:", error);
+           setFormData({...formData1, ...formData2,labo:formData2.laboratoire,niveau:formData2.expertise,image:selectedFiles[0] });
+            
+            localStorage.removeItem("formData1");
+            localStorage.removeItem("formData2");    
         }
+        
         
         setUploading(false);
     };
@@ -48,7 +56,22 @@ function InsEx3({ prevPopUp2, car3, connexionPopUp, hideAll3, funct }) {
         if (files.length === 0) {
             setErrorMessage("Aucun fichier n'a été téléchargé");
         } else {
-            funct();
+            const data = new FormData();
+            for (const key in formData) {
+                if (formData[key] !== null) {
+                    data.append(key, formData[key]);
+                }
+            }
+            axios
+                .post("http://localhost:3001/auth/signup/expert", data,{headers:{"Content-Type":"multipart/form-data"}})
+                .then((res) => {
+                    console.log(res.data);
+                    funct();
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            
         }
     };
 

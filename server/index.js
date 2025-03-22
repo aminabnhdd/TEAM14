@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
-
+const cookieParser = require('cookie-parser');
 
 
 //defining endpoints : 
@@ -16,11 +16,15 @@ const projectRouter = require('./routes/projects');
 const profilRouter = require('./routes/profil');
 const uploadRouter = require('./routes/upload');
 
-
+const corsOptions = {
+    origin: ['http://localhost:5173'],
+    credentials: true, 
+};
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
+app.use(cors(corsOptions));
 
 // importing roles :
 const adminRole = process.env.ADMIN_ROLE;

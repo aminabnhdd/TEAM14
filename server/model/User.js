@@ -38,7 +38,17 @@ const userSchema = new mongoose.Schema({
     refreshToken:{
         type:String,
         default:""
+    },
+    pfp:{
+        type:String,
+        default:""
+    },
+    favorites:{
+        type:[mongoose.SchemaTypes.ObjectId],
+        default:[],
+        ref:"Projet"
     }
+
 }, { timestamps: true }); //timestamps manages automatically two fields createdat and updatedat
 
 const userModel = mongoose.model("User", userSchema);
@@ -64,6 +74,10 @@ const expertSchema = new mongoose.Schema({
     projets: {
         type: [mongoose.SchemaTypes.ObjectId],
         default:[]
+    },
+    fileUrl: {
+        type: String,
+        default: ""
     }
 
 })

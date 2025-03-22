@@ -31,6 +31,11 @@ function InsEx2({ nextPopUp2, prevPopUp, car2, connexionPopUP, hideAll2 }) {
 
   const handleSubmit = () => {
     if (validateForm()) {
+      if (localStorage.getItem("formData2")) {
+        localStorage.removeItem("formData2");
+        
+      }
+      localStorage.setItem("formData2", JSON.stringify(formData));
       nextPopUp2(); // This should navigate to InsEx3
     }
   };

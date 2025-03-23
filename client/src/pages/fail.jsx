@@ -127,7 +127,7 @@ const closeLienEnv = () => {
             <MdpOublie  carti={mdp} fun={closePop} fun2={lienEnv} />
             
             {popInsEx && <InsEx nextPopUp={nextPopUp} car={popUp} connexionPopUp={connexionEx} hideAll1={popInsEx} />}
-            {popInsEx2 && popInsZd && <InsEx2 nextPopUp2={nextPopUp2} prevPopUp={prevPopUp} car2={popInsEx2} connexionPopUP={connexionEx2} hideAll2={popInsEx2} />}
+            {popInsEx2 && popInsZd && <InsEx2 nextPopUp2={nextPopUp2} prevPopUp={prevPopUp} car2={popInsEx2} connexionPopUP={connexionEx2}  />}
             {popInsEx3 && <InsEx3 prevPopUp2={prevPopUp2} car3={popInsEx3} connexionPopUp={connexionEx3} hideAll3={popInsEx3} funct={cngrPopUp}/>}
              <Demande popUp={congrats} foncone={closeCngrPop}/>
              <LienEnv  popUp={lien} foncone={closeLienEnv}/>

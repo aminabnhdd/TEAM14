@@ -1,18 +1,11 @@
-
-import PopUpManager from "./pages/PageInsc";
-import Notif from "./pages/Notif";
-
+import InsEx from "./pages/PageInsEx";
+import InsVs from "./pages/PageInsVs";
 
 function App() {
-
   return (
     <div>
-      <PopUpManager/>
-      {/* <Notif/> */}
-      
-
-      
-      
+      {/* <InsEx /> */}
+      <InsVs/>
     </div>
   );
 }

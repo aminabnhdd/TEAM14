@@ -3,6 +3,7 @@
     font-weight: 600;
     font-size: 20px;
     width: 101%;
+    margin-bottom: 4%;
 }
 
 .ktibaa{
@@ -12,12 +13,12 @@
     line-height: normal;
     text-align: justify;
     z-index: 1100;
-    margin-bottom: 1%;
+    margin-bottom: 7%;
 }
 
 .notif-pop2{
-    width: 28%;
-    height: 35%;
+    width: 30%;
+    height: auto;
     display: flex;
     flex-direction: column;
     gap: 10%;

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import "../../ComponentsStyles/Insctiptions styles/InsEx2.css";
-import image2 from "../../assets/Screenshot 2025-03-03 at 8.53.06 AM 2.png";
+
 import arrRight from "../../assets/arrow-right-solid.svg";
 import arrLeft from "../../assets/arrow-left-solid.svg";
 
-function InsEx2({ nextPopUp2, prevPopUp, car2, connexionPopUP, hideAll2 }) {
+function InsEx2({ nextPopUp2, prevPopUp, car2, connexionPopUP }) {
   const [formData, setFormData] = useState({
     discipline: "",
     etablissement: "",
@@ -36,18 +36,10 @@ function InsEx2({ nextPopUp2, prevPopUp, car2, connexionPopUP, hideAll2 }) {
   };
 
   return (
-    hideAll2 && (
-      <div className="main-page-three">
-        <div className="back-home">
-          <img src={image2} className="backHome-logo-three" />
-          <div className="pres3">
-            <p className="pre">ATHAR, une </p>
-            <p className="pre">communauté dédiée au</p>
-            <p className="pre">patrimoine algérien.</p>
-          </div>
-        </div>
+    
+        
+          car2 && 
         <div className="form-container-three">
-          {car2 && (
             <div className="inscription-form-three">
               <div className="texts-three">
                 <p className="bien-three">Bienvenue sur </p>
@@ -89,11 +81,10 @@ function InsEx2({ nextPopUp2, prevPopUp, car2, connexionPopUP, hideAll2 }) {
                 <img src={arrLeft} alt="ll" onClick={prevPopUp} />
               </div>
             </div>
-          )}
+          
         </div>
-      </div>
-    )
-  );
+    
+        )  
 }
 
 export default InsEx2;

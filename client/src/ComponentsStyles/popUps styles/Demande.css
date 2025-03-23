@@ -22,7 +22,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    animation: popupSlideUp 0.3s ease-out forwards;
+    /* animation: popupSlideUp 0.3s ease-out forwards; */
 
 }
 @keyframes popupSlideUp {

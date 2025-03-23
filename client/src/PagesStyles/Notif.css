@@ -98,7 +98,7 @@
 .transport{
     display: flex;
     color: #707778;
-    font-size: 13px;
+    font-size: 1.1vw;
     gap: 8.5%;
     margin-bottom: 0.8%;
 }
@@ -211,13 +211,14 @@
 
 .det-button{
     display: flex;
-padding: 2% 11%;
-align-items: center;
-border: none;
-gap: 12px;
-border-radius: 36px;
-background: var(--dune, #E8C07D);
-cursor: pointer;
+    padding: 2% 11%;
+    align-items: center;
+    border: none;
+    gap: 12px;
+    border-radius: 36px;
+    background: var(--dune, #E8C07D);
+    cursor: pointer;
+    font-size: 13px;
 }
 
 .refusIcon {

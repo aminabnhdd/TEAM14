@@ -22,7 +22,7 @@
     outline: none;
     gap: 2px;
     position: relative;
-    height: 17.5%;
+    height: 58px;
 }
 
 .input-two {
@@ -126,8 +126,8 @@
     width: 12px;
     height: 12px;
     position: absolute;
-    right: 5%;
-    bottom: 32%;
+    right: 17px;
+    bottom: 19px;
     font-size: 16px;
     cursor: pointer;
     filter: invert(41%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(95%) contrast(85%);

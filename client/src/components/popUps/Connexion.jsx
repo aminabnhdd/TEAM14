@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../../ComponentsStyles/popUps styles/Connexion.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
-function Connect({   mdpPopUp }) {
+function Connect({   mdpPopUp,fun }) {
     const [visible, setVisible] = useState(false);
     const [typo, setTypo] = useState("password");
     const [formData, setFormData] = useState({ email: "", password: "" });
@@ -33,7 +33,8 @@ function Connect({   mdpPopUp }) {
 
     const handleSubmit = () => {
         if (validateForm()) {
-            console.log("Connexion réussie", formData);
+            
+            fun()
         }
     };
 

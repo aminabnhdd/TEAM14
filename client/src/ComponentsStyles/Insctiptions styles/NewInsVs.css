@@ -2,7 +2,7 @@
 
 .inscription-form-one {
     display: flex;
-    width: 73%;
+    width: 63.5%;
     height: 89%;
     padding: 23px;
     flex-direction: column;
@@ -174,25 +174,6 @@
     font-size: 16px;
     cursor: pointer;
     filter: invert(41%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(95%) contrast(85%);
-}
-
-.backHome-logo {
-    width: 90px;
-    height: 70px;
-    position: absolute;
-    top: -57px;
-    right: 15px;
-    cursor: pointer;
-    border-radius: 0 0 20px 20px;
-    transition: transform 0.8s; /* Smooth transition for the transform property */
-    pointer-events: auto;
-    display: block;
-    z-index: 9999;
-
-}
-
-.backHome-logo:hover {
-    transform: translateY(55px); /* Move the button down when hovered */
 }
 
 .stexts{

@@ -1,9 +1,8 @@
 import { useState } from "react";
 import "../../ComponentsStyles/popUps styles/Connexion.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
-function Connect({ car4, inscriptionPopUp, mdpPopUp }) {
+function Connect({   mdpPopUp }) {
     const [visible, setVisible] = useState(false);
     const [typo, setTypo] = useState("password");
     const [formData, setFormData] = useState({ email: "", password: "" });
@@ -38,13 +37,13 @@ function Connect({ car4, inscriptionPopUp, mdpPopUp }) {
         }
     };
 
-    return car4 ? (
+    return  (
         <div className="popUp1-inscription-form">
             <div className="popUp1-texts">
                 <p className="popUp1-bien">Heureux de vous revoir !</p>
                 <p className="popUp1-compte">
                     Vous n'avez pas de compte ?
-                    <span className="popUp1-connexion" onClick={inscriptionPopUp}> Inscrivez-vous.</span>
+                    <span className="popUp1-connexion"> Inscrivez-vous.</span>
                 </p>
             </div>
 
@@ -65,6 +64,9 @@ function Connect({ car4, inscriptionPopUp, mdpPopUp }) {
 
                 <div className="popUp1-form-group">
                     <label className="popUp1-label" htmlFor="password">Mot de passe</label>
+                    <div className="popUp1-eye" onClick={TogglePass}>
+                    {visible ? <FiEyeOff /> : <FiEye />}
+                    </div>
                     <input className={`popUp1-input eye-pass ${errors.password ? "input-error" : ""}`} 
                         type={typo} 
                         id="password" 
@@ -74,16 +76,14 @@ function Connect({ car4, inscriptionPopUp, mdpPopUp }) {
                         onFocus={(e) => { e.target.style.border = "1px solid #E8C07D"; e.target.style.outline = "0.5px solid #E8C07D"; }} 
                         onBlur={(e) => { e.target.style.border = errors.password ? "" : "1px solid #A0A5A6"; e.target.style.outline = "none"; }}
                     />
-                    <div className="popUp1-eye" onClick={TogglePass}>
-                        <FontAwesomeIcon icon={visible ? faEyeSlash : faEye} />
-                    </div>
+                    
                     {errors.password && <p className="err_message3">{errors.password}</p>}
                     <p className="popUp1-mdp-oublie" onClick={mdpPopUp}>Mot de passe oublié ?</p>
                 </div>
             </form>
             <button className="popUp1-btn1" onClick={handleSubmit}>Se connecter</button>
         </div>
-    ) : null;
+    ) 
 }
 
 export default Connect;

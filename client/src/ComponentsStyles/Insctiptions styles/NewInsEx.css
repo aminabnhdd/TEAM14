@@ -1,8 +1,8 @@
 
 .inscription-form-two {
     display: flex;
-    width: 73%;
-    height: 89%;
+    width: 63.5%;
+    height: 500px;
     padding: 23px;
     flex-direction: column;
     justify-content: center;
@@ -145,18 +145,5 @@
 .rr-two:hover, .lr-two:hover {
     filter: invert(66%) sepia(25%) saturate(747%) hue-rotate(1deg) brightness(101%) contrast(104%);
 }
-.backHome-logo-two {
-    width: 90px;
-    height: 70px;
-    position: absolute;
-    top: -57px;
-    right: 15px;
-    cursor: pointer;
-    border-radius: 0 0 20px 20px;
-    transition: transform 0.8s; /* Smooth transition for the transform property */
-    z-index: 987;
-}
 
-.backHome-logo-two:hover {
-    transform: translateY(55px); /* Move the button down when hovered */
-}
+

@@ -109,7 +109,7 @@ function NewInsEx ({connexionPopUp,fn}) {
                     }}  
                   />
                   {errors.password && <p className="err_message">{errors.password}</p>}
-                  <div className="eye-one" onClick={TogglePass}>
+                  <div className="eye-two" onClick={TogglePass}>
                   {visible ? <FiEyeOff /> : <FiEye />}
                   </div>
                 </div>

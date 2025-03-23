@@ -15,12 +15,12 @@
 }
 
 .img-container-one {
-    width: 48%;
+    width: 46%;
     height: 100vh;
 }
 
 .main-img-one {
-    width: 94%;
+    width: 100%;
     height: 100vh;
     background-image:url("../assets/Group 38.png") ;
     background-size: cover;
@@ -30,19 +30,18 @@
 
 .form-container-one {
     display: flex;
-    width: 52%;
+    width: 54%;
     height: 100vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
-    padding-right: 5%;
    
 }
 
 .inscription-form-one {
     display: flex;
-    width: 65%;
+   
     height: 89%;
     padding: 23px;
     flex-direction: column;
@@ -104,22 +103,9 @@
 }
 .pre5{
     font-size: 2.45vw;
-    text-shadow: 0px 5px 20px rgba(0, 0,0,1);
-    background-image: linear-gradient(90deg, white, #E8C07D, #D4AF37);
-    background-size: 200% 100%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: waveGradient 10s infinite linear;
-
-    
+    text-shadow: 0px 5px 20px rgba(0, 0,0,1);  
 }
 
-@keyframes waveGradient {
-    0% { background-position: 200% 0; }
-    50% { background-position: -100% 0; } /* Moves left */
-    75% { background-position: -100% 0; } /* Hold position for cooldown */
-    100% { background-position: 200% 0; } /* Resets to start */
-}
 
 
 .label-one {
@@ -238,8 +224,8 @@
 }
 
 .backHome-logo {
-    width: 90px;
-    height: 70px;
+    width: 7.5%;
+    height: 12.5%;
     position: absolute;
     top: -57px;
     right: 15px;

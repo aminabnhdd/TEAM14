@@ -1,8 +1,8 @@
 
 .inscription-form-three {
     display: flex;
-    width: 73%;
-    height: 80%;
+    width: 63.5%;
+    height: 447px;
     padding: 23px;
     flex-direction: column;
     justify-content: center;
@@ -146,20 +146,7 @@
     filter: invert(66%) sepia(25%) saturate(747%) hue-rotate(1deg) brightness(101%) contrast(104%);
 }
 
-.backHome-logo-three {
-    width: 90px;
-    height: 70px;
-    position: absolute;
-    top: -57px;
-    right: 15px;
-    cursor: pointer;
-    border-radius: 0 0 20px 20px;
-    transition: transform 0.3s;
-}
 
-.backHome-logo-three:hover {
-    transform: translateY(10px);
-}
 
 .pres3{
     position: absolute;

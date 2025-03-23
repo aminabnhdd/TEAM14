@@ -18,8 +18,8 @@ import { ImageFigure } from './nodes/imageFigure';
 import { Video } from "./nodes/video";
 import { VideoFigure } from "./nodes/videoFigure";
 import AnnotationButton from "./annotationButton";
-
-export default function TiptapNonEditable({ setEditor,section })  {
+import AnnotationMark from "./nodes/annotationMark";
+export default function TiptapNonEditable({ setEditor,section,annotations,setAnnotations })  {
   const editor = useEditor({
     editable: false,
     extensions: [
@@ -30,6 +30,7 @@ export default function TiptapNonEditable({ setEditor,section })  {
         Figure,
         Figcaption,
         Video,
+        AnnotationMark,
     VideoFigure,
   
         ImageFigure.configure({
@@ -129,10 +130,8 @@ export default function TiptapNonEditable({ setEditor,section })  {
      <>
         <div className="flex items-center justify-between mb-4">
         <p className="buttons text-black ">Contenu</p>
-         <div className="bg-neutral-200 rounded-[36px] p-2 hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300">
-         <AnnotationButton  editor={editor}  section={section}/>                     
+         <AnnotationButton  editor={editor}  section={section} annotations={annotations} setAnnotations={setAnnotations}/>                     
 
-         </div>
         </div>
         <div className=" border border-neutral-400  rounded-[12px] w-full">
          

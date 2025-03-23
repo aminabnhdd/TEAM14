@@ -23,7 +23,7 @@ import BubbleMenuTable from "./bubbleMenu/table/bubbleMenuTable";
 import BubbleMenuLink from "./bubbleMenu/link/bubbleMenuLink";
 import BubbleMenuImage from "./bubbleMenu/image/bubbleMenuImage";
 import BubbleMenuVideo from "./bubbleMenu/video/bubbluMenuVideo";
-
+import AnnotationMark from "./nodes/annotationMark";
 export default function TiptapEditable({ setEditor,section })  {
   const newLocal = `Éditer le contenu de la section ${section}...`;
   const editor = useEditor({
@@ -57,6 +57,7 @@ export default function TiptapEditable({ setEditor,section })  {
       TableRow,
       TableHeader,
       TableCell,
+      AnnotationMark,
         Link.configure({
           openOnClick: false,
           autolink:false,

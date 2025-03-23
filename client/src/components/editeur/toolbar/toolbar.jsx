@@ -60,10 +60,7 @@ export default function Toolbar(props){
     </div>
   </div>
 
-  {/* Right-aligned AnnoterButton */}
-  <div className=" ml-4  rounded-[12px] flex align-items text-brown hover:underline">
-  <AnnotationButton editor={props.editor} />
-    </div>
+  
 
     
 

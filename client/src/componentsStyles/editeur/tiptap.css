@@ -240,3 +240,11 @@ figcaption {
   font-weight: 400;
   width: 100%;
 }
+
+/* Add this to your global or component-specific CSS */
+.annotation-highlight {
+
+  background-color: yellow; /* Highlight color */
+  padding: 2px 4px; /* Optional: Add padding for better visibility */
+  border-radius: 3px; /* Optional: Add rounded corners */
+}

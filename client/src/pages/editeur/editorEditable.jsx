@@ -24,7 +24,7 @@ export default function EditorEditable(props){
         uservalide: true,
         favoris: [],
       }
-    const annotations = [
+    const [annotations,setAnnotations] = useState( [
         {
             id: 1,
             projetId: 1,
@@ -50,7 +50,7 @@ export default function EditorEditable(props){
             content: "this is the content of annotation 3"
         },
     ]
-
+    )
         
     const conflits = [
         {
@@ -136,7 +136,7 @@ console.log(conflitExist)
                         
                         </div>
                         {/* Pass the editor state and setter to Tiptap */}
-      <TiptapEditable setEditor={setEditor} section={props.section}/>
+      <TiptapEditable setEditor={setEditor} section={props.section} annotations={annotations} setAnnotations={setAnnotations}/>
                         <p className="buttons text-black mt-4 mb-4">Gallerie</p>
                         <div className="border border-neutral-400 rounded-[12px] p-4 h-[200px] text-neutral-500">Ajouter des illustrations</div>
                         <div className="flex justify-end w-full">

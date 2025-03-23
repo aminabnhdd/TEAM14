@@ -41,7 +41,7 @@ export default function PopConflit({ onClose, onSubmit }) {
               type="submit"
               className="main-text text-black bg-dune py-3 w-36 mt-4 rounded-[36px] items-center justify-center hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer"
             >
-              Sauvegarder
+              Signaler
             </button>
             <button
               onClick={onClose}

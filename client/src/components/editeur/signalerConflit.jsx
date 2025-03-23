@@ -3,32 +3,43 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useState } from "react";
 import PopConflit from "./popupConflit";
 
-export default function SignalerConflit(){
+export default function SignalerConflit({conflits,setConflits,user,projet,section}){
     const [showPopup, setShowPopup] = useState(false);
-    const [infos, setInfos] = useState({});
+ console.log(projet)
+    const handleSignalerConflit = (content) => {
+        console.log(conflits);
+    
+    
+        // Create an annotation object
+        const conflit = {
+          id: Date.now(), // Generate a unique ID
+          projetId: projet.id,
+          sectionId:section.id,
+          signaleur: user,
+          resolu:false,
+          valide:false,
+          content: content,
+          lient:"",
+        };
 
-    const handleSubmit = useCallback(
-        (content) => {
-          setShowPopup(false); // Close the popup
-          console.log(content);
-})
 
-    const handleClick =() =>{
-        setShowPopup(true)
+      
+        setConflits([...conflits, conflit]);
+        setShowPopup(false)
     }
 
    return(
     <>
-   <button   onClick={handleClick} className="main-text text-warning hover:underline cursor-pointer">
+   <button   onClick={() => setShowPopup(true)} className="main-text text-warning hover:underline cursor-pointer">
     <FontAwesomeIcon icon={faTriangleExclamation} className="mr-2 w-4 h-4"  />
     Signaler un conflit
     </button>
 
     {showPopup && (
         <PopConflit
-        initialUrl={"hi"}
+    
         onClose={() => setShowPopup(false)}
-        onSubmit={handleSubmit}
+        onSubmit={handleSignalerConflit        }
         />
     )}
     </>

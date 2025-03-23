@@ -2,7 +2,7 @@ import annoterIcon from "../../assets/message.png";
 import { useState } from "react";
 import PopAnnotation from "./popupAnnot";
 
-export default function AnnotationButton({ editor, annotations, setAnnotations }) {
+export default function AnnotationButton({ editor, annotations, setAnnotations,user,projet,section }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleAddAnnotation = (content) => {
@@ -11,23 +11,12 @@ export default function AnnotationButton({ editor, annotations, setAnnotations }
       console.error("Editor is not available.");
       return;
     }
-    const user = {
-        id: 1,
-        nom: "Rahim",
-        prenom: "Sarah",
-        email: "ns_rahim@esi.dz",
-        photoProfil: "https://media.istockphoto.com/id/1495088043/fr/vectoriel/ic%C3%B4ne-de-profil-utilisateur-avatar-ou-ic%C3%B4ne-de-personne-photo-de-profil-symbole-portrait.jpg?s=612x612&w=0&k=20&c=moNRZjYtVpH-I0mAe-ZfjVkuwgCOqH-BRXFLhQkZoP8=",
-        num: "0550550550",
-        date: 1742515200000,
-        role: "historien",
-        uservalide: true,
-        favoris: [],
-      }
+
     // Create an annotation object
     const annotation = {
       id: Date.now(), // Generate a unique ID
-      projetId: 1,
-      sectionId:1,
+      projetId: projet.id,
+      sectionId:section.id,
       auteur: user,
       selected:"text",
       content: content,

@@ -8,10 +8,10 @@ function App() {
     <Router>
       <Routes>
         {/* Route for the editable editor */}
-        <Route path="/editable" element={<EditorEditable section="Histoire" />} />
+        <Route path="/editable" element={<EditorEditable  />} />
 
-        {/* Route for the non-editable editor */}
-        <Route path="/non-editable" element={<EditorNonEditable section="Histoire"/>} />
+        {/* Route for annotatins */}
+        <Route path="/non-editable" element={<EditorNonEditable />} />
 
       </Routes>
     </Router>

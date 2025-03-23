@@ -1,23 +1,17 @@
 import Conflict from "./conflict"
 import { useEffect } from "react";
-export default function Conflicts({conflits,setConflitExist}){
+export default function Conflicts({conflits,setConflits,user,projet,section}){
 
 
-    const projetId=1;
-    const sectionId=1;
+    
   
-    const validConflicts = conflits.filter(conflict => 
-        !conflict.resolu && conflict.valide && conflict.projetId === projetId && conflict.sectionId === sectionId
-    );
 
-    const conflictsElement = validConflicts.map((conflict) => {
-       
-        return <Conflict key={conflict.id} signaleur={conflict.signaleur} content={conflict.content} resolu={conflict.resolu} />
+
+    const conflictsElement = conflits.map((conflit) => {
+        return <Conflict key={conflit.id} id={conflit.id} conflit={conflit}  user={user} projet={projet} section={section} conflits={conflits} setConflits={setConflits}/>
 });
 
-useEffect(()=>{
-    setConflitExist(validConflicts.length>0)
-},[validConflicts])
+
     if  (conflictsElement.length > 0){
     return(
         <>

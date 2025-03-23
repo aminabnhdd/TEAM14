@@ -1,11 +1,14 @@
-import InsEx from "./pages/PageInsEx";
-import InsVs from "./pages/PageInsVs";
+import InsEx from "./pages/page inscription/PageInsEx";
+import InsVs from "./pages/page inscription/PageInsVs"
+import Notif from "./pages/notifications/Notif";
 
 function App() {
   return (
     <div>
-      {/* <InsEx /> */}
-      <InsVs/>
+      {/* <Notif/> */}
+      <InsEx />
+      {/* <InsVs /> */}
+
     </div>
   );
 }

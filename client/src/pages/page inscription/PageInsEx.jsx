@@ -1,12 +1,12 @@
-import image from "../assets/Group 38.png"
-import image2 from "../assets/Screenshot 2025-03-03 at 8.53.06 AM 2.png";
-import "../PagesStyles/InsEx.css"
+import image from "../../assets/Group 38.png";
+import image2 from "../../assets/Screenshot 2025-03-03 at 8.53.06 AM 2.png";
+import "../../PagesStyles/Pages inscriptions styles/InsEx.css";
 import { useState } from "react";
 
-import NewInsEx from "../components/Inscriptions/NewInsEx"
-import NewInsEx2 from "../components/Inscriptions/NewInsEx2";
-import NewInsEx3 from "../components/Inscriptions/NewInsEx3";
-import "../ComponentsStyles/Insctiptions styles/NewInsEx.css";
+import NewInsEx from "../../components/Inscriptions/NewInsEx";
+import NewInsEx2 from "../../components/Inscriptions/NewInsEx2";
+import NewInsEx3 from "../../components/Inscriptions/NewInsEx3";
+import "../../ComponentsStyles/Insctiptions styles/NewInsEx.css";
 
 function InsEx() {
   const [pop1, setPop1] = useState(true);

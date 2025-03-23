@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import "../../ComponentsStyles/Insctiptions styles/NewInsVs.css"
 
 
@@ -102,7 +101,7 @@ function NewInsvs ({connexionPopUP1}) {
                     }} />
                   {errors.password && <p className="err_message">{errors.password}</p>}
                   <div className="eye-one" onClick={TogglePass}>
-                    <FontAwesomeIcon icon={visible ? faEyeSlash : faEye} />
+                  {visible ? <FiEyeOff /> : <FiEye />}
                   </div>
                 </div>
               </form>

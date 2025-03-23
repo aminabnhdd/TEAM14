@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import arrRight from "../../assets/arrow-right-solid.svg";
 import { useState } from "react";
 
@@ -108,10 +108,10 @@ function NewInsEx ({connexionPopUp,fn}) {
                       e.target.style.outline = "none"; 
                     }}  
                   />
-                  <div className="eye-two" onClick={TogglePass}>
-                    <FontAwesomeIcon icon={visible ? faEyeSlash : faEye} />
-                  </div>
                   {errors.password && <p className="err_message">{errors.password}</p>}
+                  <div className="eye-one" onClick={TogglePass}>
+                  {visible ? <FiEyeOff /> : <FiEye />}
+                  </div>
                 </div>
               </form>
 

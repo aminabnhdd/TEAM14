@@ -113,17 +113,6 @@
     height: 74%;
 }
 
-
-
-.close-btn-two {
-    background: none;
-    border: none;
-    position: absolute;
-    top: 10px;
-    right: 16px;
-    cursor: pointer;
-}
-
 .close-btn-two img {
     width: 25px;
     height: 25px;
@@ -137,10 +126,10 @@
     width: 12px;
     height: 12px;
     position: absolute;
-    right: 4%;
-    bottom: 31%;
+    right: 5%;
+    bottom: 32%;
+    font-size: 16px;
     cursor: pointer;
-    font-size: 12px;
     filter: invert(41%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(95%) contrast(85%);
 }
 

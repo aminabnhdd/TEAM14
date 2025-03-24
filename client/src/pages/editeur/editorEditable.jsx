@@ -7,18 +7,16 @@ import SideNav from "../../components/SideNav";
 import "../../componentsStyles/editeur/editor.css"
 import DropDownButton from "../../components/editeur/dropdownButton";
 import SignalerConflit from "../../components/editeur/SignalerConflit";
-
+import GallerieEditable from "../../components/editeur/gallerieEditable";
 export default function EditorEditable() {
     const [editor, setEditor] = useState(null);
-    const [save,setSave] = useState(true);
     const [saved, setSaved] = useState(
-       ( localStorage.getItem("hasLoadedBefore")&& save) ? true  :false
-        );
+       ( localStorage.getItem("hasLoadedBefore")) && true );
       useEffect(() => {
         // Mark as loaded after first render
         localStorage.setItem("hasLoadedBefore", "true");
     }, []);
-    console.log('this is the saved:',saved)
+
     const user = {
         id: 1,
         nom: "Rahim",
@@ -171,6 +169,14 @@ export default function EditorEditable() {
         return () => resizeObserver.disconnect();
     }, []);
 
+    const [images,setImages] = useState([
+        { src: 'https://images.unsplash.com/photo-1682695796954-bad0d0f59ff1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+        { src: 'https://images.unsplash.com/photo-1682686581551-867e0b208bd1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },    { src: 'https://images.unsplash.com/photo-1682695796954-bad0d0f59ff1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+        { src: 'https://images.unsplash.com/photo-1682686581551-867e0b208bd1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },    { src: 'https://images.unsplash.com/photo-1682695796954-bad0d0f59ff1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+        { src: 'https://images.unsplash.com/photo-1682686581551-867e0b208bd1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+        // ... keep all your other slide objects
+      ]);
+
     return (
         <>
             <div className="flex max-w-full">
@@ -202,9 +208,11 @@ export default function EditorEditable() {
                                         />                                    </div>
                                     <TiptapEditable setEditor={setEditor} section={section.type} saved={saved} setSaved={setSaved} />
                                     <p className="buttons text-black mt-4 mb-4">Gallerie</p>
-                                    <div className="border border-neutral-400 rounded-[12px] p-4 h-[200px] text-neutral-500">Ajouter des illustrations</div>
+                                    <div className="border border-neutral-400 rounded-[12px] p-4 text-neutral-500">
+                                        <GallerieEditable slides={images} setSlides={setImages} section={section}/>
+                                    </div>
                                     <div className="flex justify-end w-full">
-                                        <SaveButton editor={editor} section={section} setSaved={setSave} />
+                                        <SaveButton editor={editor} section={section}  />
                                     </div>
                                 </div>
                                 {/* Right Section */}

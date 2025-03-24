@@ -125,7 +125,15 @@ export default function TiptapEditable({ setEditor,section,saved , setSaved })  
             types: ["heading", "paragraph"], // Enables alignment for headings & paragraphs
           }),
     ], 
-    content: saved ? JSON.parse(localStorage.getItem('editorContent')) : '<p>this is from database</p>',    onUpdate: ({ editor }) => {
+    content: saved ? JSON.parse(localStorage.getItem('editorContent')) : '<p>this is from database</p>',    
+    onCreate: ({ editor }) => {
+      // Save immediately when editor is created
+      const jsonContent = editor.getJSON();
+      localStorage.setItem('editorContent', JSON.stringify(jsonContent));
+      setSaved(false);
+    },
+    onUpdate: ({ editor }) => {
+      // Continue saving on updates
       const jsonContent = editor.getJSON();
       localStorage.setItem('editorContent', JSON.stringify(jsonContent));
       setSaved(false);

@@ -6,7 +6,7 @@ import SideNav from "../../components/SideNav";
 import "../../componentsStyles/editeur/editor.css";
 import DropDownButton from "../../components/editeur/dropdownButton";
 import SignalerConflit from "../../components/editeur/SignalerConflit";
-
+import Gallerie from '../../components/editeur/gallerie';
 window.scrollToAnnotation = function (annotationId) {
     console.log("scrollToAnnotation called with ID:", annotationId);
     const annotationCard = document.getElementById(`annotation-${annotationId}`);
@@ -150,6 +150,15 @@ export default function EditorNonEditable() {
         conflits: conflits,
     };
 
+    const [images,setImages] = useState([
+        { src: 'https://images.unsplash.com/photo-1682695796954-bad0d0f59ff1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+        { src: 'https://images.unsplash.com/photo-1682686581551-867e0b208bd1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },    { src: 'https://images.unsplash.com/photo-1682695796954-bad0d0f59ff1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+        { src: 'https://images.unsplash.com/photo-1682686581551-867e0b208bd1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },    { src: 'https://images.unsplash.com/photo-1682695796954-bad0d0f59ff1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+        { src: 'https://images.unsplash.com/photo-1682686581551-867e0b208bd1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+        // ... keep all your other slide objects
+      ]);
+
+
     const [annotVisible, setAnnotVisible] = useState(false);
     const [annotExist, setAnnotExist] = useState(false);
     const [conflitExist, setConflitExist] = useState(false);
@@ -208,6 +217,11 @@ export default function EditorNonEditable() {
                                         />
                                     </div>
                                     <TiptapNonEditable setEditor={setEditor} section={section} annotations={annotations} setAnnotations={setAnnotations} user={user} projet={projet} annotVisible={annotVisible} setAnnotVisible={setAnnotVisible} />
+                                    <p className="buttons text-black mt-4 mb-4">Gallerie</p>
+                                    <div className="border border-neutral-400 rounded-[12px] p-4 text-neutral-500">
+                                        <Gallerie  slides={images}  />
+                                    </div>
+
                                 </div>
                                 <div
                                     style={{ height: `${height}px` }} // Apply dynamic height

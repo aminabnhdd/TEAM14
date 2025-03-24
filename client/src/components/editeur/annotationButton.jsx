@@ -34,6 +34,10 @@ export default function AnnotationButton({ editor, annotations, setAnnotations,u
 
     // Close the popup
     setIsPopupOpen(false);
+
+    const json = editor.getJSON();
+    console.log(json,section);
+   //add to the database
   };
 
   return (

@@ -10,7 +10,15 @@ import SignalerConflit from "../../components/editeur/SignalerConflit";
 
 export default function EditorEditable() {
     const [editor, setEditor] = useState(null);
-
+    const [save,setSave] = useState(true);
+    const [saved, setSaved] = useState(
+       ( localStorage.getItem("hasLoadedBefore")&& save) ? true  :false
+        );
+      useEffect(() => {
+        // Mark as loaded after first render
+        localStorage.setItem("hasLoadedBefore", "true");
+    }, []);
+    console.log('this is the saved:',saved)
     const user = {
         id: 1,
         nom: "Rahim",
@@ -192,11 +200,11 @@ export default function EditorEditable() {
                                             section={section}
                                             user={user}
                                         />                                    </div>
-                                    <TiptapEditable setEditor={setEditor} section={section.type} />
+                                    <TiptapEditable setEditor={setEditor} section={section.type} saved={saved} setSaved={setSaved} />
                                     <p className="buttons text-black mt-4 mb-4">Gallerie</p>
                                     <div className="border border-neutral-400 rounded-[12px] p-4 h-[200px] text-neutral-500">Ajouter des illustrations</div>
                                     <div className="flex justify-end w-full">
-                                        <SaveButton editor={editor} section={section} />
+                                        <SaveButton editor={editor} section={section} setSaved={setSave} />
                                     </div>
                                 </div>
                                 {/* Right Section */}

@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import '../../componentsStyles/editeur/tiptap.css'
 import {BubbleMenu, EditorContent, useEditor } from "@tiptap/react";
 import Placeholder from '@tiptap/extension-placeholder'
@@ -24,7 +24,10 @@ import BubbleMenuLink from "./bubbleMenu/link/bubbleMenuLink";
 import BubbleMenuImage from "./bubbleMenu/image/bubbleMenuImage";
 import BubbleMenuVideo from "./bubbleMenu/video/bubbluMenuVideo";
 import AnnotationMark from "./nodes/annotationMark";
-export default function TiptapEditable({ setEditor,section })  {
+export default function TiptapEditable({ setEditor,section,saved , setSaved })  {
+  
+  
+
   const newLocal = `Éditer le contenu de la section ${section}...`;
   const editor = useEditor({
     editable: true,
@@ -122,10 +125,10 @@ export default function TiptapEditable({ setEditor,section })  {
             types: ["heading", "paragraph"], // Enables alignment for headings & paragraphs
           }),
     ], 
-    content: JSON.parse(localStorage.getItem('editorContent')) || '<p></p>',    onUpdate: ({ editor }) => {
-      // Save content to local storage whenever the editor updates
+    content: saved ? JSON.parse(localStorage.getItem('editorContent')) : '<p>this is from database</p>',    onUpdate: ({ editor }) => {
       const jsonContent = editor.getJSON();
       localStorage.setItem('editorContent', JSON.stringify(jsonContent));
+      setSaved(false);
     },
   });
 
@@ -134,9 +137,7 @@ export default function TiptapEditable({ setEditor,section })  {
       setEditor(editor);
     }
   }, [editor, setEditor]);
-
-  
-
+ 
   if (!editor) return null;
 
   return (

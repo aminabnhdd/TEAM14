@@ -207,7 +207,7 @@ export default function EditorNonEditable() {
                                             user={user}
                                         />
                                     </div>
-                                    <TiptapNonEditable setEditor={setEditor} section={section} annotations={annotations} setAnnotations={setAnnotations} user={user} projet={projet} setAnnotVisible={setAnnotVisible} />
+                                    <TiptapNonEditable setEditor={setEditor} section={section} annotations={annotations} setAnnotations={setAnnotations} user={user} projet={projet} annotVisible={annotVisible} setAnnotVisible={setAnnotVisible} />
                                 </div>
                                 <div
                                     style={{ height: `${height}px` }} // Apply dynamic height

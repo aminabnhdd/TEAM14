@@ -1,13 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 
-export default function SaveButton({editor,section}){
+export default function SaveButton({editor,section,setSaved}){
 
     const handleSave = ()=> {
         
     const json = editor.getJSON();
     console.log(json,section);
-  
+    setSaved(false)
+  //save to the database
     }
 
     return(

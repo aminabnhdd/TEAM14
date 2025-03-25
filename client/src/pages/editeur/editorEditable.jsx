@@ -180,6 +180,16 @@ export default function EditorEditable() {
         // ... keep all your other slide objects
       ]);
 
+      const refElement = references.map((ref) => (
+        <p
+          key={ref._id}
+          id={ref._id}
+          className=" cursor-pointer group main-text text-brown mb-1 transition-colors duration-200"
+        >
+          [{ref.number}] <span className="group-hover:underline "> {ref.text.substring(0, 25)}{ref.text.length > 25 ? "..." : ""} </span>
+        </p>))
+      
+
     return (
         <>
             <div className="flex max-w-full">
@@ -210,6 +220,7 @@ export default function EditorEditable() {
                                             user={user}
                                         />                                    </div>
                                     <TiptapEditable setEditor={setEditor} section={section.type} saved={saved} setSaved={setSaved} references={references} setReferences={setReferences} />
+                                    {refElement}
                                     <p className="buttons text-black mt-4 mb-4">Gallerie</p>
                                     <div className="border border-neutral-400 rounded-[12px] p-4 text-neutral-500">
                                         <GallerieEditable slides={images} setSlides={setImages} section={section}/>

@@ -2,7 +2,7 @@
 import { Node } from "@tiptap/core";
 
 export const ReferenceNode = Node.create({
-    
+
   name: "reference",
   inline: true,
   group: "inline",
@@ -10,38 +10,47 @@ export const ReferenceNode = Node.create({
 
   addAttributes() {
     return {
-      id: {
-        default: "",
+        id: {
+      default: "",
+      parseHTML: (element) => {
+        console.log("Parsing ID:", element.getAttribute("data-reference-id")); // Debugging
+        return element.getAttribute("data-reference-id") || "";
       },
+      renderHTML: (attributes) => {
+        console.log("Rendering ID:", attributes.id); // Debugging
+        return {
+          "data-reference-id": attributes.id,
+        };
+      },
+    },
       number: {
         default: 1,
       },
-      usageCount: {
-        default: 1, // Tracks how many times this reference is used
-      },
+
     };
   },
 
   parseHTML() {
+
     return [{
       tag: 'span[data-reference]',
       getAttrs: dom => ({
-        id: dom.getAttribute('data-reference-id'),
+        id: dom.getAttribute('data-reference-id')||'the problew is here',
         number: parseInt(dom.getAttribute('data-reference-number'), 10),
-        usageCount: parseInt(dom.getAttribute('data-usage-count'), 10) || 1,
-      }),
+       
+       }),
     }];
   },
 
   renderHTML({ HTMLAttributes }) {
-    return [
+     return [
       "span",
       {
         "data-reference": "",
         "data-reference-id": HTMLAttributes.id,
+        
         "data-reference-number": HTMLAttributes.number,
-        "data-usage-count": HTMLAttributes.usageCount,
-        "class": "reference",
+         "class": "reference",
       },
       `[${HTMLAttributes.number}]`,
     ];

@@ -19,28 +19,33 @@ export default function ReferencesButton({ editor, references, setReferences }) 
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const insertReferenceNode = (refId, refNumber, usageCount = 1) => {
+  const insertReferenceNode = (refId, refNumber) => {
+
     editor.chain().focus().insertContent({
       type: "reference",
       attrs: {
-        id: refId,
+        id:refId,
+ 
         number: refNumber,
-        usageCount: usageCount,
+  
       },
     }).run();
+  
     setShowPopup(false);
+
   };
 
   const handleInsertReference = (refId) => {
-    const refIndex = references.findIndex(ref => ref.id === refId);
+    const refIndex = references.findIndex(ref => ref._id === refId);
     if (refIndex === -1) return;
 
     const updatedReferences = [...references];
-    updatedReferences[refIndex].usageCount = (updatedReferences[refIndex].usageCount || 0) + 1;
+
     
     setReferences(updatedReferences);
     setShowPopup(false);
-    insertReferenceNode(refId, refIndex + 1, updatedReferences[refIndex].usageCount);
+   insertReferenceNode(references[refIndex]._id,references[refIndex]._number)
+ 
 
   };
 
@@ -55,10 +60,10 @@ export default function ReferencesButton({ editor, references, setReferences }) 
     if (referenceParts.length === 0) return;
 
     const newRef = {
-      id: `ref-${Date.now()}`,
+      _id: `ref-${Date.now()}`,
       text: referenceParts.join(", "), // Combine non-empty fields with commas
       number: references.length + 1,
-      usageCount: 1,
+      
     };
 
     setReferences([...references, newRef]);
@@ -71,7 +76,7 @@ export default function ReferencesButton({ editor, references, setReferences }) 
     
     setShowPopup(false); 
 
-    insertReferenceNode(newRef.id, newRef.number, newRef.usageCount);
+    insertReferenceNode(newRef._id, newRef.number);
     
    
   };
@@ -110,9 +115,9 @@ export default function ReferencesButton({ editor, references, setReferences }) 
                 ) : (
                   references.map((ref) => (
                     <div
-                      key={ref.id}
-                      className="p-3 hover:bg-neutral-100 rounded-lg cursor-pointer text-md flex justify-between items-center mb-1 transition-colors duration-200"
-                      onClick={() => handleInsertReference(ref.id)}
+                      key={ref._id}
+                      className="p-3  hover:bg-neutral-100 rounded-lg cursor-pointer text-md flex justify-between items-center mb-1 transition-colors duration-200"
+                      onClick={() => handleInsertReference(ref._id)}
                     >
                       <span className="font-medium">[{ref.number}] {ref.text.substring(0, 25)}{ref.text.length > 25 ? "..." : ""}</span>
                     </div>

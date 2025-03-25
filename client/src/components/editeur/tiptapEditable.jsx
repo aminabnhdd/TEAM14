@@ -170,7 +170,7 @@ export default function TiptapEditable({ setEditor,section,saved , setSaved ,ref
       <BubbleMenuImage editor={editor}  />
       <BubbleMenuVideo editor={editor}  />
 
-      <EditorContent className="p-4 max-h-[400px] break-words whitespace-pre-wrap  overflow-y-auto text-black w-full " editor={editor} />
+      <EditorContent className="p-4 main-text max-h-[400px] break-words whitespace-pre-wrap  overflow-y-auto text-black w-full " editor={editor} />
     </div>
     </>
   );

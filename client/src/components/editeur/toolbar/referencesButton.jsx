@@ -44,7 +44,7 @@ export default function ReferencesButton({ editor, references, setReferences }) 
     
     setReferences(updatedReferences);
     setShowPopup(false);
-   insertReferenceNode(references[refIndex]._id,references[refIndex]._number)
+   insertReferenceNode(references[refIndex]._id,references[refIndex].number)
  
 
   };
@@ -60,7 +60,7 @@ export default function ReferencesButton({ editor, references, setReferences }) 
     if (referenceParts.length === 0) return;
 
     const newRef = {
-      _id: `ref-${Date.now()}`,
+      _id: `ref_${Date.now()}`,
       text: referenceParts.join(", "), // Combine non-empty fields with commas
       number: references.length + 1,
       

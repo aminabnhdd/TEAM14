@@ -17,7 +17,7 @@ window.scrollToAnnotation = function (annotationId) {
         annotationCard.style.transition = "border 0.3s ease";
         setTimeout(() => {
             annotationCard.style.border = "1px solid #e5e5e5";
-        }, 3000);
+        }, 2000);
    
     } else {
         console.log("Annotation card not found for ID:", annotationId);
@@ -190,6 +190,99 @@ export default function EditorNonEditable() {
         return () => resizeObserver.disconnect();
     }, []);
 
+
+    
+    const [references, setReferences] = useState ([]);
+const newReferences = references.filter((ref) => {
+    return (!!document.querySelector(`[data-reference-id="${ref._id}"]`))
+  });
+  
+  const filteredReferences = newReferences.map((ref, index) => ({
+      ...ref,                // Spread all existing properties
+      number: index + 1      // Override the number with position
+    }));
+  
+    const updateReferenceNumbers = () => {
+      if (!editor) return;
+    
+      filteredReferences.forEach(ref => {
+        editor.chain()
+          .focus()
+          .command(({ tr }) => {
+            let updated = false;
+            
+            tr.doc.descendants((node, pos) => {
+              if (node.type?.name === "reference" && 
+                  node.attrs?.id === ref._id) {
+                
+                // Create new text node with updated number
+                const textNode = editor.schema.text(`[${ref.number}]`);
+                
+                // Create new reference node with updated attributes and content
+                const newNode = editor.schema.nodes.reference.create(
+                  { ...node.attrs, number: ref.number },
+                  textNode
+                );
+                
+                // Replace the entire node
+                tr.replaceWith(pos, pos + node.nodeSize, newNode);
+                
+                updated = true;
+              }
+            });
+            
+            return updated;
+          })
+          .run();
+      });
+    };
+  const refElement = filteredReferences.map((ref) => (
+    <div 
+      id={ref._id}
+      key={ref._id}
+    
+      className=" group ml-2  text-brown  transition-colors duration-200"
+    >
+      [{ref.number}] <span >
+        {ref.text.substring(0, 25)}{ref.text.length > 25 ? "..." : ""}
+      </span>
+    </div>
+  ));
+  
+  // Call this whenever references change
+  useEffect(() => {
+    updateReferenceNumbers();
+  }, [references]);
+  
+  
+  
+  
+  
+  
+  
+   //////////////////////////
+    
+   window.scrollToReference = function(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'center'
+        });
+        element.style.color = "#2d2d2d";
+  element.style.textDecoration = "underline"; // Corrected property
+  element.style.transition = "color 0.3s ease";
+  
+  setTimeout(() => {
+  
+      element.style.color = " #c57642"; 
+      element.style.textDecoration = "none"; // Remove underline after 2 seconds
+  }, 2000);
+  
+      }
+    };
+  
+    
     return (
         <>
             <div className="flex max-w-full">
@@ -217,6 +310,8 @@ export default function EditorNonEditable() {
                                         />
                                     </div>
                                     <TiptapNonEditable setEditor={setEditor} section={section} annotations={annotations} setAnnotations={setAnnotations} user={user} projet={projet} annotVisible={annotVisible} setAnnotVisible={setAnnotVisible} references={references} setReferences={setReferences} />
+                                    { filteredReferences.length>0 && <p className="buttons text-black mt-4 mb-1">Références</p>}
+                                    {filteredReferences.length>0 && refElement}
                                     <p className="buttons text-black mt-4 mb-4">Gallerie</p>
                                     <div className="border border-neutral-400 rounded-[12px] p-4 text-neutral-500">
                                         <Gallerie  slides={images}  />

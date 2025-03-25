@@ -180,15 +180,100 @@ export default function EditorEditable() {
         // ... keep all your other slide objects
       ]);
 
-      const refElement = references.map((ref) => (
-        <p
-          key={ref._id}
-          id={ref._id}
-          className=" cursor-pointer group main-text text-brown mb-1 transition-colors duration-200"
-        >
-          [{ref.number}] <span className="group-hover:underline "> {ref.text.substring(0, 25)}{ref.text.length > 25 ? "..." : ""} </span>
-        </p>))
-      
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+
+
+const newReferences = references.filter((ref) => {
+  return (!!document.querySelector(`[data-reference-id="${ref._id}"]`))
+});
+
+const filteredReferences = newReferences.map((ref, index) => ({
+    ...ref,                // Spread all existing properties
+    number: index + 1      // Override the number with position
+  }));
+
+  const updateReferenceNumbers = () => {
+    if (!editor) return;
+  
+    filteredReferences.forEach(ref => {
+      editor.chain()
+        .focus()
+        .command(({ tr }) => {
+          let updated = false;
+          
+          tr.doc.descendants((node, pos) => {
+            if (node.type?.name === "reference" && 
+                node.attrs?.id === ref._id) {
+              
+              // Create new text node with updated number
+              const textNode = editor.schema.text(`[${ref.number}]`);
+              
+              // Create new reference node with updated attributes and content
+              const newNode = editor.schema.nodes.reference.create(
+                { ...node.attrs, number: ref.number },
+                textNode
+              );
+              
+              // Replace the entire node
+              tr.replaceWith(pos, pos + node.nodeSize, newNode);
+              
+              updated = true;
+            }
+          });
+          
+          return updated;
+        })
+        .run();
+    });
+  };
+const refElement = filteredReferences.map((ref) => (
+  <div 
+    id={ref._id}
+    key={ref._id}
+  
+    className=" group ml-2  text-brown  transition-colors duration-200"
+  >
+    [{ref.number}] <span >
+      {ref.text.substring(0, 25)}{ref.text.length > 25 ? "..." : ""}
+    </span>
+  </div>
+));
+
+// Call this whenever references change
+useEffect(() => {
+  updateReferenceNumbers();
+}, [references]);
+
+
+
+
+
+
+
+ //////////////////////////
+  
+ window.scrollToReference = function(id) {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      });
+      element.style.color = "#2d2d2d";
+element.style.textDecoration = "underline"; // Corrected property
+element.style.transition = "color 0.3s ease";
+
+setTimeout(() => {
+
+    element.style.color = " #c57642"; 
+    element.style.textDecoration = "none"; // Remove underline after 2 seconds
+}, 2000);
+
+    }
+  };
+  
+/////////////////     
 
     return (
         <>
@@ -220,7 +305,8 @@ export default function EditorEditable() {
                                             user={user}
                                         />                                    </div>
                                     <TiptapEditable setEditor={setEditor} section={section.type} saved={saved} setSaved={setSaved} references={references} setReferences={setReferences} />
-                                    {refElement}
+                                   { filteredReferences.length>0 && <p className="buttons text-black mt-4 mb-1">Références</p>}
+                                    {filteredReferences.length>0 && refElement}
                                     <p className="buttons text-black mt-4 mb-4">Gallerie</p>
                                     <div className="border border-neutral-400 rounded-[12px] p-4 text-neutral-500">
                                         <GallerieEditable slides={images} setSlides={setImages} section={section}/>

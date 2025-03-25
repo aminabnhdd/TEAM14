@@ -138,6 +138,9 @@ export default function EditorEditable() {
         conflits: conflits,
     };
 
+        const [references, setReferences] = useState ([]);
+    
+
     const [annotVisible, setAnnotVisible] = useState(false);
     const [annotExist, setAnnotExist] = useState(false);
     const [conflitExist, setConflitExist] = useState(false);
@@ -182,7 +185,7 @@ export default function EditorEditable() {
             <div className="flex max-w-full">
                 <SideNav className="" />
                 <div className="flex-1 w-full bg-white main-content">
-                    <div className="h-[106px] px-10 py-5 w-full flex items-center justify-center bg-white sticky top-0 z-10">
+                    <div className="h-[106px] px-10 py-5 w-full flex items-center justify-center bg-white sticky top-0 z-2000">
                         <div className="bg-neutral-200 w-full h-full flex items-center pl-4"> Recherchere un projet</div>
                     </div>
                     <main className=" ">
@@ -206,7 +209,7 @@ export default function EditorEditable() {
                                             section={section}
                                             user={user}
                                         />                                    </div>
-                                    <TiptapEditable setEditor={setEditor} section={section.type} saved={saved} setSaved={setSaved} />
+                                    <TiptapEditable setEditor={setEditor} section={section.type} saved={saved} setSaved={setSaved} references={references} setReferences={setReferences} />
                                     <p className="buttons text-black mt-4 mb-4">Gallerie</p>
                                     <div className="border border-neutral-400 rounded-[12px] p-4 text-neutral-500">
                                         <GallerieEditable slides={images} setSlides={setImages} section={section}/>

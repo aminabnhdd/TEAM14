@@ -216,7 +216,7 @@ export default function EditorNonEditable() {
                                             user={user}
                                         />
                                     </div>
-                                    <TiptapNonEditable setEditor={setEditor} section={section} annotations={annotations} setAnnotations={setAnnotations} user={user} projet={projet} annotVisible={annotVisible} setAnnotVisible={setAnnotVisible} />
+                                    <TiptapNonEditable setEditor={setEditor} section={section} annotations={annotations} setAnnotations={setAnnotations} user={user} projet={projet} annotVisible={annotVisible} setAnnotVisible={setAnnotVisible} references={references} setReferences={setReferences} />
                                     <p className="buttons text-black mt-4 mb-4">Gallerie</p>
                                     <div className="border border-neutral-400 rounded-[12px] p-4 text-neutral-500">
                                         <Gallerie  slides={images}  />

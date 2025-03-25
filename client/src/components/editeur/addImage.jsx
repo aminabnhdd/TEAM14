@@ -1,13 +1,53 @@
-import "../../componentsStyles/editeur/gallerie.css"
- 
-export default function AddImage({images,setImages,section}){
+import { useRef } from "react";
+import "../../componentsStyles/editeur/gallerie.css";
 
-    return (
-        <>      
-        <div className="border-add-image gallerie-image border border-neutral-400 border-dashed">
- 
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M18 20H4V6h9V4H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-9h-2v9zm-7.79-3.17l-1.96-2.36L5.5 18h11l-3.54-4.71zM20 4V1h-2v3h-3c.01.01 0 2 0 2h3v2.99c.01.01 2 0 2 0V6h3V4h-3z"/></svg>
+export default function AddImage({ images, setImages, section }) {
+  const inputRef = useRef(null);
+
+  const handleFileChange = (e) => {
+    const files = e.target.files;
+    if (files.length > 0) {
+      // Convert FileList to array and create URLs
+      Array.from(files).forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          // Add new image to the state
+          setImages(prev => [...prev, {
+            src: e.target.result,
+    
+          }]);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+    // Reset input to allow selecting same files again
+    e.target.value = null;
+  };
+
+  return (
+    <>
+      <div 
+        className="text-center flex flex-col items-center justify-center border-add-image gallerie-image border border-neutral-400 border-dashed cursor-pointer"
+        onClick={() => inputRef.current.click()}
+      >
+        <div className="bg-neutral-200 inline-block p-2 rounded-[100px]">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#707778">
+            <path d="M0 0h24v24H0V0z" fill="none"/>
+            <path d="M18 20H4V6h9V4H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-9h-2v9zm-7.79-3.17l-1.96-2.36L5.5 18h11l-3.54-4.71zM20 4V1h-2v3h-3c.01.01 0 2 0 2h3v2.99c.01.01 2 0 2 0V6h3V4h-3z"/>
+          </svg>
         </div>
-        </>
-    )
+        <p className="px-3 pt-1">Ajouter des images</p>
+      </div>
+
+      {/* Hidden file input */}
+      <input
+        type="file"
+        ref={inputRef}
+        style={{ display: 'none' }}
+        accept="image/*"
+        multiple
+        onChange={handleFileChange}
+      />
+    </>
+  );
 }

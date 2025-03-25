@@ -28,6 +28,7 @@ const Gallerie = ({slides}) => {
             className="gallerie-image"
             onClick={() => setIndex(index)}
           > 
+         
             <img 
               src={slide.src} 
               alt={`Image ${index + 1}`}
@@ -44,7 +45,7 @@ const Gallerie = ({slides}) => {
 
         plugins={[Captions, Download, Fullscreen, Zoom, Thumbnails]}
         captions={{
-          showToggle: true,
+ 
           descriptionTextAlign: 'center',
           description: ({ index }) => `${index + 1} / ${slides.length}`
         }}

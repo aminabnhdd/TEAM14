@@ -16,7 +16,7 @@ import UndoButton from "./undoButton";
 import RedoButton from "./redoButton.jsx";
 import AlignmentDropdown from "./alignementDropdown.jsx";
 import InsertVideoButton from "./insertVideoButton.jsx";
-import AnnotationButton from "../annotationButton.jsx";
+import ReferencesButton from "./referencesButton.jsx";
 export default function Toolbar(props){
 
     return(
@@ -46,6 +46,8 @@ export default function Toolbar(props){
     <div className="inline-flex px-2 border-r">
       <Tooltip element={<BlockQuoteButton editor={props.editor} />} text="Citation" />
       <Tooltip element={<LinkButton editor={props.editor} />} text="Lien" />
+      <Tooltip element={<ReferencesButton editor={props.editor} references={props.references} setReferences={props.setReferences} />} text="Références" />
+
     </div>
 
     <div className="inline-flex px-2 border-r">

@@ -2,8 +2,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import arrRight from "../../assets/arrow-right-solid.svg";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function NewInsEx ({connexionPopUp,fn}) {
+function NewInsEx ({fn}) {
+  const navigate = useNavigate() ;
+
+  const goToConnexion = () => {
+    navigate("/Con");
+  }
+  
+
     const [visible, setVisible] = useState(false);
       const [typo, setTypo] = useState("password");
       const [formData, setFormData] = useState({
@@ -55,7 +63,7 @@ function NewInsEx ({connexionPopUp,fn}) {
                 <p className="athar-two">ATHAR</p>
                 <p className="compte-two">
                   Vous avez déjà un compte ? {" "}
-                  <span className="connexion-two" onClick={connexionPopUp}>Connectez vous.</span>
+                  <span className="connexion-two" onClick={goToConnexion}>Connectez vous.</span>
                 </p>
               </div>
 

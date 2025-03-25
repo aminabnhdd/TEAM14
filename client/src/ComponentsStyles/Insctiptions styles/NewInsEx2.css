@@ -41,6 +41,28 @@
     outline: none;
     transition: border-color 0.3s;
 }
+.input-three-select , .input-error-select {
+    display: flex;
+    padding: 0 5px;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid var(--NEUTRAL-400, #A0A5A6);
+    background: var(--white, #FEFEFE);
+    width:100%;
+    color: rgba(85, 85, 94, 0.70);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    height: 32px;
+    outline: none;
+    
+}
+
+.input-error-select {
+    border: 1.5px solid #EF4444 !important;
+    outline: none !important;
+}
 
 .input-three:focus {
     border-color: #E8C07D;

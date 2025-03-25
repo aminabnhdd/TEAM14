@@ -4,8 +4,15 @@ import { useRef, useState } from "react";
 import axios from "axios";
 import Demande from "../popUps/Demande";
 import "../../ComponentsStyles/Insctiptions styles/NewInsEx3.css";
+import { useNavigate } from "react-router-dom";
 
-function NewInsEx3({ prevPopUp2, connexionPopUp }) {
+function NewInsEx3({ prevPopUp2 }) {
+  const navigate = useNavigate() ;
+
+  const goToConnexion = () => {
+    navigate("/Con");
+  }
+  
     const fileInputRef = useRef(null);
     const [files, setFiles] = useState([]);
     const [popDem, setPopDem] = useState(false);
@@ -69,7 +76,7 @@ function NewInsEx3({ prevPopUp2, connexionPopUp }) {
                 <p className="athar-four">ATHAR</p>
                 <p className="compte-four">
                     Vous avez déjà un compte ?
-                    <span className="connexion-four" onClick={connexionPopUp}> Connectez vous.</span>
+                    <span className="connexion-four" onClick={goToConnexion}> Connectez vous.</span>
                 </p>
             </div>
             <div className="documents-four">

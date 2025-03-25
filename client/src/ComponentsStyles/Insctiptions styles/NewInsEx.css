@@ -7,7 +7,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 3.5%;
+    gap: 16px;
     border-radius: 27px;
     border: 1px solid var(--NEUTRAL-400, #A0A5A6);
     background: var(--white, #FEFEFE);
@@ -108,9 +108,9 @@
 .info-two {
     display: flex;
     flex-direction: column;
-    gap: 1.5%;
+    gap: 2px;
     width: 81%;
-    height: 74%;
+    height: 306px;
 }
 
 .close-btn-two img {

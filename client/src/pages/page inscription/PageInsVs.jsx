@@ -4,7 +4,11 @@ import "../../PagesStyles/Pages inscriptions styles/InsVs.css";
 
 import NewInsvs from "../../components/Inscriptions/NewInsvs";
 
+
 function InsVs() {
+  
+
+
   return (
     <div className="main-page-one">
       <div className="back-home">

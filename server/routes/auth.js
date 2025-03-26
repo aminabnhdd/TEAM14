@@ -3,6 +3,8 @@ const router = express.Router();
 const {userModel,expertModel} = require('../model/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const cloudinary = require('../config/cloudinary');
+const upload = require('../middlewares/multerMiddleware');
 
 const AdminRole = process.env.ADMIN_ROLE;
 const ExpertRole = process.env.EXPERT_ROLE;
@@ -10,42 +12,62 @@ const ExpertRole = process.env.EXPERT_ROLE;
 
 
 router.post('/signup/visitor',async (req,res)=>{
-    const {nom,prenom,email,password} = req.body;
+    try {
+        const {nom,prenom,email,password} = req.body;
 
 
-    const foundUser = await userModel.findOne({email:email});
+        const foundUser = await userModel.findOne({email:email});
+        if (foundUser) return res.json({error:'email already taken'});
 
-    if (foundUser) return res.json({error:'email already taken'});
+        const hashedpwd = await bcrypt.hash(password,10);
 
- 
-    const hashedpwd = await bcrypt.hash(password,10);
+        const user = await userModel.create({nom:nom,prenom:prenom,email:email,password:hashedpwd});
 
+        res.status(201).json('account successfully created ! waiting for admin validation');
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
 
-
-    const user = await userModel.create({nom:nom,prenom:prenom,email:email,password:hashedpwd});
-
-    res.json('account successfully created waiting for admin validation');
+    
+    
 
 });
 
-router.post('/signup/expert',async (req,res)=>{
-    const {nom,prenom,discipline,labo,etablissement,niveau,email,password} = req.body;
+router.post('/signup/expert', upload.single('image'), async (req, res) => {
+    try {
+        const { nom, prenom, discipline, labo, etablissement, niveau, email, password } = req.body;
 
+        const foundUser = await userModel.findOne({ email });
+        if (foundUser) return res.status(400).json({ error: 'Email already taken' });
 
-    const foundUser = await userModel.findOne({email:email});
+        const hashedPwd = await bcrypt.hash(password, 10);
 
-    if (foundUser) return res.json({error:'email already taken'});
+        const result = await cloudinary.uploader.upload(req.file.path);
 
- 
-    const hashedpwd = await bcrypt.hash(password,10);
+        const user = await expertModel.create({
+            nom,
+            prenom,
+            role: ExpertRole,
+            discipline,
+            labo,
+            etablissement,
+            niveau,
+            email,
+            password: hashedPwd,
+            fileUrl: result.secure_url 
+        });
 
+        res.status(201).json({ 
+            success: true, 
+            message: "Account successfully created! Waiting for admin validation",
+            user
+        });
 
-
-    const user = await expertModel.create({nom:nom,prenom:prenom,role:ExpertRole,discipline:discipline,labo:labo,etablissement:etablissement,niveau:niveau,email:email,password:hashedpwd});
-
-    res.json('account successfully created waiting for admin validation');
-
-
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Server error" });
+    }
 });
 
 router.post('/login',async (req,res)=>{
@@ -63,8 +85,8 @@ router.post('/login',async (req,res)=>{
     if (!user.userValide) return res.status(403).json({err:"account not validated yet"});
 
     
-    const accessToken = jwt.sign({nom:user.nom,prenom:user.prenom,email:user.email,role:user.role},process.env.ACCESS_TOKEN_SECRET,{expiresIn:'900s'});
-    const refreshToken = jwt.sign({nom:user.nom,prenom:user.prenom,email:user.email,role:user.role},process.env.REFRESH_TOKEN_SECRET,{expiresIn:'1d'});
+    const accessToken = jwt.sign({nom:user.nom,prenom:user.prenom,id:user._id,email:user.email,role:user.role},process.env.ACCESS_TOKEN_SECRET,{expiresIn:'900s'});
+    const refreshToken = jwt.sign({nom:user.nom,prenom:user.prenom,id:user._id,email:user.email,role:user.role},process.env.REFRESH_TOKEN_SECRET,{expiresIn:'1d'});
 
     user.refreshToken = refreshToken;
     await user.save();
@@ -86,3 +108,9 @@ router.post('/password/forgotten',async (req,res)=>{
 });
 
 module.exports = router;
+
+
+
+
+
+

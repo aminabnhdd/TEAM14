@@ -5,7 +5,7 @@ import Annotations from "../../components/editeur/annotations";
 import SideNav from "../../components/SideNav";
 import "../../componentsStyles/editeur/editor.css";
 import DropDownButton from "../../components/editeur/dropdownButton";
-import SignalerConflit from "../../components/editeur/SignalerConflit";
+import SignalerConflit from "../../components/editeur/signalerConflit";
 
 window.scrollToAnnotation = function (annotationId) {
     console.log("scrollToAnnotation called with ID:", annotationId);
@@ -45,7 +45,6 @@ export default function EditorNonEditable() {
         niveau: "",
         projets: [],
         fileUrl: "",
-        role: "historien",
         favorites: [],
     };
 
@@ -65,7 +64,6 @@ export default function EditorNonEditable() {
         niveau: "",
         projets: [],
         fileUrl: "",
-        role: "historien",
         favorites: [],
     };
 

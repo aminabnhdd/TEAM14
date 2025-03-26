@@ -44,7 +44,7 @@ export default function AnnotationButton({ editor, annotations, setAnnotations,u
     <>
       <button
         onClick={() => setIsPopupOpen(true)} // Open the popup when clicked
-        className="main-text text-brown border border-neutral-300 px-5 py-3 flex gap-2 rounded-[36px] items-center justify-center cursor-pointer hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer"
+        className="main-text text-brown border border-neutral-300 px-5 py-3 flex gap-2 rounded-[36px] items-center justify-center hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer"
       >
         <img className="w-4 h-4" src={annoterIcon} alt="Annotation Icon" />
         Ajouter une annotation

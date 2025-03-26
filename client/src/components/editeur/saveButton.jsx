@@ -1,14 +1,20 @@
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import SectionService from "../../services/sectionService";
 
 export default function SaveButton({editor,section,setSaved}){
-
-    const handleSave = ()=> {
-        
-    const json = editor.getJSON();
-    console.log(json,section);
-    setSaved(false)
-  //save to the database
+        const handleSave = async () => {
+    
+            const jsonContent = editor.getJSON();
+    console.log('this is the jsonContent:',jsonContent);
+            try {
+                await SectionService.updateSection(section._id, jsonContent);
+                setSaved(false);
+                console.log("Section saved successfully!");
+            } catch (error) {
+                console.error("Error saving section:", error);
+            }
     }
 
     return(

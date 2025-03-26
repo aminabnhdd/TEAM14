@@ -8,7 +8,7 @@ function App() {
     <Router>
       <Routes>
         {/* Route for the editable editor */}
-        <Route path="/editable" element={<EditorEditable  />} />
+        <Route path="/editeur/editable/67cde422d70a4df898a9a9d8" element={<EditorEditable  />} />
 
         {/* Route for annotatins */}
         <Route path="/non-editable" element={<EditorNonEditable />} />

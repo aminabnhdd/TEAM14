@@ -7,8 +7,10 @@ export default function DeleteGallerie ({ slides, setSlides, index }) {
     e.stopPropagation();  // Prevent triggering the lightbox
     const newSlides = slides.filter((_, i) => i !== index);
     setSlides(newSlides);
-    
+
   };
+
+   
 
   return (
     <FontAwesomeIcon 

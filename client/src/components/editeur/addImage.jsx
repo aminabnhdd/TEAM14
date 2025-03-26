@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef,useEffect} from "react";
 import "../../componentsStyles/editeur/gallerie.css";
 
 export default function AddImage({ images, setImages, section }) {
@@ -11,11 +11,15 @@ export default function AddImage({ images, setImages, section }) {
         src: URL.createObjectURL(file), // Generates a temporary URL instead of Base64
       }));
 
-      setImages((prev) => [...prev, ...newImages]); // Add new images to state
+      setImages((prev) => [...prev, ...newImages]); // Add new images to 
+      
+     
     }
     
     e.target.value = null; // Reset input so same files can be selected again
-  };
+   };
+
+
 
 
   return (

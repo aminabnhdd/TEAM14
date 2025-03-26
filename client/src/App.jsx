@@ -1,17 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import EditorEditable from './pages/editeur/editorEditable.jsx';
 import EditorNonEditable from './pages/editeur/editorNonEditable.jsx';
-import Gallerie from './components/editeur/gallerie.jsx';
+import Visualisation from './pages/visualisation/visualisation.jsx';
+
+
 function App() {
 
   return (
     <Router>
       <Routes>
-        {/* Route for the editable editor */}
         <Route path="/editable" element={<EditorEditable  />} />
-<Route path="/gallerie" element={<Gallerie/>}/>
-        {/* Route for annotatins */}
         <Route path="/non-editable" element={<EditorNonEditable />} />
+        <Route path="/visualisation" element={<Visualisation />} />
 
       </Routes>
     </Router>

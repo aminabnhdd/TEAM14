@@ -7,7 +7,7 @@ import Tooltip from "../editeur/tooltip"
 export default function TitleBar (props){
     return (
         <div className="bg-dune text-black rounded-[8px] px-5 py-[10px] big-remark  flex align-items items-center justify-between">
-        <p> Titre de la ressource </p>
+        <p> {props.projet.titre} </p>
         {props.isExpert && 
             <div className=" flex align-items items-center gap-2">
             <Tooltip element={<SaveExtern/>} text='Sauvegarder en externe' />

@@ -7,22 +7,16 @@ export default function AddImage({ images, setImages, section }) {
   const handleFileChange = (e) => {
     const files = e.target.files;
     if (files.length > 0) {
-      // Convert FileList to array and create URLs
-      Array.from(files).forEach((file) => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          // Add new image to the state
-          setImages(prev => [...prev, {
-            src: e.target.result,
-    
-          }]);
-        };
-        reader.readAsDataURL(file);
-      });
+      const newImages = Array.from(files).map((file) => ({
+        src: URL.createObjectURL(file), // Generates a temporary URL instead of Base64
+      }));
+
+      setImages((prev) => [...prev, ...newImages]); // Add new images to state
     }
-    // Reset input to allow selecting same files again
-    e.target.value = null;
+    
+    e.target.value = null; // Reset input so same files can be selected again
   };
+
 
   return (
     <>

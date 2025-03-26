@@ -6,36 +6,42 @@ import { useState, useEffect} from "react"
 
 
 export default function Visualisation(){
-    const [isExpert, setIsExpert] = useState(null);
-    const [isAdmin, setIsAdmin] = useState(null);
-    const [isCollaborateur, setIsCollaborateur] = useState(null);
+    // const [isExpert, setIsExpert] = useState(null);
+    // const [isAdmin, setIsAdmin] = useState(null);
+    // const [isCollaborateur, setIsCollaborateur] = useState(null);
+    // const [isChef, setIsChef] = useState(null);
+    // const [discipline,setDiscipline]=useState(null);
+    // const [projet,setProjet] = useState(null);
+
+
+    const [isExpert, setIsExpert] = useState(true);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [isCollaborateur, setIsCollaborateur] = useState(true);
+    const [isChef, setIsChef] = useState(true);
     const [discipline,setDiscipline]=useState(null);
-    const [projet,setProjet] = useState(null);
+    const [projet,setProjet] = useState(({
+        titre: "This is the title",
+        type: "This is le type de la ressource",
+        latitude: "44",
+        longtitude: "33",
+        localisation: 'algeria',
+        style: "style de la ressource",
+        photoUrl: "",
+        dateConstruction: "this is the date de construction", // No default date
+        chef: null, // No default assigned expert
+        collaborateurs: [], // Empty array for collaborators
+        demandes: [], // Empty array for requests
+        sections: [], // Empty array for sections
+        archivePar: null, // No default archived user
+        archive: false, // Assuming projects are not archived by default
+        keywords: [], // Empty keywords list
+        createdAt: new Date(), // Default timestamp
+        updatedAt: new Date(), // Default timestamp
+    }));
 
 
-    useEffect(() => {
-        setIsExpert(true);
-        setProjet({
-            titre: "",
-            type: "",
-            latitude: "",
-            longtitude: "",
-            localisation: "",
-            style: "",
-            photoUrl: "",
-            dateConstruction: null, // No default date
-            chef: null, // No default assigned expert
-            collaborateurs: [], // Empty array for collaborators
-            demandes: [], // Empty array for requests
-            sections: [], // Empty array for sections
-            archivePar: null, // No default archived user
-            archive: false, // Assuming projects are not archived by default
-            keywords: [], // Empty keywords list
-            createdAt: new Date(), // Default timestamp
-            updatedAt: new Date(), // Default timestamp
-        })
-    }, []);
 
+ 
     return(
         <>
         <div className="flex max-w-full">
@@ -46,10 +52,10 @@ export default function Visualisation(){
                 </div>
                 <main className=" ">
                     <div className="mt-5 bg w-[86%] mx-auto mb-10 ">
-                        <TitleBar isExpert={isExpert} />
-                        <div className="flex align-items items-center justify-between  mt-[30px]">
+                        <TitleBar isExpert={isExpert} projet={projet} />
+                        <div className="flex align-items  justify-between  mt-[30px]">
                             <LeftSection/>
-                            <RightSection/>
+                            <RightSection projet={projet} isAdmin={isAdmin} isExpert={isExpert} isChef={isChef} setProjet={setProjet} />
                         </div>
                     </div>
                   

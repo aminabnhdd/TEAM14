@@ -88,13 +88,13 @@ export default function AlignmentDropdown({ editor }) {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute z-10 bg-white border border-neutral-400 rounded-md shadow-lg">
+        <div className="absolute z-1002 bg-white border border-neutral-400 rounded-md shadow-lg cursor-pointer">
           <div className="flex flex-col">
             {alignments.map((alignment) => (
               <button
                 key={alignment.value}
                 onClick={() => handleAlignmentChange(alignment)}
-                className="mx-1 px-3 my-1 rounded-md hover:bg-neutral-200"
+                 className="mx-1 px-3 my-1 rounded-md hover:bg-neutral-200 cursor-pointer"
               >
                 <FontAwesomeIcon
                   icon={alignment.icon}

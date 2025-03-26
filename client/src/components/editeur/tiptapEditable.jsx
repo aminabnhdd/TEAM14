@@ -24,8 +24,13 @@ import BubbleMenuLink from "./bubbleMenu/link/bubbleMenuLink";
 import BubbleMenuImage from "./bubbleMenu/image/bubbleMenuImage";
 import BubbleMenuVideo from "./bubbleMenu/video/bubbluMenuVideo";
 import AnnotationMark from "./nodes/annotationMark";
-export default function TiptapEditable({ setEditor,section,saved , setSaved })  {
-  
+import { ReferenceNode } from "./nodes/referencesNode"; 
+
+
+
+
+export default function TiptapEditable({ setEditor,section,saved , setSaved ,references,setReferences})  {
+
   
 
   const newLocal = `Éditer le contenu de la section ${section}...`;
@@ -61,6 +66,7 @@ export default function TiptapEditable({ setEditor,section,saved , setSaved })  
       TableHeader,
       TableCell,
       AnnotationMark,
+      ReferenceNode,
         Link.configure({
           openOnClick: false,
           autolink:false,
@@ -125,7 +131,7 @@ export default function TiptapEditable({ setEditor,section,saved , setSaved })  
             types: ["heading", "paragraph"], // Enables alignment for headings & paragraphs
           }),
     ], 
-    content: saved ? JSON.parse(localStorage.getItem('editorContent')) : '<p>this is from database</p>', 
+    content: saved ? JSON.parse(localStorage.getItem('editorContent')) : '<p>this is from database</p>',    
     onCreate: ({ editor }) => {
       // Save immediately when editor is created
       const jsonContent = editor.getJSON();
@@ -145,6 +151,8 @@ export default function TiptapEditable({ setEditor,section,saved , setSaved })  
       setEditor(editor);
     }
   }, [editor, setEditor]);
+
+  
  
   if (!editor) return null;
 
@@ -154,7 +162,7 @@ export default function TiptapEditable({ setEditor,section,saved , setSaved })  
     
     
     <div className=" border border-neutral-400  rounded-[12px] w-full">
-      <Toolbar editor={editor}  /> 
+      <Toolbar editor={editor} references={references} setReferences={setReferences} /> 
       <BubbleMenuTable editor={editor}  />
 
       <BubbleMenuLink editor={editor}  />
@@ -162,7 +170,7 @@ export default function TiptapEditable({ setEditor,section,saved , setSaved })  
       <BubbleMenuImage editor={editor}  />
       <BubbleMenuVideo editor={editor}  />
 
-      <EditorContent className="p-4 max-h-[400px] break-words whitespace-pre-wrap  overflow-y-auto text-black w-full " editor={editor} />
+      <EditorContent className="p-4 main-text max-h-[400px] break-words whitespace-pre-wrap  overflow-y-auto text-black w-full " editor={editor} />
     </div>
     </>
   );

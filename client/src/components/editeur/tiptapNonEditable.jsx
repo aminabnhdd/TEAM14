@@ -17,6 +17,7 @@ import { Video } from "./nodes/video";
 import { VideoFigure } from "./nodes/videoFigure";
 import AnnotationButton from "./annotationButton";
 import AnnotationMark from "./nodes/annotationMark";
+import { ReferenceNode } from "./nodes/referencesNode";
 
 export default function TiptapNonEditable({ setEditor, section, annotations, setAnnotations, user, projet, annotVisible, setAnnotVisible }) {
   const editorRef = useRef(null);
@@ -54,6 +55,7 @@ export default function TiptapNonEditable({ setEditor, section, annotations, set
         inline: false,
         draggable: false,
       }),
+      ReferenceNode,
       AnnotationMark, // Ensure AnnotationMark is included
     ],
     //get content from data base instead

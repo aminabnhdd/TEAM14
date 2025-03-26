@@ -243,8 +243,19 @@ figcaption {
 
 /* Add this to your global or component-specific CSS */
 .annotation-highlight {
-
-  background-color: yellow; /* Highlight color */
   padding: 2px 4px; /* Optional: Add padding for better visibility */
   border-radius: 3px; /* Optional: Add rounded corners */
+}
+
+.reference {
+  color:#c57642;
+  padding: 1px;
+  border-radius: 3px;
+  margin: 0 0.2em;
+  transition: color 0.2s;
+  cursor:pointer;
+}
+
+.reference:hover {
+  color:#2d2d2d
 }

@@ -1,8 +1,7 @@
 import { Auteur } from "./auteur"
 import AjouterCollaborateur from "./ajouterCollaborateur"
 export default function Auteurs(props){
-    
-               {/* GET THE CHEF DE PROJETT */}
+               {/* GET THE CHEF DE PROJETT (using props.projet) */}
                const chef={
                 _id:'id1',
                 nom:'Benhaddad',
@@ -63,14 +62,14 @@ export default function Auteurs(props){
              }
             return(
             
-            <Auteur user={collaborateur} />
+            <Auteur user={collaborateur}  isChef={props.isChef} projet={props.projet} setProjet={props.setProjet} />
             )
         })
 
         }
     
         </div>
-        {props.isChef && <AjouterCollaborateur/>}
+        {props.isChef && <AjouterCollaborateur />}
     </>
     )
 }

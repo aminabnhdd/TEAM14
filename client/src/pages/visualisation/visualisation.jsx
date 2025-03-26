@@ -20,6 +20,7 @@ export default function Visualisation(){
     const [isChef, setIsChef] = useState(true);
     const [discipline,setDiscipline]=useState(null);
     const [projet,setProjet] = useState(({
+        _id:'',
         titre: "This is the title",
         type: "This is le type de la ressource",
         latitude: "44",
@@ -29,7 +30,7 @@ export default function Visualisation(){
         photoUrl: "https://herfa.dz/wp-content/uploads/2024/08/8de0fda8-46e3-4d2f-b8e9-062984ea6e09-1568x1044.jpg",
         dateConstruction: "this is the date de construction", // No default date
         chef: null, // No default assigned expert
-        collaborateurs: [1,2,3,4], // Empty array for collaborators
+        collaborateurs: ['id1',2,3,4], // Empty array for collaborators
         demandes: [], // Empty array for requests
         sections: [], // Empty array for sections
         archivePar: null, // No default archived user

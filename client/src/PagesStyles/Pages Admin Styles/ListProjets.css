@@ -7,26 +7,26 @@
     font-family: 'Poppins', sans-serif; /* Apply Poppins font to all elements */
 }
 
-.main-notif{
+.main-notif-lsPrjct{
     height: 100vh;
     width: 100vw;
     display: flex;
 }
 
-.navigation-bar{
+.navigation-bar-lsPrjct{
     width: 6%;
     height: 100%;
     background-color: #C57642;
 }
 
-.secondary-notif{
+.secondary-notif-lsPrjct{
     height: inherit;
     width: 94%;
 }
 
 
 
-.inprech{
+.inprech-lsPrjct{
     width: 100%;
     height: 100%;
     background: #F3F4F5;
@@ -38,7 +38,7 @@
 }
 
 
-.second-div {
+.second-div-lsPrjct {
         display: flex;
         justify-content: flex-start;
         flex-direction: column;
@@ -46,38 +46,34 @@
         height: 70%;
 }
 
-.p-recherche{
+.p-recherche-lsPrjct{
     color: #A0A5A6;
 }
 
-.secondary-notif{
+.secondary-notif-lsPrjct{
     display: flex;
     flex-direction: column;
-    gap: 5%;
+    gap: 3%;
 }
 
-.imgrecherche{
+.imgrecherche-lsPrjct{
     width: 25px;
     height: 25px;
     margin-left: 1.5%;
 }
 
-.imgprofil{
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-}
 
-.hnotif{
+
+.hnotif-lsPrjct{
     font-size: 23px;
     margin-bottom: 0.5%;
 }
 
-.pnotif{
+.pnotif-lsPrjct{
     font-size: 14px;
 }
 
-.transport{
+.transport-lsPrjct{
     display: flex;
     color: #707778;
     font-size: 13px;
@@ -118,87 +114,93 @@
 }
 
 
-.textos{
+.textos-lsPrjct{
     display: flex;
     flex-direction: column;
     gap: 2%;
     margin-left: 6.5%;
+    margin-top: 5%;
 
 }
 
-.line{
+.line-lsPrjct{
     width: 91%;
     height: 1.33px;
     background: #D1D4D5;
 }
 
-.note{
+.note-lsPrjct{
         display: flex;
-        padding: 1.5% 2%;
+        padding: 0 2%;
         width: 100%;
         border: none;
         border-bottom: 1.5px solid #D1D4D5;
 }
 
-.notif-icon{
+.notif-icon-lsPrjct{
     width: 25px;
     height: 25px;
 }
 
-.notifications{
+.notifications-lsPrjct{
     width: 91%;
 
 }
 
-.iconwmessage{
+.iconwmessage-lsPrjct{
     display: flex;
-    width: 69%;
+    width: 28%;
+    height: 64px;
     gap: 6%;
     justify-content: flex-start;
     align-items: center;
 }
 
-.notwtabwdom{
+.notwtabwdom-lsPrjct{
     display: flex;
     justify-content: flex-start;
     font-size: 13px;
-    width: 55%;
+    width: 72%;
+    height: 64px;
     align-items: center;
-    gap: 16%;
+    gap: 18%;
 }
 
-.notif-message{
+.notif-message-lsPrjct{
     font-size: 13px;
+    font-weight: 600;
 }
-.notif-time{
+.notif-time-lsPrjct{
     width: 8%;
 }
 
-.tabwdom {
+.tabwdom-lsPrjct {
     display: flex;
-    gap: 10%;
-    width: 29%;
+    gap: 5%;
+    width: 54%;
+    align-items: center;
 }
 
-.dom{
-    text-decoration: underline;
+.dom-lsPrjct{
+    width: 57%;
+    font-weight: 600;
+}
+
+.tab-lsPrjct{
+    width: 30px;
+    height: 30px;
     cursor: pointer;
 }
 
-.tab{
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
-
-.det-button{
+.det-button-lsPrjct{
     display: flex;
-    padding: 2% 11%;
+    padding: 8px 8%;
     align-items: center;
     border: none;
     gap: 12px;
     border-radius: 36px;
     background: var(--dune, #E8C07D);
+    width: auto;
     cursor: pointer;
     font-size: 13px;
 }

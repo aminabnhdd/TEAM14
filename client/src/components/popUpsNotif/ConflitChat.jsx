@@ -3,21 +3,20 @@ import i from "../../assets/x.png"
 import link from "../../assets/Link 2.svg"
 
 
-function ConflitChat ({popUp,close}) {
-    const parts = [{tit:"Conflit Signalé",sender:"Benhaddad Amina",subject:"L’article affirme que la Casbah a été développée sous les Ottomans, mais des études archéologiques montrent des structures berbères plus anciennes. Cette information doit être clarifiée avec des sources fiables."}]
+function ConflitChat ({popUp,close,notif}) {
     return(
        popUp &&
-        parts.map(e=>
+       (
         <div className="main-bac-notif">
             <div className="notif-pop">
                 <div className="Ti">
-                <p>{e.tit}</p>
+                <p>Conflit Signalé</p>
                 </div>
                 <img className="close-btn" src={i} alt="fd" onClick={close} />
                 <div className="ktiba">
-                <p><span className="gris">Par: </span>{e.sender} <br />
+                <p><span className="gris">Par: </span>{notif.sender} <br />
                 <span className="gris">Sujet:</span> <br /> 
-                {e.subject}</p>
+                {notif.content}</p>
                 </div>
                 
                 <button className="batens2">

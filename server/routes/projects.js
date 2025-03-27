@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const projectModel = require('../model/Projet');
 const sectionModel = require('../model/section');
+const notificationModel = require('../model/notification');
 const {expertModel,userModel} = require('../model/user');
 const {validateRole,validateProjectOwner} = require('../middlewares/roleMiddleware');
 const validateToken = require('../middlewares/authMiddleware');
@@ -317,8 +318,8 @@ router.delete("/:projectId/collaborateurs/:expertId", validateToken, validatePro
 
 //request to join the collaborators of a project
 
-router.post("/:projectId/demande", validateToken, validateProjectOwner, async(req, res) => {
-    const { projectId } = req.params;
+router.post("/:projectId/:sectionId/demande", validateToken, validateProjectOwner, async(req, res) => {
+    const { projectId,sectionId } = req.params;
     const { expertId } = req.body; //expertId in the body of the request because one project can have several demandes there is no bijection
 
     try {
@@ -332,16 +333,16 @@ router.post("/:projectId/demande", validateToken, validateProjectOwner, async(re
 
         await project.save();
 
-        const notification = await new notificationModel({
+        const notification = await notificationModel.create({
             type: "demandeCollaboration",
             projetId: projectId,
             senderId: expertId,
+            sectionId,
             recepientId: req.user.id,
             content: "this expert want to join your project",
             read: false
         });
 
-        await notification.save();
 
 
 

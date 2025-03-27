@@ -3,6 +3,7 @@ const router = express.Router();
 const  sectionModel  = require("../model/section");
 const  projetModel  = require("../model/Projet");
 const  notificationModel = require("../model/notification");
+const  {userModel}  = require("../model/user");
 const conflitModel  = require("../model/conflit");
 const validateToken = require("../middlewares/authMiddleware");
 const {validateRole,validateProjectOwner} = require("../middlewares/roleMiddleware");
@@ -12,31 +13,38 @@ const adminRole = process.env.ADMIN_ROLE;
 const nodemailer = require ('nodemailer');
 
 
-router.put("/:conflitId/valider",validateToken,validateProjectOwner, async (req, res) => {
+router.put("/valider/:conflitId",validateToken, async (req, res) => {
     try {
       const { conflitId } = req.params;
-      const { decision } = req.body;
+      const { decision,notifId } = req.body;
       const conflit = await conflitModel.findById(conflitId);
+      const notif = await notificationModel.findById(notifId);
       if (!conflit) {
         return res.status(404).json({ message: "Conflit non trouvé" });
       }
-      if (decision == "accept") {
+      if (notif.type !== "conflitSignale") {
+        return res.status(400).json({ message: "invalid notification type",type:notif.type });
+      }
+
+      if (decision == "refuse") {
+        await notificationModel.findByIdAndDelete(notifId);
+        await conflitModel.findByIdAndDelete(conflitId);
+        return res.status(200).json({ message: "Conflit supprimé avec succès." });
+      } 
+      else if (decision == "accept") {
         conflit.valide = true;
         conflit.lien = "lien vers chat";
-      } else if (decision == "refuse") {
-        conflit.valide = false;
-      }
-      if ((conflit.valide)== true){
-      await conflit.save();
-      const projet = await projetModel
+        await conflit.save();
+        const projet = await projetModel
         .findById(conflit.projetId)
         .populate("collaborateurs");
+
       const section = await sectionModel.findById(conflit.sectionId);
-      console.log(section._id);
+
       const expert = projet.collaborateurs.find(
         (collab) =>
           collab.discipline &&
-          collab.discipline.toLowerCase().includes(section.type.toLowerCase())
+          collab.discipline.toLowerCase() == section.type.toLowerCase()
       );
 
       section.conflits.push(conflit._id);
@@ -56,8 +64,10 @@ router.put("/:conflitId/valider",validateToken,validateProjectOwner, async (req,
         read: false,
       }));
       await notificationModel.insertMany(notifications);
+      await notificationModel.findByIdAndDelete(notifId);
       // redirect to chat but whereee
-    }
+      } 
+
       return res.status(200).json({
         message: `Conflit ${
           decision === "accept" ? "validé" : "rejeté"
@@ -93,5 +103,87 @@ router.get("/:notifId", validateToken, async (req, res) => {
   }
 });
 
+
+router.get("/", validateToken, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const notifications = await notificationModel
+      .find({ recepientId: userId })
+      .sort({ time: -1 });
+
+    const updatedNotifications = await Promise.all(
+      notifications.map(async (notif) => {
+        const user = await userModel.findById(notif.sendeId); 
+        const rec = await userModel.findById(notif.recepientId);
+        const projet = await projetModel.findById(notif.projetId);
+        const conflit = await conflitModel.findById(notif.conflitId).populate("sectionId");
+        const section = await sectionModel.findById(notif.sectionId);
+        
+        return {
+          ...notif.toObject(), 
+          sender: user.nom + " " + user.prenom,
+          recepient: rec.nom + " " + rec.prenom,
+          projet: projet.titre,
+          dom: conflit ? conflit.sectionId.type : section ? section.type : "",
+        };
+        
+        
+        
+      })
+    );
+
+    return res.status(200).json({ notifications: updatedNotifications });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Erreur serveur" });
+  }
+});
+
+
+
+router.put("/collaboration/valider/:notifId", validateToken, async (req, res) => {
+  try {
+    const notif = await notificationModel.findById(req.params.notifId);
+  const {decision}  = req.body;
+  if (notif.type !== "demandeCollaboration") {
+    return res.status(400).json({ message: "Invalid notification type" });
+  }
+  if (decision !== "accept" && decision !== "refuse") {
+    return res.status(400).json({ message: "Invalid decision" });
+  }
+  if (decision === "accept") {
+    const projet = await projetModel.findById(notif.projetId);
+    projet.collaborateurs.push(notif.sendeId);
+    await projet.save();
+    const acceptNotif = await notificationModel.create({
+      type: "demandeAccepte",
+      projetId: notif.projetId,
+      sendeId: req.user.id,
+      recepientId: notif.sendeId,
+      sectionId: notif.sectionId,
+      content: "Votre demande de collaboration a été acceptée.",
+      time: new Date(),
+      read: false,
+    });
+  } else {
+    const refuseNotif = await notificationModel.create({
+      type: "demandeRefuse",
+      projetId: notif.projetId,
+      sendeId: req.user.id,
+      recepientId: notif.sendeId,
+      sectionId:notif.sectionId,
+      content: "Votre demande de collaboration a été refusée.",
+      time: new Date(),
+      read: false,
+    });
+  }
+  await notificationModel.findByIdAndDelete(req.params.notifId);
+  return res.status(200).json({ message: "Decision recorded successfully" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Erreur serveur" });
+  }
+});
 module.exports = router;
+
 

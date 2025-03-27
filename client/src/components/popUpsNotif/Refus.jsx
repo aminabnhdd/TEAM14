@@ -1,25 +1,24 @@
 import "../../ComponentsStyles/popUpsNotif styles/Refus.css"
 import i from "../../assets/x.png"
 
-function Refus  ({popUp,close}) {
-    const parts = [{tit:"Vous avez été",titChng:"refusé.",sender:"Benhaddad Amina",project:"Khdazej El Amia"}]
+function Refus  ({popUp,close,notif}) {
 return (
     popUp &&
-    parts.map(el=>(<div className="main-bac-notif">
+    (<div className="main-bac-notif">
             <div className="notif-pop3">
     
                 <div className="Ti3">
-                <p >{el.tit}<span className="beige"> {el.titChng}</span></p>
+                <p >Vous avez été<span className="beige"> refusé.</span></p>
                 </div>
                 <img className="close-btn2" src={i} alt="fd" onClick={close} />
                 <div className="ktiba3">
-                <p><span className="gris">Par: </span>{el.sender} <br />
+                <p><span className="gris">Par: </span>{notif.sender}<br />
                 <span className="gris">Projet:</span> 
-                {el.project}</p>
+                {notif.projet}</p>
                 </div>
                 
             </div>
-        </div>  ))
+        </div>  )
 )
 
 }

@@ -14,13 +14,11 @@ const projetSchema = new mongoose.Schema({
     },
     coord: {
         type: String,
-        required: true,
         unique: true,
         trim: true
     },
     localisation: {
         type: String,
-        required: true,
         trim: true
     },
     style: {

@@ -1,28 +1,43 @@
 import "../../ComponentsStyles/popUpsNotif styles/ConflitSignal.css"
 import i from "../../assets/x.png"
+import axios from "axios"
+import  AuthContext from "../../helpers/AuthContext"
+import {useContext} from "react"
 
-function ConflitSignal ({popUp,close}) {
-    const parts = [{tit:"Conflit Signalé",sender:"Benhaddad Amina",subject:"L’article affirme que la Casbah a été développée sous les Ottomans, mais des études archéologiques montrent des structures berbères plus anciennes. Cette information doit être clarifiée avec des sources fiables."}]
+function ConflitSignal ({popUp,close,notif}) {
+    const {authState} = useContext(AuthContext);
+    const validate = (action) => {
+        axios.put(`http://localhost:3001/notifications/valider/${notif.conflitId}`,{decision:action,notifId:notif._id,projetId:notif.projetId},{headers:{Authorization:`Bearer ${authState.accessToken}`}})    
+        .then((response)=>{
+            console.log(response.data)
+            
+            
+        })
+        .catch((error)=>{
+            console.log(error)
+            console.log(notif)
+        })
+    }
  return(
     popUp &&
-    parts.map(e =>    <div className="main-bac-notif">
+    (<div className="main-bac-notif">
         <div className="notif-pop">
 
             <div className="Ti">
-            <p>{e.tit}</p>
+            <p>Conflit Signalé</p>
             </div>
             <img className="close-btn" src={i} alt="fd" onClick={close}/>
             <div className="ktiba">
-            <p><span className="gris">Par: </span>{e.sender} <br />
+            <p><span className="gris">Par: </span>{notif.sender} <br />
             <span className="gris">Sujet:</span> <br /> 
-              {e.subject}</p>
+              {notif.content}</p>
             </div>
             <div className="batens">
-                <button className="baten1">Accepter</button>
-                <button className="baten2">Refuser</button>
+                <button className="baten1" onClick={()=>{validate("accept")}}>Accepter</button>
+                <button className="baten2" onClick={()=>{validate("refuse")}}>Refuser</button>
             </div>
         </div>
-    </div>  )
+    </div>)  
  )
 }
 

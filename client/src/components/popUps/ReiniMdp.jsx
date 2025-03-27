@@ -1,20 +1,17 @@
-import closeButton from "../../assets/x.png";
 import { useState } from "react";
 import "../../ComponentsStyles/popUps styles/ReiniMdp.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 function ReiniMdp() {
-    const [popUp, setPopUp] = useState(true);
     const [visible, setVisible] = useState(false);
     const [typo, setTypo] = useState("password");
     const [visible2, setVisible2] = useState(false);
     const [typo2, setTypo2] = useState("password");
-
-    function backLanding(e) {
-        setPopUp(false);
-        e.target.style.display = " none";
-    }
+    const [formData, setFormData] = useState({
+        password: "",
+        password2: "",
+    });
+    const [errors, setErrors] = useState({});
 
     const TogglePass = () => {
         setVisible(!visible);
@@ -26,58 +23,90 @@ function ReiniMdp() {
         setTypo2(typo2 === "password" ? "text" : "password");
     };
 
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.id]: e.target.value });
+    };
+
+    const validateForm = () => {
+        let newErrors = {};
+
+        if (formData.password.length < 6) {
+            newErrors.password = "Mot de passe doit contenir plus de 6 caractères";
+        }
+
+        if (!formData.password2.trim()) {
+            newErrors.password2 = "Mot de passe invalide";
+        } else if (formData.password !== formData.password2) {
+            newErrors.password2 = "Ne correspond pas au mot de passe choisi";
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSubmit = () => {
+        if (validateForm()) {
+            console.log("Mot de passe réinitialisé avec succès");
+        }
+    };
+
     return (
-        <div className="popUp5-main-page">
-
-            <div className="popUp5-form-container">
-                {popUp && (
-                    <div className="popUp5-inscription-form">
-                        <button className="popUp5-close-btn">
-                            <img src={closeButton} alt="Close" onClick={backLanding} />
-                        </button>
-
-                        <div className="popUp5-texts">
-                            <p className="popUp5-bien">Réinitialisez votre mot de passe</p>
-                            <p className="popUp5-compte">Choisissez un nouveau mot de passe</p>
-                            <p className="popUp5-compte">et confirmez-le pour sécuriser votre compte.</p>
-                        </div>
-
-                        <form className="popUp5-info">
-                            <div className="popUp5-form-group">
-                                <label className="popUp5-label" htmlFor="password">Mot de passe</label>
-                                <input
-                                    className="popUp5-input eye-pass"
-                                    type={typo}
-                                    id="password"
-                                    placeholder="mot de passe"
-                                />
-                                <div className="popUp5-eye1">
-                                    <FontAwesomeIcon
-                                        icon={visible ? faEyeSlash : faEye}
-                                        onClick={TogglePass}
-                                    />
-                                </div>
-                            </div>
-                            <div className="popUp5-form-group">
-                                <label className="popUp5-label" htmlFor="password2">Confirmer le mot de passe</label>
-                                <input
-                                    className="popUp5-input eye-pass"
-                                    type={typo2}
-                                    id="password2"
-                                    placeholder="mot de passe"
-                                />
-                                <div className="popUp5-eye2">
-                                    <FontAwesomeIcon
-                                        icon={visible2 ? faEyeSlash : faEye}
-                                        onClick={TogglePass2}
-                                    />
-                                </div>
-                            </div>
-                        </form>
-                        <button className="popUp5-btn1">Réinitialiser</button>
-                    </div>
-                )}
+        <div className="popUp5-inscription-form">
+            <div className="popUp5-texts">
+                <p className="popUp5-bien">Réinitialisez votre mot de passe</p>
+                <p className="popUp5-compte">Choisissez un nouveau mot de passe</p>
+                <p className="popUp5-compte">et confirmez-le pour sécuriser votre compte.</p>
             </div>
+
+            <form className="popUp5-info">
+                <div className="popUp5-form-group">
+                    <label className="popUp5-label" htmlFor="password">Mot de passe</label>
+                    <input
+                        className={`popUp5-input eye-pass ${errors.password ? "input-error" : ""}`}
+                        type={typo}
+                        id="password"
+                        placeholder="mot de passe"
+                        value={formData.password}
+                        onChange={handleChange}
+                        onFocus={(e) => {
+                            e.target.style.border = "1px solid #E8C07D"; 
+                            e.target.style.outline = "0.5px solid #E8C07D"; 
+                          }}
+                          onBlur={(e) => {
+                            e.target.style.border = "1px solid #A0A5A6";
+                            e.target.style.outline = "none"; 
+                          }} 
+                    />
+                    {errors.password && <p className="err_message">{errors.password}</p>}
+                    <div className="popUp5-eye1" onClick={TogglePass}>
+                        {visible ? <FiEyeOff /> : <FiEye />}
+                    </div>
+                </div>
+                <div className="popUp5-form-group">
+                    <label className="popUp5-label" htmlFor="password2">Confirmer le mot de passe</label>
+                    <input
+                        className={`popUp5-input eye-pass ${errors.password2 ? "input-error" : ""}`}
+                        type={typo2}
+                        id="password2"
+                        placeholder="mot de passe"
+                        value={formData.password2}
+                        onChange={handleChange}
+                        onFocus={(e) => {
+                            e.target.style.border = "1px solid #E8C07D"; 
+                            e.target.style.outline = "0.5px solid #E8C07D"; 
+                          }}
+                          onBlur={(e) => {
+                            e.target.style.border = "1px solid #A0A5A6";
+                            e.target.style.outline = "none"; 
+                          }} 
+                    />
+                    {errors.password2 && <p className="err_message">{errors.password2}</p>}
+                    <div className="popUp5-eye2" onClick={TogglePass2}>
+                        {visible2 ? <FiEyeOff /> : <FiEye />}
+                    </div>
+                </div>
+            </form>
+            <button className="popUp5-btn1" onClick={handleSubmit}>Réinitialiser</button>
         </div>
     );
 }

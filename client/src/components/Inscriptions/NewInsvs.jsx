@@ -2,10 +2,18 @@ import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import axios from "axios";
 import "../../ComponentsStyles/Insctiptions styles/NewInsVs.css"
+import { useNavigate } from "react-router-dom";
 
 
 
-function NewInsvs ({connexionPopUP1}) {
+function NewInsvs () {
+
+  const navigate = useNavigate() ;
+
+  const goToConnexion = () => {
+    navigate("/Con");
+  }
+  
     const [visible, setVisible] = useState(false);
   const [typo, setTypo] = useState("password");
   const [formData, setFormData] = useState({
@@ -63,7 +71,7 @@ function NewInsvs ({connexionPopUP1}) {
                 <p className="athar-one">ATHAR</p>
                 <p className="compte-one">
                   Vous avez déjà un compte ? {" "}
-                  <span className="connexion-one" onClick={connexionPopUP1}>Connectez-vous.</span>
+                  <span className="connexion-one" onClick={goToConnexion}>Connectez-vous.</span>
                 </p>
               </div>
 

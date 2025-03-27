@@ -7,7 +7,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 3.5%;
+    gap: 16px;
     border-radius: 27px;
     border: 1px solid var(--NEUTRAL-400, #A0A5A6);
     background: var(--white, #FEFEFE);
@@ -22,7 +22,7 @@
     outline: none;
     gap: 2px;
     position: relative;
-    height: 17.5%;
+    height: 58px;
 }
 
 .input-two {
@@ -108,9 +108,9 @@
 .info-two {
     display: flex;
     flex-direction: column;
-    gap: 1.5%;
+    gap: 2px;
     width: 81%;
-    height: 74%;
+    height: 306px;
 }
 
 .close-btn-two img {
@@ -126,8 +126,8 @@
     width: 12px;
     height: 12px;
     position: absolute;
-    right: 5%;
-    bottom: 32%;
+    right: 17px;
+    bottom: 19px;
     font-size: 16px;
     cursor: pointer;
     filter: invert(41%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(95%) contrast(85%);

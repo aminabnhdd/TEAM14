@@ -3,7 +3,15 @@ import "../../ComponentsStyles/popUps styles/Connexion.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import axios from "axios";
 
-function Connect({   mdpPopUp }) {
+import { useNavigate } from "react-router-dom";
+
+function Connect({   mdpPopUp,fun }) {
+
+    const navigate = useNavigate();
+
+   const goLandingPage=()=>{
+    navigate("/");
+  }
     const [visible, setVisible] = useState(false);
     const [typo, setTypo] = useState("password");
     const [formData, setFormData] = useState({ email: "", password: "" });
@@ -41,6 +49,8 @@ function Connect({   mdpPopUp }) {
             .catch((err) => {
                 console.log(err);
             });
+            
+            fun()
         }
     };
 
@@ -50,7 +60,7 @@ function Connect({   mdpPopUp }) {
                 <p className="popUp1-bien">Heureux de vous revoir !</p>
                 <p className="popUp1-compte">
                     Vous n'avez pas de compte ?
-                    <span className="popUp1-connexion"> Inscrivez-vous.</span>
+                    <span className="popUp1-connexion" onClick={goLandingPage}> Inscrivez-vous.</span>
                 </p>
             </div>
 

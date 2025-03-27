@@ -2,15 +2,11 @@
 import "../../PagesStyles/PagesConnexionStyles/Connex.css"
 import image2 from "../../assets/Screenshot 2025-03-03 at 8.53.06 AM 2.png";
 import image from "../../assets/Group 38.png";
-import Connect from "../../components/popUps/Connexion";
-import MdpOublie from "../../components/popUps/MdpOublie";
-import LienEnv from "../../components/popUps/LienEnv";
-import { useState } from "react";
+import ReiniMdp from "../../components/popUps/ReiniMdp";
 
 
-function Con () {
-   const [pop,setPop] = useState(false)
-   const [popLien,setPopLien] = useState(false)
+function ReiniMotdps () {
+   
     return (
         <div className="main-page-one">
           <div className="back-home">
@@ -25,15 +21,11 @@ function Con () {
             </div>
           </div>
           <div className="form-container-one">
-            <Connect mdpPopUp={() => setPop(true)}/>
-            <MdpOublie carti={pop} fun={() => setPop(false) } fun2={() => setPopLien(true)}/>
-          </div>
-          <div className="centerpop">
-              <LienEnv popUp={popLien} foncone={() => setPopLien(false)} />
-          </div>
+           <ReiniMdp/>
+        </div>
         </div>
       );
 
 }
 
-export default Con
+export default ReiniMotdps

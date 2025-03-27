@@ -1,0 +1,48 @@
+.modif-visiteur-card2{
+  border-radius: 36px;
+  border: 2px solid var(--NEUTRAL-300, #D1D4D5);
+  background: var(--white, #FEFEFE);
+  padding: 30px 40px;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+  color: var(--black-text, #2D2D2D);
+  margin-left: 2%;
+}
+
+.visiteur-card-header2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2%;
+}
+
+.visiteur-card-header2 h2 {
+  font-size: 2vw;
+  font-weight: 600;
+  color: var(--black-text, #2D2D2D);
+  margin: 0;
+}
+
+.visiteur-card-content2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10%;
+}
+
+.visiteur-label2 {
+  font-weight: 400;
+  color: rgba(85, 85, 94, 0.70);
+  display: block;
+  font-size: 1vw;
+}
+
+.visiteur-value2 {
+  color: var(--black-text, #2D2D2D);
+  display: block;
+  padding: 3px 0;
+  font-size: 1vw;
+  font-weight: 500;
+  margin-bottom: 3%;
+}

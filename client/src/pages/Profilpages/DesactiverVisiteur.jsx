@@ -1,32 +1,38 @@
-import React, { useState } from "react";
-import AccountHeader from "../../components/Profil/AccountHeader.jsx";
-import NewProfilInfo from "../../components/Profil/NewProfilInfo.jsx";
-import DesactiverExpertCard from "../../components/Profil/DesactiverExpertCard.jsx";
+import React , { useState }  from "react";
+import ProfilInfowithoutlink from "../../components/Profil/ProfilInfowithoutlink.jsx";
+import AfficherCardVisiteur from  "../../components/Profil/AfficherCardVisiteur.jsx";
+import HeaderSection from "../../components/Profil/HeaderSectionVisiteur.jsx";
+import "../../pagesStyles/ProfilpagesStyle/DesactiverVisiteur.css";
 import PopDesactiver from "../../components/Profil/PopDesactiver.jsx";
-import "../../pagesStyles/ProfilpagesStyle/DesactiverVisiteur.css"
 
-const Desactiver = () => {
+const usersData = [
+  {
+    id: 1,
+    nom: "Benhaddad",
+    prenom: "Amina",
+    email: "amina.benhaddad@example.com",
+    telephone: "0550******",
+    pfp: "https://img.freepik.com/vecteurs-premium/icone-profil-avatar-dans-style-plat-illustration-vectorielle-du-profil-utilisateur-feminin-fond-isole-concept-entreprise-signe-profil-feminin_157943-38866.jpg",
+    role : "Visiteur",
+    password : "1234",
+  },
+];
+
+const DesactiverVisiteur = () => {
   const [showPopup, setShowPopup] = useState(false);
-
-  const handleDisableClick = () => {
-    setShowPopup(true);
-  };
-
-  const handleClosePopup = () => {
-    setShowPopup(false);
-  };
-
+  
   return (
-    <>
-      <AccountHeader title="Informations" />
-      <NewProfilInfo />
-      <DesactiverExpertCard />
-      <button className="disable-btn" onClick={handleDisableClick}>
+     <>
+      <HeaderSection />
+      <ProfilInfowithoutlink usersData={usersData} />
+      <AfficherCardVisiteur usersData={usersData} />
+      <button className="desactiver-btn" onClick={() => setShowPopup(true)}>
         Désactiver le compte
       </button>
-      {showPopup && <PopDesactiver onClose={handleClosePopup} />}
-    </>
+      {showPopup && <PopDesactiver onClose={() => setShowPopup(false)} />}
+     </>
+ 
   );
 };
 
-export default Desactiver;
+export default DesactiverVisiteur;

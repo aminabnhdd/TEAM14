@@ -1,55 +1,44 @@
-import React, { useState } from "react"; 
-import { FiUploadCloud } from "react-icons/fi";
-import { Link } from "react-router-dom"; 
-import "../../componentsStyles/ProfilStyles/ProfilInfoSave.css";
+import React, { useState } from "react";
+import "../../componentsStyles/ProfilStyles/ProfilInfosave.css";
+import { Upload } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const ProfilInfoSave = ({ name, role, avatarUrl }) => {
-  const [selectedAvatar, setSelectedAvatar] = useState(avatarUrl);
+const DEFAULT_IMAGE_URL = "https://img.freepik.com/vecteurs-premium/icone-profil-utilisateur-dans-style-plat-illustration-vectorielle-avatar-membre-fond-isole-concept-entreprise-signe-autorisation-humaine_157943-15752.jpg?semt=ais_hybrid";
 
-  const handleImageUpload = (event) => {
+const ProfilInfosave = ({ usersData }) => {
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setSelectedAvatar(imageUrl);
+      setSelectedImage(imageUrl);
     }
   };
 
-  return (
-    <div className="profil-info">
-      <div className="div2">
-        <div className="avatar">
-          <label htmlFor="avatarInput" className="upload-label">
-            {selectedAvatar ? (
-              <img src={selectedAvatar}  />
-            ) : (
-              <div className="upload-placeholder">
-                <FiUploadCloud className="upload-icon" />
-              </div>
-            )}
-          </label>
-          <input
-            type="file"
-            id="avatarInput"
-            accept="image/*"
-            onChange={handleImageUpload}
-            style={{ display: "none" }}
-          />
-        </div>
-
-        <div className="details">
-          <h5 className="nom">{name ? name : <strong>Nom non disponible</strong>}</h5>
-          <h5 className="role">{role ? role : <strong>Rôle non défini</strong>}</h5>
+  const navigate = useNavigate();
+  
+  return usersData.map((user) => (
+    <div key={user.id} className="user-container">
+      <div className="user-details">
+        <label htmlFor="imageUpload" className="user-image-label">
+          <div className="user-avatar-box">
+            <img src={selectedImage || user.pfp || DEFAULT_IMAGE_URL} alt="Avatar" className="user-avatar" />
+            <Upload className="user-upload-icon" size={20} />
+          </div>
+        </label>
+        <input id="imageUpload" type="file" accept="image/*" onChange={handleImageChange} style={{ display: "none" }} />
+        <div className="user-info">
+          <span className="user-fullname">{user.nom || "Non renseigné"} {user.prenom || "Non renseigné"}</span>
+          <span className="user-job-title">{user.role || "Non renseigné"}</span>
         </div>
       </div>
-
-      {/* Utilisation de Link pour éviter le rechargement de la page */}
-      <Link to="/mot-de-passe" className="change-password">
-        Modifier mon mot de passe
-      </Link>
+      <a href="#" className="user-password-link" onClick={() => navigate("/changer-mdp", { state: { oldPassword: user.password } })}>
+        Modifier mon mot de passe</a>
     </div>
-  );
+  ));
 };
 
-export default ProfilInfoSave;
+export default ProfilInfosave;
 
 

@@ -1,8 +1,8 @@
 import React from "react";
-import ProjetsInfos from "../../components/Profil/ProjetsInfos.jsx";
+import InfosProjets from "../../components/Profil/InfosProjets.jsx";
 import ProfilInfowithoutlink from "../../components/Profil/ProfilInfowithoutlink.jsx";
-import ProjectsContainer from "../../components/Profil/ProjectsContainer.jsx";
-import "../../pagesStyles/ProfilpagesStyle/ProjetsExpert.css";
+import AffichCardExpert from "../../components/Profil/AffichCardExpert.jsx";
+import "../../pagesStyles/ProfilpagesStyle/AfficherExpert.css";
 
 const usersData = [
   {
@@ -17,18 +17,17 @@ const usersData = [
     discipline: "Histoire",
     pfp: "https://img.freepik.com/vecteurs-premium/icone-profil-avatar-dans-style-plat-illustration-vectorielle-du-profil-utilisateur-feminin-fond-isole-concept-entreprise-signe-profil-feminin_157943-38866.jpg",
     role : "Architecte",
-    fileUrl :"Fichier_pour_prouver_expertise",
     password : "1234",
   },
 ];
 
-const ProjetsExpert =() => {
+const AfficherExpert  = () => {
   return(
     <>
-      <ProjetsInfos />
-      <ProfilInfowithoutlink usersData={usersData} />
-      <ProjectsContainer />
+    <InfosProjets />
+    <ProfilInfowithoutlink usersData={usersData} />
+    <AffichCardExpert usersData={usersData} />
     </>
   );
 }
-export default ProjetsExpert;
+export default AfficherExpert ;

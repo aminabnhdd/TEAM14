@@ -1,8 +1,8 @@
 import React from "react";
-import ProjetsInfos from "../../components/Profil/ProjetsInfos.jsx";
+import ProjetsInfos2 from "../../components/Profil/ProjetsInfos2.jsx";
 import ProfilInfowithoutlink from "../../components/Profil/ProfilInfowithoutlink.jsx";
 import ProjectsContainer from "../../components/Profil/ProjectsContainer.jsx";
-import "../../pagesStyles/ProfilpagesStyle/ProjetsExpert.css";
+import "../../pagesStyles/ProfilpagesStyle/ProjetsExpert2.css";
 
 const usersData = [
   {
@@ -22,13 +22,13 @@ const usersData = [
   },
 ];
 
-const ProjetsExpert =() => {
+const ProjetsExpert2 =() => {
   return(
     <>
-      <ProjetsInfos />
+      <ProjetsInfos2 />
       <ProfilInfowithoutlink usersData={usersData} />
       <ProjectsContainer />
     </>
   );
 }
-export default ProjetsExpert;
+export default ProjetsExpert2;

@@ -1,0 +1,54 @@
+.profil-card {
+  background-color: var(--color-white ,#fefefe);
+  border-radius: 36px;
+  border: 2px solid var(--NEUTRAL-300, #D1D4D5);
+  padding: 16px 40px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  text-align: left;
+  margin-bottom: 2%;
+  margin-left: 2%;
+}
+
+.profil-details {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  gap: 10%;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profil-info {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+
+.profil-name {
+  font-size: 1.2vw;
+  font-weight: 600;
+  color: var(--black, #2D2D2D);
+}
+
+.profil-job {
+  font-size: 1vw;
+  font-weight: 600;
+  color: var(--NEUTRAL-500, #707778);
+}
+
+.edit-link {
+  color: var(--brown, #C57642);
+  text-decoration: none;
+  font-size: 1.2vw;
+  font-weight: 600;
+  text-decoration: underline;
+}
+

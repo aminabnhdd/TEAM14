@@ -14,7 +14,7 @@ const MyProjectsHeader = () => {
         onClick={() => navigate("/restoreprojects")}
       >
         <FiRotateCcw />
-        Restaurer un projet archivé
+        Restaurer un projet
       </button>
     </div>
   );

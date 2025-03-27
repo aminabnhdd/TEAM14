@@ -1,0 +1,38 @@
+.InfosPros-container{
+  width: 99%;
+  background-color: var(--color-white, #fefefe);
+  margin-bottom: 2%;
+  margin-left: 3%;
+  position: relative;
+}
+
+.InfosPros-tabs {
+  display: flex;
+  justify-content: flex-start; 
+  align-items: center;
+  gap: 2vw;
+}
+
+
+.item-Infos {
+  font-size: 1vw;
+  color: var(--brown, #C57642);
+  font-weight: 500;
+  padding: 0.5rem 0;
+  cursor: pointer;
+}
+.item-Pros {
+  font-size: 1vw;
+  color: var(--NEUTRAL-500, #707778);
+  font-weight: 500;
+  padding: 0.5rem 0;
+  cursor: pointer;
+}
+
+.InfosPros-line {
+  width: 99.5%;
+  height: 5%;
+  background: linear-gradient(to right, var(--brown, #C57642) 0 6.5vw, var(--NEUTRAL-300, #D1D4D5) 6.5vw 100%);
+  position: absolute;
+  bottom: 0;
+}

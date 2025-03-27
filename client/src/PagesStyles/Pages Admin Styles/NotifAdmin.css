@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Apply Poppins font to all elements */
+}
+
+.main-notif{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.navigation-bar-notifAd{
+    width: 6%;
+    height: 100%;
+    background-color: #C57642;
+}
+
+.secondary-notif-notifAd{
+    height: inherit;
+    width: 94%;
+}
+
+
+
+.inprech-notifAd{
+    width: 100%;
+    height: 100%;
+    background: #F3F4F5;
+    border: none;
+    border-radius: 37px;
+    outline: none;
+    font-size: 13px;
+    color: #A0A5A6;
+}
+
+
+.second-div-notifAd {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        margin-left: 6.5%;
+        height: 70%;
+}
+
+.p-recherche-notifAd{
+    color: #A0A5A6;
+}
+
+.secondary-notif-notifAd{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.imgrecherche-notifAd{
+    width: 25px;
+    height: 25px;
+    margin-left: 1.5%;
+}
+
+.imgprofil-notifAd{
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.hnotif-notifAd{
+    font-size: 23px;
+    margin-bottom: 0.5%;
+}
+
+.pnotif-notifAd{
+    font-size: 14px;
+}
+
+.transport-notifAd{
+    margin-left: 1%;
+    display: flex;
+    color: #707778;
+    font-size: 13px;
+    gap: 4%;
+    margin-bottom: 0.8%;
+}
+
+.transptext{
+    cursor: pointer;
+}
+
+.userName{
+    font-weight: 600;
+}
+
+.transptext {
+    position: relative;
+    cursor: pointer;
+}
+
+.transptext.active {
+    color: #C57642;    
+}
+
+/* Underline effect */
+.transptext::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -50%;
+    width: 0;
+    height: 2px; /* Thickness of the underline */
+    background-color: #C57642;
+    border-radius: 60px;
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-50%);
+}
+
+.transptext.active::after {
+    width: 100%; /* Expand the underline smoothly */
+}
+
+
+.textos-notifAd{
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+    margin-left: 6.5%;
+
+}
+
+.line-notifAd{
+    width: 91%;
+    height: 1.33px;
+    background: #D1D4D5;
+}
+
+.note-notifAd{
+        display: flex;
+        padding: 0 2%;
+        width: 100%;
+        border: none;
+        border-bottom: 1.5px solid #D1D4D5;
+}
+
+.notif-icon-notifAd{
+    width: 25px;
+    height: 25px;
+}
+
+.notifications-notifAd{
+    width: 91%;
+
+}
+
+.iconwmessage-notifAd{
+    display: flex;
+    width: 95%;
+    height: 64px;
+    gap: 3.2%;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.notwtabwdom-notifAd{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 13px;
+    width: 55%;
+    align-items: center;
+    gap: 16%;
+}
+
+.notif-message-notifAd{
+    font-size: 13px;
+}
+.notif-time-notifAd{
+    width: 8%;
+}
+
+.tabwdom-notifAd {
+    display: flex;
+    gap: 10%;
+    width: 29%;
+}
+
+.dom-notifAd{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.det-button-notifAd{
+    display: flex;
+    padding: 2% 11%;
+    align-items: center;
+    border: none;
+    gap: 12px;
+    border-radius: 36px;
+    background: var(--dune, #E8C07D);
+    cursor: pointer;
+    font-size: 13px;
+}
+
+

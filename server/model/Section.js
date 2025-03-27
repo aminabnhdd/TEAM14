@@ -13,7 +13,7 @@ const sectionSchema = new mongoose.Schema({
         trim: true
     },
     contenu: {
-        type: String,
+        type: Object,
         trim: true
     },
     annotations: [{

@@ -17,6 +17,8 @@ const profilRouter = require('./routes/profil');
 const uploadRouter = require('./routes/upload');
 const editeurRouter = require('./routes/editeur');
 const notificationsRouter = require('./routes/notifications');
+const refreshRouter = require('./routes/refresh');
+
 
 
 const corsOptions = {
@@ -52,6 +54,8 @@ app.use('/profil', profilRouter);
 app.use('/images', uploadRouter);
 app.use('/editeur',editeurRouter);
 app.use('/notifications',notificationsRouter);
+app.use('/refresh',refreshRouter);
+
 
 // declaring our own modules :
 

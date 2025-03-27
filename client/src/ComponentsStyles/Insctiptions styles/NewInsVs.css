@@ -1,0 +1,200 @@
+
+
+.inscription-form-one {
+    display: flex;
+    width: 63.5%;
+    height: 89%;
+    padding: 23px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3.5%;
+    border-radius: 27px;
+    border: 1px solid var(--NEUTRAL-400, #A0A5A6);
+    background: var(--white, #FEFEFE);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);    
+}
+
+.form-group-one {
+    display: flex;
+    flex-direction: column;
+    outline: none;
+    gap: 2px;
+    position: relative;
+    height: 51px;
+}
+
+.input-one , .input-error {
+       display: flex;
+        padding: 8px 8px;
+        align-items: center;
+        border-radius: 10px;
+        border: 1px solid var(--NEUTRAL-400, #A0A5A6);
+        background: var(--white, #FEFEFE);
+        width:100%;
+        color: rgba(85, 85, 94, 0.70);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        height: 32px;
+        outline: none;
+        transition: border-color 0.3s;
+        
+}
+
+    .input-error {
+        border: 1.5px solid #EF4444 !important;
+        outline: none !important;
+    }
+
+.pres1{
+    position: absolute;
+    flex-direction: column;
+    bottom: 5%;
+    color: white;
+    font-size: 41px;
+    line-height: normal;
+    font-weight: 600;
+    left: 1.5%;
+    
+
+}
+.pre{
+    font-size: 3.3vw;
+    text-shadow: 0px 5px 20px rgba(0, 0,0,1)
+}
+
+
+.label-one {
+    color: rgba(85, 85, 94, 0.70);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-left: 5px;
+}
+
+.bien-one {
+    color: var(--black, #2D2D2D);
+    text-align: center;
+    font-size: 2vw;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 5px;
+    height: 24px;
+}
+
+
+
+.athar-one {
+    color: var(--brown, #C57642);
+    text-align: center;
+    font-size: 2vw;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-top: 0; 
+}
+
+
+
+.compte-one {
+    color: #707778;
+    text-align: center;
+    font-size: 0.9vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.connexion-one {
+    color: #C57642;
+    font-size: 0.9vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.info-one {
+    display: flex;
+    flex-direction: column;
+    gap: 3%;
+    width: 81%;
+    height: 74%;
+}
+
+.btn1-one {
+        display: flex;
+        padding: 3% 6%;
+        justify-content: center;
+        align-items: center;
+        border-radius: 32px;
+        background: #E8C07D;
+        border: none;
+        cursor: pointer;
+        color: var(--black, #2D2D2D);
+        text-align: center;
+        font-size: 1.1vw;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+}
+
+.close-btn-one {
+    background: none;
+    border: none;
+    position: absolute;
+    top: 42px;
+    right: 75px;
+    cursor: pointer;
+}
+
+.close-btn-one img {
+    width: 25px;
+    height: 25px;
+}
+
+.close-btn-one:hover {
+    filter: invert(18%) sepia(100%) saturate(7497%) hue-rotate(1deg) brightness(101%) contrast(104%);
+}
+
+.eye-pass-one {
+    position: relative;
+}
+
+.eye-one {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    right: 17px;
+    bottom: 11.5px;
+    font-size: 16px;
+    cursor: pointer;
+    filter: invert(41%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(95%) contrast(85%);
+}
+
+.stexts{
+    font-size: 7px;
+    color: white;
+    width: 80px;
+    position: absolute;
+    top: 0;
+    right: 7px;
+    pointer-events: none;
+}
+
+.err_message{
+    font-size: 9px;
+    color: #EF4444;
+    position:absolute;
+    border: 1.5px;
+    top: 53px;
+    left: 5px;
+}
+
+
+
+

@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Apply Poppins font to all elements */
+}
+
+.main-notif{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.navigation-bar-LsUtil{
+    width: 6%;
+    height: 100%;
+    background-color: #C57642;
+}
+
+.secondary-notif-LsUtil{
+    height: inherit;
+    width: 94%;
+}
+
+
+
+.inprech-LsUtil{
+    width: 100%;
+    height: 100%;
+    background: #F3F4F5;
+    border: none;
+    border-radius: 37px;
+    outline: none;
+    font-size: 13px;
+    color: #A0A5A6;
+}
+
+
+.second-div-LsUtil {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        margin-left: 6.5%;
+        height: 70%;
+}
+
+.p-recherche-LsUtil{
+    color: #A0A5A6;
+}
+
+.secondary-notif-LsUtil{
+    display: flex;
+    flex-direction: column;
+    gap: 3%;
+}
+
+.imgrecherche-LsUtil{
+    width: 25px;
+    height: 25px;
+    margin-left: 1.5%;
+}
+
+
+.hnotif-LsUtil{
+    font-size: 23px;
+    margin-bottom: 0.5%;
+}
+
+.pnotif-LsUtil{
+    font-size: 14px;
+}
+
+.transport-LsUtil{
+    margin-left: 1%;
+    display: flex;
+    color: #707778;
+    font-size: 13px;
+    gap: 4%;
+    margin-bottom: 0.8%;
+}
+
+.transptext{
+    cursor: pointer;
+}
+
+
+.transptext {
+    position: relative;
+    cursor: pointer;
+}
+
+.transptext.active {
+    color: #C57642;    
+}
+
+/* Underline effect */
+.transptext::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -50%;
+    width: 0;
+    height: 2px; /* Thickness of the underline */
+    background-color: #C57642;
+    border-radius: 60px;
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-50%);
+}
+
+.transptext.active::after {
+    width: 100%; /* Expand the underline smoothly */
+}
+
+
+.textos-LsUtil{
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+    margin-left: 6.5%;
+    margin-top: 5%;
+
+}
+
+.line-LsUtil{
+    width: 91%;
+    height: 1.33px;
+    background: #D1D4D5;
+}
+
+.note-LsUtil1{
+        display: flex;
+        padding: 0 2%;
+        width: 100%;
+        border: none;
+        border-bottom: 1.5px solid #D1D4D5;
+}
+
+.notif-icon-LsUtil1{
+    width: 25px;
+    height: 25px;
+}
+.note-LsUtil2{
+        display: flex;
+        padding: 0 2%;
+        width: 100%;
+        border: none;
+        border-bottom: 1.5px solid #D1D4D5;
+}
+
+.notif-icon-LsUtil2{
+    width: 25px;
+    height: 25px;
+}
+
+.notifications-LsUtil{
+    width: 91%;
+
+}
+
+.iconwmessage-LsUtil1{
+    display: flex;
+    width: 77%;
+    height: 64px;
+    gap: 6%;
+    justify-content: flex-start;
+    align-items: center;
+}
+.iconwmessage-LsUtil2{
+    display: flex;
+    width: 77%;
+    height: 64px;
+    gap: 6%;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.notwtabwdom-LsUtil1{
+    display: flex;
+    justify-content: flex-start;
+    font-size: 13px;
+    width: 72%;
+    height: 64px;
+    align-items: center;
+    gap: 23%;
+}
+.notwtabwdom-LsUtil2{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 13px;
+    width: 72%;
+    height: 64px;
+    align-items: center;
+    gap: 23%;
+}
+
+.notif-message-LsUtil1{
+    font-size: 13px;
+    font-weight: 600;
+}
+.notif-time-LsUtil1{
+    width: 8%;
+}
+
+.notif-message-LsUtil2{
+    font-size: 13px;
+    font-weight: 600;
+}
+.notif-time-LsUtil2{
+    width: 8%;
+}
+
+.tabwdom-LsUtil1 {
+    display: flex;
+    gap: 10%;
+    width: 38.2%;
+}
+.tabwdom-LsUtil2 {
+    display: flex;
+    gap: 10%;
+    width: 38%;
+}
+
+
+.tab-LsUtil1{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.tab-LsUtil2{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.det-button-LsUtil1{
+    display: flex;
+    padding: 2% 11%;
+    align-items: center;
+    border: none;
+    gap: 12px;
+    border-radius: 36px;
+    background: var(--dune, #E8C07D);
+    cursor: pointer;
+    font-size: 13px;
+}
+

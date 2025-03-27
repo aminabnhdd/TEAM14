@@ -1,20 +1,48 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import InsEx from "./pages/page inscription/PageInsEx";
+import InsVs from "./pages/page inscription/PageInsVs"
+import Notif from "./pages/notifications/Notif";
+import Con from "./pages/page connexion/PageConnexion";
+import AuthContext from "./helpers/AuthContext";
+import { useState } from "react";
+import ReiniMotdps from "./pages/page connexion/PageReinit";
+import { BrowserRouter as  Router,Route,Routes } from "react-router-dom";
+import LsProjets from "./pages/page admin/ListProjets";
+import ListUtil from "./pages/page admin/ListUtil";
+import NotifAdmin from "./pages/page admin/NotifAdmin";
 import LandingPage from "./pages/LandingPage/LandingPage";
 
 
 function App() {
+  const [authState, setAuthState] = useState({
+    email: "",
+    role:"",
+    accessToken: "",
+  });
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/signup/expert" element={<h1>Inscrire expert </h1>} />
-        <Route path="/signup/visiteur" element={<h1>Inscrire visiteur </h1>} />
-        <Route path="/login" element={<h1>Se connecter</h1>} />
-        <Route path="*" element={<h1>404 Not Found</h1>} />
-      </Routes>
-    </Router>
+    <AuthContext.Provider value={{ authState, setAuthState }}>
+
+    <div>
+        <Router>
+        <Routes>
+          <Route path="/ihateracism" element={<h1>I hate racisme</h1>}/>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/connexion" element={<Con />} />
+          <Route path="/notifications" element={<Notif/>} />
+          <Route path="/reinitialisation/mdp" element={<ReiniMotdps/>}/>
+          <Route path="/signup/expert" element={<InsEx/>} />
+          <Route path="/signup/visiteur" element={<InsVs/>} />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
+        </Routes>
+      </Router>
+      {/* <LsProjets/> */}
+      {/* <ListUtil/> */}
+      {/* <NotifAdmin/> */}
+      
+    </div>
+    </AuthContext.Provider>
   );
 }
 
 export default App;
+

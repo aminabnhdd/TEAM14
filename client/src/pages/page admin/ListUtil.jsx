@@ -118,9 +118,6 @@ const [col,setCol] = useState(false)
                         </div>
                         ))}
 
-                        
-                        
-                        
                     </div>
                 </div>
             </div>

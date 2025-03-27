@@ -6,6 +6,7 @@ import ReiniMotdps from "./pages/page connexion/PageReinit";
 import { BrowserRouter as  Router,Route,Routes } from "react-router-dom";
 import LsProjets from "./pages/page admin/ListProjets";
 import ListUtil from "./pages/page admin/ListUtil";
+import NotifAdmin from "./pages/page admin/NotifAdmin";
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
         </Routes>
       </Router> */}
       {/* <LsProjets/> */}
-      <ListUtil/>
+      {/* <ListUtil/> */}
+      <NotifAdmin/>
 
     </div>
   );

@@ -1,3 +1,4 @@
+
 import InsEx from "./pages/page inscription/PageInsEx";
 import InsVs from "./pages/page inscription/PageInsVs"
 import Notif from "./pages/notifications/Notif";
@@ -9,6 +10,7 @@ import { BrowserRouter as  Router,Route,Routes } from "react-router-dom";
 import LsProjets from "./pages/page admin/ListProjets";
 import ListUtil from "./pages/page admin/ListUtil";
 import NotifAdmin from "./pages/page admin/NotifAdmin";
+import LandingPage from "./pages/LandingPage/LandingPage";
 
 
 function App() {
@@ -21,22 +23,26 @@ function App() {
     <AuthContext.Provider value={{ authState, setAuthState }}>
 
     <div>
-      {/* <Notif/> */}
-      {/* <Router>
+        <Router>
         <Routes>
-          <Route path="/con" element={<Con />} />
-          <Route path="/" element={<h1>I hate racisme</h1>}/>
-          <Route path="/InsEx" element={<InsEx/>}/>
-          <Route path="/InsVs" element={<InsVs/>}/>
-          <Route path="/ReiniMotdps" element={<ReiniMotdps/>}/>
+          <Route path="/ihateracism" element={<h1>I hate racisme</h1>}/>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/connexion" element={<Con />} />
+          <Route path="/notifications" element={<Notif/>} />
+          <Route path="/reinitialisation/mdp" element={<ReiniMotdps/>}/>
+          <Route path="/signup/expert" element={<InsEx/>} />
+          <Route path="/signup/visiteur" element={<InsVs/>} />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
-      </Router> */}
+      </Router>
       {/* <LsProjets/> */}
       {/* <ListUtil/> */}
-      <NotifAdmin/>
+      {/* <NotifAdmin/> */}
+      
     </div>
     </AuthContext.Provider>
   );
 }
 
 export default App;
+

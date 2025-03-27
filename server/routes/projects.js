@@ -12,43 +12,78 @@ const adminRole = process.env.ADMIN_ROLE;
 const cloudinary = require('../config/cloudinary');
 const upload = require('../middlewares/multerMiddleware');
 
-
-router.post('/add', validateToken, validateRole(expertRole, adminRole), upload.single("image"), async (req, res) => {
+router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.single("image"), async (req, res) => {
     try {
-        const projet = req.body;
-        const userID = req.user.id;
 
-        const found = await projectModel.findOne({ titre: projet.titre });
+        const { titre, type, latitude, longtitude, localisation, style, dateConstruction } = req.body;
+        const userID = req.user?.id;
+        let imageUrl = "";
+        if (req.file) {
+          const result = await cloudinary.uploader.upload(req.file.path);
+          imageUrl = result.secure_url;
+        }
+
+
+        if (!userID) return res.status(401).json({ err: "Unauthorized - No user ID" });
+
+        if (!titre || !type) {
+            return res.status(400).json({ err: "Missing required fields" });
+        }
+
+        const found = await projectModel.findOne({ titre });
         if (found) return res.status(403).json({ err: "Title already used" });
 
         const author = await expertModel.findById(userID);
         if (!author) return res.status(404).json({ err: "Expert not found!" });
-
-        let photoUrl = "";
-
-        if (req.file) {
-            const result = await cloudinary.uploader.upload(req.file.path);
-            photoUrl = result.secure_url;
-        }
-
+      
         const project = await projectModel.create({
-            ...projet,
+            titre,
+            type,
+            latitude: latitude || "",
+            longtitude: longtitude || "",
+            localisation: localisation || "",
+            style: style || "",
+            photoUrl: imageUrl || "",
+            dateConstruction: dateConstruction || "",
             chef: userID,
             collaborateurs: [userID],
-            photoUrl 
         });
 
         author.projets.push(project._id);
-
-        
-        await Promise.all([project.save(), author.save()]);
+        await author.save();
 
         res.json(project);
     } catch (error) {
-        console.error("Error adding project:", error);
-        return res.status(500).json({ err: "Internal Server Error" });
+        console.error("Error in /add route:", error);
+        return res.sendStatus(500);
     }
 });
+
+
+router.get("/modifier/:id",  validateToken, validateRole(expertRole, adminRole),async (req, res) => {
+    try {
+        const { id } = req.params;
+        const project = await projectModel.findById(id);
+        if (!project) {
+            return res.status(404).json({ message: "Projet not found" });
+        }
+
+        res.json({
+            titre: project.titre,
+            type: project.type,
+            latitude: project.latitude,
+            longtitude: project.longtitude,
+            localisation: project.localisation,
+            style: project.style,
+            dateConstruction: project.dateConstruction,
+            photoUrl: project.photoUrl,
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+    }
+});
+
 
 
 router.put('/archive/:projectID',validateToken,validateRole(expertRole,adminRole),async (req,res)=>{
@@ -318,6 +353,7 @@ router.delete("/:projectId/collaborateurs/:expertId", validateToken, validatePro
 
 //request to join the collaborators of a project
 
+
 router.post("/:projectId/:sectionId/demande", validateToken, validateProjectOwner, async(req, res) => {
     const { projectId,sectionId } = req.params;
     const { expertId } = req.body; //expertId in the body of the request because one project can have several demandes there is no bijection
@@ -382,7 +418,6 @@ router.post("/:projectId/validate/:expertId", validateToken, validateProjectOwne
         }
 
         res.send(action);
-
     } catch (error) {
         console.log(error);
         return res.sendStatus(500);
@@ -399,11 +434,12 @@ router.get("/search", async(req, res) => {
 
     try {
         const results = await projectModel.find({ keyword });
-
         res.json(results);
     } catch (error) {
         res.status(500).json({ message: "Server error", error: error.message });
     }
 });
+
+
 
 module.exports = router;

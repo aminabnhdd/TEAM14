@@ -67,7 +67,6 @@ router.put("/valider/:conflitId",validateToken, async (req, res) => {
       await notificationModel.findByIdAndDelete(notifId);
       // redirect to chat but whereee
       } 
-
       return res.status(200).json({
         message: `Conflit ${
           decision === "accept" ? "validé" : "rejeté"
@@ -185,5 +184,4 @@ router.put("/collaboration/valider/:notifId", validateToken, async (req, res) =>
   }
 });
 module.exports = router;
-
 

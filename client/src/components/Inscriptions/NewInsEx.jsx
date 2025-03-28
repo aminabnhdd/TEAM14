@@ -8,7 +8,7 @@ function NewInsEx ({fn}) {
   const navigate = useNavigate() ;
 
   const goToConnexion = () => {
-    navigate("/Con");
+    navigate("/connexion");
   }
   
 

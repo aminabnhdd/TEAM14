@@ -11,7 +11,7 @@ function NewInsvs () {
   const navigate = useNavigate() ;
 
   const goToConnexion = () => {
-    navigate("/Con");
+    navigate("/connexion");
   }
   
     const [visible, setVisible] = useState(false);

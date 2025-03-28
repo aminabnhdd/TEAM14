@@ -44,7 +44,7 @@ const Navbar = ({ openPopUp }) => {  // Receive openPopUp as a prop
       </ul>
 
       <div className="button-group">
-        <button className="button-outline" onClick={()=>   navigate("/login")}>Se connecter</button>
+        <button className="button-outline" onClick={()=>   navigate("/connexion")}>Se connecter</button>
         <button className="button-filled" onClick={openPopUp}>S'inscrire</button>  
       </div>
     </nav>

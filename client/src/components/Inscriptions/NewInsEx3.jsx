@@ -10,7 +10,7 @@ function NewInsEx3({ prevPopUp2 }) {
   const navigate = useNavigate() ;
 
   const goToConnexion = () => {
-    navigate("/Con");
+    navigate("/connexion");
   }
   
     const fileInputRef = useRef(null);

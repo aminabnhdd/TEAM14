@@ -441,5 +441,40 @@ router.get("/search", async(req, res) => {
 });
 
 
+router.put("/update/:id", upload.single("image"), validateToken, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { titre, type, latitude, longtitude, localisation, style, dateConstruction } = req.body;
+
+        let project = await projectModel.findById(id);
+        if (!project) {
+            return res.status(404).json({ err: "Project not found" });
+        }
+
+        let imageUrl = project.photoUrl; 
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(req.file.path);
+            imageUrl = result.secure_url;
+        }
+
+        project.titre = titre;
+        project.type = type;
+        project.latitude = latitude;
+        project.longtitude = longtitude;
+        project.localisation = localisation;
+        project.style = style;
+        project.dateConstruction = dateConstruction;
+        project.photoUrl = imageUrl;
+
+        await project.save();
+        res.json({ message: "Project updated successfully", project });
+    } catch (error) {
+        console.error("Error in /update route:", error);
+        res.sendStatus(500);
+    }
+
+});
+
+
 
 module.exports = router;

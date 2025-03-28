@@ -11,7 +11,7 @@ function NewInsEx2({ prevPopUp, fn }) {
 
 
   const goToConnexion = () => {
-    navigate("/Con");
+    navigate("/connexion");
   }
   
   const [formData, setFormData] = useState({

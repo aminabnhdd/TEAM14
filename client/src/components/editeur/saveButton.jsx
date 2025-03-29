@@ -6,7 +6,7 @@ export default function SaveButton({editor,section}){
     const handleSave = ()=> {
         
     const json = editor.getJSON();
-    console.log(json,section);
+    console.log(json);
   
   //save to the database
     }

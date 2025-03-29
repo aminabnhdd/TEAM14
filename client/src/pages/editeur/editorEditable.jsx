@@ -133,7 +133,7 @@ export default function EditorEditable() {
         id: 1,
         projetId: projet,
         type: "histoire",
-        contenu: "",
+        contenu: "hi this is the content blabla",
         annotations: annotations,
         conflits: conflits,
     };
@@ -280,6 +280,14 @@ setTimeout(() => {
                         <div className="bg-neutral-200 w-full h-full flex items-center pl-4"> Recherchere un projet</div>
                     </div>
                     <main className=" ">
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
                         <div className="mt-5 bg w-[86%] mx-auto mb-10 ">
                             <div className="flex justify-between align-items mb-5">
                                 <h1 className="titles text-black">Editer section</h1>
@@ -316,7 +324,7 @@ setTimeout(() => {
                                     style={{ height: `${height}px` }} // Apply dynamic height
                                     className={`${annotVisible ? "w-[28%]" : "hidden"} overflow-y-auto`}
                                 >
-                                    <Conflicts conflits={conflits} user={user}  projet={projet} section={section}/>
+                                    <Conflicts conflits={conflits} user={user}  projet={projet} section={section} setConflits={setConflits}/>
                                     <Annotations annotations={annotations} />
                                 </div>
                             </div>

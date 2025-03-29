@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const PopAjouterCollaborateur = ({ onClose }) => {
+const PopAjouterCollaborateur = ({ onClose,projet,setProjet }) => {
   
   
     const [email, setEmail] = useState("");
@@ -16,9 +16,10 @@ const PopAjouterCollaborateur = ({ onClose }) => {
         setError("L'adresse ne correspond à aucun utilisateur"); 
         return;
     } 
+    // get the user with that email adress
         setError("");
         const user={
-            _id:'id1',
+            _id:"id2",
             nom:'Rahim',
             prenom:'Sarah',
             email:'',
@@ -33,7 +34,7 @@ const PopAjouterCollaborateur = ({ onClose }) => {
             projets:[],
             fileUrl:'',
              }
-        // get the role of the user
+
         const role = user.role;
         const isExpert = (user.role === "expert")
         if (!isExpert){
@@ -41,8 +42,55 @@ const PopAjouterCollaborateur = ({ onClose }) => {
             return;
         
     }
+        setError("");
+        const id = user._id;
+        const isCollaborateur = projet.collaborateurs.includes(id);
+        if (isCollaborateur){
+          setError("Cet expert fait déjà partie des collaborateurs du projet");            return;
+        
+    }
 
-    
+    setError("");
+    const discipline = user.discipline;
+    let disciplineExist = false;
+    projet.collaborateurs.forEach(collab => {
+      // get the user with the id collab;
+      const userCollaborateur = {
+        _id:"id2",
+        nom:'Rahim',
+        prenom:'Sarah',
+        email:'',
+        role:'expert',
+        userValid:true,
+        pfp:'https://i.pinimg.com/236x/dd/f0/11/ddf0110aa19f445687b737679eec9cb2.jpg',
+        favorites:[],
+        discipline:'architecture',
+        labo:'',
+        etablissement:"",
+        niveau:'',
+        projets:[],
+        fileUrl:'',
+         }
+
+         if (discipline === userCollaborateur.discipline ){
+          disciplineExist = true;
+         }
+    });
+
+    if (disciplineExist){
+      setError(`Il exist déja un expert en ${discipline} dans ce projet`); 
+      return;}
+
+    // here we will add the collaborateur
+    // save it
+
+    setProjet((prevProjet)=>{return {...prevProjet,
+      collaborateurs : [...prevProjet.collaborateurs,
+        user._id]}
+      
+    })
+
+
    
     onClose(); 
   };

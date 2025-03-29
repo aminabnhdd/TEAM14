@@ -1,10 +1,11 @@
 import { useState } from "react";
 import addIcon from "../../assets/add-symbol.png";
 import PopAjouterCollaborateur from "./popupAjouterCollaborateur";
-export default function AjouterCollaborateur() {
+export default function AjouterCollaborateur(props) {
   const [showPopup, setShowPopup] = useState(false);
     
   const ajouterCollab = () => {
+
     setShowPopup(true);
   };
 
@@ -21,7 +22,7 @@ export default function AjouterCollaborateur() {
       </button>
       
       {showPopup && (
-        <PopAjouterCollaborateur onClose={() => setShowPopup(false)} />
+        <PopAjouterCollaborateur onClose={() => setShowPopup(false)} projet={props.projet} setProjet={props.setProjet} />
       )}
     </>
   );

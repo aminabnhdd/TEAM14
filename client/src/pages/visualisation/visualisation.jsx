@@ -32,15 +32,62 @@ export default function Visualisation(){
         chef: null, // No default assigned expert
         collaborateurs: ['id1',2,3,4], // Empty array for collaborators
         demandes: [], // Empty array for requests
-        sections: [], // Empty array for sections
+        sections: [{
+            id: 'sec-1',
+            projetId: '',
+            type: "description",
+            contenu: "hi this is the content blabla",
+            annotations: '',
+            conflits: '',
+        },{
+            id: 'sec-2',
+            projetId: '',
+            type: "histoire",
+            contenu: "hi this is the content blabla",
+            annotations: '',
+            conflits: '',
+        },{
+            id: 'sec-3',
+            projetId: '',
+            type: "autre",
+            contenu: "hi this is the content blabla",
+            annotations: '',
+            conflits: '',
+        }], // Empty array for sections
         archivePar: null, // No default archived user
         archive: false, // Assuming projects are not archived by default
         keywords: [], // Empty keywords list
         createdAt: new Date(), // Default timestamp
         updatedAt: new Date(), // Default timestamp
+        refrences: [{
+            _id: 'ref-1',
+            text: 'author1 book1 1999',
+            number: 1,
+        },
+        {
+            _id: 'ref-2',
+            text: 'author2 book2 1999',
+            number: 2,
+        }]
     }));
+    const [user,setUser] = useState({
+        _id:"id2",
+        nom:'Rahim',
+        prenom:'Sarah',
+        email:'',
+        role:'expert',
+        userValid:true,
+        pfp:'https://i.pinimg.com/236x/dd/f0/11/ddf0110aa19f445687b737679eec9cb2.jpg',
+        favorites:[],
+        discipline:'histoire',
+        labo:'',
+        etablissement:"",
+        niveau:'',
+        projets:[],
+        fileUrl:'',
+         })
 
-
+         
 
  
     return(
@@ -55,7 +102,7 @@ export default function Visualisation(){
                     <div className="mt-5 bg w-[86%] mx-auto mb-10 ">
                         <TitleBar isExpert={isExpert} projet={projet} />
                         <div className="flex align-items  justify-between  mt-[30px]">
-                            <LeftSection/>
+                            <LeftSection projet={projet} isAdmin={isAdmin} isChef={isChef} isExpert={isExpert} isCollaborateur={isCollaborateur} user={user} />
                             <RightSection projet={projet} isAdmin={isAdmin} isExpert={isExpert} isChef={isChef} setProjet={setProjet} />
                         </div>
                     </div>

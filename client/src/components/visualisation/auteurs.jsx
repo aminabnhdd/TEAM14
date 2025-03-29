@@ -18,6 +18,7 @@ export default function Auteurs(props){
                 projets:[],
                 fileUrl:'',
                  }
+                
     return (
 
     <><div>
@@ -69,7 +70,8 @@ export default function Auteurs(props){
         }
     
         </div>
-        {props.isChef && <AjouterCollaborateur />}
+        
+        {props.isChef && <AjouterCollaborateur projet={props.projet} setProjet={props.setProjet} />}
     </>
     )
 }

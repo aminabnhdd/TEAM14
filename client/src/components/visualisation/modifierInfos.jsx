@@ -14,7 +14,7 @@ export default function ModifyInfos(){
 
     return(
         <button onClick={handleModify}
-         className="ml-auto mr-auto text-brown bg-white border border-neutral-300 
+         className="ml-auto mr-auto text-brown bg-white border border-neutral-300 mt-4
         rounded-[30px] py-3 flex align-items items-center gap-3 bolder-text px-5
         hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer">
             <FontAwesomeIcon icon={faPenToSquare} className=" w-5 h-5" />

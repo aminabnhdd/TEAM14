@@ -18,6 +18,12 @@ export function Auteur (props){
             ...prevProjet,
             collaborateurs: newCollaborateurs
         }));
+
+        const newCollab = props.collaborateurs.filter(
+            (collab) => collab._id !== props.user._id
+        )
+
+        props.setCollaborateurs(newCollab);
         
         setShowConfirmation(false);
         console.log(props.projet);

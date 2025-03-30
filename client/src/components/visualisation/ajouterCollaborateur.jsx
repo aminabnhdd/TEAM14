@@ -22,7 +22,7 @@ export default function AjouterCollaborateur(props) {
       </button>
       
       {showPopup && (
-        <PopAjouterCollaborateur onClose={() => setShowPopup(false)} projet={props.projet} setProjet={props.setProjet} />
+        <PopAjouterCollaborateur onClose={() => setShowPopup(false)} projet={props.projet} setProjet={props.setProjet} collaborateurs={props.collaborateurs} setCollaborateurs={props.setCollaborateurs} />
       )}
     </>
   );

@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-const PopAjouterCollaborateur = ({ onClose,projet,setProjet }) => {
-  
+const PopAjouterCollaborateur = ({ onClose,projet,setProjet,collaborateurs,setCollaborateurs }) => {
   
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
@@ -12,6 +11,7 @@ const PopAjouterCollaborateur = ({ onClose,projet,setProjet }) => {
 
     // check if the email address exists in the data base
     const EmailExists = (email==='hi@esi.dz');
+    
     if (!EmailExists){
         setError("L'adresse ne correspond à aucun utilisateur"); 
         return;
@@ -19,21 +19,23 @@ const PopAjouterCollaborateur = ({ onClose,projet,setProjet }) => {
     // get the user with that email adress
         setError("");
         const user={
-            _id:"id2",
-            nom:'Rahim',
-            prenom:'Sarah',
-            email:'',
+            _id:"id4",
+            nom:'hi',
+            prenom:'there',
+            email:'hi@esi.dz',
             role:'expert',
             userValid:true,
             pfp:'https://i.pinimg.com/236x/dd/f0/11/ddf0110aa19f445687b737679eec9cb2.jpg',
             favorites:[],
-            discipline:'histoire',
+            discipline:'architecture',
             labo:'',
             etablissement:"",
             niveau:'',
             projets:[],
             fileUrl:'',
              }
+
+        // get the role of that user
 
         const role = user.role;
         const isExpert = (user.role === "expert")
@@ -53,26 +55,8 @@ const PopAjouterCollaborateur = ({ onClose,projet,setProjet }) => {
     setError("");
     const discipline = user.discipline;
     let disciplineExist = false;
-    projet.collaborateurs.forEach(collab => {
-      // get the user with the id collab;
-      const userCollaborateur = {
-        _id:"id2",
-        nom:'Rahim',
-        prenom:'Sarah',
-        email:'',
-        role:'expert',
-        userValid:true,
-        pfp:'https://i.pinimg.com/236x/dd/f0/11/ddf0110aa19f445687b737679eec9cb2.jpg',
-        favorites:[],
-        discipline:'architecture',
-        labo:'',
-        etablissement:"",
-        niveau:'',
-        projets:[],
-        fileUrl:'',
-         }
-
-         if (discipline === userCollaborateur.discipline ){
+    collaborateurs.forEach(collab => {
+         if (discipline === collab.discipline ){
           disciplineExist = true;
          }
     });
@@ -87,7 +71,14 @@ const PopAjouterCollaborateur = ({ onClose,projet,setProjet }) => {
     setProjet((prevProjet)=>{return {...prevProjet,
       collaborateurs : [...prevProjet.collaborateurs,
         user._id]}
-      
+    })
+
+    setCollaborateurs((prevCollaborateurs)=>{
+      return(
+        [...prevCollaborateurs,
+          user
+        ]
+      )
     })
 
 

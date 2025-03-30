@@ -541,7 +541,12 @@ const content = {
             contenu: content,
             annotations: '',
             conflits: '',
-            images:[],
+            images:[  {src: "https://alger.mta.gov.dz/wp-content/uploads/sites/6/2022/01/La-casbah-dAlger.jpg"},
+                {src: "https://alger.mta.gov.dz/wp-content/uploads/sites/6/2022/01/La-casbah-dAlger.jpg"},
+                {src: "https://alger.mta.gov.dz/wp-content/uploads/sites/6/2022/01/La-casbah-dAlger.jpg"},
+                {src: "https://alger.mta.gov.dz/wp-content/uploads/sites/6/2022/01/La-casbah-dAlger.jpg"},
+                {src: "https://alger.mta.gov.dz/wp-content/uploads/sites/6/2022/01/La-casbah-dAlger.jpg"},
+            ],
         },{
             id: 'sec-3',
             projetId: '',
@@ -549,23 +554,30 @@ const content = {
             contenu: content,
             annotations: '',
             conflits: '',
-            images:[],
+            images:[  ],
         }], // Empty array for sections
         archivePar: null, // No default archived user
         archive: false, // Assuming projects are not archived by default
         keywords: [], // Empty keywords list
         createdAt: new Date(), // Default timestamp
         updatedAt: new Date(), // Default timestamp
-        refrences: [{
-            _id: 'ref-1',
-            text: 'author1 book1 1999',
-            number: 1,
-        },
-        {
-            _id: 'ref-2',
-            text: 'author2 book2 1999',
-            number: 2,
-        }]
+        references: [
+            {
+                "_id": "ref_1743266337719",
+                "text": "Auteur1, Titre1 , Date1",
+                "number": 1
+            },
+            {
+                "_id": "ref_1743366587436",
+                "text": "Auteur2, Titre2, Date2",
+                "number": 2
+            },
+            {
+                "_id": "ref_1743266349352",
+                "text": "Auteur3, Titre3, Date3",
+                "number": 3
+            }
+        ]
     }));
     const [user,setUser] = useState({
         _id:"id80",
@@ -654,6 +666,13 @@ const content = {
 
          
 
+
+
+
+  
+
+
+
  
     return(
         <>
@@ -667,7 +686,7 @@ const content = {
                     <div className="mt-5 bg w-[86%] mx-auto mb-10 ">
                         <TitleBar isExpert={isExpert} projet={projet} />
                         <div className="flex align-items  justify-between  mt-[30px]">
-                            <LeftSection projet={projet} isAdmin={isAdmin} isChef={isChef} isExpert={isExpert} isCollaborateur={isCollaborateur} user={user} collaborateurs={collaborateurs} />
+                            <LeftSection projet={projet} setProjet={setProjet} isAdmin={isAdmin} isChef={isChef} isExpert={isExpert} isCollaborateur={isCollaborateur} user={user} collaborateurs={collaborateurs} />
                             <RightSection projet={projet} isAdmin={isAdmin} isExpert={isExpert} isChef={isChef} setProjet={setProjet}  chef={chef} collaborateurs={collaborateurs} setCollaborateurs={setCollaborateurs} />
                         </div>
                     </div>

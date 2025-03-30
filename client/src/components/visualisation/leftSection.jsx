@@ -1,4 +1,8 @@
 import Section from "./section";
+import ReferencesSection from "./referencesSection";
+import ArchiverProjet from "./archiverProjet";
+import AjouterSection from "./ajouterSection";
+
 
 export default function LeftSection(props){
 
@@ -16,6 +20,12 @@ export default function LeftSection(props){
             <Section key={section.id} id={section.id} section={section} user={props.user} isExpert={props.isExpert} isChef={props.isChef} isCollaborateur={props.isCollaborateur} isAdmin={props.isAdmin} />
          )
            })} 
+           <AjouterSection/>
+           <div className="flex justify-between">
+           <ReferencesSection  projet={props.projet} />
+           {props.isAdmin || props.isChef && <ArchiverProjet user={props.user} projet={props.projet} setProjet={props.setProjet} />}
+           </div>
+
     </div>
     )
 }

@@ -10,7 +10,7 @@ function toggleOpen(){
     setSectionOpen(!sectionOpen);
 }
     return (
-        <div className=" rendered mb-14 flex flex-col gap-4">
+        <div className=" rendered mb-8 flex flex-col gap-4">
             <div className=" text-black flex align-items items-center justify-between border-b border-neutral-300">
                   <button onClick={toggleOpen} className="secondary-titles cursor-pointer" >
                   <FontAwesomeIcon icon={faCaretDown} className="mr-4 w-5 h-5" />
@@ -25,7 +25,7 @@ function toggleOpen(){
                 { sectionOpen &&
                 <>
                 <TiptapRenderer  content={props.section.contenu} />
-                <Gallerie slides={props.section.images} />
+                {props.section.images.length>0 && <Gallerie slides={props.section.images} />}
                 </>
                 }
 

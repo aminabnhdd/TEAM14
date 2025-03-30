@@ -1,13 +1,17 @@
-ul, ol {
+.tiptap ul, ol {
     padding-left: 1.5rem;
     margin: 1rem 0;
   }
   
-  ul {
+  .tiptap p {
+    font-size: 1.125em;
+  }
+
+  .tiptap ul {
     list-style-type: disc;
   }
   
-  ol {
+  .tiptap ol {
     list-style-type: decimal;
   }
   
@@ -22,7 +26,7 @@ ul, ol {
   }
   
   .tiptap h3 {
-    font-size: 1.rem;
+    font-size: 1.2rem;
     font-weight: bold;
   }
   
@@ -40,7 +44,7 @@ ul, ol {
     
   }
 
-  a {
+  .tiptap a {
     color: #c57642;
     text-decoration: underline;
     cursor: pointer;
@@ -50,7 +54,7 @@ ul, ol {
     }
   }
 
-  blockquote {
+  .tiptap blockquote {
     border-left: 2px solid #e8c07d;
     margin: 1.5rem 0;
     padding-left: 1rem;
@@ -58,20 +62,21 @@ ul, ol {
 
 
 
-  table {
+  .tiptap table {
     border-collapse: collapse;
     margin: 0;
     overflow: hidden;
     table-layout: fixed;
-    width: 100%;
- 
+    width: 100% ;
     margin-left: auto;
     margin-right: auto; 
+    
   
     td,
     th {
       border: 1px solid #d1d4d5;
       box-sizing: border-box;
+      height: 2.5em;
       min-width: 1em;
       padding: 6px 8px;
       position: relative;
@@ -139,15 +144,25 @@ p.is-editor-empty:first-child::before {
 
 
 .image-card {
+  max-width: 36%;
   border: 1px solid #e2e5e6; /* Add a border */
   border-radius: 8px; /* Rounded corners */
   background-color: #f3f4f5; /* Light background color */
   margin: 0.5rem 1.5rem; /* Add some margin */
   display: inline-block; /* Make the card only as wide as its content */
   overflow: hidden; /* Ensure the image doesn't overflow the card */
-  max-width: 36%;
   cursor: grab; /* Change cursor to indicate draggability */
 }
+
+.rendered .image-card{
+  pointer-events: none;
+}
+
+.rendered figure{
+  pointer-events: none;
+}
+
+
 
 /* Alignment styles for the image-card */
 .image-card.align-left {
@@ -170,16 +185,20 @@ figure {
   align-items: center;
   margin: 0; /* Remove default margin */
   padding: 0; /* Remove default padding */
- 
+  
 }
 
+
+
 figure img {
+  
   max-width: 100%; /* Allow the image to retain its original size */
   height: auto; /* Maintain aspect ratio */
   display: block; /* Remove extra space below the image */
   margin: 0; /* Remove default margin */
   padding: 0; 
   pointer-events: none; 
+  
 }
 
 figcaption {
@@ -226,7 +245,7 @@ figure video {
   max-width: 100%;
   height: auto;
   display: block;
-  margin: 0;
+  margin: auto;
   padding: 0;
  
 }
@@ -245,6 +264,13 @@ figcaption {
 .annotation-highlight {
   padding: 2px 4px; /* Optional: Add padding for better visibility */
   border-radius: 3px; /* Optional: Add rounded corners */
+}
+
+.rendered .annotation-highlight{
+  background-color: transparent !important;
+  padding: 0px !important;
+  cursor: default !important;
+  pointer-events: none !important;
 }
 
 .reference {

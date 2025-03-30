@@ -36,7 +36,58 @@ export default function Visualisation(){
             id: 'sec-1',
             projetId: '',
             type: "description",
-            contenu: "hi this is the content blabla",
+            contenu:{
+                "type": "doc",
+                "content": [
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": null
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "annotation",
+                                        "attrs": {
+                                            "id": 1743331952097,
+                                            "color": null
+                                        }
+                                    }
+                                ],
+                                "text": "hey"
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "annotation",
+                                        "attrs": {
+                                            "id": 1743332082784,
+                                            "color": null
+                                        }
+                                    }
+                                ],
+                                "text": " t"
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "annotation",
+                                        "attrs": {
+                                            "id": 1743332055378,
+                                            "color": null
+                                        }
+                                    }
+                                ],
+                                "text": "here"
+                            }
+                        ]
+                    }
+                ]
+            },
             annotations: '',
             conflits: '',
         },{

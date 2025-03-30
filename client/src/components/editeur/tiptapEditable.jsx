@@ -60,7 +60,7 @@ export default function TiptapEditable({ setEditor,section,saved , setSaved ,ref
         }),
     
       Table.configure({
-        resizable: true,
+        resizable: false,
       }),
       TableRow,
       TableHeader,

@@ -521,6 +521,19 @@ const content = {
             contenu:content,
             annotations: '',
             conflits: '',
+            images:  [ 
+                 {src: "https://alger.mta.gov.dz/wp-content/uploads/sites/6/2022/01/La-casbah-dAlger.jpg"},
+                 {src: "https://alger.mta.gov.dz/wp-content/uploads/sites/6/2022/01/La-casbah-dAlger.jpg"},
+                 {src: "https://alger.mta.gov.dz/wp-content/uploads/sites/6/2022/01/La-casbah-dAlger.jpg"},
+                 {src: "https://alger.mta.gov.dz/wp-content/uploads/sites/6/2022/01/La-casbah-dAlger.jpg"},
+                 {src: "https://alger.mta.gov.dz/wp-content/uploads/sites/6/2022/01/La-casbah-dAlger.jpg"},
+                 {src: "https://alger.mta.gov.dz/wp-content/uploads/sites/6/2022/01/La-casbah-dAlger.jpg"},
+                 {src: "https://alger.mta.gov.dz/wp-content/uploads/sites/6/2022/01/La-casbah-dAlger.jpg"},
+                 {src: "https://alger.mta.gov.dz/wp-content/uploads/sites/6/2022/01/La-casbah-dAlger.jpg"},
+                 {src: "https://alger.mta.gov.dz/wp-content/uploads/sites/6/2022/01/La-casbah-dAlger.jpg"},
+                 {src: "https://alger.mta.gov.dz/wp-content/uploads/sites/6/2022/01/La-casbah-dAlger.jpg"},
+
+              ],
         },{
             id: 'sec-2',
             projetId: '',
@@ -528,6 +541,7 @@ const content = {
             contenu: content,
             annotations: '',
             conflits: '',
+            images:[],
         },{
             id: 'sec-3',
             projetId: '',
@@ -535,6 +549,7 @@ const content = {
             contenu: content,
             annotations: '',
             conflits: '',
+            images:[],
         }], // Empty array for sections
         archivePar: null, // No default archived user
         archive: false, // Assuming projects are not archived by default

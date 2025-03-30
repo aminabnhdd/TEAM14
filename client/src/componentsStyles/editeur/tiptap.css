@@ -158,8 +158,13 @@ p.is-editor-empty:first-child::before {
   pointer-events: none;
 }
 
-.rendered figure{
-  pointer-events: none;
+ .rendered figure{
+  cursor: default;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 

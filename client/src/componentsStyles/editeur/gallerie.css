@@ -18,7 +18,7 @@
   
   .gallerie-image:hover {
     transform: scale(1.02);
-    filter: brightness(0.9); /* Darkens the image */
+    filter: brightness(0.9); 
 }
 
   
@@ -42,4 +42,64 @@
     margin: 0;
     font-size: 1rem;
   }
+ 
+  .rendered{.gallerie-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden; /* Contain everything */
+  }
+  
+  .gallerie-container {
+    display: grid;
+    grid-auto-flow: column; /* Horizontal flow by default */
+    grid-template-rows: repeat(2, 10rem); /* Two rows max */
+    grid-auto-columns: 10rem; /* Fixed column width */
+    gap: 1rem;
+    padding: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin; /* For Firefox */
+  }
+  
+  /* Dynamic behavior based on item count */
+  .gallerie-container {
+    /* Default: single row that expands */
+    grid-template-columns: repeat(auto-fill, 10rem);
+    grid-auto-flow: row;
+  }
+  
+  /* When items exceed first row capacity */
+  .gallerie-container:has(> :nth-child(1):nth-last-child(n+6)) {
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, 10rem);
+  }
+  
+  /* When two full rows would be filled (10 items) */
+  .gallerie-container:has(> :nth-child(11)) {
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, 10rem);
+    overflow-x: auto;
+  }
+  
+  /* Item styling */
+  .gallerie-image {
+    width: 10rem;
+    height: 10rem;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0; /* Prevent shrinking */
+  }
+  
+  /* Responsive containment */
+  @media (max-width: 768px) {
+    .gallerie-container {
+      grid-auto-columns: minmax(8rem, 1fr);
+    }
+    .gallerie-image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
 

@@ -3,7 +3,8 @@ import TitleBar from "../../components/visualisation/titleBar"
 import LeftSection from "../../components/visualisation/leftSection"
 import RightSection from "../../components/visualisation/rightSection"
 import { useState, useEffect} from "react"
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faList} from "@fortawesome/free-solid-svg-icons";
 
 export default function Visualisation(){
     // const [isExpert, setIsExpert] = useState(null);
@@ -514,7 +515,9 @@ const content = {
         chef: 'id1', // No default assigned expert
         collaborateurs: ['id1','id2','id3'], // Empty array for collaborators
         demandes: [], // Empty array for requests
-        sections: [{
+        sections: [
+
+            {
             id: 'sec-1',
             projetId: '',
             type: "description",
@@ -534,7 +537,9 @@ const content = {
                  {src: "https://alger.mta.gov.dz/wp-content/uploads/sites/6/2022/01/La-casbah-dAlger.jpg"},
 
               ],
-        },{
+        },
+        
+        {
             id: 'sec-2',
             projetId: '',
             type: "histoire",
@@ -588,7 +593,7 @@ const content = {
         userValid:true,
         pfp:'https://i.pinimg.com/236x/dd/f0/11/ddf0110aa19f445687b737679eec9cb2.jpg',
         favorites:[],
-        discipline:'histoire',
+        discipline:'archeologie',
         labo:'',
         etablissement:"",
         niveau:'',
@@ -664,36 +669,96 @@ const content = {
      ]
      );
 
-         
+     const sections = ['description','architecture','histoire','archeologie','autre'];
+
+     const sectionsExistantes = sections.filter(section => 
+         projet.sections.some(sec => sec.type === section)
+       );
+      
 
 
+     const [isSticky, setIsSticky] = useState(false);
 
+     useEffect(() => {
+       const handleScroll = () => {
+         setIsSticky(window.scrollY > 130);
+       };
+   
+       // Add a slight throttle to improve performance
+       let ticking = false;
+       const throttledScroll = () => {
+         if (!ticking) {
+           window.requestAnimationFrame(() => {
+             handleScroll();
+             ticking = false;
+           });
+           ticking = true;
+         }
+       };
+   
+       window.addEventListener('scroll', throttledScroll);
+       return () => window.removeEventListener('scroll', throttledScroll);
+     }, []);
 
-  
+     const [listOpen, setListOpen] = useState(false);
 
-
-
- 
-    return(
+     function toggleOpen(){
+        setListOpen(!listOpen);
+     }
+       return (
         <>
-        <div className="flex max-w-full">
+          <div className="flex relative max-w-full">
             <SideNav className="" />
             <div className="flex-1 w-full bg-white main-content">
-                <div className="h-[106px]  py-5 w-full flex items-center justify-center bg-white sticky top-0 z-10">
-                    <div className="bg-neutral-200 w-[86%] h-full flex items-center pl-4"> Recherchere un projet</div>
+              <div className="h-[106px] py-5 w-full flex items-center justify-center bg-white sticky top-0 z-10">
+                <div className="bg-neutral-200 w-[86%] h-full flex items-center pl-4">
+                  Rechercher un projet
                 </div>
-                <main className=" ">
-                    <div className="mt-5 bg w-[86%] mx-auto mb-10 ">
-                        <TitleBar isExpert={isExpert} projet={projet} />
-                        <div className="flex align-items  justify-between  mt-[30px]">
-                            <LeftSection projet={projet} setProjet={setProjet} isAdmin={isAdmin} isChef={isChef} isExpert={isExpert} isCollaborateur={isCollaborateur} user={user} collaborateurs={collaborateurs} />
-                            <RightSection projet={projet} isAdmin={isAdmin} isExpert={isExpert} isChef={isChef} setProjet={setProjet}  chef={chef} collaborateurs={collaborateurs} setCollaborateurs={setCollaborateurs} />
-                        </div>
-                    </div>
-                  
-                </main>
+              </div>
+              <main className="">
+                <div className="mt-5 bg w-[86%] mx-auto mb-10">
+                  <TitleBar isExpert={isExpert} projet={projet} />
+                  <div className="flex align-items justify-between mt-[30px]">
+                    <LeftSection
+                      projet={projet}
+                      setProjet={setProjet}
+                      isAdmin={isAdmin}
+                      isChef={isChef}
+                      isExpert={isExpert}
+                      isCollaborateur={isCollaborateur}
+                      user={user}
+                      collaborateurs={collaborateurs}
+                      sectionsExistantes={sectionsExistantes}
+                    />
+                    <RightSection
+                      projet={projet}
+                      isAdmin={isAdmin}
+                      isExpert={isExpert}
+                      isChef={isChef}
+                      setProjet={setProjet}
+                      chef={chef}
+                      collaborateurs={collaborateurs}
+                      setCollaborateurs={setCollaborateurs}
+                    />
+                  </div>
+                </div>
+              </main>
             </div>
-        </div>
-    </>
-    )
-}
+    
+            <div  className={`fixed left-[115px] z-[4000] text-black
+             ${isSticky ? 'top-[130px]' : 'top-[225px]'}`}>
+            <button onClick={toggleOpen}
+        className={` border border-neutral-400 bg-white rounded-full w-14 h-14 cursor-pointer flex justify-center items-center
+                      hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300`}
+      >
+        <FontAwesomeIcon icon={faList} className="text-4xl w-5 h-5" />
+            
+      </button>
+           {listOpen && <div>
+                hello guys this is the list
+            </div>}
+      </div>
+          </div>
+        </>
+      );
+    }

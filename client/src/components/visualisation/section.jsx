@@ -9,16 +9,38 @@ const [sectionOpen,setSectionOpen] = useState(true);
 function toggleOpen(){
     setSectionOpen(!sectionOpen);
 }
-    return (
+
+const canEdit = () => {
+    if (props.section.type === 'description') return props.isChef;
+    if (props.section.type === 'autre') return true;
+    if (props.section.type === 'histoire') return props.user.discipline === 'histoire';
+    if (props.section.type === 'architecture') return props.user.discipline === 'architecture';
+    if (props.section.type === 'archeologie') return props.user.discipline === 'archeologie';
+    return false;
+  };
+
+function editSection(){
+    console.log(props.section)
+}
+
+function annoterSection(){
+    console.log(props.section)
+}
+
+  return (
         <div className=" rendered mb-8 flex flex-col gap-4">
             <div className=" text-black flex align-items items-center justify-between border-b border-neutral-300">
                   <button onClick={toggleOpen} className="secondary-titles cursor-pointer" >
-                  <FontAwesomeIcon icon={faCaretDown} className="mr-4 w-5 h-5" />
+                  <FontAwesomeIcon icon={sectionOpen ? faCaretUp : faCaretDown} className="mr-4 w-5 h-5" />
                   {props.section.type.charAt(0).toUpperCase() + props.section.type.slice(1)}
                   </button >
                     {props.isCollaborateur && 
-                        <div className=" flex align-items items-center gap-2">
-                        <button>hi there</button>
+                        <div >
+                        {canEdit() ?
+                        <button onClick={editSection} className="main-text text-brown hover:underline cursor-pointer px-4" >Editer</button>
+                        : 
+                        <button className="main-text text-neutral-500 px-4" >Editer</button>}
+                        <button onClick={annoterSection} className="main-text text-brown hover:underline cursor-pointer pl-4 border-l border-neutral-400" >Annoter</button>
                     </div>}
                     
                 </div>

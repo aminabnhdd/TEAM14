@@ -1,13 +1,7 @@
     import "../../PagesStyles/Pages Admin Styles/ListProjets.css"
     import {useState} from "react"
-    import ConflitSignal from "../../components/popUpsNotif/ConflitSignal"
-    import Collaboration from "../../components/popUpsNotif/Collaboration"
-    import ConflitRes from "../../components/popUpsNotif/ConflitRes"
-    import ConflitChat from "../../components/popUpsNotif/ConflitChat"
-    import Refus from "../../components/popUpsNotif/Refus"
-    import Acceptation from "../../components/popUpsNotif/Acceptation"
     import SearchBar from "../../components/SearchBar/SearchBar"
-    import SideNav from "../../components/SideNav/SideNav"
+    import SideNavAdmin from "../../components/SideNav/SideNavAdmin"
 
     import imjjjjjj from "../../assets/person.png"
     import imjjjjjjjjj from "../../assets/mingcute_file-line.svg"
@@ -30,12 +24,13 @@
 
         
         
+        
 
     return(
 
         <div className="main-notif-lsPrjct">
             <div className="navigation-bar-lsPrjct">
-                <SideNav />
+                <SideNavAdmin />
             </div>
             <div className="secondary-notif-lsPrjct">
 
@@ -46,7 +41,7 @@
                         collaborateurs et gardez un œil sur le projet.</p>
                         </div>
                     </div>
-                <SearchBar onSearch={setSearchQuery} title="Rechercher Un Projet..."/>
+                <SearchBar onSearch={setSearchQuery} title="Rechercher Un Projet"/>
 
                 <div className="second-div-lsPrjct">
                     <div className="final-div-lsPrjct">

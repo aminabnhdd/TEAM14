@@ -2,6 +2,7 @@ import "../../PagesStyles/Pages Admin Styles/ListUtil.css"
 import {useState,useEffect} from "react"
 import SearchBar from "../../components/SearchBar/SearchBar"
 import SideNav from "../../components/SideNav/SideNav"
+import SideNavAdmin from "../../components/SideNav/SideNavAdmin"
 
 import imjjjjjj from "../../assets/person.png"
 
@@ -64,7 +65,7 @@ const [col,setCol] = useState(false)
 
     <div className="main-notif">
         <div className="navigation-bar-LsUtil">
-                <SideNav />
+                <SideNavAdmin />
             </div>
             <div className="secondary-notif-LsUtil">
 
@@ -109,7 +110,7 @@ const [col,setCol] = useState(false)
                         {col && filteredNotifications1.map(element => (
                             <div className="note-LsUtil2">
                             <div className="iconwmessage-LsUtil2">
-                            <img className="notif-icon-LsUtil2" src={element.imge} alt="Notification Icon" />
+                            <img className="notif-icon-LsUtil1" src={element.imge} alt="Notification Icon" />
                             <p className="notif-message-LsUtil2">{element.util}</p>
                             </div>
                             <div className="notwtabwdom-LsUtil2">

@@ -4,9 +4,10 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App"; // Add this line to import the App component
 
 createRoot(document.getElementById("root")).render(
+
   <StrictMode>
-  <BrowserRouter>
+    <BrowserRouter>
     <App />
-  </BrowserRouter>
+    </BrowserRouter>
   </StrictMode> 
 );

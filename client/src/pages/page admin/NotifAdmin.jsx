@@ -4,6 +4,7 @@ import Collaboration from "../../components/popUpsNotif/Collaboration"
 import ConflitRes from "../../components/popUpsNotif/ConflitRes"
 import SearchBar from "../../components/SearchBar/SearchBar"
 import SideNav from "../../components/SideNav/SideNav"
+import SideNavAdmin from "../../components/SideNav/SideNavAdmin"
 
 
 import imjjjjjj from "../../assets/person.png"
@@ -83,7 +84,7 @@ const [poop3,setPoop3] = useState(false)
 
     <div className="main-notif">
         <div className="navigation-bar-notifAd">
-            <SideNav/>
+            <SideNavAdmin/>
         </div>
         <div className="secondary-notif-notifAd">
 

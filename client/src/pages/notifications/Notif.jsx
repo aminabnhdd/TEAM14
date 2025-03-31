@@ -6,9 +6,9 @@ import ConflitRes from "../../components/popUpsNotif/ConflitRes"
 import ConflitChat from "../../components/popUpsNotif/ConflitChat"
 import Refus from "../../components/popUpsNotif/Refus"
 import Acceptation from "../../components/popUpsNotif/Acceptation"
+import SideNav from "../../components/SideNav/SideNav"
+import SearchBar from "../../components/SearchBar/SearchBar"
 
-import im from "../../assets/material-symbols_search.svg"
-import imj from "../../assets/gg_profile.svg"
 import imjj from "../../assets/Alert triangle (1).png"
 import imjjj from "../../assets/Alert triangle.png"
 import imjjjj from "../../assets/ix_success.png"
@@ -124,19 +124,11 @@ const [poop5,setPoop5] = useState(false)
 
     <div className="main-notif">
         <div className="navigation-bar">
-
+            <SideNav/>
         </div>
         <div className="secondary-notif">
 
-            <div className="search-div">
-
-                <label className="search-bar">
-                    <img className="imgrecherche" src={im} />
-                    <input className="inprech" type="text" placeholder="Rechercher un projet" />
-                </label>
-                <img className="imgprofil" src={imj} />
-
-            </div>
+        <SearchBar  title="Rechercher Un Projet"/>
                 <div className=" textos">
                     <h1 className="hnotif">Notifications</h1>
                     <div>

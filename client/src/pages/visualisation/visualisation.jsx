@@ -3,8 +3,7 @@ import TitleBar from "../../components/visualisation/titleBar"
 import LeftSection from "../../components/visualisation/leftSection"
 import RightSection from "../../components/visualisation/rightSection"
 import { useState, useEffect} from "react"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList} from "@fortawesome/free-solid-svg-icons";
+import ListSections from "../../components/visualisation/listSections"
 
 export default function Visualisation(){
     // const [isExpert, setIsExpert] = useState(null);
@@ -518,7 +517,7 @@ const content = {
         sections: [
 
             {
-            id: 'sec-1',
+            _id: 'sec-1',
             projetId: '',
             type: "description",
             contenu:content,
@@ -540,7 +539,7 @@ const content = {
         },
         
         {
-            id: 'sec-2',
+            _id: 'sec-2',
             projetId: '',
             type: "histoire",
             contenu: content,
@@ -553,7 +552,7 @@ const content = {
                 {src: "https://alger.mta.gov.dz/wp-content/uploads/sites/6/2022/01/La-casbah-dAlger.jpg"},
             ],
         },{
-            id: 'sec-3',
+            _id: 'sec-3',
             projetId: '',
             type: "autre",
             contenu: content,
@@ -677,34 +676,9 @@ const content = {
       
 
 
-     const [isSticky, setIsSticky] = useState(false);
 
-     useEffect(() => {
-       const handleScroll = () => {
-         setIsSticky(window.scrollY > 130);
-       };
-   
-       // Add a slight throttle to improve performance
-       let ticking = false;
-       const throttledScroll = () => {
-         if (!ticking) {
-           window.requestAnimationFrame(() => {
-             handleScroll();
-             ticking = false;
-           });
-           ticking = true;
-         }
-       };
-   
-       window.addEventListener('scroll', throttledScroll);
-       return () => window.removeEventListener('scroll', throttledScroll);
-     }, []);
 
-     const [listOpen, setListOpen] = useState(false);
-
-     function toggleOpen(){
-        setListOpen(!listOpen);
-     }
+ 
        return (
         <>
           <div className="flex relative max-w-full">
@@ -744,20 +718,9 @@ const content = {
                 </div>
               </main>
             </div>
-    
-            <div  className={`fixed left-[115px] z-[4000] text-black
-             ${isSticky ? 'top-[130px]' : 'top-[225px]'}`}>
-            <button onClick={toggleOpen}
-        className={` border border-neutral-400 bg-white rounded-full w-14 h-14 cursor-pointer flex justify-center items-center
-                      hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300`}
-      >
-        <FontAwesomeIcon icon={faList} className="text-4xl w-5 h-5" />
-            
-      </button>
-           {listOpen && <div>
-                hello guys this is the list
-            </div>}
-      </div>
+            <ListSections sectionsExistantes={sectionsExistantes} 
+            projet={projet} />
+           
           </div>
         </>
       );

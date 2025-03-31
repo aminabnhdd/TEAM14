@@ -57,7 +57,7 @@ export default function ReferencesSection(props){
  
     return (
         <>
-        <div>
+        <div id="section-references">
         {references.length>0 && <p className="secondary-titles text-black mb-2 ">Références</p>}
         {references.length>0 && refElement}
         </div>

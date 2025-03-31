@@ -28,7 +28,7 @@ function annoterSection(){
 }
 
   return (
-        <div className=" rendered mb-8 flex flex-col gap-4">
+        <div id={props.section._id} key={props.section.id} className=" rendered mb-8 flex flex-col gap-4">
             <div className=" text-black flex align-items items-center justify-between border-b border-neutral-300">
                   <button onClick={toggleOpen} className="secondary-titles cursor-pointer" >
                   <FontAwesomeIcon icon={sectionOpen ? faCaretUp : faCaretDown} className="mr-4 w-5 h-5" />

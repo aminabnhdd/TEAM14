@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
 import { useState, useRef, useEffect } from "react";
+import AnnotationService from "../../../services/AnnotationService";
 
-export default function ReferencesButton({ editor, references, setReferences }) {
+
+export default function ReferencesButton({ editor,projet, references, setReferences }) {
   const [showPopup, setShowPopup] = useState(false);
   const [author, setAuthor] = useState("");
   const [title, setTitle] = useState("");
@@ -49,7 +51,9 @@ export default function ReferencesButton({ editor, references, setReferences }) 
 
   };
 
-  const handleCreateReference = () => {
+  const handleCreateReference = async () => {
+    try{
+
     // Concatenate fields, filtering out empty ones
     const referenceParts = [
       author,
@@ -58,13 +62,13 @@ export default function ReferencesButton({ editor, references, setReferences }) 
     ].filter(part => part.trim() !== "");
 
     if (referenceParts.length === 0) return;
+console.log("HERE IS THE PROJET ID ",projet._id);
+    const respon = await AnnotationService.Reference(
+      projet._id,references.length + 1,
+       referenceParts.join(", "),
 
-    const newRef = {
-      _id: `ref_${Date.now()}`,
-      text: referenceParts.join(", "), // Combine non-empty fields with commas
-      number: references.length + 1,
-      
-    };
+    );
+    const newRef = respon.reference;
 
     setReferences([...references, newRef]);
     
@@ -74,11 +78,12 @@ export default function ReferencesButton({ editor, references, setReferences }) 
     setTitle("");
     setDate("");
     
-    setShowPopup(false); 
-
     insertReferenceNode(newRef._id, newRef.number);
-    
-   
+  } catch (error) {
+    console.error("Error Reference:", error);
+  } finally {
+    setShowPopup(false); 
+  }
   };
 
   return (

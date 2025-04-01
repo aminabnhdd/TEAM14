@@ -9,7 +9,7 @@ const expertRole = process.env.EXPERT_ROLE;
 const adminRole = process.env.ADMIN_ROLE;
 
 const cloudinary = require('../config/cloudinary');
-const upload = require('../middlewares/multerMiddleware');
+const { upload } = require('../middlewares/multerMiddleware');
 
 router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.single("image"), async (req, res) => {
     try {

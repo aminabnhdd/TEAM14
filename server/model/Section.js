@@ -23,6 +23,10 @@ const sectionSchema = new mongoose.Schema({
     conflits: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Conflit"
+    }],
+    images: [{
+            type: String,
+            default:""
     }]
 });
 

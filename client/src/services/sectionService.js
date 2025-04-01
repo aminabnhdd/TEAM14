@@ -1,15 +1,17 @@
 import axios from "axios";
 
 const URL = "http://localhost:3001";
-const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub20iOiJrb3VkaWwiLCJwcmVub20iOiJtb3Vsb3VkIiwiaWQiOiI2N2MxZGViNDhjOTEzNzkzOTJlYjdjNTEiLCJlbWFpbCI6ImtvdWRpbEBnbWFpbC5jb20iLCJyb2xlIjoiYjhlOTk1MDc2NDExMjZkNDQxZWQ1YWNiNGFkOTIyMmM3ZmVkZjI0MTcyNjk1NGZkNzQwMzI3MzUyNmY2NjU2MGJlZWNkODM3ODQ0NGQ0Y2RiNTJlYmZlOWUzODhmMjEzNDM1MzhhNjhjZDI1ZWI2MDJhZDgzZjRkZTQ3Y2VlNTMiLCJpYXQiOjE3NDI4MzY1MjYsImV4cCI6MTc0MjgzNzQyNn0.ANz6ddp7OZyM7kSZu2WIBwYyKUxVvBpTtNJZuBjS-S8";
 
 const SectionService = {
-  // Fetch section details including annotations, conflicts, user editing, and project details
-  getSection: async (sectionId) => {
+  // Fetch section details including annotations, conflicts, user editing, project details, and images
+  getSection: async (sectionId,token) => {
     try {
+      console.log("hello i work");
       const response = await axios.get(`${URL}/editeur/editable/${sectionId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log("here is the datareonse:",response.data);
+      console.log('Response status:', response.status);
       return response.data;
     } catch (error) {
       console.error("Error fetching section:", error.response?.data || error.message);
@@ -17,19 +19,53 @@ const SectionService = {
     }
   },
 
-  // Update section content
-  updateSection: async (sectionId, contenu) => {
+  // Update section content and upload images
+  updateSection: async (sectionId, contenu, imageChanges) => {
     try {
-      const response = await axios.put(
-        `${URL}/editeur/editable/${sectionId}`,
-        { contenu },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+      const formData = new FormData();
+      formData.append("contenu", JSON.stringify(contenu));
+      console.log("contenu not stringified",contenu)
+      console.log("contenu stringified:", JSON.stringify(contenu));
+  
+      // Process all image changes
+      const filePromises = imageChanges.map(async (image, index) => {
+        if (image.src.startsWith("blob:")) {
+          try {
+            const response = await fetch(image.src);
+            const blob = await response.blob();
+            const file = new File([blob], `uploaded_image_${index}.png`, { type: blob.type });
+  
+            formData.append("images", file);
+            console.log(`Added File: ${file.name}, Type: ${file.type}, Size: ${file.size}`);
+          } catch (error) {
+            console.error("Failed to fetch blob:", error);
+          }
+      }else {
+        try {
+          // If the image is an old image URL, append it directly to formData
+          formData.append("images", image.src); // assuming `image.src` contains the URL or file reference
+          console.log(`Added Existing Image: ${image.src}`);
+        } catch (error) {
+          console.error("Error handling old image:", error);
         }
-      );
+      }});
+  
+      // Wait for all images to be processed before sending request
+      await Promise.all(filePromises);
+  
+      // Debugging: Log formData entries
+      for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+      }
+  
+      // Send request
+      const response = await axios.put(`${URL}/editeur/editable/${sectionId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
       return response.data;
     } catch (error) {
       console.error("Error updating section:", error.response?.data || error.message);
@@ -37,5 +73,8 @@ const SectionService = {
     }
   },
 };
+
+
+
 
 export default SectionService;

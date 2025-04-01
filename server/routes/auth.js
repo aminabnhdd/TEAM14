@@ -4,7 +4,7 @@ const {userModel,expertModel} = require('../model/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cloudinary = require('../config/cloudinary');
-const upload = require('../middlewares/multerMiddleware');
+const { upload } = require('../middlewares/multerMiddleware');
 
 const AdminRole = process.env.ADMIN_ROLE;
 const ExpertRole = process.env.EXPERT_ROLE;
@@ -92,7 +92,7 @@ router.post('/login',async (req,res)=>{
     await user.save();
 
     
-    res.cookie('jwt',refreshToken,{ httpOnly:true,maxAge:1000*3600*24,sameSite:'none',secure:true});
+    res.cookie('jwt',refreshToken,{ httpOnly:true,maxAge:1000*3600*24,sameSite:'lax',secure:false});
 
     res.json({refreshToken:refreshToken,accessToken:accessToken,prenom:user.prenom,nom:user.nom,id:user._id,role:user.role});
 

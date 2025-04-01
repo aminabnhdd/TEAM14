@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../model/user');
+const {userModel} = require('../model/user');
 const jwt = require('jsonwebtoken');
 
 
@@ -14,7 +14,7 @@ router.get('/',async(req,res)=>{
 
     const refreshToken = cookies.jwt;
 
-    const user = await User.findOne({refreshToken:refreshToken});
+    const user = await userModel.findOne({refreshToken:refreshToken});
 
     if (!user) return res.json({error:'no user with this refresh Token'});
 
@@ -22,8 +22,8 @@ router.get('/',async(req,res)=>{
 
     try {
         if (validRefresh) {
-            const accessToken = jwt.sign({email:user.email},process.env.ACCESS_TOKEN_SECRET,{expiresIn:'900s'});
-            res.json({id:user._id,accessToken:accessToken});
+            const accessToken = jwt.sign({nom:user.nom,prenom:user.prenom,id:user._id,email:user.email,role:user.role},process.env.ACCESS_TOKEN_SECRET,{expiresIn:'900s'});
+            res.json({email:user.email,role:user.role,accessToken:accessToken});
         }
     } catch (error) {
         res.json({error:'forbidden !'});

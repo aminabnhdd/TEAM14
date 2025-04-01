@@ -1,43 +1,47 @@
 import annoterIcon from "../../assets/message.png";
 import { useState } from "react";
 import PopAnnotation from "./popupAnnot";
+import AnnotationService from "../../services/AnnotationService";
 
-export default function AnnotationButton({ editor, annotations, setAnnotations,user,projet,section }) {
+export default function AnnotationButton({
+  editor,
+  annotations,
+  setAnnotations,
+  user,
+  projet,
+  section,
+}) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  const handleAddAnnotation = (content) => {
-    console.log(annotations);
-    if (!editor) {
-      console.error("Editor is not available.");
-      return;
+  const handleAddAnnotation = async (content) => {
+    try {
+      if (!editor) {
+        console.error("Editor is not available.");
+        return;
+      }
+      const respon = await AnnotationService.Annoter(
+        section._id,
+        projet._id,
+        content,
+      );
+      console.log("here is the annotation", respon.annotation);
+      setAnnotations([...annotations, respon.annotation]);
+      // Apply the annotation mark to the selected text in the editor
+      editor
+        .chain()
+        .focus()
+        .setMark("annotation", { id: respon.annotation._id }) // Use the custom annotation mark
+        .run();
+
+        const json = editor.getJSON();
+        const respon2 = await AnnotationService.Update(section._id, projet._id,json);
+        console.log("here is the new content",respon2.section);
+
+    } catch (error) {
+      console.error("Error Annotation:", error);
+    } finally {
+      setIsPopupOpen(false);
     }
-
-    // Create an annotation object
-    const annotation = {
-      id: Date.now(), // Generate a unique ID
-      projetId: projet.id,
-      sectionId:section.id,
-      auteur: user,
-      selected:"text",
-      content: content,
-    };
-
-    // Add the new annotation to the annotations array
-    setAnnotations([...annotations, annotation]);
-
-    // Apply the annotation mark to the selected text in the editor
-    editor
-      .chain()
-      .focus()
-      .setMark("annotation", { id: annotation.id }) // Use the custom annotation mark
-      .run();
-
-    // Close the popup
-    setIsPopupOpen(false);
-
-    const json = editor.getJSON();
-    console.log(json,section);
-   //add to the database
   };
 
   return (

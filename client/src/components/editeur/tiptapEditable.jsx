@@ -29,11 +29,12 @@ import { ReferenceNode } from "./nodes/referencesNode";
 
 
 
-export default function TiptapEditable({ setEditor,section,saved , setSaved ,references,setReferences})  {
+export default function TiptapEditable({ setEditor,section,projet,saved , setSaved ,references,setReferences})  {
 
   
 
-  const newLocal = `Éditer le contenu de la section ${section}...`;
+  const newLocal = `Éditer le contenu de la section ${section.type}...`;
+  console.log("this is contenu", section.contenu);
   const editor = useEditor({
     editable: true,
     extensions: [
@@ -131,7 +132,7 @@ export default function TiptapEditable({ setEditor,section,saved , setSaved ,ref
             types: ["heading", "paragraph"], // Enables alignment for headings & paragraphs
           }),
     ], 
-    content: saved ? JSON.parse(localStorage.getItem('editorContent')) : '<p>this is from database</p>',    
+    content: saved ? JSON.parse(localStorage.getItem('editorContent')) : section.contenu,    
     onCreate: ({ editor }) => {
       // Save immediately when editor is created
       const jsonContent = editor.getJSON();
@@ -162,7 +163,7 @@ export default function TiptapEditable({ setEditor,section,saved , setSaved ,ref
     
     
     <div className=" border border-neutral-400  rounded-[12px] w-full">
-      <Toolbar editor={editor} references={references} setReferences={setReferences} /> 
+      <Toolbar editor={editor} projet={projet} references={references} setReferences={setReferences} /> 
       <BubbleMenuTable editor={editor}  />
 
       <BubbleMenuLink editor={editor}  />

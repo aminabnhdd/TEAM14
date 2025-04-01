@@ -7,7 +7,7 @@ export default function Annotations({annotations}){
 
     const annotationsElement = annotations.map((annotation) => {
       
-        return <Annotation key={annotation.id} id={annotation.id} auteur={annotation.auteur} content={annotation.content} />
+        return <Annotation key={annotation._id} id={annotation._id} auteur={annotation.auteur} content={annotation.content} />
 });
 
 

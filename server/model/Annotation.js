@@ -17,17 +17,10 @@ const annotationSchema = new mongoose.Schema({
         ref: "Expert",
         required: true,
     },
-    selected: {
-        type: String,
-        required: true,
-        trim: true,
-        lowercase: true
-    },
     content: {
         type: String,
         required: true,
         trim: true,
-        lowercase: true
     }
 });
 

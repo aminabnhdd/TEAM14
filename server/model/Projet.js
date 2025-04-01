@@ -19,13 +19,11 @@ const projetSchema = new mongoose.Schema({
     },
     longtitude: {
         type: String,
-        required: true,
         unique: true,
         trim: true
     },
     localisation: {
         type: String,
-        required: true,
         trim: true
     },
     style: {
@@ -46,6 +44,10 @@ const projetSchema = new mongoose.Schema({
     collaborateurs: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Expert",
+    }],
+    references: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Reference",
     }],
     demandes: [{
 

@@ -46,7 +46,7 @@ export default function Toolbar(props){
     <div className="inline-flex px-2 border-r">
       <Tooltip element={<BlockQuoteButton editor={props.editor} />} text="Citation" />
       <Tooltip element={<LinkButton editor={props.editor} />} text="Lien" />
-      <Tooltip element={<ReferencesButton editor={props.editor} references={props.references} setReferences={props.setReferences} />} text="Références" />
+      <Tooltip element={<ReferencesButton editor={props.editor} projet={props.projet} references={props.references} setReferences={props.setReferences} />} text="Références" />
 
     </div>
 

@@ -5,13 +5,15 @@ export default function Conflicts({conflits,setConflits,user,projet,section}){
 
     
   
-console.log(conflits);
+    const validConflicts = conflits.filter(conflict => 
+        !conflict.resolu && conflict.valide
+    );    
 
-    const conflictsElement = conflits.map((conflit) => {
+    const conflictsElement = validConflicts.map((conflit) => {
         return <Conflict key={conflit._id} id={conflit._id} conflit={conflit}  user={user} projet={projet} section={section} conflits={conflits} setConflits={setConflits}/>
 });
 
-console.log(conflictsElement);
+console.log("here are the conflits",conflictsElement);
     if  (conflictsElement.length > 0){
     return(
         <>

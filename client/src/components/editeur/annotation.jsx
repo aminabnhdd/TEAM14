@@ -9,6 +9,7 @@ export default function Annotation(props){
 </div>
 
          <p className="thinner-text">{props.auteur.nom} {props.auteur.prenom}</p>
+         
     </div> 
     <p className="small-remark break-words whitespace-pre-wrap  overflow-y-auto text-black text-justify mb-3" >{props.content}</p>   
    

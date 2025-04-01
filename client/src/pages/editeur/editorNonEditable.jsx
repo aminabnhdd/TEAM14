@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import TiptapNonEditable from "../../components/editeur/tiptapNonEditable";
 import Conflicts from "../../components/editeur/conflicts";
 import Annotations from "../../components/editeur/annotations";
+import { useContext } from "react"
+import AuthContext from '../../helpers/AuthContext'
+import RefreshService from "../../services/RefreshService";
 
 import SideNav from "../../components/SideNav";
 import "../../componentsStyles/editeur/editor.css";
@@ -34,6 +37,7 @@ export default function EditorNonEditable() {
   const [user, setUser] = useState({});
   const [userChef, setUserChef] = useState({});
   const [projet, setProjet] = useState({});
+  const {authState,setAuthState} = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [images, setImages] = useState([]);
@@ -43,6 +47,9 @@ export default function EditorNonEditable() {
   useEffect(() => {
     const fetchSection = async () => {
       try {
+        const response= await  RefreshService.Refresh();
+       
+        setAuthState({email:response.email,role:response.role,accessToken:response.accessToken});
         const sectionData = await SectionService.getSection(
           "67cde422d70a4df898a9a9d8"
         );

@@ -46,11 +46,11 @@ export default function EditorEditable() {
 
         const response= await  RefreshService.Refresh();
        
-setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
+setAuthState({email:response.email,role:response.role,accessToken:response.accessToken});
 
 
         const sectionData = await SectionService.getSection(
-          "67cde422d70a4df898a9a9d8",response.data.accessToken
+          "67cde422d70a4df898a9a9d8",response.accessToken
         );
         console.log("Section data:", sectionData);
         // Only update the images if they haven't been set (empty array)

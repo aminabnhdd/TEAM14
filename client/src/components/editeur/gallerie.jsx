@@ -12,50 +12,51 @@ import {
 import 'yet-another-react-lightbox/plugins/captions.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
 
-const Gallerie = ({slides}) => {
+const Gallerie = ({ slides }) => {
   const [index, setIndex] = useState(-1);
-  const totalImages = 10; // Update this to match your actual number of images
-
-  
-
 
   return (
     <div className="gallerie-wrapper">
       <div className="gallerie-container">
-        {slides.map((slide, index) => (
+        {slides.map((slide, i) => (
           <div 
-            key={index} 
+            key={`img-${i}`} 
             className="gallerie-image"
-            onClick={() => setIndex(index)}
+            onClick={() => setIndex(i)}
           > 
-         
             <img 
               src={slide.src} 
-              alt={`Image ${index + 1}`}
+              alt={`Image ${i + 1}`}
               className="gallerie-img"
+              loading="lazy"
+              decoding="async"
             />
-            <div className="gallerie-overlay">
-              
-            </div>
+            <div className="gallerie-overlay"></div>
           </div>
         ))}
       </div>
 
       <Lightbox
-
         plugins={[Captions, Download, Fullscreen, Zoom, Thumbnails]}
         captions={{
- 
           descriptionTextAlign: 'center',
           description: ({ index }) => `${index + 1} / ${slides.length}`
         }}
         index={index}
         open={index >= 0}
         close={() => setIndex(-1)}
-        slides={slides.map((slide, index) => ({
+        slides={slides.map((slide, i) => ({
           ...slide,
-          title: `${index + 1} / ${slides.length}`
+          src: slide.src,
+          title: `${i + 1} / ${slides.length}`
         }))}
+        carousel={{
+          preload: 2 // Only preload adjacent images
+        }}
+        zoom={{
+          maxZoomPixelRatio: 2,
+          scrollToZoom: true
+        }}
       />
     </div>
   );

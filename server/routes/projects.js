@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const projectModel = require('../model/Projet');
 const sectionModel = require('../model/section');
-const notificationModel = require('../model/notification');
+const notificationModel = require('../model/Notification');
 const {expertModel,userModel} = require('../model/user');
 const {validateRole,validateProjectOwner} = require('../middlewares/roleMiddleware');
 const validateToken = require('../middlewares/authMiddleware');
@@ -15,7 +15,7 @@ const upload = require('../middlewares/multerMiddleware');
 router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.single("image"), async (req, res) => {
     try {
 
-        const { titre, type, latitude, longtitude, localisation, style, dateConstruction } = req.body;
+        const { titre, type, latitude, longitude, localisation, style, dateConstruction } = req.body;
         const userID = req.user?.id;
         let imageUrl = "";
         if (req.file) {
@@ -40,7 +40,7 @@ router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.si
             titre,
             type,
             latitude: latitude || "",
-            longtitude: longtitude || "",
+            longtitude: longitude || "",
             localisation: localisation || "",
             style: style || "",
             photoUrl: imageUrl || "",

@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { ChevronDown } from "lucide-react";
 import "../../componentsStyles/CreateprojectStyles/ModifProjectForm.css";
 import { FetchProjectData } from "../../services/FetchProjectData.js";
+import AuthContext from '../../helpers/AuthContext'
+import RefreshService from "../../services/RefreshService";
 
 const ALLOWED_SECTION_TYPES = ["Kasbahs", "Palais", "Mosquées", "Temples", "Autre"];
 
 const ModifProjectForm = ({ error, onDataChange }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const {authState,setAuthState} = useContext(AuthContext);
   const [selectedType, setSelectedType] = useState("");
   const [customType, setCustomType] = useState("");
   const [formData, setFormData] = useState({
@@ -21,22 +24,35 @@ const ModifProjectForm = ({ error, onDataChange }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await FetchProjectData();
-      if (data) {
-        setFormData({
-          titre: data.titre || "",
-          type: data.type || "",
-          style: data.style || "",
-          dateConstruction: data.dateConstruction || "",
-          localisation: data.localisation || "",
-          latitude: data.latitude || "",
-          longitude: data.longitude || "",
-        });
-        setSelectedType(data.type || "");
+      try{
+        const response= await  RefreshService.Refresh();
+       
+        setAuthState({email:response.email,role:response.role,accessToken:response.accessToken});
+        
+        
+        const data = await FetchProjectData();
+        if (data) {
+          setFormData({
+            titre: data.titre || "",
+            type: data.type || "",
+            style: data.style || "",
+            dateConstruction: data.dateConstruction || "",
+            localisation: data.localisation || "",
+            latitude: data.latitude || "",
+            longitude: data.longitude || "",
+          });
+          setSelectedType(data.type || "");
+        }
+      } catch (err) {
+        setError("Failed to load section");
       }
+  
+      
     };
     fetchData();
   }, []);
+
+
   useEffect(() => {
     console.log("Updated Form Data:", formData);
     console.log("Error State:", error);

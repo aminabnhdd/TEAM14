@@ -6,9 +6,11 @@ import FAQ from "../../components/LandingPage/Faq/FAQ";
 import HeroSection from "../../components/LandingPage/HeroSection";
 import InsChoice from "../../components/LandingPage/InsChoice";
 import "../../pagesStyles/LandingPage/LandingPage.css";
+import { useLocation } from "react-router-dom";
 
 function LandingPage() {
-  const [popUp, setPopUp] = useState(false);
+  const { state } = useLocation(); 
+  const [popUp, setPopUp] = useState(state?.popUp || false);
 
   const openPopUp = () => {
     console.log("Opening Pop-Up"); // Debugging log

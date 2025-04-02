@@ -1,4 +1,4 @@
-import React, { useState , useCallback } from "react";
+import React, { useState , useCallback,useContext } from "react";
 import { MdErrorOutline } from "react-icons/md"; 
 import ProjectActions from "../../components/Createproject/ProjectActions.jsx";
 import ProjectForm from "../../components/Createproject/ProjectForm.jsx";
@@ -6,9 +6,13 @@ import ProjectHeader from "../../components/Createproject/ProjectHeader.jsx";
 import ProjectImageUploader from "../../components/Createproject/ProjectImageUploader.jsx";
 import "../../pagesStyles/CreateprojectpagesStyle/CreateProject.css";
 import { addProject } from "../../services/projetService.js"; 
+import AuthContext from '../../helpers/AuthContext'
+import RefreshService from "../../services/RefreshService";
+
 
 const CreateProject = () => {
   const [error, setError] = useState(false);
+  const {authState,setAuthState} = useContext(AuthContext);
   const [newProject, setNewProject] = useState({});
 
   const handleDataChange = useCallback((data) => {
@@ -40,7 +44,12 @@ const CreateProject = () => {
     }
 
     try {
-        const response = await addProject(formDataToSend);
+
+      const response1= await  RefreshService.Refresh();
+       
+      setAuthState({email:response1.email,role:response1.role,accessToken:response1.accessToken});
+      
+        const response = await addProject(formDataToSend,response1.accessToken);
         console.log("Projet ajouté :", response);
     } catch (err) {
         console.error("Erreur lors de l'ajout du projet :", err);

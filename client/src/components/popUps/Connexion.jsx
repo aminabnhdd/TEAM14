@@ -10,7 +10,7 @@ function Connect({   mdpPopUp,fun }) {
     const navigate = useNavigate();
 
    const goLandingPage=()=>{
-    navigate("/");
+    navigate("/",{ state: { popUp: true } });
   }
     const [visible, setVisible] = useState(false);
     const [typo, setTypo] = useState("password");

@@ -4,15 +4,18 @@ import SectionService from "../../services/sectionService";
 import  AuthContext from "../../helpers/AuthContext.jsx"
 import {useContext} from "react"
 
+
 export default function SaveButton({ editor, section, images }) {
     const {authState} = useContext(AuthContext);
-    // Handle the save process
+  
     const handleSave = async () => {
         const jsonContent = editor.getJSON();
 
         try {
-            // Sending updated section content, added images, and deleted images to the backend
-            await SectionService.updateSection(section._id, jsonContent, images);
+       
+            
+            
+            await SectionService.updateSection(section._id, jsonContent, images,authState.accessToken);
             console.log("Section saved successfully!");
         } catch (error) {
             console.error("Error saving section:", error);

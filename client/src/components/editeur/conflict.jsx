@@ -1,24 +1,27 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck} from "@fortawesome/free-solid-svg-icons";
 import ConflitService from "../../services/ConflitService";
+import  AuthContext from "../../helpers/AuthContext.jsx"
+import {useContext} from "react"
 
 export default function Conflict(props){
-
+    const {authState} = useContext(AuthContext);
     const resoudreConflit = async () => {
         try {
-            // 1. Send request to backend to mark as resolved
-            await ConflitService.resoudreConflit(props.conflit._id);
+            
+            
+            await ConflitService.resoudreConflit(props.conflit._id,authState.accessToken);
     
             props.setConflits((prevConflits) => {
                 return prevConflits.map((conflict) => {
                     if (conflict._id === props.conflit._id) {
-                        // Mark the specific conflict as resolved
+                        
                         return {
                             ...props.conflit,
                             resolu: true,
                         };
                     }
-                    // Return the conflict unchanged if it's not the one to resolve
+                   
                     return props.conflit;
                 });
             });

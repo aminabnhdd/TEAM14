@@ -1,26 +1,32 @@
-import { useRef } from "react";
-import "../../componentsStyles/editeur/gallerie.css";
+import { useRef, useEffect } from "react";
 
-export default function AddImage({ images, setImages, section }) {
+export default function AddImage({ images, setImages }) {
   const inputRef = useRef(null);
 
-  const handleFileChange = (e) => {
-      const files = e.target.files;
-      if (files.length > 0) {
-        const newImages = Array.from(files).map((file) => ({
-          src: URL.createObjectURL(file), // Generates a temporary URL instead of Base64
-        }));
-  
-        setImages((prev) => [...prev, ...newImages]); // Add new images to state
-      }
-      
-      e.target.value = null; // Reset input so same files can be selected again
+  useEffect(() => {
+    // Nettoyage des URLs Blob à chaque mise à jour des images
+    return () => {
+      images.forEach((img) => URL.revokeObjectURL(img.src));
     };
-  
+  }, [images]);
+
+  const handleFileChange = (e) => {
+    const files = e.target.files;
+    if (files.length > 0) {
+      const newImages = Array.from(files).map((file) => ({
+        src: URL.createObjectURL(file),
+        file,
+      }));
+
+      setImages((prev) => [...prev, ...newImages]);
+    }
+
+    e.target.value = null; // Permet de re-sélectionner les mêmes fichiers
+  };
 
   return (
     <>
-      <div 
+      <div
         className="text-center flex flex-col items-center justify-center border-add-image gallerie-image border border-neutral-400 border-dashed cursor-pointer"
         onClick={() => inputRef.current.click()}
       >
@@ -33,7 +39,6 @@ export default function AddImage({ images, setImages, section }) {
         <p className="px-3 pt-1">Ajouter des images</p>
       </div>
 
-      {/* Hidden file input */}
       <input
         type="file"
         ref={inputRef}

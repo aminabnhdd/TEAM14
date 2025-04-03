@@ -2,7 +2,10 @@ import annoterIcon from "../../assets/message.png";
 import { useState } from "react";
 import PopAnnotation from "./popupAnnot";
 import AnnotationService from "../../services/AnnotationService";
+import  AuthContext from "../../helpers/AuthContext.jsx"
+import {useContext} from "react"
 
+    
 export default function AnnotationButton({
   editor,
   annotations,
@@ -12,6 +15,7 @@ export default function AnnotationButton({
   section,
 }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const {authState} = useContext(AuthContext);
 
   const handleAddAnnotation = async (content) => {
     try {
@@ -19,10 +23,13 @@ export default function AnnotationButton({
         console.error("Editor is not available.");
         return;
       }
+ 
+
       const respon = await AnnotationService.Annoter(
         section._id,
         projet._id,
         content,
+        authState.accessToken
       );
       console.log("here is the annotation", respon.annotation);
       setAnnotations([...annotations, respon.annotation]);
@@ -34,7 +41,7 @@ export default function AnnotationButton({
         .run();
 
         const json = editor.getJSON();
-        const respon2 = await AnnotationService.Update(section._id, projet._id,json);
+        const respon2 = await AnnotationService.Update(section._id, projet._id,json,authState.accessToken);
         console.log("here is the new content",respon2.section);
 
     } catch (error) {

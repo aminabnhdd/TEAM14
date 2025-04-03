@@ -3,6 +3,7 @@ import EditorEditable from './pages/editeur/editorEditable.jsx';
 import EditorNonEditable from './pages/editeur/editorNonEditable.jsx';
 import Gallerie from './components/editeur/gallerie.jsx';
 import AuthContext from "./helpers/AuthContext.jsx";
+import Con from "./pages/page connexion/PageConnexion";
 import { useState } from "react";
 function App() {
   const [authState, setAuthState] = useState({
@@ -14,6 +15,7 @@ function App() {
 <AuthContext.Provider value={{ authState, setAuthState }}>
     <Router>
       <Routes>
+      <Route path="/connexion" element={<Con />} />
         {/* Route for the editable editor */}
         <Route path="/editeur/editable/67cde422d70a4df898a9a9d8" element={<EditorEditable  />} />
 <Route path="/gallerie" element={<Gallerie/>}/>

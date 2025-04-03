@@ -3,7 +3,6 @@ import axios from "axios";
 const URL = "http://localhost:3001";
 
 const SectionService = {
-  // Fetch section details including annotations, conflicts, user editing, project details, and images
   getSection: async (sectionId,token) => {
     try {
       console.log("hello i work");
@@ -19,15 +18,13 @@ const SectionService = {
     }
   },
 
-  // Update section content and upload images
-  updateSection: async (sectionId, contenu, imageChanges) => {
+  updateSection: async (sectionId, contenu, imageChanges,token) => {
     try {
       const formData = new FormData();
       formData.append("contenu", JSON.stringify(contenu));
       console.log("contenu not stringified",contenu)
       console.log("contenu stringified:", JSON.stringify(contenu));
   
-      // Process all image changes
       const filePromises = imageChanges.map(async (image, index) => {
         if (image.src.startsWith("blob:")) {
           try {
@@ -42,15 +39,15 @@ const SectionService = {
           }
       }else {
         try {
-          // If the image is an old image URL, append it directly to formData
-          formData.append("images", image.src); // assuming `image.src` contains the URL or file reference
+        
+          formData.append("images", image.src); 
           console.log(`Added Existing Image: ${image.src}`);
         } catch (error) {
           console.error("Error handling old image:", error);
         }
       }});
   
-      // Wait for all images to be processed before sending request
+      
       await Promise.all(filePromises);
   
       // Debugging: Log formData entries
@@ -58,7 +55,7 @@ const SectionService = {
         console.log(pair[0], pair[1]);
       }
   
-      // Send request
+
       const response = await axios.put(`${URL}/editeur/editable/${sectionId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",

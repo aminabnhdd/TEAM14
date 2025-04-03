@@ -2,7 +2,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
 import { useState, useRef, useEffect } from "react";
 import AnnotationService from "../../../services/AnnotationService";
+import  AuthContext from "../../../helpers/AuthContext.jsx"
+import {useContext} from "react"
 
+    
 
 export default function ReferencesButton({ editor,projet, references, setReferences }) {
   const [showPopup, setShowPopup] = useState(false);
@@ -10,7 +13,7 @@ export default function ReferencesButton({ editor,projet, references, setReferen
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const popupRef = useRef(null);
-
+  const {authState} = useContext(AuthContext);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -53,7 +56,7 @@ export default function ReferencesButton({ editor,projet, references, setReferen
 
   const handleCreateReference = async () => {
     try{
-
+      console.log(authState);
     // Concatenate fields, filtering out empty ones
     const referenceParts = [
       author,
@@ -66,7 +69,7 @@ console.log("HERE IS THE PROJET ID ",projet._id);
     const respon = await AnnotationService.Reference(
       projet._id,references.length + 1,
        referenceParts.join(", "),
-
+       authState.accessToken
     );
     const newRef = respon.reference;
 

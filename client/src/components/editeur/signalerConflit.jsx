@@ -3,17 +3,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useState } from "react";
 import PopConflit from "./popupConflit";
 import ConflitService from "../../services/ConflitService";
+import  AuthContext from "../../helpers/AuthContext.jsx"
+import {useContext} from "react"
+
 
 export default function SignalerConflit({conflits,setConflits,user,projet,section}){
     const [showPopup, setShowPopup] = useState(false);
- 
+    const {authState} = useContext(AuthContext);
     const handleSignalerConflit = async (content) => {
         try {
+
+
           console.log(content);
             const newConflit = await ConflitService.signalerConflit(
               section._id,
               projet._id,
-               content 
+               content,authState.accessToken
             );
             console.log(conflits);
             console.log(newConflit.conflit);

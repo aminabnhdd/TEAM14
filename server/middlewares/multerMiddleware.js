@@ -1,12 +1,12 @@
-const fs = require('fs').promises; // Import fs with promises
+const fs = require('fs').promises;
 const multer = require('multer');
 const cloudinary = require('../config/cloudinary');
 const sectionModel = require("../model/section");
 
 
-// Define the storage configuration for multer
+
 const storage = multer.diskStorage({
-  destination: "/tmp", // Change this path as needed
+  destination: "/tmp", 
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   }
@@ -18,12 +18,12 @@ const upload = multer({ storage });
 const handleImages = async (req, res, next) => {
   console.log("Files received:", req.files);
   console.log("Raw req.body:", req.body);
+  console.log("Raw req.body:", req.body.images);
 
   try {
     const uploadedImages = [];
     const sectionId = req.params.sectionId;
 
-    // Find the section by ID
     const section = await sectionModel.findById(sectionId);
     if (!section) {
       return res.status(404).json({ message: "Section not found" });
@@ -38,7 +38,7 @@ const handleImages = async (req, res, next) => {
       }
     }
 
-    // 🔥 Upload new images
+  
     for (const file of req.files) {
       const fileBuffer = await fs.readFile(file.path); // Read file into buffer
 
@@ -55,16 +55,12 @@ const handleImages = async (req, res, next) => {
       uploadedImages.push(result.secure_url);
     }
 
-if (uploadedImages.length === 0) {
-  req.uploadedImages = req.body.images;
-} else {
+  req.uploadedImages =  uploadedImages;
 
-  req.uploadedImages = [...req.body.images, ...uploadedImages];
-}
 
     console.log("in back end here are images ",uploadedImages);
 
-    // Continue with the next middleware
+    
     next();
   } catch (error) {
     console.error("Image Handling Error:", error);

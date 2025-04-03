@@ -1,6 +1,7 @@
 
 export default function Annotation(props){
     console.log(props.id)
+    
     return(
     <div   id={`annotation-${props.id}`}  className="border border-neutral-300 rounded-[12px] p-5 mb-3">
     <div className="flex items-center align-items mb-3">

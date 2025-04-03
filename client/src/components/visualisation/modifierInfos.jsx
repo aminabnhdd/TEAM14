@@ -3,13 +3,14 @@ import { faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
 
-export default function ModifyInfos(){
+export default function ModifyInfos(props){
     
  
         const navigate = useNavigate();
       
         const handleModify = () => {
-            navigate(`/modifier-projet/${props.section._id}`);  
+            
+            navigate(`/modifier-projet/${props.projet._id}`);  
         }; 
 
     return(

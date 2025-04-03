@@ -15,7 +15,7 @@ export default function Presentation(props){
             <li className="mt-4 text-black bolder-text  break-words" >Localisation:         <span className="main-text" > {props.projet.localisation || '/'} </span></li>
             <li className="mt-4 text-black bolder-text  break-words " >Coordonnées:          <span className="main-text" >   {props.projet.latitude ? `${props.projet.latitude}°` : '/'},   {props.projet.longtitude ? `${props.projet.longtitude}°` : '/'} </span></li>
         </ul>
-        { props.isChef && <ModifyInfos/>}
+        { props.isChef && <ModifyInfos projet={props.projet}/>}
         </div>
     </>
     )

@@ -502,7 +502,7 @@ const content = {
     const [isChef, setIsChef] = useState(true);
     const [discipline,setDiscipline]=useState(null);
     const [projet,setProjet] = useState(({
-        _id:'',
+        _id:'projetId',
         titre: "This is the title",
         type: "This is le type de la ressource",
         latitude: "44",

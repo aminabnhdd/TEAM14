@@ -4,7 +4,7 @@ import LeftSection from "../../components/visualisation/leftSection"
 import RightSection from "../../components/visualisation/rightSection"
 import { useState, useEffect} from "react"
 import ListSections from "../../components/visualisation/listSections"
-
+import DemandeCollaboration from "../../components/visualisation/demandeCollaboration"
 export default function Visualisation(){
     // const [isExpert, setIsExpert] = useState(null);
     // const [isAdmin, setIsAdmin] = useState(null);
@@ -498,7 +498,7 @@ const content = {
 } ;
     const [isExpert, setIsExpert] = useState(true);
     const [isAdmin, setIsAdmin] = useState(false);
-    const [isCollaborateur, setIsCollaborateur] = useState(true);
+    const [isCollaborateur, setIsCollaborateur] = useState(false);
     const [isChef, setIsChef] = useState(true);
     const [discipline,setDiscipline]=useState(null);
     const [projet,setProjet] = useState(({
@@ -720,6 +720,7 @@ const content = {
             </div>
             <ListSections sectionsExistantes={sectionsExistantes} 
             projet={projet} />
+            <DemandeCollaboration projet={projet} user={user} isExpert={isExpert} isCollaborateur={isCollaborateur} collaborateurs={collaborateurs}  />
            
           </div>
         </>

@@ -9,7 +9,7 @@ export default function ModifyInfos(){
         const navigate = useNavigate();
       
         const handleModify = () => {
-          navigate("/editable");  
+          navigate("/modifierProjet");  
         }; 
 
     return(

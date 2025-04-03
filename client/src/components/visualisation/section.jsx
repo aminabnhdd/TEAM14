@@ -3,8 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import Gallerie from "../editeur/gallerie";
-
+import { useNavigate} from 'react-router-dom';
 export default function Section(props){
+    const navigate = useNavigate();
 const [sectionOpen,setSectionOpen] = useState(true);
 function toggleOpen(){
     setSectionOpen(!sectionOpen);
@@ -20,11 +21,11 @@ const canEdit = () => {
   };
 
 function editSection(){
-    console.log(props.section)
+    navigate(`/editable/${props.section._id}`);  
 }
 
 function annoterSection(){
-    console.log(props.section)
+    navigate(`/non-editable/${props.section._id}`);  
 }
 
   return (

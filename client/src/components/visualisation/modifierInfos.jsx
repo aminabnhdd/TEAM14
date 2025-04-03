@@ -9,7 +9,7 @@ export default function ModifyInfos(){
         const navigate = useNavigate();
       
         const handleModify = () => {
-          navigate("/modifierProjet");  
+            navigate(`/modifier-projet/${props.section._id}`);  
         }; 
 
     return(

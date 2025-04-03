@@ -498,7 +498,7 @@ const content = {
 } ;
     const [isExpert, setIsExpert] = useState(true);
     const [isAdmin, setIsAdmin] = useState(false);
-    const [isCollaborateur, setIsCollaborateur] = useState(false);
+    const [isCollaborateur, setIsCollaborateur] = useState(true);
     const [isChef, setIsChef] = useState(true);
     const [discipline,setDiscipline]=useState(null);
     const [projet,setProjet] = useState(({

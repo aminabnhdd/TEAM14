@@ -50,7 +50,7 @@ router.get("/editable/:sectionId", validateToken, async (req, res) => {
     try {
         const sectionId = req.params.sectionId;
 
-        // Fetch the section with relationships
+       
         const section = await sectionModel.findById(sectionId)
             .populate({
                 path: "annotations",

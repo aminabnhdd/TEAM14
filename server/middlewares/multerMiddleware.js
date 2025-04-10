@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Handle image upload and deletion
+
 const handleImages = async (req, res, next) => {
   console.log("Files received:", req.files);
   console.log("Raw req.body:", req.body);
@@ -29,7 +29,7 @@ const handleImages = async (req, res, next) => {
       return res.status(404).json({ message: "Section not found" });
     }
 
-    // 🔥 Delete all existing images from Cloudinary
+    // Delete all existing images from Cloudinary
     for (const image of section.images) {
       try {
         await cloudinary.uploader.destroy(image);

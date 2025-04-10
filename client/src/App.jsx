@@ -17,6 +17,7 @@ function App() {
       <Routes>
       <Route path="/connexion" element={<Con />} />
         {/* Route for the editable editor */}
+        {/* technically el route matkounch hna mais its so i can access it normalement tkoun hadak le lien bin visualiser projet w le button editer */}
         <Route path="/editeur/editable/67cde422d70a4df898a9a9d8" element={<EditorEditable  />} />
 <Route path="/gallerie" element={<Gallerie/>}/>
         {/* Route for annotatins */}

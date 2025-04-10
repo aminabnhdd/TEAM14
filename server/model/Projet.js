@@ -19,13 +19,11 @@ const projetSchema = new mongoose.Schema({
     },
     longtitude: {
         type: String,
-        required: true,
         unique: true,
         trim: true
     },
     localisation: {
         type: String,
-        required: true,
         trim: true
     },
     style: {
@@ -70,7 +68,6 @@ const projetSchema = new mongoose.Schema({
     },
     archive: {
         type: Boolean,
-        required: true
     },
     keywords: {
         type: [String],

@@ -7,12 +7,13 @@ import ProjectImageUploader from "../../components/Createproject/ProjectImageUpl
 import "../../pagesStyles/CreateprojectpagesStyle/CreateProject.css";
 import { addProject } from "../../services/projetService.js"; 
 import AuthContext from '../../helpers/AuthContext'
-import RefreshService from "../../services/RefreshService";
 
 
+
+//lina you need to add ta3 useeffect with local storage or else whenever he will refresh he will get new data 
 const CreateProject = () => {
   const [error, setError] = useState(false);
-  const {authState,setAuthState} = useContext(AuthContext);
+  const {authState} = useContext(AuthContext);
   const [newProject, setNewProject] = useState({});
 
   const handleDataChange = useCallback((data) => {
@@ -44,12 +45,8 @@ const CreateProject = () => {
     }
 
     try {
-
-      const response1= await  RefreshService.Refresh();
-       
-      setAuthState({email:response1.email,role:response1.role,accessToken:response1.accessToken});
-      
-        const response = await addProject(formDataToSend,response1.accessToken);
+  
+        const response = await addProject(formDataToSend,authState.accessToken);
         console.log("Projet ajouté :", response);
     } catch (err) {
         console.error("Erreur lors de l'ajout du projet :", err);

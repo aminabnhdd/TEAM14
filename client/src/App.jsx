@@ -12,6 +12,7 @@ import ListUtil from "./pages/page admin/ListUtil";
 import NotifAdmin from "./pages/page admin/NotifAdmin";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import CreateProject from "./pages/Createprojectpages/Createproject";
+import ModifyProject from "./pages/Createprojectpages/ModifyProject.jsx";
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -30,6 +31,7 @@ function App() {
           <Route path="/connexion" element={<Con />} />
           <Route path="/notifications" element={<Notif/>} />
           <Route path="/create-projet" element= {<CreateProject/>} />
+          <Route path="/modify-projet" element= {<ModifyProject/>} />
           <Route path="/reinitialisation/mdp" element={<ReiniMotdps/>}/>
           <Route path="/signup/expert" element={<InsEx/>} />
           <Route path="/signup/visiteur" element={<InsVs/>} />

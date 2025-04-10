@@ -1,10 +1,9 @@
 import axios from "axios";
 
 
-const projetId = "67dd38ed23e0ac5a602a0e72";
 
 
-async function UpdateProject(newProject,token) {
+async function UpdateProject(projetId,newProject,token) {
     try {
         console.log("Sending FormData:", Object.fromEntries(newProject.entries())); 
 

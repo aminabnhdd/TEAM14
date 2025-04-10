@@ -1,4 +1,4 @@
-import React, { useState , useCallback  } from "react";
+import React, { useState , useCallback ,useContext  } from "react";
 import { MdErrorOutline } from "react-icons/md"; 
 import ModifProjectActions from "../../components/Createproject/ModifProjectActions";
 import ModifProjectForm from "../../components/Createproject/ModifProjectForm";
@@ -6,9 +6,11 @@ import ModifProjectHeader from "../../components/Createproject/ModifProjectHeade
 import ModifProjectImageUploader from "../../components/Createproject/ModifProjectImage";
 import "../../pagesStyles/CreateprojectpagesStyle/ModifyProject.css";
 import {UpdateProject } from "../../services/ModifyProject.js"; 
+import AuthContext from '../../helpers/AuthContext'
 
 const ModifyProject = () => {
   const [error, setError] = useState(false);
+    const {authState} = useContext(AuthContext);
     const [newProject, setNewProject] = useState({});
   
     const handleDataChange = useCallback((data) => {
@@ -28,7 +30,7 @@ const ModifyProject = () => {
       setError(false);
   
       const formDataToSend = new FormData();
-      Object.keys(newProject).forEach((key) => {
+      Object.keys(newProject).forEach((key)  => {
           if (key !== "image") {
               formDataToSend.append(key, newProject[key]);
           }
@@ -39,7 +41,7 @@ const ModifyProject = () => {
       }
   
       try {
-          const response = await UpdateProject(formDataToSend);
+          const response = await UpdateProject("67eeb88c363b0902863ad350",formDataToSend,authState.accessToken);
           console.log("Projet updated :", response);
       } catch (err) {
           console.error("Erreur lors updating du projet :", err);

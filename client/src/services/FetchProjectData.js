@@ -1,11 +1,11 @@
 import axios from "axios";
 
 
-const projetId = "67dd38ed23e0ac5a602a0e72";
 
 
-async function FetchProjectData(token) {
+async function FetchProjectData(projetId,token) {
     try {
+        console.log("here is the id: ",projetId);
         const response = await axios.get(
             `http://localhost:3001/projects/modifier/${projetId}`,
             {

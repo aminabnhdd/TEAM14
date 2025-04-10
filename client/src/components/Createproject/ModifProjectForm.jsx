@@ -25,12 +25,12 @@ const ModifProjectForm = ({ error, onDataChange }) => {
   useEffect(() => {
     const fetchData = async () => {
       try{
-        const response= await  RefreshService.Refresh();
-       
-        setAuthState({email:response.email,role:response.role,accessToken:response.accessToken});
-        
-        
-        const data = await FetchProjectData();
+        const response1= await  RefreshService.Refresh();
+setAuthState({email:response1.email,role:response1.role,accessToken:response1.accessToken})
+console.log("the token: ",response1.accessToken)
+console.log("here does ths work");
+const projetid= "67eeb88c363b0902863ad350";
+         const data = await FetchProjectData(projetid,response1.accessToken);
         if (data) {
           setFormData({
             titre: data.titre || "",
@@ -44,7 +44,7 @@ const ModifProjectForm = ({ error, onDataChange }) => {
           setSelectedType(data.type || "");
         }
       } catch (err) {
-        setError("Failed to load section");
+        console.error("Erreur lors updating du projet :", err);
       }
   
       

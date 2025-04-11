@@ -42,8 +42,19 @@
   gap: 5%;
 }
 
-.popup-restore-confirm,
+
 .popup-restore-cancel {
+  color: var(--black, #2D2D2D);
+  padding: 3% 7%;
+  border: none;
+  border-radius: 32px;
+  cursor: pointer;
+  font-size: 110%;
+  min-width: 36%;
+  font-weight: 600;
+}
+
+.popup-restore-confirm{
   color: var(--black, #2D2D2D);
   padding: 3% 7%;
   border: none;

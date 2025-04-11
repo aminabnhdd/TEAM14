@@ -34,7 +34,7 @@ const CreateProject = () => {
         <ProjectImageUploader onImageChange={handleImageChange} />
         <ProjectForm error={error} onDataChange={handleDataChange} />
       </div>
-      {error && <div className="error-message"><MdErrorOutline className="error-icon" /> Les champs en rouge doivent être remplis</div>}
+      {error && <div className="error-messagec"><MdErrorOutline className="error-iconc" /> Les champs en rouge doivent être remplis</div>}
       <ProjectActions onCreate={handleCreateProject} />
     </>
   );

@@ -18,44 +18,12 @@ function App() {
   );
 }
 
-export default App;*/
+export default App;
+*/
+
 
 
 /*import React from "react";
-import ModifierExpert from "./pages/Profilpages/ModifierExpert.jsx";
-import AfficherExpert from "./pages/Profilpages/AfficherExpert.jsx";
-import DesactiverExpert from "./pages/Profilpages/DesactiverExpert.jsx";
-import ProjetsExpert from "./pages/Profilpages/ProjetsExpert.jsx";
-import SaveExpert from "./pages/Profilpages/SaveExpert.jsx";
-import ModifierVisiteur from "./pages/Profilpages/ModifierVisiteur.jsx";
-import DesactiverVisiteur from "./pages/Profilpages/DesactiverVisiteur.jsx";
-import SaveVisiteur from "./pages/Profilpages/SaveVisiteur.jsx";
-import ChangerMotDePasse from "./pages/Profilpages/ChangerMotdePasse.jsx";
-i
-
-function App() {
-  return ( 
-    <>
-      <ModifierExpert /> 
-      <AfficherExpert /> 
-      <ProjetsExpert /> 
-      <DesactiverExpert /> 
-      <SaveExpert /> 
-      <ModifierVisiteur /> 
-      <DesactiverVisiteur /> 
-      <SaveVisiteur /> 
-      <ChangerMotDePasse /> 
-
-
-     
-    </>
-
-  );
-
-}
-export default App;*/
-
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ModifierExpert from "./pages/Profilpages/ModifierExpert.jsx";
 import AfficherExpert from "./pages/Profilpages/AfficherExpert.jsx";
@@ -88,7 +56,20 @@ function App() {
   );
 }
 
-export default App;
+export default App;*/
 
+import React from "react";
+import CreateProject from "./pages/Createprojectpages/Createproject";
+import ModifyProject from "./pages/Createprojectpages/ModifyProject";
+
+function App() {
+  return (
+    <div>
+      {/* <CreateProject /> */}
+      {/* <ModifyProject /> */}
+    </div>
+  );
+}
+export default App;
 
  

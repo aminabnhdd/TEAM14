@@ -92,7 +92,8 @@
   font-size: 1vw;
   font-weight: 500;
   margin-bottom: 2%;
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid var(--NEUTRAL-500, #707778);
+  padding-left: 2%;
 }
 

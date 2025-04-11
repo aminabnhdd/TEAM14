@@ -1,8 +1,14 @@
 import React, { useState , useEffect  } from "react";
-import { ImagePlus } from "lucide-react"; 
+import { ImagePlus, X } from "lucide-react";
 import "../../componentsStyles/CreateprojectStyles/ModifProjectImage.css";
 
 const ModifProjectImageUploader = ({ photoUrl ,onImageChange }) => {
+  
+  const handleRemoveImage = () => {
+    setImage(null);
+    onImageChange(null);
+  };
+
   const [image, setImage] = useState(photoUrl || null);
 
   const handleImageUpload = (event) => {
@@ -36,9 +42,14 @@ const ModifProjectImageUploader = ({ photoUrl ,onImageChange }) => {
         onChange={handleImageUpload}
       />
       <label htmlFor="fileInput" className="image-placeholder">
-        {image ? (
-          <img src={image} alt="Uploaded" className="uploaded-image" />
-        ) : (
+      {image ? (
+  <>
+    <img src={image} alt="Uploaded" className="uploaded-image" />
+    <button type="button" className="remove-buttonMd" onClick={handleRemoveImage}>
+      <X size={20} />
+    </button>
+  </>
+) : (
           <>
             <div className="upload-icon-container">
               <ImagePlus className="upload-icon" />

@@ -14,7 +14,7 @@
   padding: 2% 0;
 }
 
-.error-message {
+.error-messagec {
   display: flex;
   align-items: center;
   justify-content: center; 
@@ -28,7 +28,7 @@
   width: 100%; 
   margin-bottom: 0.5%;
 }
-.error-icon {
+.error-iconc {
   font-size: 120%;
 }
 

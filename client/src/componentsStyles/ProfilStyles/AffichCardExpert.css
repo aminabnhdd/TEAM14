@@ -50,6 +50,7 @@
 
 .name-container div {
   flex: 1;
+  margin-bottom: 1%;
 }
 
 /* Labels des informations */
@@ -67,5 +68,12 @@
   padding: 3px 0;
   font-size: 1vw;
   font-weight: 500;
-  margin-bottom: 3%;
+}
+
+.user-info-right .info-value {
+  margin-bottom: 4%;
+}
+
+.user-info-left .info-value{
+  margin-bottom: 2%;
 }

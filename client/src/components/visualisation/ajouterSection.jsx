@@ -57,7 +57,7 @@ export default function AjouterSection(props) {
           onClick={() => setShowPopup(true)}
           className="mb-6 text-brown bg-white border border-neutral-300 
           rounded-[30px] py-3 flex align-items items-center gap-3 bolder-text px-5 mt-4
-          hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer"
+          hover:brightness-105 hover:scale-102 transition-all duration-300 cursor-pointer"
         >
           <img src={addIcon} className="w-5 h-5" />
           Ajouter une section
@@ -65,29 +65,29 @@ export default function AjouterSection(props) {
       )}
 
       {showPopup && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[1001]">
-          <div className="bg-white rounded-[20px] shadow-lg w-100 px-10 py-7 relative border border-black max-w-md">
+        <div className="fixed inset-0 bg-black/80  flex items-center justify-center z-[1001]">
+          <div className="bg-white rounded-[36px]  shadow-lg w-100 px-10 py-7 relative border border-black">
             {/* Close Button */}
             <button
-              className="absolute top-3 right-5 text-black text-xl cursor-pointer hover:text-warning"
+              className="absolute top-4 right-6 text-black text-2xl cursor-pointer hover:text-warning"
               onClick={() => setShowPopup(false)}
             >
               &times;
             </button>
 
             {/* Popup Title */}
-            <h2 className="bolder-text text-black mb-5">Ajouter une section</h2>
-            <p className="mb-4">Choisissez la section à ajouter</p>
+            <h2 className="text-center big-remark text-black mb-5">Ajouter une section</h2>
+            <p className="mb-4 main-text">Choisissez la section à ajouter</p>
 
             {/* Sections List */}
-            <div className="space-y-3 mb-6">
+            <div className="space-y-3 mb-5">
               {filteredSections.map((section) => (
-                <div key={section} className="flex hover:bg-neutral-100 rounded-[36px]  justify-between items-center">
+                <div key={section} className="flex  rounded-[36px]  justify-between items-center">
                   <span className="capitalize pl-4 main-text">{section}</span>
                   <button
                     onClick={() => handleAjouterSection(section)}
-                    className="main-text text-black bg-dune py-2 px-4 rounded-[36px] 
-                    hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer"
+                    className="main-text text-black bg-dune py-2 px-6 rounded-[36px] 
+                    hover:brightness-105  hover:scale-102 transition-all duration-300 cursor-pointer"
                   >
                     Ajouter
                   </button>
@@ -99,8 +99,8 @@ export default function AjouterSection(props) {
             <div className="flex justify-center">
               <button
                 onClick={() => setShowPopup(false)}
-                className="main-text text-black bg-neutral-100 py-3 w-36 mt-2 rounded-[36px] 
-                items-center justify-center hover:brightness-105 hover:shadow-lg hover:scale-102 
+                className="main-text text-black bg-neutral-100 py-3 w-36 rounded-[36px] 
+                items-center justify-center  buttons hover:scale-102  hover:brightness-95
                 transition-all duration-300 cursor-pointer"
               >
                 Annuler

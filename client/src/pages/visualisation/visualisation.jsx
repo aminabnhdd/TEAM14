@@ -5,6 +5,8 @@ import RightSection from "../../components/visualisation/rightSection"
 import { useState, useEffect} from "react"
 import ListSections from "../../components/visualisation/listSections"
 import DemandeCollaboration from "../../components/visualisation/demandeCollaboration"
+import Footer from "../../components/Footer"
+
 export default function Visualisation(){
     // const [isExpert, setIsExpert] = useState(null);
     // const [isAdmin, setIsAdmin] = useState(null);
@@ -721,8 +723,11 @@ const content = {
             <ListSections sectionsExistantes={sectionsExistantes} 
             projet={projet} />
             <DemandeCollaboration projet={projet} user={user} isExpert={isExpert} isCollaborateur={isCollaborateur} collaborateurs={collaborateurs}  />
-           
-          </div>
+          
+            
+             </div>
+             <Footer/>
+          
         </>
       );
     }

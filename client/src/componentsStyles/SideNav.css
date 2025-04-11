@@ -41,11 +41,9 @@
 @media (max-width: 768px) {
     .side-nav {
         width: 15vw;
-        /* Make it wider on smaller screens */
     }
     .discover-icon,
     .favorite-icon {
         font-size: 5vw !important;
-        /* Make icons larger on small screens */
     }
 }

@@ -87,19 +87,19 @@ const PopAjouterCollaborateur = ({ onClose,projet,setProjet,collaborateurs,setCo
   };
 
   return (
-    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[1001]">
-      <div className="bg-white rounded-[20px] shadow-lg w-100 px-10 py-7 relative border border-black">
+    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[1001]">
+      <div className="bg-white rounded-[36px] shadow-lg w-120 px-10 py-7 relative border border-black">
         {/* Close Button */}
         <button
-          className="absolute top-3 right-5 text-black text-xl cursor-pointer hover:text-warning"
+          className="absolute top-4 right-6 text-black text-2xl cursor-pointer hover:text-warning"
           onClick={onClose}
         >
           &times;
         </button>
 
         {/* Popup Title */}
-        <h2 className=" bolder-text text-black mb-5">Ajouter un collaborateur</h2>
-        <p className="mb-2 ">Entrez l'adresse email de l'expert</p>
+        <h2 className=" big-remark text-center text-black mb-5">Ajouter un collaborateur</h2>
+        <p className="mb-2 main-text ">Entrez l'adresse email de l'expert</p>
         {/* Email Input Form */}
         <form onSubmit={handleSubmit}>
             
@@ -111,18 +111,18 @@ const PopAjouterCollaborateur = ({ onClose,projet,setProjet,collaborateurs,setCo
             placeholder="Adresse email"
             className={`w-full main-text px-4 py-2 border border-neutral-300 rounded-xl text-neutral-500 focus:outline-none focus:ring-1 focus:ring-dune ${error && 'focus:ring-warning'}`}
           />
-            {error && <p className="text-warning small-remark" >{error}</p>}
+            {error && <p className="text-warning small-remark mt-1" >{error}</p>}
           {/* Action Buttons */}
           <div className="flex justify-around gap-3 mt-5">
             <button
               type="submit"
-              className="main-text text-black bg-dune py-3 w-36 mt-2 rounded-[36px] items-center justify-center hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer"
+              className="buttons text-black bg-dune py-4 w-42 mt-3 rounded-[36px] items-center justify-center hover:brightness-105 hover:scale-102 transition-all duration-300 cursor-pointer"
             >
               Ajouter
             </button>
             <button
               onClick={onClose}
-              className="main-text text-black bg-neutral-100 py-3 w-36 mt-2 rounded-[36px] items-center justify-center hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer"
+              className="buttons text-black bg-neutral-100 py-4 w-42 mt-3 rounded-[36px] items-center justify-center hover:brightness-95 hover:scale-102 transition-all duration-300 cursor-pointer"
             >
               Annuler
             </button>

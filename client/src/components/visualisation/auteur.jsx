@@ -1,11 +1,25 @@
 import { useState } from 'react';
 import removeIcon from '../../assets/remove-user.png'
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMinus} from "@fortawesome/free-solid-svg-icons";  
+
 
 export function Auteur (props){
+
+    const navigate = useNavigate();
+
     const [showConfirmation, setShowConfirmation] = useState(false);
 
     const visitProfile = (event) => { 
-        console.log(props.user._id);
+        if (props.isAdmin){
+            console.log('is admin');
+            navigate(`/profil-expert-admin/${props.user._id}`); 
+        } else {
+            console.log('is not admin');
+            navigate(`/profil-expert/${props.user._id}`); 
+        }
+         
     };
 
     const removeUser = (event) => { 
@@ -47,27 +61,27 @@ export function Auteur (props){
                 {props.isChef &&
                     <button
                         onClick={openConfirmation}
-                        className="absolute right-2 bottom-2 w-8 h-8 text-black hover:text-warning bg-neutral-200/60 flex items-center justify-center rounded-full hover:brightness-105 hover:shadow-lg hover:scale-110 transition-all duration-300 cursor-pointer"
+                        className="absolute right-2 top-3 w-6 h-6 text-warning rounded-full bg-white border border-warning  hover:brightness-105  hover:scale-110 transition-all duration-300 cursor-pointer"
                     >
-                        <img src={removeIcon} className="w-4 h-4" alt="Remove" />
-                    </button>
+            <FontAwesomeIcon icon={faMinus} className=" w-5 h-5" />
+            </button>
                 } 
             </div>
             
             {/* Confirmation Popup */}
             {showConfirmation && (
-                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[1001]">
-                    <div className="bg-white rounded-[20px] shadow-lg w-100 px-10 py-7 relative border border-black">
+                <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[1001]">
+                    <div className="bg-white rounded-[36px] shadow-lg w-100 px-10 py-7 relative border border-black">
                         {/* Close Button */}
                         <button
-                            className="absolute top-3 right-5 text-black text-xl hover:text-warning cursor-pointer"
+                            className="absolute top-4 right-6 text-black text-2xl hover:text-warning cursor-pointer"
                             onClick={() => setShowConfirmation(false)}
                         >
                             &times;
                         </button>
 
                         {/* Popup Title */}
-                        <h2 className="buttons text-black mb-5">Confirmation</h2>
+                        <h2 className="big-remark text-center text-black mb-5">Confirmation</h2>
 
                         {/* Confirmation Message */}
                         <p className="main-text mb-5">Êtes-vous sûr de vouloir retirer ce collaborateur?</p>
@@ -76,13 +90,13 @@ export function Auteur (props){
                         <div className="flex justify-around gap-3 mt-5">
                             <button 
                                 onClick={removeUser}
-                                className="main-text text-black bg-dune py-3 w-36 mt-4 rounded-[36px] items-center justify-center hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer"
+                                className="buttons text-white bg-warning py-4 w-36 mt-3 rounded-[36px] items-center justify-center hover:brightness-105  hover:scale-102 transition-all duration-300 cursor-pointer"
                             >
                                 Retirer
                             </button>
                             <button 
                                 onClick={() => setShowConfirmation(false)}
-                                className="main-text text-black bg-neutral-100 py-3 w-36 mt-4 rounded-[36px] items-center justify-center hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer"
+                                className="buttons text-black bg-neutral-100 py-4 w-36 mt-3 rounded-[36px] items-center justify-center hover:brightness-96  hover:scale-102 transition-all duration-300 cursor-pointer"
                             >
                                 Annuler
                             </button>

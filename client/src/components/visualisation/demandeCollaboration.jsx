@@ -83,29 +83,29 @@ export default function DemandeCollaboration(props) {
 
       {/* Confirmation Popup */}
       {showConfirmPopup && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[1001]">
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[1001]">
           <div 
             ref={confirmPopupRef}
-            className="bg-white rounded-[20px] shadow-lg w-100 px-10 py-7 relative border border-black"
+            className="bg-white rounded-[36px] shadow-lg w-110 px-10 py-7 relative border border-black"
           >
             <button
-              className="absolute top-3 right-5 text-black text-xl cursor-pointer hover:text-warning"
+              className="absolute top-4 right-6 text-black text-2xl cursor-pointer hover:text-warning"
               onClick={() => setShowConfirmPopup(false)}
             >
               &times;
             </button>
-            <h2 className="bolder-text text-black mb-5">Confirmer la demande</h2>
-            <p className="mb-2">Voulez-vous vraiment envoyer une demande de collaboration pour ce projet?</p>
+            <h2 className="big-remark text-center text-black mb-5">Confirmer la demande</h2>
+            <p className="mb-2 text-justify main-text">Voulez-vous vraiment envoyer une demande de collaboration pour ce projet?</p>
             <div className="flex justify-around gap-3 mt-5">
               <button
                 onClick={confirmRequest}
-                className="main-text text-black bg-dune py-3 w-36 mt-2 rounded-[36px] items-center justify-center hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer"
+                className="buttons text-black bg-dune py-4 w-40 mt-2 rounded-[36px] items-center justify-center hover:brightness-105  hover:scale-102 transition-all duration-300 cursor-pointer"
               >
                 Confirmer
               </button>
               <button
                 onClick={() => setShowConfirmPopup(false)}
-                className="main-text text-black bg-neutral-100 py-3 w-36 mt-2 rounded-[36px] items-center justify-center hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer"
+                className="buttons text-black bg-neutral-100 py-4 w-40 mt-2 rounded-[36px] items-center justify-center hover:brightness-95 hover:scale-102 transition-all duration-300 cursor-pointer"
               >
                 Annuler
               </button>
@@ -116,18 +116,18 @@ export default function DemandeCollaboration(props) {
 
       {/* Waiting Approval Popup */}
       {showWaitingPopup && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[1001]">
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[1001]">
           <div 
             ref={waitingPopupRef}
-            className="bg-white rounded-[20px] shadow-lg w-100 px-10 py-7 relative border border-black"
+            className="bg-white rounded-[36px] shadow-lg w-120 px-10 py-7 relative border border-black"
           >
             <button
-              className="absolute top-3 right-5 text-black text-xl cursor-pointer hover:text-warning"
+              className="absolute top-4 right-6 text-black text-2xl cursor-pointer hover:text-warning"
               onClick={() => setShowWaitingPopup(false)}
             >
               &times;
             </button>
-            <h2 className="bolder-text text-black mb-5">Demande envoyée</h2>
+            <h2 className="big-remark text-center text-black mb-5">Demande envoyée</h2>
             <p className="mb-2 main-text text-justify">
             Votre demande de collaboration sur ce projet a été envoyée et est 
             <span className="text-success" > en attente de validation </span>

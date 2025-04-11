@@ -5,6 +5,9 @@ import Gallerie from './components/editeur/gallerie.jsx';
 import AuthContext from "./helpers/AuthContext.jsx";
 import Con from "./pages/page connexion/PageConnexion";
 import { useState } from "react";
+import Visualisation from './pages/visualisation/visualisation.jsx';
+
+
 function App() {
   const [authState, setAuthState] = useState({
     email: "",
@@ -22,6 +25,9 @@ function App() {
 <Route path="/gallerie" element={<Gallerie/>}/>
         {/* Route for annotatins */}
         <Route path="/editeur/non-editable/67cde422d70a4df898a9a9d8" element={<EditorNonEditable />} />
+       
+       
+        <Route path="/visualisation" element={<Visualisation />} />
 
       </Routes>
     </Router>

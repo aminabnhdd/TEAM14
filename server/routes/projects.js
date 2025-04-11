@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const projectModel = require('../model/Projet');
 const sectionModel = require('../model/section');
+const notificationModel = require('../model/notification');
 const {expertModel,userModel} = require('../model/user');
 const {validateRole,validateProjectOwner} = require('../middlewares/roleMiddleware');
 const validateToken = require('../middlewares/authMiddleware');
@@ -32,11 +33,9 @@ router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.si
         const found = await projectModel.findOne({ titre });
         if (found) return res.status(403).json({ err: "Title already used" });
 
-
         const author = await expertModel.findById(userID);
         if (!author) return res.status(404).json({ err: "Expert not found!" });
-
-
+      
         const project = await projectModel.create({
             titre,
             type,
@@ -85,40 +84,6 @@ router.get("/modifier/:id",  validateToken, validateRole(expertRole, adminRole),
     }
 });
 
-router.put("/update/:id", upload.single("image"), validateToken, async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { titre, type, latitude, longtitude, localisation, style, dateConstruction } = req.body;
-
-        let project = await projectModel.findById(id);
-        if (!project) {
-            return res.status(404).json({ err: "Project not found" });
-        }
-
-        let imageUrl = project.photoUrl; 
-        if (req.file) {
-            const result = await cloudinary.uploader.upload(req.file.path);
-            imageUrl = result.secure_url;
-        }
-
-        project.titre = titre;
-        project.type = type;
-        project.latitude = latitude;
-        project.longtitude = longtitude;
-        project.localisation = localisation;
-        project.style = style;
-        project.dateConstruction = dateConstruction;
-        project.photoUrl = imageUrl;
-
-        await project.save();
-        res.json({ message: "Project updated successfully", project });
-    } catch (error) {
-        console.error("Error in /update route:", error);
-        res.sendStatus(500);
-    }
-
-});
-
 
 router.put('/archive/:projectID',validateToken,validateRole(expertRole,adminRole),async (req,res)=>{
     try {
@@ -126,7 +91,6 @@ router.put('/archive/:projectID',validateToken,validateRole(expertRole,adminRole
         const userID = req.user.id;
 
         const projectID = req.params.projectID;
-
         const found = await projectModel.findById(projectID);
         if (!found) return res.status(404).json({err:"project not found "});
 
@@ -387,8 +351,9 @@ router.delete("/:projectId/collaborateurs/:expertId", validateToken, validatePro
 
 //request to join the collaborators of a project
 
-router.post("/:projectId/demande", validateToken, validateProjectOwner, async(req, res) => {
-    const { projectId } = req.params;
+
+router.post("/:projectId/:sectionId/demande", validateToken, validateProjectOwner, async(req, res) => {
+    const { projectId,sectionId } = req.params;
     const { expertId } = req.body; //expertId in the body of the request because one project can have several demandes there is no bijection
 
     try {
@@ -402,24 +367,105 @@ router.post("/:projectId/demande", validateToken, validateProjectOwner, async(re
 
         await project.save();
 
-        const notification = await new notificationModel({
+        const notification = await notificationModel.create({
             type: "demandeCollaboration",
             projetId: projectId,
             senderId: expertId,
+            sectionId,
             recepientId: req.user.id,
             content: "this expert want to join your project",
             read: false
         });
 
-        await notification.save();
-
 
 
         res.json({ message: "Join request sent to the project owner", project });
+} catch (error) {
+        console.log(error);
+        return res.sendStatus(500);
+    }
 
+})
+
+//request for the project owner to validate or not the demandes of collaborating on  the prject
+
+router.post("/:projectId/validate/:expertId", validateToken, validateProjectOwner, async(req, res) => {
+    const { projectId, expertId } = req.params;
+    const { status } = req.body;
+
+    try {
+        const project = await projectModel.findById(projectId);
+
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+
+        //check if the logged in user corresponds to the owner of the project
+        if (project.chef.toString() !== req.user.id) {
+            return res.status(403).json({ message: "You are not authorized to manage this project" });
+        }
+
+        const demande = projectModel.demandes.find(request => request.expertId.toString() == expertId);
+        demande.status = status;
+
+        if (!demande) {
+            return res.status(404).json({ message: "Demand not found for this expert" });
+        }
+
+        res.send(action);
     } catch (error) {
         console.log(error);
         return res.sendStatus(500);
+    }
+})
+
+
+router.get("/search", async(req, res) => {
+    const { keyword } = req.body; // Get keyword from query params
+
+    if (!keyword) {
+        return res.status(400).json({ message: "Keyword is required" });
+    }
+
+    try {
+        const results = await projectModel.find({ keyword });
+        res.json(results);
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+});
+
+
+router.put("/update/:id", upload.single("image"), validateToken, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { titre, type, latitude, longtitude, localisation, style, dateConstruction } = req.body;
+
+        let project = await projectModel.findById(id);
+        if (!project) {
+            return res.status(404).json({ err: "Project not found" });
+        }
+
+        let imageUrl = project.photoUrl; 
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(req.file.path);
+            imageUrl = result.secure_url;
+        }
+
+        project.titre = titre;
+        project.type = type;
+        project.latitude = latitude;
+        project.longtitude = longtitude;
+        project.localisation = localisation;
+        project.style = style;
+        project.dateConstruction = dateConstruction;
+        project.photoUrl = imageUrl;
+
+        await project.save();
+        res.json({ message: "Project updated successfully", project });
+    } catch (error) {
+        console.error("Error in /update route:", error);
+        res.sendStatus(500);
     }
 
 })
@@ -474,5 +520,7 @@ router.get("/search", async(req, res) => {
         res.status(500).json({ message: "Server error", error: error.message });
     }
 });
+
+
 
 module.exports = router;

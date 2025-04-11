@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Apply Poppins font to all elements */
+}
+
+.main-notif{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.navigation-bar{
+    width: 6%;
+    height: 100%;
+    background-color: #C57642;
+}
+
+.secondary-notif{
+    height: inherit;
+    width: 94%;
+}
+
+
+
+.inprech{
+    width: 100%;
+    height: 100%;
+    background: #F3F4F5;
+    border: none;
+    border-radius: 37px;
+    outline: none;
+    font-size: 13px;
+    color: #A0A5A6;
+}
+
+
+.second-div {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        margin-left: 6.5%;
+        height: 70%;
+}
+
+.p-recherche{
+    color: #A0A5A6;
+}
+
+.secondary-notif{
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+}
+
+.imgrecherche{
+    width: 25px;
+    height: 25px;
+    margin-left: 1.5%;
+}
+
+.imgprofil{
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.hnotif{
+    font-size: 23px;
+    margin-bottom: 0.5%;
+}
+
+.pnotif{
+    font-size: 14px;
+}
+
+.transport{
+    display: flex;
+    color: #707778;
+    font-size: 13px;
+    gap: 8.5%;
+    margin-bottom: 0.8%;
+}
+
+.transptext{
+    cursor: pointer;
+}
+
+
+.transptext {
+    position: relative;
+    cursor: pointer;
+}
+
+.transptext.active {
+    color: #C57642;    
+}
+
+/* Underline effect */
+.transptext::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -50%;
+    width: 0;
+    height: 2px; /* Thickness of the underline */
+    background-color: #C57642;
+    border-radius: 60px;
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-50%);
+}
+
+.transptext.active::after {
+    width: 100%; /* Expand the underline smoothly */
+}
+
+
+.textos{
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+    margin-left: 6.5%;
+
+}
+
+.line{
+    width: 91%;
+    height: 1.33px;
+    background: #D1D4D5;
+}
+
+.note{
+        display: flex;
+        padding: 1.5% 2%;
+        width: 100%;
+        border: none;
+        border-bottom: 1.5px solid #D1D4D5;
+}
+
+.notif-icon{
+    width: 25px;
+    height: 25px;
+}
+
+.notifications{
+    width: 91%;
+
+}
+
+.iconwmessage{
+    display: flex;
+    width: 69%;
+    gap: 6%;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.notwtabwdom{
+    display: flex;
+    justify-content: flex-start;
+    font-size: 13px;
+    width: 55%;
+    align-items: center;
+    gap: 16%;
+}
+
+.notif-message{
+    font-size: 13px;
+}
+.notif-time{
+    width: 8%;
+}
+
+.tabwdom {
+    display: flex;
+    gap: 10%;
+    width: 29%;
+}
+
+.dom{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.tab{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.det-button{
+    display: flex;
+    padding: 2% 11%;
+    align-items: center;
+    border: none;
+    gap: 12px;
+    border-radius: 36px;
+    background: var(--dune, #E8C07D);
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.refusIcon {
+    width: 20px;
+    height: 20px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+

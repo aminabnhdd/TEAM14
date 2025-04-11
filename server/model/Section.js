@@ -14,7 +14,7 @@ const sectionSchema = new mongoose.Schema({
     },
     contenu: {
         type: Object, // Or use Schema.Types.Mixed for flexibility
-    default: {},
+        default: {},
     },
     annotations: [{
         type: mongoose.Schema.Types.ObjectId,

@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Apply Poppins font to all elements */
+}
+
+.main-notif-lsPrjct{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.navigation-bar-lsPrjct{
+    width: 6%;
+    height: 100%;
+    background-color: #C57642;
+}
+
+.secondary-notif-lsPrjct{
+    height: inherit;
+    width: 94%;
+}
+
+
+
+.inprech-lsPrjct{
+    width: 100%;
+    height: 100%;
+    background: #F3F4F5;
+    border: none;
+    border-radius: 37px;
+    outline: none;
+    font-size: 13px;
+    color: #A0A5A6;
+}
+
+
+.second-div-lsPrjct {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        margin-left: 6.5%;
+        height: 70%;
+}
+
+.p-recherche-lsPrjct{
+    color: #A0A5A6;
+}
+
+.secondary-notif-lsPrjct{
+    display: flex;
+    flex-direction: column;
+    gap: 3%;
+}
+
+.imgrecherche-lsPrjct{
+    width: 25px;
+    height: 25px;
+    margin-left: 1.5%;
+}
+
+
+
+.hnotif-lsPrjct{
+    font-size: 23px;
+    margin-bottom: 0.5%;
+}
+
+.pnotif-lsPrjct{
+    font-size: 14px;
+}
+
+.transport-lsPrjct{
+    display: flex;
+    color: #707778;
+    font-size: 13px;
+    gap: 8.5%;
+    margin-bottom: 0.8%;
+}
+
+.transptext{
+    cursor: pointer;
+}
+
+
+.transptext {
+    position: relative;
+    cursor: pointer;
+}
+
+.transptext.active {
+    color: #C57642;    
+}
+
+/* Underline effect */
+.transptext::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -50%;
+    width: 0;
+    height: 2px; /* Thickness of the underline */
+    background-color: #C57642;
+    border-radius: 60px;
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-50%);
+}
+
+.transptext.active::after {
+    width: 100%; /* Expand the underline smoothly */
+}
+
+
+.textos-lsPrjct{
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+    margin-left: 6.5%;
+    margin-top: 5%;
+
+}
+
+.line-lsPrjct{
+    width: 91%;
+    height: 1.33px;
+    background: #D1D4D5;
+}
+
+.note-lsPrjct{
+        display: flex;
+        padding: 0 2%;
+        width: 100%;
+        border: none;
+        border-bottom: 1.5px solid #D1D4D5;
+}
+
+.notif-icon-lsPrjct{
+    width: 25px;
+    height: 25px;
+}
+
+.notifications-lsPrjct{
+    width: 91%;
+
+}
+
+.iconwmessage-lsPrjct{
+    display: flex;
+    width: 28%;
+    height: 64px;
+    gap: 6%;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.notwtabwdom-lsPrjct{
+    display: flex;
+    justify-content: flex-start;
+    font-size: 13px;
+    width: 72%;
+    height: 64px;
+    align-items: center;
+    gap: 18%;
+}
+
+.notif-message-lsPrjct{
+    font-size: 13px;
+    font-weight: 600;
+}
+.notif-time-lsPrjct{
+    width: 8%;
+}
+
+.tabwdom-lsPrjct {
+    display: flex;
+    gap: 5%;
+    width: 54%;
+    align-items: center;
+}
+
+.dom-lsPrjct{
+    width: 57%;
+    font-weight: 600;
+}
+
+.tab-lsPrjct{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.det-button-lsPrjct{
+    display: flex;
+    padding: 8px 8%;
+    align-items: center;
+    border: none;
+    gap: 12px;
+    border-radius: 36px;
+    background: var(--dune, #E8C07D);
+    width: auto;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.refusIcon {
+    width: 20px;
+    height: 20px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+

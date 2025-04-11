@@ -11,6 +11,7 @@ const {validateRole} = require('../middlewares/roleMiddleware');
 const isCollaborator = require("../middlewares/collaborationMiddleware");
 const expertRole = process.env.EXPERT_ROLE;
 const adminRole = process.env.ADMIN_ROLE;
+
 const { handleImages } = require('../middlewares/multerMiddleware');
 const { upload } = require('../middlewares/multerMiddleware');
 
@@ -95,6 +96,7 @@ router.get("/editable/:sectionId", validateToken, async (req, res) => {
         return res.status(500).json({ message: "Erreur serveur" });
     }
 });
+
 
 
 router.post("/conflits/:projetId/:sectionId", validateToken, isCollaborator, async (req, res) => {

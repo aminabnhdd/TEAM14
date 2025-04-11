@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const notificationSchema = new mongoose.Schema({
     type: {
         type: String,
-        ref: "Projet",
         required: true,
     },
     projetId: {
@@ -35,6 +34,11 @@ const notificationSchema = new mongoose.Schema({
          type: mongoose.Schema.Types.ObjectId, 
          ref: "Conflit", 
          default: null },
+    sectionId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Section",
+        default: null
+    },
     time: {
         type: Date,
         required: true

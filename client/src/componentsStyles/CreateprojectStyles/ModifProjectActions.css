@@ -1,0 +1,44 @@
+.project-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 3%;
+  padding: 1% 0%;
+  margin-right: 0%;
+}
+
+.cancel {
+  background: transparent;
+  border: 0.15vw solid #2D2D2D;
+  border-radius: 5vw;
+  padding: 0.8vw 2vw;
+  font-size: 1.2vw;
+  font-weight: 600;
+  color: #2D2D2D;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.cancel:hover {
+  background: #E0E0E0; 
+  color: black;
+  transform: scale(1.05);
+}
+
+
+.create {
+  background: #e5b76e;
+  border: none;
+  border-radius: 5vw;
+  padding: 0.8vw 2vw;
+  font-size: 1.2vw;
+  font-weight: 600;
+  color: #2D2D2D;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+
+.create:hover {
+  background: #d9a85f;
+  transform: scale(1.05);
+}

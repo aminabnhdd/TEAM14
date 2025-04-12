@@ -1,10 +1,16 @@
 import React from "react";
 import "../../componentsStyles/CreateProjectStyles/ProjectActions.css";
+import { useNavigate } from "react-router-dom";
 
 const ProjectActions = ({ onCreate }) => {
+  const navigate = useNavigate();
+ const Annuler = () => {
+    navigate("/mesprojets");
+    console.log("Annuler le projet");
+  }
   return (
     <div className="project-actions">
-      <button className="cancel">Annuler</button>
+      <button className="cancel" onClick={Annuler}>Annuler</button>
       <button className="create" onClick={onCreate}>
         Créer le projet
       </button>

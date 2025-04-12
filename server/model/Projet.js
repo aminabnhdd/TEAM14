@@ -35,7 +35,7 @@ const projetSchema = new mongoose.Schema({
         default:""
     },
     dateConstruction: {
-        type: Date,
+        type: String,
     },
     chef: {
         type: mongoose.Schema.Types.ObjectId,

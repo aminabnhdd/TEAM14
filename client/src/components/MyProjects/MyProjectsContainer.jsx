@@ -30,7 +30,7 @@ const MyProjectsContainer = () => {
 
 
   const handleAddProjectClick = () => {
-    navigate("/create-project");
+    navigate("/create-projet");
   };
   const handleProjectClick = (projetId) => {
     navigate(`/visualisation/${projetId}`);

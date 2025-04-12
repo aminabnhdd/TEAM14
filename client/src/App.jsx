@@ -33,7 +33,7 @@ function App() {
           <Route path="/connexion" element={<Con />} />
           <Route path="/notifications" element={<Notif/>} />
           <Route path="/create-projet" element= {<CreateProject/>} />
-          <Route path="/modify-projet/:projetId" element= {<ModifyProject/>} />
+          <Route path="/modifier-projet/:projetId" element= {<ModifyProject/>} />
           <Route path="/reinitialisation/mdp" element={<ReiniMotdps/>}/>
           <Route path="/signup/expert" element={<InsEx/>} />
           <Route path="/signup/visiteur" element={<InsVs/>} />

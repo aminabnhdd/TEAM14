@@ -8,11 +8,13 @@ import "../../pagesStyles/CreateprojectpagesStyle/ModifyProject.css";
 import {UpdateProject } from "../../services/ModifyProject.js"; 
 import AuthContext from '../../helpers/AuthContext'
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ModifyProject = () => {
   const [error, setError] = useState(false);
     const {authState} = useContext(AuthContext);
     const [newProject, setNewProject] = useState({});
+    const navigate = useNavigate();
     const { projetId } = useParams();
     
     const handleDataChange = useCallback((data) => {
@@ -45,6 +47,7 @@ const ModifyProject = () => {
       try {
           const response = await UpdateProject(projetId,formDataToSend,authState.accessToken);
           console.log("Projet updated :", response);
+          navigate("/visualisation/" + projetId);
       } catch (err) {
           console.error("Erreur lors updating du projet :", err);
       }
@@ -65,7 +68,7 @@ const ModifyProject = () => {
           Les champs en rouge doivent être remplis pour modifier un projet
         </div>
       )}
-      <ModifProjectActions onModify={() => handleModifyProject(newProject)} />
+      <ModifProjectActions onModify={() => handleModifyProject(newProject)} projetId={projetId} />
       </div>
     </>
   );

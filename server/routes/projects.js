@@ -478,72 +478,54 @@ router.get("/search", async(req, res) => {
     }
 });
 
-
 router.put("/update/:id", upload.single("image"), validateToken, async (req, res) => {
     try {
-        const { id } = req.params;
-        const { titre, type, latitude, longtitude, localisation, style, dateConstruction } = req.body;
-
-        let project = await projectModel.findById(id);
-        if (!project) {
-            return res.status(404).json({ err: "Project not found" });
+      const { id } = req.params;
+      const projet = req.body;
+  
+      const project = await projectModel.findById(id);
+      if (!project) {
+        return res.status(404).json({ err: "Project not found" });
+      }
+  
+      let photoUrl = project.photoUrl;
+  
+      if (req.file) {
+       
+        if (project.photoUrl) {
+          const oldImagePublicId = project.photoUrl.split('/').pop().split('.')[0];
+          await cloudinary.uploader.destroy(oldImagePublicId);
         }
-
-        let imageUrl = project.photoUrl; 
-        if (req.file) {
-            const result = await cloudinary.uploader.upload(req.file.path);
-            imageUrl = result.secure_url;
+  
+        const result = await cloudinary.uploader.upload(req.file.path);
+        photoUrl = result.secure_url;
+      } else {
+       
+        if (project.photoUrl) {
+          const oldImagePublicId = project.photoUrl.split('/').pop().split('.')[0];
+          await cloudinary.uploader.destroy(oldImagePublicId);
+          photoUrl = "";
         }
-
-        project.titre = titre;
-        project.type = type;
-        project.latitude = latitude;
-        project.longtitude = longtitude;
-        project.localisation = localisation;
-        project.style = style;
-        project.dateConstruction = dateConstruction;
-        project.photoUrl = imageUrl;
-
-        await project.save();
-        res.json({ message: "Project updated successfully", project });
+      }
+  
+    
+      project.titre = projet.titre;
+      project.type = projet.type;
+      project.latitude = projet.latitude;
+      project.longtitude = projet.longtitude;
+      project.localisation = projet.localisation;
+      project.style = projet.style;
+      project.dateConstruction = projet.dateConstruction;
+      project.photoUrl = photoUrl;
+  
+      await project.save();
+  
+      res.json({ message: "Project updated successfully", project });
     } catch (error) {
-        console.error("Error in /update route:", error);
-        res.sendStatus(500);
+      console.error("Error in /update route:", error);
+      res.sendStatus(500);
     }
-
-});
-
-router.put('/modify/:projectID', validateToken, validateRole(expertRole, adminRole), upload.single("image"), async (req, res) => {
-    try {
-        let project = await projectModel.findById(req.params.projectID);
-        if (!project) return res.status(404).json({ err: "Project not found" });
-
-        const projet = req.body;
-        let photoUrl = project.photoUrl; 
-
-
-        if (req.file) {
-            if (project.photoUrl) {
-                const oldImagePublicId = project.photoUrl.split('/').pop().split('.')[0]; 
-                await cloudinary.uploader.destroy(oldImagePublicId); 
-            }
-            const result = await cloudinary.uploader.upload(req.file.path);
-            photoUrl = result.secure_url;
-        }
-
-
-        project = await projectModel.findByIdAndUpdate(
-            req.params.projectID,
-            { ...projet, photoUrl },
-            { new: true } 
-        );
-
-        res.json(project);
-    } catch (error) {
-        console.error("Error modifying project:", error);
-        return res.status(500).json({ err: "Internal Server Error" });
-    }
-});
+  });
 
 
 module.exports = router;

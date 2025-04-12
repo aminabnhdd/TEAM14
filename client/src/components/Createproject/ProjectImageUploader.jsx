@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { ImagePlus } from "lucide-react"; 
+import { ImagePlus, X } from "lucide-react";
 import "../../componentsStyles/CreateProjectStyles/ProjectImageUploader.css";
 
 const ProjectImageUploader = ({ onImageChange }) => {
+  
+  const handleRemoveImage = () => {
+    setImage(null);
+    onImageChange(null);
+  };
+
   const [image, setImage] = useState(null);
 
   const handleImageUpload = (event) => {
@@ -30,7 +36,14 @@ const ProjectImageUploader = ({ onImageChange }) => {
         onChange={handleImageUpload}
       />
       <label htmlFor="fileInput" className="image-placeholder">
-        {image ? <img src={image} alt="Uploaded" className="uploaded-image" /> : (
+      {image ? (
+  <>
+    <img src={image} alt="Uploaded" className="uploaded-image" />
+    <button type="button" className="remove-buttonPr" onClick={handleRemoveImage}>
+      <X size={20} />
+    </button>
+  </>
+) : (
           <>
             <div className="upload-icon-container">
               <ImagePlus className="upload-icon" />

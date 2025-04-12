@@ -1,0 +1,71 @@
+/* Conteneur principal */
+.account-page-container {
+  width: 99%;
+  background-color: var(--color-white, #fefefe);
+  margin-bottom: 2%;
+  margin-left: 3%;
+}
+
+/* En-tête */
+.account-header {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  line-height: normal;
+}
+
+.account-title {
+  color: #2D2D2D;
+  font-family: Poppins, sans-serif;
+  font-size: 2.5vw;
+  font-weight: 700;
+}
+
+/* Bouton de déconnexion */
+.account-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  border-radius: 30px;
+  border: 1px solid var(--warning, #EF4444);
+  background: var(--white, #FEFEFE); 
+  color: var(--warning, #EF4444);
+  font-size: 1.2vw;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+.account-logout-btn:hover {
+  background: rgba(255, 0, 0, 0.1); 
+}
+
+.logout-icon {
+  font-size: 1.2vw;
+  font-weight: 500;
+}
+
+/* Conteneur de l'élément de navigation */
+.item-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Élément actif dans la navigation */
+.item {
+  font-size: 1vw;
+  color: var(--brown, #C57642);
+  font-weight: 500;
+  padding: 0.5rem 0;
+}
+
+/* Ligne d'indicateur sous l'élément actif */
+.line {
+  width: 99.5%;
+  height: 5%;
+  background: linear-gradient(to right, var(--brown, #C57642) 0 8.9vw, var(--NEUTRAL-300, #D1D4D5) 8.9vw 100%);
+  position: absolute;
+  bottom: 0;
+}
+

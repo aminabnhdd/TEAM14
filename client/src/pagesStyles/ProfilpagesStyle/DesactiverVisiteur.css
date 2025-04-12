@@ -1,0 +1,26 @@
+#root {
+  width: 80%;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+}
+
+.desactiver-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  border-radius: 30px;
+  border: 1px solid var(--warning, #EF4444);
+  background: var(--white, #FEFEFE); 
+  color: var(--warning, #EF4444);
+  font-size: 1.2vw;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px 30px;
+  margin-top: 2%;
+  margin-left: auto;
+}
+
+.desactiver-btn:hover {
+  background: rgba(255, 0, 0, 0.1); 
+}

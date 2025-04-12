@@ -1,0 +1,79 @@
+/* Style global de la carte */
+.affich-expert-card {
+  border-radius: 36px;
+  border: 2px solid var(--NEUTRAL-300, #D1D4D5);
+  background: var(--white, #FEFEFE);
+  padding: 30px 40px;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+  color: var(--black-text, #2D2D2D);
+  margin-left: 2%;
+}
+
+/* En-tête de la carte (Titre + Bouton) */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2%;
+}
+
+.card-header h2 {
+  font-size: 2vw;
+  font-weight: 600;
+  color: var(--black-text, #2D2D2D);
+  margin: 0;
+}
+
+/* Contenu de la carte */
+.card-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10%;
+}
+
+/* Colonnes de la carte */
+.user-info-left {
+  width: 60%;
+}
+.user-info-right {
+  width: 30%;
+}
+
+/* Style spécifique pour afficher Nom & Prénom sur une seule ligne */
+.name-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 15%;
+}
+
+.name-container div {
+  flex: 1;
+  margin-bottom: 1%;
+}
+
+/* Labels des informations */
+.info-label {
+  font-weight: 400;
+  color: rgba(85, 85, 94, 0.70);
+  display: block;
+  font-size: 1vw;
+}
+
+/* Valeurs des informations */
+.info-value {
+  color: var(--black-text, #2D2D2D);
+  display: block;
+  padding: 3px 0;
+  font-size: 1vw;
+  font-weight: 500;
+}
+
+.user-info-right .info-value {
+  margin-bottom: 4%;
+}
+
+.user-info-left .info-value{
+  margin-bottom: 2%;
+}

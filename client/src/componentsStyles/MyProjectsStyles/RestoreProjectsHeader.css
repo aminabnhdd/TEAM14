@@ -1,0 +1,54 @@
+.rest-projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 5%;
+  margin-left: 4%;
+}
+
+.rest-projects-header h1 {
+  color: #2D2D2D;
+  font-family: Poppins, sans-serif;
+  font-size: 2.5vw;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.restore-button2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3%;
+  padding: 2% 4%;
+  border: 1px solid var(--NEUTRAL-400, #A0A5A6);
+  background-color: transparent;
+  color: #C57642;
+  font-family: Poppins, sans-serif;
+  font-size: 1.2vw;
+  font-weight: 500;
+  line-height: normal;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  white-space: nowrap;
+  align-self: flex-end;
+}
+
+.restore-button2:hover {
+  background-color: #C57642;
+  color: white;
+}
+
+.restore-button2 svg {
+  width: 2vw;
+  height: 2vw;
+}
+
+.restore-buttons-container {
+  display: flex;
+  gap: 1vw; 
+}
+
+
+

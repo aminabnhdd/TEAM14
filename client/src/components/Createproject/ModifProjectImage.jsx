@@ -1,12 +1,12 @@
-import React, { useState, useEffect,useContext } from "react";
-import { ImagePlus } from "lucide-react"; 
+import React, { useState , useEffect,useContext  } from "react";
+import { ImagePlus, X } from "lucide-react";
 import "../../componentsStyles/CreateprojectStyles/ModifProjectImage.css";
 import { FetchProjectData } from "../../services/FetchProjectData.js";
 import AuthContext from '../../helpers/AuthContext'
 import RefreshService from "../../services/RefreshService";
 
-const ModifProjectImageUploader = ({ onImageChange }) => {
-  const [image, setImage] = useState("");
+const ModifProjectImageUploader = ({ photoUrl, onImageChange }) => {
+  const [image, setImage] = useState(photoUrl || null);
   const [file, setFile] = useState(null);
   const {authState,setAuthState} = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
@@ -38,6 +38,11 @@ const ModifProjectImageUploader = ({ onImageChange }) => {
     };
   }, [file]);
 
+  const handleRemoveImage = () => {
+    setImage(null);
+    onImageChange(null);
+  };
+  
   const handleImageUpload = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
@@ -61,9 +66,14 @@ const ModifProjectImageUploader = ({ onImageChange }) => {
         onChange={handleImageUpload}
       />
       <label htmlFor="fileInput" className="image-placeholder">
-        {image ? (
-          <img src={image} alt="Uploaded" className="uploaded-image" />
-        ) : (
+      {image ? (
+  <>
+    <img src={image} alt="Uploaded" className="uploaded-image" />
+    <button type="button" className="remove-buttonMd" onClick={handleRemoveImage}>
+      <X size={20} />
+    </button>
+  </>
+) : (
           <>
             <div className="upload-icon-container">
               <ImagePlus className="upload-icon" />

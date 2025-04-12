@@ -1,0 +1,40 @@
+.InfosPros2-container2{
+  width: 99%;
+  background-color: var(--color-white, #fefefe);
+  margin-bottom: 2%;
+  margin-left: 3%;
+  position: relative;
+}
+
+.InfosPros2-tabs2 {
+  display: flex;
+  justify-content: flex-start; 
+  align-items: center;
+  gap: 2vw;
+}
+
+
+.item2-Infos2 {
+  font-size: 1vw;
+  color: var(--NEUTRAL-500, #707778);
+  font-weight: 500;
+  padding: 0.5rem 0;
+  cursor: pointer;
+}
+.item2-Pros2 {
+  font-size: 1vw;
+  color: var(--brown, #C57642);
+  font-weight: 500;
+  padding: 0.5rem 0;
+  cursor: pointer;
+}
+
+.InfosPros2-line2 {
+  width: 99.5%;
+  height: 5%;
+  background: linear-gradient(
+  to right, 
+  var(--NEUTRAL-300, #D1D4D5) 0 8.5vw, var(--brown, #C57642) 8.5vw 15%, var(--NEUTRAL-300, #D1D4D5) 15% 100%);
+  position: absolute;
+  bottom: 0;
+}

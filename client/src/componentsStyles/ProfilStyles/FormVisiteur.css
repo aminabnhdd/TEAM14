@@ -1,0 +1,88 @@
+.frmv-container {
+  border-radius: 36px;
+  border: 2px solid var(--NEUTRAL-300, #D1D4D5);
+  background: var(--white, #FEFEFE);
+  padding: 30px 40px;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+  color: var(--black-text, #2D2D2D);
+  margin-left: 2%;
+}
+
+.frmv-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2%;
+}
+
+.frmv-header h2 {
+  font-size: 2vw;
+  font-weight: 600;
+  color: var(--black-text, #2D2D2D);
+  margin: 0;
+}
+
+.frmv-save-button{
+  display: flex;
+  align-items: center;
+  border-radius: 32px;
+  background: var(--NEUTRAL-200, #E2E5E6);
+  color: var(--brown, #C57642);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1.2vw;
+  font-weight: 500;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.frmv-save-button svg {
+  font-size: 1.2vw;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+.frmv-save-button:hover {
+  background-color: #C57642;
+  color: var(--color-white, #fefefe);
+  transform: scale(1.05);
+}
+
+.frmv-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2%;
+  align-items: center; 
+  justify-content: center; 
+}
+
+.frmv-group{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5%;
+  align-items: center; 
+  width: 60%;
+}
+
+.frmv-group label{
+  font-weight: 400;
+  color: rgba(85, 85, 94, 0.70);
+  display: block;
+  font-size: 1vw;
+  align-self: stretch;
+}
+
+.frmv-group input {
+  color: var(--black-text, #2D2D2D);
+  display: block;
+  padding: 5px 5px;
+  font-size: 1vw;
+  font-weight: 500;
+  border-radius: 12px;
+  border: 1px solid var(--NEUTRAL-500, #707778);
+  width: 100%; 
+  padding-left: 2%;
+}

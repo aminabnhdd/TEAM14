@@ -30,8 +30,8 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/connexion" element={<Con />} />
           <Route path="/notifications" element={<Notif/>} />
-          <Route path="/create-projet" element= {<CreateProject/>} />
-          <Route path="/modify-projet" element= {<ModifyProject/>} />
+          <Route path="/create-projet/:projetId" element= {<CreateProject/>} />
+          <Route path="/modify-projet/:projetId" element= {<ModifyProject/>} />
           <Route path="/reinitialisation/mdp" element={<ReiniMotdps/>}/>
           <Route path="/signup/expert" element={<InsEx/>} />
           <Route path="/signup/visiteur" element={<InsVs/>} />

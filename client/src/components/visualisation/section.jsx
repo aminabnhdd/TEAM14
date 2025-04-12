@@ -21,11 +21,11 @@ const canEdit = () => {
   };
 
 function editSection(){
-    navigate(`/editable/${props.section._id}`);  
+    navigate(`/editeur/editable/${props.section._id}`);  
 }
 
 function annoterSection(){
-    navigate(`/non-editable/${props.section._id}`);  
+    navigate(`/editeur/annoter/${props.section._id}`);  
 }
 
   return (

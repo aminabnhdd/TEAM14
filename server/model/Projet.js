@@ -35,7 +35,7 @@ const projetSchema = new mongoose.Schema({
         default:""
     },
     dateConstruction: {
-        type: Date,
+        type:String,
     },
     chef: {
         type: mongoose.Schema.Types.ObjectId,
@@ -69,6 +69,7 @@ const projetSchema = new mongoose.Schema({
     archivePar: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Expert",
+        default: null,
     },
     archive: {
         type: Boolean,

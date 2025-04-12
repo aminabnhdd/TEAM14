@@ -11,7 +11,7 @@ export default function RightSection(props) {
   const updateHeight = () => {
     if (stickyBoxRef.current) {
       const newHeight = stickyBoxRef.current.offsetHeight + 16;
-      console.log("Updating height to:", newHeight); // Debug
+      
       setHeight(newHeight);
     }
   };
@@ -23,7 +23,7 @@ export default function RightSection(props) {
 
     // Initialize ResizeObserver
     resizeObserverRef.current = new ResizeObserver(() => {
-      console.log("ResizeObserver triggered"); // Debug
+      
       updateHeight();
     });
 
@@ -39,7 +39,7 @@ export default function RightSection(props) {
 
   // Update height when content-changing props update
   useEffect(() => {
-    console.log("Content props changed, updating height"); // Debug
+   
     updateHeight();
   }, [props.collaborateurs, props.projet]); // Add other content-dependent props
 
@@ -57,11 +57,7 @@ export default function RightSection(props) {
       stickyBox.classList.toggle("top-0", shouldBeSticky);
       stickyBox.style.top = shouldBeSticky ? `calc(100vh - ${height}px)` : '';
       
-      console.log("Scroll check:", { 
-        markerTop: markerRect.top, 
-        currentHeight: height,
-        shouldBeSticky 
-      }); // Debug
+      
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });

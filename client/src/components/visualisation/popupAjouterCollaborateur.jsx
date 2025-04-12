@@ -1,16 +1,21 @@
 import { useState } from "react";
+import VisuService from "../../services/VisuService";
+import  AuthContext from "../../helpers/AuthContext.jsx"
+import {useContext} from "react"
 
 const PopAjouterCollaborateur = ({ onClose,projet,setProjet,collaborateurs,setCollaborateurs }) => {
   
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
- 
-  const handleSubmit = (e) => {
+    const {authState} = useContext(AuthContext);
+
+  const handleSubmit = async (e) => {
+    try{
     e.preventDefault();
     setError('');
-
+    const response = await VisuService.findEmail(projet._id,email,authState.accessToken);
     // check if the email address exists in the data base
-    const EmailExists = (email==='hi@esi.dz');
+    const EmailExists = response.exist;
     
     if (!EmailExists){
         setError("L'adresse ne correspond à aucun utilisateur"); 
@@ -18,27 +23,9 @@ const PopAjouterCollaborateur = ({ onClose,projet,setProjet,collaborateurs,setCo
     } 
     // get the user with that email adress
         setError("");
-        const user={
-            _id:"id4",
-            nom:'hi',
-            prenom:'there',
-            email:'hi@esi.dz',
-            role:'expert',
-            userValid:true,
-            pfp:'https://i.pinimg.com/236x/dd/f0/11/ddf0110aa19f445687b737679eec9cb2.jpg',
-            favorites:[],
-            discipline:'architecture',
-            labo:'',
-            etablissement:"",
-            niveau:'',
-            projets:[],
-            fileUrl:'',
-             }
+        const user = response.user;
 
-        // get the role of that user
-
-        const role = user.role;
-        const isExpert = (user.role === "expert")
+        const isExpert = (response.expert === "expert")
         if (!isExpert){
             setError("L'adresse ne correspond pas à un compte expert"); 
             return;
@@ -65,13 +52,14 @@ const PopAjouterCollaborateur = ({ onClose,projet,setProjet,collaborateurs,setCo
       setError(`Il exist déja un expert en ${discipline} dans ce projet`); 
       return;}
 
-    // here we will add the collaborateur
-    // save it
+   
+   
 
     setProjet((prevProjet)=>{return {...prevProjet,
       collaborateurs : [...prevProjet.collaborateurs,
         user._id]}
     })
+     
 
     setCollaborateurs((prevCollaborateurs)=>{
       return(
@@ -81,9 +69,15 @@ const PopAjouterCollaborateur = ({ onClose,projet,setProjet,collaborateurs,setCo
       )
     })
 
+    const reponse2 = await VisuService.addCollaborateur(projet._id,user._id,authState.accessToken);
 
    
     onClose(); 
+  }
+  catch (error) {
+    console.error("Error adding collaborator:", error);
+    setError("Une erreur s'est produite lors de l'ajout du collaborateur.");
+  }
   };
 
   return (

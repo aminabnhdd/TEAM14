@@ -1,13 +1,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArchive} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import VisuService from "../../services/VisuService";
+import  AuthContext from "../../helpers/AuthContext.jsx"
+import {useContext} from "react"
 
 export default function ArchiverProjet(props){
  
+    const navigate = useNavigate();
     const [showConfirmation, setShowConfirmation] = useState(false);
+    const {authState} = useContext(AuthContext);
 
-
-    const archive = (event) =>{
+    const archive = async (event) =>{
+        try{
         event.stopPropagation();
         props.setProjet((prevProjet)=>
         {return(
@@ -17,10 +23,14 @@ export default function ArchiverProjet(props){
             }
         )}
             )
-        // send him to decouvrir or mes projets
+        await VisuService.Archiver(props.projet._id,authState.accessToken);
+    
+        navigate(`/decouvrir`); 
         setShowConfirmation(false);
+    } catch (error) {
+        console.error("Error Annotation:", error);
+    }}
 
-    }
     const openConfirmation = (event) => {
         event.stopPropagation();
         setShowConfirmation(true);

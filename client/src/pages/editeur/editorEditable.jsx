@@ -11,8 +11,11 @@ import AuthContext from '../../helpers/AuthContext'
 import SectionService from "../../services/sectionService";
 import GallerieEditable from "../../components/editeur/gallerieEditable";
 import RefreshService from "../../services/RefreshService";
+import { useParams } from "react-router-dom";
 
 export default function EditorEditable() {
+  const { sectionId } = useParams();
+  console.log("Section ID:", sectionId);
   const [editor, setEditor] = useState(null);
   const [annotations, setAnnotations] = useState([]);
   const [conflits, setConflits] = useState([]);
@@ -50,7 +53,7 @@ setAuthState({email:response.email,role:response.role,accessToken:response.acces
 
 
         const sectionData = await SectionService.getSection(
-          "67cde422d70a4df898a9a9d8",response.accessToken
+          sectionId,response.accessToken
         );
         console.log("Section data:", sectionData);
         // Only update the images if they haven't been set (empty array)

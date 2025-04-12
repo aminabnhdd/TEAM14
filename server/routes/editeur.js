@@ -14,19 +14,17 @@ const adminRole = process.env.ADMIN_ROLE;
 const { handleImages } = require('../middlewares/multerMiddleware');
 const { upload } = require('../middlewares/multerMiddleware');
 
+// Sauvegarder section
 router.put("/editable/:sectionId", upload.array("images"), validateToken, handleImages, async (req, res) => {
     try {
         const sectionId = req.params.sectionId;
         let contenu = req.body.contenu;
-        console.log("here lok at contenu ", req.body.contenu);
         try {
             contenu = contenu ? JSON.parse(contenu) : "";
         } catch (error) {
             console.error("Invalid JSON in contenu:", error);
             return res.status(400).json({ message: "Invalid format for contenu" });
         }
-console.log(sectionId);
-console.log(contenu);
         const section = await sectionModel.findById(sectionId);
         if (!section) {
             return res.status(404).json({ message: "Section not found" });
@@ -46,6 +44,7 @@ console.log(contenu);
     }
 });
 
+// Get section
 router.get("/editable/:sectionId", validateToken, async (req, res) => {
     try {
         const sectionId = req.params.sectionId;
@@ -96,7 +95,7 @@ router.get("/editable/:sectionId", validateToken, async (req, res) => {
     }
 });
 
-
+// Signaler conflit
 router.post("/conflits/:projetId/:sectionId", validateToken, isCollaborator, async (req, res) => {
     try {
         const { projetId, sectionId } = req.params;
@@ -152,6 +151,7 @@ router.post("/conflits/:projetId/:sectionId", validateToken, isCollaborator, asy
     }
 });
 
+// Résoudre conflit
 router.put("/conflits/:conflitId/resolu", validateToken, async (req, res) => {
     try {
         const { conflitId } = req.params;
@@ -198,7 +198,7 @@ router.put("/conflits/:conflitId/resolu", validateToken, async (req, res) => {
     }
 });
 
-
+// Annoter section
 router.post("/annoter/:projetId/:sectionId", validateToken, isCollaborator, async (req, res) => {
     try {
       const { content } = req.body;
@@ -233,7 +233,8 @@ router.post("/annoter/:projetId/:sectionId", validateToken, isCollaborator, asyn
     }
   });
 
-  router.put("/annoter/:projetId/:sectionId/update", validateToken, isCollaborator, async (req, res) => {
+// Mettre à jour section apres annotation
+router.put("/annoter/:projetId/:sectionId/update", validateToken, isCollaborator, async (req, res) => {
     try {
       const { editor_content } = req.body;
       const {  sectionId } = req.params;
@@ -275,7 +276,8 @@ router.post("/annoter/:projetId/:sectionId", validateToken, isCollaborator, asyn
     }
   });
 
-  router.post("/references/:projetId", validateToken, isCollaborator, async (req, res) => {
+  // Ajouter une référence
+router.post("/references/:projetId", validateToken, isCollaborator, async (req, res) => {
     try {
         const { projetId} = req.params;
         const { number,text } = req.body;

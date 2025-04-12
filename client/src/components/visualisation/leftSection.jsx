@@ -13,7 +13,7 @@ export default function LeftSection(props){
            {props.sectionsExistantes.map((sec)=>{
             const section = props.projet.sections.find(sect => sect.type === sec);
         return(
-            <Section key={section.id} id={section.id} section={section} user={props.user} isExpert={props.isExpert} isChef={props.isChef} isCollaborateur={props.isCollaborateur} isAdmin={props.isAdmin} />
+            <Section key={section._id} id={section._id} section={section} user={props.user} isExpert={props.isExpert} isChef={props.isChef} isCollaborateur={props.isCollaborateur} isAdmin={props.isAdmin} />
          )
            })} 
            <AjouterSection  user={props.user} isCollaborateur={props.isCollaborateur} isChef={props.isChef} sectionsExistantes={props.sectionsExistantes} projet={props.projet} setProjet={props.setProjet} />

@@ -1,4 +1,8 @@
 import { useState, useEffect, useRef } from "react";
+import VisuService from "../../services/VisuService";
+import  AuthContext from "../../helpers/AuthContext.jsx"
+import {useContext} from "react"
+
 
 export default function DemandeCollaboration(props) {
   const [isSticky, setIsSticky] = useState(false);
@@ -6,7 +10,7 @@ export default function DemandeCollaboration(props) {
   const [showWaitingPopup, setShowWaitingPopup] = useState(false);
   const confirmPopupRef = useRef(null);
   const waitingPopupRef = useRef(null);
-
+  const {authState} = useContext(AuthContext);
   // Handle click outside for both popups
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -57,11 +61,17 @@ export default function DemandeCollaboration(props) {
     setShowConfirmPopup(true);
   };
 
-  const confirmRequest = () => {
-    // add a notification to the chef du projet
-    console.log('user who sent demande:',props.user, 'chef du projet:',props.projet.chef,'projet:', props.projet)
-    setShowConfirmPopup(false);
-    setShowWaitingPopup(true);
+  const confirmRequest = async () => {
+    try{
+      console.log('user who sent demande:',props.user, 'chef du projet:',props.projet.chef,'projet:', props.projet)
+      const response = await VisuService.demandeCollaboration(props.projet._id,authState.accessToken);
+    }catch (error) {
+      console.error("Error sending request:", error);
+    }finally{
+      setShowWaitingPopup(true);
+      setShowConfirmPopup(false);
+    }
+    
   };
 
   return (

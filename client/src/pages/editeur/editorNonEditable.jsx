@@ -5,13 +5,14 @@ import Annotations from "../../components/editeur/annotations";
 import { useContext } from "react"
 import AuthContext from '../../helpers/AuthContext'
 import RefreshService from "../../services/RefreshService";
-
+import RetourButton from '../../components/editeur/retourButton';
 import SideNav from "../../components/SideNav";
 import "../../componentsStyles/editeur/editor.css";
 import DropDownButton from "../../components/editeur/dropdownButton";
 import SignalerConflit from "../../components/editeur/signalerConflit";
 import SectionService from "../../services/sectionService";
 import Gallerie from "../../components/editeur/gallerie";
+import { useParams } from "react-router-dom";
 
 window.scrollToAnnotation = function (annotationId) {
   console.log("scrollToAnnotation called with ID:", annotationId);
@@ -30,6 +31,7 @@ window.scrollToAnnotation = function (annotationId) {
 };
 
 export default function EditorNonEditable() {
+  const { sectionId } = useParams();
   const [editor, setEditor] = useState(null);
   const [annotations, setAnnotations] = useState([]);
   const [conflits, setConflits] = useState([]);
@@ -51,7 +53,7 @@ export default function EditorNonEditable() {
        
         setAuthState({email:response.email,role:response.role,accessToken:response.accessToken});
         const sectionData = await SectionService.getSection(
-          "67cde422d70a4df898a9a9d8",response.accessToken
+          sectionId,response.accessToken
         );
         console.log("Section data:", sectionData);
         // Only update the images if they haven't been set (empty array)
@@ -266,6 +268,9 @@ export default function EditorNonEditable() {
                   <div className="border border-neutral-400 rounded-[12px] p-4 text-neutral-500">
                     <Gallerie slides={images} />
                   </div>
+                  <div className="flex justify-end">
+                                    <RetourButton projetId={projet._id} />
+                   </div>
                 </div>
                 {/* Right Section */}
                 <div

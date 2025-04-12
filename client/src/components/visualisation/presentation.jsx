@@ -1,6 +1,7 @@
 import ModifyInfos from "./modifierInfos"
 import "../../componentsStyles/visualisation/presentation.css"
 export default function Presentation(props){
+    console.log(props.projet.longtitude);
     return (
     <><div className="mb-7">
         {props.projet.photoUrl && <img src={props.projet.photoUrl} 

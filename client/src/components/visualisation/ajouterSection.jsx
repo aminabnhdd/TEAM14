@@ -1,10 +1,14 @@
 import { useState } from "react";
 import addIcon from "../../assets/add-symbol.png";
+import VisuService from "../../services/VisuService";
+import  AuthContext from "../../helpers/AuthContext.jsx"
+import {useContext} from "react"
 
 export default function AjouterSection(props) {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedSection, setSelectedSection] = useState("");
   const sections = ['description', 'architecture', 'histoire', 'archeologie', 'autre'];
+  const {authState} = useContext(AuthContext);
 
   const sectionsNonExistantes = sections.filter((section) =>
     !props.sectionsExistantes.includes(section)
@@ -19,22 +23,18 @@ export default function AjouterSection(props) {
     return false;
   });
 
-  const handleAjouterSection = (section) => {
+  const handleAjouterSection = async (section) => {
+    try{
     // Here you would handle adding the section
     console.log("Adding section:", section);
     setSelectedSection(section);
-    const newSection =  {
-        id: 'sec-4',
-        projetId: '',
-        type: section,
-        contenu: {
-            "type": "doc",
-            "content": []
-          },
-        annotations: '',
-        conflits: '',
-        images:[],
-    };
+
+    const newSection =  await VisuService.AjouterSection(
+      props.projet._id,
+      section,
+      authState.accessToken
+    );
+
     props.setProjet((prevProjet)=>{
         return{
             ...prevProjet,
@@ -44,8 +44,12 @@ export default function AjouterSection(props) {
             ]
         }
     })
-    setShowPopup(false);
-    // Call your API or state update here
+  } catch (error) {
+    console.error("Error Annotation:", error);
+}finally{
+  setShowPopup(false);
+}
+    
   };
 
   const showButton = props.isCollaborateur && filteredSections.length > 0;

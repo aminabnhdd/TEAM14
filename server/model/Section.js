@@ -14,20 +14,25 @@ const sectionSchema = new mongoose.Schema({
     },
     contenu: {
         type: Object, // Or use Schema.Types.Mixed for flexibility
-    default: {},
+        default: () => ({
+            "type": "doc",
+            "content": []
+          })
     },
-    annotations: [{
-        type: mongoose.Schema.Types.ObjectId,
+    annotations: {
+        type: [mongoose.Schema.Types.ObjectId],
         ref: "Annotation",
-    }],
-    conflits: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Conflit"
-    }],
-    images: [{
-            type: String,
-            default:""
-    }]
+        default: () => []
+    },
+    conflits: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "Conflit",
+        default: () => []
+      },
+    images: {
+        type: [String],
+        default: () => []
+      }
 });
 
 const sectionModel = mongoose.model("Section", sectionSchema);

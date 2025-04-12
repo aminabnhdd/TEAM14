@@ -7,12 +7,14 @@ import ModifProjectImageUploader from "../../components/Createproject/ModifProje
 import "../../pagesStyles/CreateprojectpagesStyle/ModifyProject.css";
 import {UpdateProject } from "../../services/ModifyProject.js"; 
 import AuthContext from '../../helpers/AuthContext'
+import { useParams } from "react-router-dom";
 
 const ModifyProject = () => {
   const [error, setError] = useState(false);
     const {authState} = useContext(AuthContext);
     const [newProject, setNewProject] = useState({});
-  
+    const { projetId } = useParams();
+    
     const handleDataChange = useCallback((data) => {
       setNewProject((prev) => ({ ...prev, ...data }));
     }, []);
@@ -41,7 +43,7 @@ const ModifyProject = () => {
       }
   
       try {
-          const response = await UpdateProject("67eeb88c363b0902863ad350",formDataToSend,authState.accessToken);
+          const response = await UpdateProject(projetId,formDataToSend,authState.accessToken);
           console.log("Projet updated :", response);
       } catch (err) {
           console.error("Erreur lors updating du projet :", err);
@@ -54,8 +56,8 @@ const ModifyProject = () => {
     <div className="root1">
       <ModifProjectHeader />
       <div className="create-project-content">
-        <ModifProjectImageUploader  onImageChange={handleImageChange} />
-        <ModifProjectForm error={error} onDataChange={handleDataChange} />
+        <ModifProjectImageUploader  onImageChange={handleImageChange} projetId={projetId} />
+        <ModifProjectForm error={error} onDataChange={handleDataChange} projetId={projetId} />
       </div>
       {error && (
         <div className="error-message">

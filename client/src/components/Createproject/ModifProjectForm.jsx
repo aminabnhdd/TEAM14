@@ -5,13 +5,15 @@ import { FetchProjectData } from "../../services/FetchProjectData.js";
 import AuthContext from '../../helpers/AuthContext'
 import RefreshService from "../../services/RefreshService";
 
+
 const ALLOWED_SECTION_TYPES = ["Kasbahs", "Palais", "Mosquées", "Temples", "Autre"];
 
-const ModifProjectForm = ({ error, onDataChange }) => {
+const ModifProjectForm = ({ error, onDataChange,projetId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const {authState,setAuthState} = useContext(AuthContext);
   const [selectedType, setSelectedType] = useState("");
   const [customType, setCustomType] = useState("");
+
   const [formData, setFormData] = useState({
     titre: "",
     type: "",
@@ -29,8 +31,8 @@ const ModifProjectForm = ({ error, onDataChange }) => {
 setAuthState({email:response1.email,role:response1.role,accessToken:response1.accessToken})
 console.log("the token: ",response1.accessToken)
 console.log("here does ths work");
-const projetid= "67eeb88c363b0902863ad350";
-         const data = await FetchProjectData(projetid,response1.accessToken);
+
+         const data = await FetchProjectData(projetId,response1.accessToken);
         if (data) {
           setFormData({
             titre: data.titre || "",

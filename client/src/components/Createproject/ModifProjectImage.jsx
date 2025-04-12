@@ -5,7 +5,7 @@ import { FetchProjectData } from "../../services/FetchProjectData.js";
 import AuthContext from '../../helpers/AuthContext'
 import RefreshService from "../../services/RefreshService";
 
-const ModifProjectImageUploader = ({ photoUrl, onImageChange }) => {
+const ModifProjectImageUploader = ({ photoUrl, onImageChange ,projetId}) => {
   const [image, setImage] = useState(photoUrl || null);
   const [file, setFile] = useState(null);
   const {authState,setAuthState} = useContext(AuthContext);
@@ -17,8 +17,8 @@ const ModifProjectImageUploader = ({ photoUrl, onImageChange }) => {
       setAuthState({email:response1.email,role:response1.role,accessToken:response1.accessToken})
       console.log("the token: ",response1.accessToken)
       console.log("here does ths work");
-      const projetid= "67eeb88c363b0902863ad350";
-      const data = await FetchProjectData(projetid,response1.accessToken);
+     
+      const data = await FetchProjectData(projetId,response1.accessToken);
       if (data && data.photoUrl) {
         setImage(data.photoUrl); 
       }

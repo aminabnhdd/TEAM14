@@ -6,8 +6,10 @@ import "../../pagesStyles/MyProjectspagesStyle/MyProjects.css";
 const MyProjects = () => {
   return(
     <>
+      <div className="root1">
      <MyProjectsHeader/>
      <MyProjectsContainer />
+      </div>
     </>
   );
 }

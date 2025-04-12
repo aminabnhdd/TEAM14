@@ -20,9 +20,11 @@ const usersData = [
 const ModifierVisiteur = () => {
   return (
     <>
+        <div classname="root1">
       <InfoHeaderBtn />
       <ProfilInfolink usersData={usersData}  />
       <ModifCardVisiteur usersData={usersData} />
+      </div>
     </>
 
   );

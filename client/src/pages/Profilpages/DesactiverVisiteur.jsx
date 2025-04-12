@@ -23,6 +23,7 @@ const DesactiverVisiteur = () => {
   
   return (
      <>
+         <div classname="root1">
       <HeaderSection />
       <ProfilInfowithoutlink usersData={usersData} />
       <AfficherCardVisiteur usersData={usersData} />
@@ -30,6 +31,7 @@ const DesactiverVisiteur = () => {
         Désactiver le compte
       </button>
       {showPopup && <PopDesactiver onClose={() => setShowPopup(false)} />}
+      </div>
      </>
  
   );

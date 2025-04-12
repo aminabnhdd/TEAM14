@@ -1,4 +1,4 @@
-import React, { useState , useCallback,useContext } from "react";
+import React, { useState , useCallback,useContext,useEffect } from "react";
 import { MdErrorOutline } from "react-icons/md"; 
 import ProjectActions from "../../components/Createproject/ProjectActions.jsx";
 import ProjectForm from "../../components/Createproject/ProjectForm.jsx";
@@ -7,14 +7,33 @@ import ProjectImageUploader from "../../components/Createproject/ProjectImageUpl
 import "../../pagesStyles/CreateprojectpagesStyle/CreateProject.css";
 import { addProject } from "../../services/projetService.js"; 
 import AuthContext from '../../helpers/AuthContext'
+import RefreshService from "../../services/RefreshService.js";
 
 
 
 //lina you need to add ta3 useeffect with local storage or else whenever he will refresh he will get new data 
 const CreateProject = () => {
   const [error, setError] = useState(false);
-  const {authState} = useContext(AuthContext);
+
+  const {authState,setAuthState} = useContext(AuthContext);
   const [newProject, setNewProject] = useState({});
+  useEffect(() => {
+    const refresh = async () => {
+      try {
+        const response = await RefreshService.Refresh();
+        console.log("Token refreshed:", response.accessToken);
+        setAuthState({
+          email: response.email,
+          role: response.role,
+          accessToken: response.accessToken,
+        });
+      } catch (err) {
+        console.error("Erreur lors du refresh :", err);
+      }
+    };
+
+    refresh();
+  }, [setAuthState]);
 
   const handleDataChange = useCallback((data) => {
     setNewProject((prev) => ({ ...prev, ...data }));
@@ -45,7 +64,7 @@ const CreateProject = () => {
     }
 
     try {
-  
+
         const response = await addProject(formDataToSend,authState.accessToken);
         console.log("Projet ajouté :", response);
     } catch (err) {

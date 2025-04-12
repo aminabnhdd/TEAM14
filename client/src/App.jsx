@@ -13,6 +13,8 @@ import NotifAdmin from "./pages/page admin/NotifAdmin";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import CreateProject from "./pages/Createprojectpages/Createproject";
 import ModifyProject from "./pages/Createprojectpages/ModifyProject.jsx";
+import MyProjects from "./pages/MyProjectspages/MyProjects.jsx";
+import RestoreProjects from "./pages/MyProjectspages/RestoreProjects.jsx";
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -30,23 +32,24 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/connexion" element={<Con />} />
           <Route path="/notifications" element={<Notif/>} />
-          <Route path="/create-projet/:projetId" element= {<CreateProject/>} />
+          <Route path="/create-projet" element= {<CreateProject/>} />
           <Route path="/modify-projet/:projetId" element= {<ModifyProject/>} />
           <Route path="/reinitialisation/mdp" element={<ReiniMotdps/>}/>
           <Route path="/signup/expert" element={<InsEx/>} />
           <Route path="/signup/visiteur" element={<InsVs/>} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
+          <Route path="/mesprojets" element={<MyProjects />} />
+          <Route path="/restoreprojects" element={<RestoreProjects />} />
+
         </Routes>
       </Router>
-      {/* <LsProjets/> */}
-      {/* <ListUtil/> */}
-      {/* <NotifAdmin/> */}
       
     </div>
     </AuthContext.Provider>)}
     export default App;
 
-/*import React from "react";
+/*
+import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { ProjectsProvider } from "./context/ProjectsContext.jsx";
 import MyProjects from "./pages/MyProjectspages/MyProjects.jsx";

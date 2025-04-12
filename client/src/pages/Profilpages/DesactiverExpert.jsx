@@ -28,6 +28,7 @@ const DesactiverExpert = () => {
 
   return (
      <>
+      <div classname="root1">
       <InfosProjets2 />
       <ProfilInfowithoutlink usersData={usersData} />
       <DesactCardExpert usersData={usersData} />
@@ -37,6 +38,7 @@ const DesactiverExpert = () => {
         Désactiver le compte
       </button>
       {showPopup && <PopDesactiver onClose={() => setShowPopup(false)} />}
+      </div>
      </>
  
   );

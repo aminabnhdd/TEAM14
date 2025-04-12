@@ -24,9 +24,11 @@ const usersData = [
 const AfficherExpert  = () => {
   return(
     <>
+    <div className="root1">
     <InfosProjets />
     <ProfilInfowithoutlink usersData={usersData} />
     <AffichCardExpert usersData={usersData} />
+    </div>
     </>
   );
 }

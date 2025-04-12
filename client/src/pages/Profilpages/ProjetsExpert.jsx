@@ -25,9 +25,11 @@ const usersData = [
 const ProjetsExpert =() => {
   return(
     <>
+        <div classname="root1">
       <ProjetsInfos />
       <ProfilInfowithoutlink usersData={usersData} />
       <ProjectsContainer />
+      </div>
     </>
   );
 }

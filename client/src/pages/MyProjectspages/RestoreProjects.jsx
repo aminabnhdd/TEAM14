@@ -6,8 +6,10 @@ import "../../pagesStyles/MyProjectspagesStyle/RestoreProjects.css";
 const RestoreProjects = () => {
   return(
     <>
+      <div className="root1">
       <RestoreProjectsHeader />
       <RestoreProjectsContainer />
+      </div>
     </>
   );
 }

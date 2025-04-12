@@ -24,9 +24,12 @@ const usersData = [
 const ModifierExpert = () => {
   return (
     <>
+        <div classname="root1">
       <InfoHeaderBtn />
       <ProfilInfolink usersData={usersData} />
+      
       <ModifExpertCard usersData={usersData} />
+      </div>
     </>
   );
 };

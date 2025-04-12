@@ -50,7 +50,7 @@ const ProjectForm = ({ error, onDataChange }) => {
           name="titre"
           type="text" 
           placeholder="Ajoutez un titre" 
-          value={formData.title}
+          value={formData.titre}
           onChange={handleChange}
           className={error ? "error-input" : ""} 
         />

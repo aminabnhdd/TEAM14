@@ -55,6 +55,7 @@ const CreateProject = () => {
 
   return (
     <>
+    <div className="root1">
       <ProjectHeader />
       <div className="create-project-content">
         <ProjectImageUploader onImageChange={handleImageChange} />
@@ -62,6 +63,7 @@ const CreateProject = () => {
       </div>
       {error && <div className="error-message"><MdErrorOutline className="error-icon" /> Les champs en rouge doivent être remplis</div>}
       <ProjectActions onCreate={handleCreateProject} />
+      </div>
     </>
   );
 };

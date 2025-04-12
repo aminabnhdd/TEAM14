@@ -51,6 +51,7 @@ const ModifyProject = () => {
 
   return (
     <>
+    <div className="root1">
       <ModifProjectHeader />
       <div className="create-project-content">
         <ModifProjectImageUploader  onImageChange={handleImageChange} />
@@ -63,6 +64,7 @@ const ModifyProject = () => {
         </div>
       )}
       <ModifProjectActions onModify={() => handleModifyProject(newProject)} />
+      </div>
     </>
   );
 };

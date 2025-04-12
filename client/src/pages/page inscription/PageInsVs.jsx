@@ -3,16 +3,20 @@ import image2 from "../../assets/Screenshot 2025-03-03 at 8.53.06 AM 2.png";
 import "../../PagesStyles/Pages inscriptions styles/InsVs.css";
 
 import NewInsvs from "../../components/Inscriptions/NewInsvs";
-
+import { useNavigate } from 'react-router-dom';
 
 function InsVs() {
-  
+  const navigate = useNavigate();
+
+  const handleClick2 = () => {
+    navigate('/');
+  };
 
 
   return (
     <div className="main-page-one">
       <div className="back-home">
-        <img src={image2} className="backHome-logo" />
+        <img src={image2} className="backHome-logo" onClick={handleClick2} />
       </div>
       <div className="img-container-one">
         <img className="main-img-one" src={image} alt="img" />

@@ -5,13 +5,16 @@ import arrLeft from "../../assets/arrow-left-solid.svg";
 import doc from "../../assets/uil_file-upload-alt.png";
 import { useRef, useState } from "react";
 import axios from "axios";
-
+import { useNavigate } from 'react-router-dom';
 function InsEx3({ prevPopUp2, car3, connexionPopUp, hideAll3, funct }) {
     const fileInputRef = useRef(null);
     const [files, setFiles] = useState([]);
     const [uploading, setUploading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-
+    const navigate = useNavigate();
+    const handleClick2 = () => {
+      navigate('/');
+    };
     const handleFileChange = async (event) => {
         const selectedFiles = Array.from(event.target.files);
         setFiles(selectedFiles);
@@ -56,7 +59,7 @@ function InsEx3({ prevPopUp2, car3, connexionPopUp, hideAll3, funct }) {
         hideAll3 && (
             <div className="main-page-four">
                 <div className="back-home">
-                    <img src={image2} className="backHome-logo-four" />
+                    <img src={image2} className="backHome-logo-four" onClick={handleClick2}/>
                     <div className="pres4">
                         <p className="pre">ATHAR, une </p>
                         <p className="pre">communauté dédiée au</p>

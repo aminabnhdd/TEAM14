@@ -41,9 +41,9 @@ const Features = () => {
     return (
       <section id="features" className="features">
         <br/>
-        <br/> 
         <br/>
         <br/>
+<br/>
 <br/>
         <br/>
         <br/>

@@ -1,11 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
 footer {
     position: fixed;  
     bottom: 0;
@@ -35,6 +28,9 @@ footer {
   }
   .athar{
     color: #C57642
+  }
+  #e14{
+    font-weight: 750;
   }
   @media screen and (max-width: 768px) {
     footer {

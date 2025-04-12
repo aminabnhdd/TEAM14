@@ -8,13 +8,21 @@ import LienEnv from "../../components/popUps/LienEnv";
 import { useState } from "react";
 
 
+
+
+import { useNavigate } from 'react-router-dom';
+
 function Con () {
    const [pop,setPop] = useState(false)
+   const navigate = useNavigate();
    const [popLien,setPopLien] = useState(false)
+   const handleClick2 = () => {
+    navigate('/');
+  };
     return (
         <div className="main-page-one">
           <div className="back-home">
-            <img src={image2} className="backHome-logo" />
+            <img src={image2} className="backHome-logo" onClick={handleClick2}/>
           </div>
           <div className="img-container-one">
             <img className="main-img-one" src={image} alt="img" />

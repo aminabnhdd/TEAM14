@@ -17,12 +17,12 @@ const projetSchema = new mongoose.Schema({
         unique: true,
         trim: true
     },
-    longtitude: {
+    longitude: {
         type: String,
         unique: true,
         trim: true
     },
-    longtitude: {
+    longitude: {
         type: String,
         unique: true,
         trim: true

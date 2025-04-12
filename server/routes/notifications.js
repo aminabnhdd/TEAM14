@@ -10,6 +10,7 @@ const isCollaborator = require("../middlewares/collaborationMiddleware");
 const expertRole = process.env.EXPERT_ROLE;
 const adminRole = process.env.ADMIN_ROLE;
 const nodemailer = require ('nodemailer');
+const {expertModel,userModel} = require('../model/user');
 
 
 router.put("/valider/:conflitId",validateToken, async (req, res) => {

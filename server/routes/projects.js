@@ -14,7 +14,7 @@ const { upload } = require('../middlewares/multerMiddleware');
 router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.single("image"), async (req, res) => {
     try {
 
-        const { titre, type, latitude, longtitude, localisation, style, dateConstruction } = req.body;
+        const { titre, type, latitude, longitude, localisation, style, dateConstruction } = req.body;
         const userID = req.user?.id;
         let imageUrl = "";
         if (req.file) {
@@ -41,7 +41,8 @@ router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.si
             titre,
             type,
             latitude: latitude || "",
-            longtitude: longtitude || "",
+            archive: false,
+            longitude: longitude || "",
             localisation: localisation || "",
             style: style || "",
             photoUrl: imageUrl || "",
@@ -73,7 +74,7 @@ router.get("/modifier/:id",  validateToken, validateRole(expertRole, adminRole),
             titre: project.titre,
             type: project.type,
             latitude: project.latitude,
-            longtitude: project.longtitude,
+            longitude: project.longitude,
             localisation: project.localisation,
             style: project.style,
             dateConstruction: project.dateConstruction,
@@ -665,7 +666,7 @@ router.put("/update/:id", upload.single("image"), validateToken, async (req, res
       project.titre = projet.titre;
       project.type = projet.type;
       project.latitude = projet.latitude;
-      project.longtitude = projet.longtitude;
+      project.longitude = projet.longitude;
       project.localisation = projet.localisation;
       project.style = projet.style;
       project.dateConstruction = projet.dateConstruction;

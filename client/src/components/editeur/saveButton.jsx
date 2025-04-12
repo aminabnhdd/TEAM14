@@ -3,11 +3,15 @@ import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import SectionService from "../../services/sectionService";
 import  AuthContext from "../../helpers/AuthContext.jsx"
 import {useContext} from "react"
-
+import { useNavigate } from "react-router-dom";
 
 export default function SaveButton({ editor, section, images }) {
     const {authState} = useContext(AuthContext);
-  
+    const navigate = useNavigate();
+
+    
+    
+    
     const handleSave = async () => {
         const jsonContent = editor.getJSON();
 
@@ -17,6 +21,8 @@ export default function SaveButton({ editor, section, images }) {
             
             await SectionService.updateSection(section._id, jsonContent, images,authState.accessToken);
             console.log("Section saved successfully!");
+            console.log("here is the projet id of the section: ",section.projetId);
+            navigate(`/visualisation/${section.projetId._id}`);
         } catch (error) {
             console.error("Error saving section:", error);
         }

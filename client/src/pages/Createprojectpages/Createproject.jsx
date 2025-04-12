@@ -8,12 +8,13 @@ import "../../pagesStyles/CreateprojectpagesStyle/CreateProject.css";
 import { addProject } from "../../services/projetService.js"; 
 import AuthContext from '../../helpers/AuthContext'
 import RefreshService from "../../services/RefreshService.js";
-
+import { useNavigate } from "react-router-dom";
 
 
 //lina you need to add ta3 useeffect with local storage or else whenever he will refresh he will get new data 
 const CreateProject = () => {
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
   const {authState,setAuthState} = useContext(AuthContext);
   const [newProject, setNewProject] = useState({});
@@ -67,6 +68,8 @@ const CreateProject = () => {
 
         const response = await addProject(formDataToSend,authState.accessToken);
         console.log("Projet ajouté :", response);
+        navigate("/visualisation/" + response._id);
+
     } catch (err) {
         console.error("Erreur lors de l'ajout du projet :", err);
     }

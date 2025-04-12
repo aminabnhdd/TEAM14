@@ -4,14 +4,98 @@ const sectionModel = require("../model/section");
 const projetModel = require("../model/Projet");
 const notificationModel = require("../model/Notification");
 const conflitModel = require("../model/conflit");
-const annotationModel = require("../model/annotation");
+const referenceModel = require("../model/Reference");
+const annotationModel = require("../model/Annotation");
 const validateToken = require("../middlewares/authMiddleware");
 const {validateRole} = require('../middlewares/roleMiddleware');
 const isCollaborator = require("../middlewares/collaborationMiddleware");
 const expertRole = process.env.EXPERT_ROLE;
 const adminRole = process.env.ADMIN_ROLE;
+const { handleImages } = require('../middlewares/multerMiddleware');
+const { upload } = require('../middlewares/multerMiddleware');
+
+// Sauvegarder section
+router.put("/editable/:sectionId", upload.array("images"), validateToken, handleImages, async (req, res) => {
+    try {
+        const sectionId = req.params.sectionId;
+        let contenu = req.body.contenu;
+        try {
+            contenu = contenu ? JSON.parse(contenu) : "";
+        } catch (error) {
+            console.error("Invalid JSON in contenu:", error);
+            return res.status(400).json({ message: "Invalid format for contenu" });
+        }
+        const section = await sectionModel.findById(sectionId);
+        if (!section) {
+            return res.status(404).json({ message: "Section not found" });
+        }
+
+        // Update text content
+        section.contenu = contenu;
+
+        section.images = req.uploadedImages;
+
+        await section.save();
+
+        return res.status(200).json({ message: "Section updated successfully", section });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Erreur serveur" });
+    }
+});
+
+// Get section
+router.get("/editable/:sectionId", validateToken, async (req, res) => {
+    try {
+        const sectionId = req.params.sectionId;
+
+       
+        const section = await sectionModel.findById(sectionId)
+            .populate({
+                path: "annotations",
+                populate: { path: "auteur" }
+            })
+            .populate({
+                path: "conflits",
+                match: { resolu: false, valide: true },
+                populate: { path: "signaleur" }
+            })
+            .populate({
+                path: "projetId",
+                populate: [
+                    { path: "chef" },
+                    { path: "collaborateurs" },
+                    { path: "references" }
+                ]
+            });
+
+        if (!section) {
+            return res.status(404).json({ message: "Section not found" });
+        }
+
+        const projet = section.projetId;
+        const userChef = projet.chef;
+
+        // Find the collaborator whose discipline matches the section type
+        const userEditing = projet.collaborateurs.find(collaborateur => collaborateur.discipline === section.type) || null;
 
 
+        return res.status(200).json({
+            section,
+            images: section.images,
+            userEditing,
+            userChef,
+            projet,
+            annotations: section.annotations,
+            conflits: section.conflits,
+        });
+    } catch (error) {
+        console.error("Server error:", error);
+        return res.status(500).json({ message: "Erreur serveur" });
+    }
+});
+
+// Signaler conflit
 router.post("/conflits/:projetId/:sectionId", validateToken, isCollaborator, async (req, res) => {
     try {
         const { projetId, sectionId } = req.params;
@@ -43,6 +127,7 @@ router.post("/conflits/:projetId/:sectionId", validateToken, isCollaborator, asy
         const notification = new notificationModel({
             type: "conflitSignale",
             projetId,
+            sectionId,
             sendeId: expertId,  
             recepientId: projet.chef, 
             conflitId: conflit._id,
@@ -53,8 +138,12 @@ router.post("/conflits/:projetId/:sectionId", validateToken, isCollaborator, asy
         });
 
         await notification.save()
-
-        return res.status(201).json({ message: "Conflit signalé et notifications envoyées." });
+        section.conflits.push(conflit._id);
+        await section.save();
+        return res.status(201).json({ 
+            message: "Conflit signalé et notifications envoyées.",
+            conflit 
+        });
 
     } catch (error) {
         console.error(error);
@@ -62,6 +151,7 @@ router.post("/conflits/:projetId/:sectionId", validateToken, isCollaborator, asy
     }
 });
 
+// Résoudre conflit
 router.put("/conflits/:conflitId/resolu", validateToken, async (req, res) => {
     try {
         const { conflitId } = req.params;
@@ -108,37 +198,117 @@ router.put("/conflits/:conflitId/resolu", validateToken, async (req, res) => {
     }
 });
 
-
+// Annoter section
 router.post("/annoter/:projetId/:sectionId", validateToken, isCollaborator, async (req, res) => {
     try {
-        const { textSelected, content, expertId } = req.body;
-        const { projetId, sectionId } = req.params;
+      const { content } = req.body;
+      const { projetId, sectionId } = req.params;
+      const expertId = req.user.id;
+  
+      const section = await sectionModel.findById(sectionId);
+      if (!section) {
+        return res.status(404).json({ message: "Section non trouvée." });
+      }
+  
+      const annotation = new annotationModel({
+        projetId,
+        sectionId,
+        auteur: expertId,
+        content,
+      });
+  
+      const savedAnnotation = await annotation.save();
+      const populatedAnnotation = await savedAnnotation.populate("auteur", "nom prenom");
+  
+      section.annotations.push(savedAnnotation._id);
+      await section.save();
+  
+      return res.status(201).json({
+        message: "Annotation enregistrée avec succès",
+        annotation: populatedAnnotation,
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Erreur serveur", error: error.message });
+    }
+  });
 
-        const section = await sectionModel.findById(sectionId);
-        if (!section) {
-            return res.status(404).json({ message: "Section non trouvée." });
+// Mettre à jour section apres annotation
+router.put("/annoter/:projetId/:sectionId/update", validateToken, isCollaborator, async (req, res) => {
+    try {
+      const { editor_content } = req.body;
+      const {  sectionId } = req.params;
+      const expertId = req.user.id;
+  
+      const section = await sectionModel.findById(sectionId);
+      if (!section) {
+        return res.status(404).json({ message: "Section non trouvée." });
+      }
+  
+      section.contenu = JSON.parse(editor_content);
+      await section.save();
+      const populatedSection = await sectionModel.findById(sectionId)
+        .populate({
+          path: "annotations",
+          populate: { path: "auteur" },
+        })
+        .populate({
+          path: "conflits",
+          match: { resolu: false, valide: true },
+          populate: { path: "signaleur" },
+        })
+        .populate({
+          path: "projetId",
+          populate: [
+            { path: "chef" },
+            { path: "collaborateurs" },
+          ],
+        });
+  
+      return res.status(200).json({
+        message: "Section mise à jour avec succès",
+        section: populatedSection,
+      });
+
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Erreur serveur", error: error.message });
+    }
+  });
+
+  // Ajouter une référence
+router.post("/references/:projetId", validateToken, isCollaborator, async (req, res) => {
+    try {
+        const { projetId} = req.params;
+        const { number,text } = req.body;
+        const expertId = req.user.id;
+
+
+        const projet = await projetModel.findById(projetId);
+
+        if (!projet) {
+            return res.status(404).json({ message: "Projet non trouvé" });
         }
 
-        const annotation = new annotationModel({
+        const reference = new referenceModel({
             projetId,
-            sectionId,
-            auteur: expertId,
-            selected: textSelected,
-            content
+            number,
+            text
         });
 
-        await annotation.save();
+        await reference.save();
 
-        section.annotations.push(annotation._id);
-        await section.save();
+        projet.references.push(reference._id);
+        await projet.save();
 
         return res.status(201).json({ 
-            message: "Annotation enregistrée avec succès", 
-            annotation 
+            message: "Reference created",
+            reference
         });
+
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Erreur serveur", error: error.message });
+        return res.status(500).json({ message: "Erreur serveur" });
     }
 });
 

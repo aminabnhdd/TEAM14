@@ -1,19 +1,30 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
-html {
-  font-size: 14px; /* Réduit la taille globale (par défaut 16px) */
+
+@import "tailwindcss";
+
+
+html{
+  font-size: 14px;
 }
-:root {
+
+* {
+  font-family: poppins,sans-serif;
+}
+
+
+@theme {
   --color-black: #2d2d2d;
   --color-white: #fefefe;
   --color-brown: #c57642;
   --color-dune: #e8c07d;
   --color-warning: #ef4444;
   --color-success: #22c55e;
+  --color-neutral-500: #707778;
   --color-neutral-400: #a0a5a6;
   --color-neutral-300: #d1d4d5;
   --color-neutral-200: #e2e5e6;
   --color-neutral-100: #f3f4f5;
 
+  
   /* Font Sizes */
   --font-size-huge-title: 3rem;
   --font-size-titles: 2.25rem;
@@ -34,40 +45,50 @@ html {
   --font-weight-main-text: 400;
   --font-weight-thinner-text: 300;
   --font-weight-buttons: 500;
-  --font-weight-bolder-text: 700;
+  --font-weight-bolder-text: 600;
   --font-weight-big-remark: 500;
   --font-weight-remark: 400;
   --font-weight-small-remark: 300;
   --font-weight-text: 400;
 
   --font-family-poppins: "Poppins", sans-serif;
+
+  --border-radius-0: 0rem;
+  --border-radius-1: 0.222rem;
+  --border-radius-2: 0.278rem;
+  --border-radius-3: 0.444rem;
+  --border-radius-4: 0.556rem;
+  --border-radius-5: 0.667rem;
+  --border-radius-6: 0.833rem;
+  --border-radius-7: 0.889rem;
+  --border-radius-8: 1.111rem;
+  --border-radius-9: 1.667rem;
+  --border-radius-10: 1.778rem;
+  --border-radius-11: 1.944rem;
+  --border-radius-12: 2rem;
+  --border-radius-13: 2.186rem;
+  --border-radius-14: 3.333rem;
+  --border-radius-15: 55.5rem;
 }
 
-* {
-  font-family: var(--font-family-poppins);
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@layer utilities {
+  /* Titles */
+  .titles { font-size: var(--font-size-titles); font-weight: var(--font-weight-titles); }
+  .huge-title { font-size: var(--font-size-huge-title); font-weight: var(--font-weight-huge-title); }
+  .secondary-titles { font-size: var(--font-size-secondary-titles); font-weight: var(--font-weight-secondary-titles); }
+
+  /* Text */
+  .main-text { font-size: var(--font-size-main-text); font-weight: var(--font-weight-main-text); }
+  .thinner-text { font-size: var(--font-size-thinner-text); font-weight: var(--font-weight-thinner-text); }
+  .bolder-text { font-size: var(--font-size-bolder-text); font-weight: var(--font-weight-bolder-text); }
+
+  /* Remarks */
+  .big-remark { font-size: var(--font-size-big-remark); font-weight: var(--font-weight-big-remark); }
+  .remark { font-size: var(--font-size-remark); font-weight: var(--font-weight-remark); }
+  .small-remark { font-size: var(--font-size-small-remark); font-weight: var(--font-weight-small-remark); }
+
+  /* Buttons */
+  .buttons { font-size: var(--font-size-buttons); font-weight: var(--font-weight-buttons); }
 }
-
-html,
-body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow-x: hidden;
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
 

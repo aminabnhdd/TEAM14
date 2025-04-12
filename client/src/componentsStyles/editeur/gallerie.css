@@ -1,0 +1,89 @@
+.gallerie-container {
+  margin: 2rem auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.gallerie-image {
+  position: relative;
+  width: 100%;
+  height: 10rem;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.gallerie-image:hover {
+  transform: scale(1.02);
+  filter: brightness(0.9); 
+}
+
+
+.gallerie-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallerie-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color: white;
+  padding: 1rem;
+}
+
+.gallerie-overlay h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.rendered{.gallerie-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden; /* Contain everything */
+}
+
+/* Default: Single row with auto-expanding columns */
+.gallerie-container {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fill, 10rem);
+  grid-auto-columns: 10rem; /* Fixed column width */
+  grid-template-rows: 10rem; /* Default to a single row */
+  gap: 1rem;
+  padding: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin; /* For Firefox */
+}
+
+/* If there are at least 6 items, switch to two rows */
+.gallerie-container:has(> :nth-child(6)) {
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, 10rem);
+}
+
+/* If there are at least 11 items, ensure scrolling */
+.gallerie-container:has(> :nth-child(11)) {
+  overflow-x: auto;
+}
+
+/* Item styling */
+.gallerie-image {
+  width: 10rem;
+  height: 10rem;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+
+
+}

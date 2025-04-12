@@ -15,6 +15,10 @@ import CreateProject from "./pages/Createprojectpages/Createproject";
 import ModifyProject from "./pages/Createprojectpages/ModifyProject.jsx";
 import MyProjects from "./pages/MyProjectspages/MyProjects.jsx";
 import RestoreProjects from "./pages/MyProjectspages/RestoreProjects.jsx";
+import EditorEditable from './pages/editeur/editorEditable.jsx';
+import EditorNonEditable from './pages/editeur/editorNonEditable.jsx';
+import Gallerie from './components/editeur/gallerie.jsx';
+import Visualisation from './pages/visualisation/visualisation.jsx';
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -40,6 +44,12 @@ function App() {
           <Route path="*" element={<h1>404 Not Found</h1>} />
           <Route path="/mesprojets" element={<MyProjects />} />
           <Route path="/restoreprojects" element={<RestoreProjects />} />
+          <Route path="/editeur/editable/:sectionId" element={<EditorEditable  />} />
+          <Route path="/gallerie" element={<Gallerie/>}/>
+          {/* Route for annotatins */}
+          <Route path="/editeur/annoter/:sectionId" element={<EditorNonEditable />} />
+          <Route path="/visualisation/:projetId" element={<Visualisation />} />
+
 
         </Routes>
       </Router>

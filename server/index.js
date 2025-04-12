@@ -56,7 +56,6 @@ app.use('/editeur',editeurRouter);
 app.use('/notifications',notificationsRouter);
 app.use('/refresh',refreshRouter);
 
-
 // declaring our own modules :
 
 const dbConn = require('./config/dbConn');

@@ -4,7 +4,7 @@ const {userModel,expertModel} = require('../model/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cloudinary = require('../config/cloudinary');
-const upload = require('../middlewares/multerMiddleware');
+const { upload } = require('../middlewares/multerMiddleware');
 
 const AdminRole = process.env.ADMIN_ROLE;
 const ExpertRole = process.env.EXPERT_ROLE;

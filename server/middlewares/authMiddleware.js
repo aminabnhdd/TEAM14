@@ -13,6 +13,7 @@ const validateToken = async (req,res,next)=>{
         const validToken = verify(token,process.env.ACCESS_TOKEN_SECRET);
 
         req.user = validToken;
+        console.log(validToken);
         if (validToken) return next();
     } catch (error) {
         console.log(error);

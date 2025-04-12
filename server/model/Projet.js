@@ -22,6 +22,11 @@ const projetSchema = new mongoose.Schema({
         unique: true,
         trim: true
     },
+    longtitude: {
+        type: String,
+        unique: true,
+        trim: true
+    },
     localisation: {
         type: String,
         trim: true
@@ -35,7 +40,7 @@ const projetSchema = new mongoose.Schema({
         default:""
     },
     dateConstruction: {
-        type: String,
+        type:String,
     },
     chef: {
         type: mongoose.Schema.Types.ObjectId,
@@ -44,6 +49,10 @@ const projetSchema = new mongoose.Schema({
     collaborateurs: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Expert",
+    }],
+    references: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Reference",
     }],
     demandes: [{
 
@@ -65,9 +74,11 @@ const projetSchema = new mongoose.Schema({
     archivePar: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Expert",
+        default: null,
     },
     archive: {
         type: Boolean,
+        required: true
     },
     keywords: {
         type: [String],

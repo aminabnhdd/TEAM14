@@ -1,0 +1,292 @@
+.tiptap ul, ol {
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.tiptap p {
+  font-size: 1.125em;
+}
+
+.tiptap ul {
+  list-style-type: disc;
+}
+
+.tiptap ol {
+  list-style-type: decimal;
+}
+
+.tiptap h1 {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.tiptap h2 {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.tiptap h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.ProseMirror {
+  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
+  white-space: pre-wrap !important;
+  hyphens: auto;
+}
+
+.ProseMirror:focus {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  
+}
+
+.tiptap a {
+  color: #c57642;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover {
+    color:  #2d2d2d;
+  }
+}
+
+.tiptap blockquote {
+  border-left: 2px solid #e8c07d;
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+}
+
+
+
+.tiptap table {
+  border-collapse: collapse;
+  margin: 0;
+  overflow: hidden;
+  table-layout: fixed;
+  width: 100% ;
+  margin-left: auto;
+  margin-right: auto; 
+  
+
+  td,
+  th {
+    border: 1px solid #d1d4d5;
+    box-sizing: border-box;
+    height: 2.5em;
+    min-width: 1em;
+    padding: 6px 8px;
+    position: relative;
+    vertical-align: top;
+
+    > * {
+      margin-bottom: 0;
+    }
+  }
+
+  th {
+    background-color: #e2e5e6;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .selectedCell:after {
+    background: #d1d4d5;
+    content: "";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+  }
+
+  .column-resize-handle {
+    background-color: #d1d4d5;
+    bottom: -2px;
+    position: absolute;
+    right: -2px;
+    top: 0;
+    width: 4px;
+    opacity: 0; /* Hide by default */
+    transition: opacity 0.2s ease; /* Smooth transition */
+  }
+
+  /* Show the resize handle on hover */
+  th:hover .column-resize-handle,
+  td:hover .column-resize-handle {
+    opacity: 1;
+    pointer-events: auto; /* Enable pointer events on hover */
+  }
+}
+
+.tableWrapper {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+
+/* Apply resize cursor when hovering over the resize handle */
+.resize-cursor {
+  cursor: col-resize;
+}
+/* Placeholder (at the top) */
+p.is-editor-empty:first-child::before {
+color:  #707778;
+content: attr(data-placeholder);
+float: left;
+height: 0;
+pointer-events: none;
+}
+
+
+.image-card {
+max-width: 36%;
+border: 1px solid #e2e5e6; /* Add a border */
+border-radius: 8px; /* Rounded corners */
+background-color: #f3f4f5; /* Light background color */
+margin: 0.5rem 1.5rem; /* Add some margin */
+display: inline-block; /* Make the card only as wide as its content */
+overflow: hidden; /* Ensure the image doesn't overflow the card */
+cursor: grab; /* Change cursor to indicate draggability */
+}
+
+.rendered .image-card{
+pointer-events: none;
+}
+
+.rendered figure{
+cursor: default;
+-webkit-user-drag: none;
+user-select: none;
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+}
+
+
+
+/* Alignment styles for the image-card */
+.image-card.align-left {
+float: left; /* Align to the left */
+}
+
+.image-card.align-center {
+display: block;
+margin-left: auto;
+margin-right: auto; /* Center align */
+}
+
+.image-card.align-right {
+float: right; /* Align to the right */
+}
+figure {
+
+display: flex;
+flex-direction: column;
+align-items: center;
+margin: 0; /* Remove default margin */
+padding: 0; /* Remove default padding */
+
+}
+
+
+
+figure img {
+
+max-width: 100%; /* Allow the image to retain its original size */
+height: auto; /* Maintain aspect ratio */
+display: block; /* Remove extra space below the image */
+margin: 0; /* Remove default margin */
+padding: 0; 
+pointer-events: none; 
+
+}
+
+figcaption {
+
+font-style: italic;
+text-align: center;
+
+color: #707778; /* Slightly darker text for the caption */
+padding: 0.5rem; /* Add some padding to the caption */
+font-size:  0.875rem;
+font-weight: 400;
+
+width: 100%;
+}
+
+/* Reuse the .image-card class for videos */
+.video-card {
+border: 1px solid #e2e5e6;
+border-radius: 8px;
+background-color: #f3f4f5;
+margin: 0.5rem 1.5rem;
+display: inline-block;
+overflow: hidden;
+max-width: 36%;
+cursor: grab;
+}
+
+.video-card.align-left {
+float: left;
+}
+
+.video-card.align-center {
+display: block;
+margin-left: auto;
+margin-right: auto;
+
+}
+
+.video-card.align-right {
+float: right;
+}
+
+figure video {
+max-width: 100%;
+height: auto;
+display: block;
+margin: auto;
+padding: 0;
+
+}
+
+figcaption {
+font-style: italic;
+text-align: center;
+color: #707778;
+padding: 0.5rem;
+font-size: 0.875rem;
+font-weight: 400;
+width: 100%;
+}
+
+/* Add this to your global or component-specific CSS */
+.annotation-highlight {
+padding: 2px 4px; /* Optional: Add padding for better visibility */
+border-radius: 3px; /* Optional: Add rounded corners */
+}
+
+.rendered .annotation-highlight{
+background-color: transparent !important;
+padding: 0px !important;
+cursor: default !important;
+pointer-events: none !important;
+}
+
+.reference {
+color:#c57642;
+padding: 1px;
+border-radius: 3px;
+margin: 0 0.2em;
+transition: color 0.2s;
+cursor:pointer;
+}
+
+.reference:hover {
+color:#2d2d2d
+}

@@ -3,7 +3,6 @@ const router = express.Router();
 const  sectionModel  = require("../model/section");
 const  projetModel  = require("../model/Projet");
 const  notificationModel = require("../model/Notification");
-const  {userModel}  = require("../model/user");
 const conflitModel  = require("../model/conflit");
 const validateToken = require("../middlewares/authMiddleware");
 const {validateRole,validateProjectOwner} = require("../middlewares/roleMiddleware");

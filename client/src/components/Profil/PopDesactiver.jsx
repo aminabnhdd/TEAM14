@@ -1,6 +1,11 @@
 import React from "react";
 import "../../componentsStyles/ProfilStyles/PopDesactiver.css";
-const PopDesactiver = ({ onClose, onLogout }) => {
+import { useContext } from "react";
+import AuthContext from "../../helpers/AuthContext"
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+const PopDesactiver = ({ onClose, onLogout ,usersData}) => {
+  const {authState} = useContext(AuthContext);
   return (
     <div className="modal-overlay">
       <div className="modal-container">
@@ -10,7 +15,16 @@ const PopDesactiver = ({ onClose, onLogout }) => {
         Êtes-vous sûr de vouloir désactiver le compte ?
         </p>
         <div className="modal-actions">
-          <button className="cancel-button" disabled>Confirmer</button>
+          <button className="cancel-button" onClick={()=>{
+            axios.put(`http://localhost:3001/admin/disable/${usersData[0]._id}`,{}, {headers:{Authorization:`Bearer ${authState.accessToken}`}})
+            .then((response) => {
+              console.log(response.data);     
+              onClose();   
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          }}>Confirmer</button>
           <button className="disconnect-button" onClick={onClose}>Annuler</button>
         </div>
       </div>

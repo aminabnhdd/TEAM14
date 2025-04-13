@@ -3,25 +3,43 @@ import InfoHeader from "../../components/Profil/Infosheader";
 import ProfilInfosave from "../../components/Profil/ProfilInfosave";
 import FormExpert from "../../components/Profil/FormExpert";
 import "../../pagesStyles/ProfilpagesStyle/SaveExpert.css";
-
-const usersData = [
-  {
-    id: 1,
-    nom: "Benhaddad",
-    prenom: "Amina",
-    email: "amina.benhaddad@example.com",
-    etablissement: "École nationale supérieure",
-    labo: "LMCS",
-    telephone: "0550******",
-    niveau: "Avancé",
-    discipline: "Histoire",
-    pfp: "https://img.freepik.com/vecteurs-premium/icone-profil-avatar-dans-style-plat-illustration-vectorielle-du-profil-utilisateur-feminin-fond-isole-concept-entreprise-signe-profil-feminin_157943-38866.jpg",
-    role : "Architecte",
-    password : "1234",
-  },
-];
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SaveExpert = () => {
+  const [usersData,setUsersData] = useState([]);
+  useEffect(() => {
+    axios.get("http://localhost:3001/refresh",{withCredentials:true})
+        .then((response) => {
+            if (response.data.error) return navigate('/connexion')
+            // setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
+            axios.get("http://localhost:3001/profil/mon-compte",{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
+            .then((response) => {
+              const updatedUsers = [...usersData, response.data].map((user) => ({
+                ...user, 
+                role:
+                  user.discipline.toLowerCase() === "histoire"
+                    ? "historien"
+                    : user.discipline.toLowerCase() === "architecture"
+                    ? "architecte"
+                    : user.discipline.toLowerCase() === "archéologie"
+                    ? "archéologue"
+                    : "",
+              }));
+          
+              setUsersData(updatedUsers);
+            }
+            )
+            .catch((error) => {
+                console.log(error);
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+              
+  }, []);
   return (
     <>
      <InfoHeader/>

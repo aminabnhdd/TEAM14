@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; 
 import "../../componentsStyles/ProfilStyles/PasswordCard.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function PasswordChange({ oldPassword }) {
+export default function PasswordChange() {
   const [inputOldPassword, setInputOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -11,6 +13,8 @@ export default function PasswordChange({ oldPassword }) {
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [authState, setAuthState] = useState({email:"",role:"",accessToken:""});
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = (field) => {
     if (field === "old") setShowOldPassword(!showOldPassword);
@@ -19,14 +23,32 @@ export default function PasswordChange({ oldPassword }) {
   };
 
   const handleChange = () => {
-    if (inputOldPassword !== oldPassword) {
-      setError("L'ancien mot de passe est incorrect. Veuillez le saisir à nouveau.");
-      return;
-    }
     if (newPassword !== confirmPassword) {
-      setError("Les mots de passe ne correspondent pas. Veuillez les saisir à nouveau.");
+      setError("Les nouveaux mots de passe ne correspondent pas. Veuillez les saisir à nouveau.");
       return;
     }
+    axios.get('http://localhost:3001/refresh', { withCredentials: true })
+      .then((response) => {
+        if (response.data.error) return navigate('/connexion');
+        setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
+        axios.put('http://localhost:3001/profil/mon-compte/changer-mdp', {
+          oldmdp: inputOldPassword,newmdp: newPassword, new2mdp: confirmPassword
+        }, {headers: { Authorization: `Bearer ${response.data.accessToken}` }})
+          .then((response) => {
+            setInputOldPassword("");
+            setNewPassword("");
+            setConfirmPassword("");
+          })
+          .catch((error) => {
+            if (error.response) {
+              setError(error.response.data.message);
+            }
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     setError("");
   };
 

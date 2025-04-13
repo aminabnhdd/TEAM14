@@ -1,17 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../componentsStyles/ProfilStyles/FormVisiteur.css";
 import { FiSave } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const FormVisiteur = () => {
   // État initial pour stocker les valeurs saisies
-  const [user, setUser] = useState({
-    nom: "Benhaddad",
-    prenom: "Amina",
-    email: "aminabenhaddad200876@gmail.com",
-    telephone: "0550 ** ** **",
-    password : "1234",
-  });
+  const [user, setUser] = useState({});
 
   // Mettre à jour l'état lorsqu'un champ est modifié
   const handleChange = (e) => {
@@ -21,13 +16,41 @@ const FormVisiteur = () => {
 
 
   const navigate = useNavigate(); 
+  const [authState, setAuthState] = useState({email:"",role:"",accessToken:""});
+  useEffect(() => {
+    axios.get("http://localhost:3001/refresh",{withCredentials:true})
+        .then((response) => {
+            // if (response.data.error) return navigate('/')
+            setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
+            axios.get("http://localhost:3001/profil/mon-compte",{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
+            .then((response) => {
+          
+              setUser(response.data);
+            }
+            )
+            .catch((error) => {
+                console.log(error);
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+              
+  }, []);
 
   return (
     <div className="frmv-container">
       {/* En-tête */}
       <div className="frmv-header">
         <h2>Informations Personnelles</h2>
-        <button className="frmv-save-button" onClick={() => navigate("/modifier-visiteur")}>
+        <button className="frmv-save-button" onClick={() =>{
+          axios.put("http://localhost:3001/profil/mon-compte/modifier",user,{headers:{Authorization:`Bearer ${authState.accessToken}`}})
+          .then((response) => {
+            navigate("/modifier-visiteur")
+          })
+          .catch((error) => {
+            console.log(error);
+          });}}>
           Sauvegarder <FiSave size={16} />
         </button>
       </div>

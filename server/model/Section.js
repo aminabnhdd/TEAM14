@@ -7,7 +7,7 @@ const sectionSchema = new mongoose.Schema({
         ref: "Projet",
         required: true,
     },
-    type: {
+    type: {  //corresponds to the filter [Histoire, Architecture, Archeologie, Autre]
         type: String,
         required: true,
         trim: true

@@ -3,7 +3,8 @@ const router = express.Router();
 const projectModel = require('../model/projet');
 const { expertModel, userModel } = require('../model/user');
 const notificationModel = require('../model/notification');
-const projetModel = require('../model/projet');
+
+const sectionModel = require('../model/section');
 const { validateRole, validateProjectOwner } = require('../middlewares/roleMiddleware');
 const validateToken = require('../middlewares/authMiddleware');
 const expertRole = process.env.EXPERT_ROLE;
@@ -49,6 +50,18 @@ router.post('/add/:userId', validateToken, validateRole(expertRole, adminRole), 
 
 });
 
+//request to get all the projects
+router.get('', async(req, res) => {
+    try {
+        const projects = await projectModel.find();
+        res.json(projects);
+    } catch (error) {
+        console.error("Error fetching projects ", error);
+        res.status(500).json({ message: "server error" });
+    }
+
+});
+
 
 
 //request to add a collaborator to the project
@@ -57,7 +70,7 @@ router.put('/:projectId/collaborateurs/:expertId', validateToken, validateProjec
     //check if the the user that is being added is an expert
     const { projectId, expertId } = req.params;
     try {
-        const project = await projetModel.findByIdAndUpdate(
+        const project = await projectModel.findByIdAndUpdate(
             projectId, { $push: { collaborateurs: expertId } }, { new: true }
         );
 
@@ -82,7 +95,7 @@ router.delete("/:projectId/collaborateurs/:expertId", validateToken, validatePro
     const { projectId, expertId } = req.params;
 
     try {
-        const project = await projetModel.findByIdAndUpdate(
+        const project = await projectModel.findByIdAndUpdate(
             projectId, { $pull: { collaborateurs: expertId } }, { new: true }
         );
 
@@ -107,7 +120,7 @@ router.post("/:projectId/demande", validateToken, validateProjectOwner, async(re
     const { expertId } = req.body; //expertId in the body of the request because one project can have several demandes there is no bijection
 
     try {
-        const project = await projetModel.findByIdAndUpdate(
+        const project = await projectModel.findByIdAndUpdate(
             projectId, { $push: { demandes: { expert: expertId, status: "pending" } } }, { new: true }
         );
 
@@ -147,7 +160,7 @@ router.post("/:projectId/validate/:expertId", validateToken, validateProjectOwne
     const { status } = req.body;
 
     try {
-        const project = await projetModel.findById(projectId);
+        const project = await projectModel.findById(projectId);
 
         if (!project) {
             return res.status(404).json({ message: "Project not found" });
@@ -158,7 +171,7 @@ router.post("/:projectId/validate/:expertId", validateToken, validateProjectOwne
             return res.status(403).json({ message: "You are not authorized to manage this project" });
         }
 
-        const demande = projetModel.demandes.find(request => request.expertId.toString() == expertId);
+        const demande = projectModel.demandes.find(request => request.expertId.toString() == expertId);
         demande.status = status;
 
         if (!demande) {
@@ -174,20 +187,153 @@ router.post("/:projectId/validate/:expertId", validateToken, validateProjectOwne
 })
 
 
-router.get("/search", async(req, res) => {
-    const { keyword } = req.body; // Get keyword from query params
-
+router.get("/search", async (req, res) => {
+    const { keyword } = req.query;
+  
     if (!keyword) {
-        return res.status(400).json({ message: "Keyword is required" });
+      return res.status(400).json({ message: "Keyword is required" });
     }
-
+  
     try {
-        const results = await projetModel.find({ keyword });
-
-        res.json(results);
+      const results = await projectModel.find({
+        keywords: { $regex: keyword, $options: "i" }, // case-insensitive
+      });
+  
+      res.json(results);
     } catch (error) {
-        res.status(500).json({ message: "Server error", error: error.message });
+      res.status(500).json({ message: "Server error", error: error.message });
+    }
+  });
+
+
+router.post("/ajoutersection", validateToken, async (req, res) => {
+    try {
+        const { projetId, type } = req.body;
+
+        const projet = await projectModel.findById(projetId);
+        if (!projet) {
+            return res.status(404).json({ message: "Projet non trouvé." });
+        }
+
+        const section = new sectionModel({
+            projetId,
+            type,
+            contenu: "",
+            annotations: [],
+            conflits: null
+        });
+
+        await section.save();
+        projet.sections.push(section._id);
+        await projet.save()
+
+        return res.status(201).json({ message: "Section ajoutée avec succès.", section });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Erreur serveur." });
     }
 });
+
+
+router.get('/search/filters', async (req, res) => {
+    try {
+        const filter = req.query.filters; 
+
+        if (!filter) {
+            return res.status(400).json({ error: "Filter is required." });
+        }
+
+        
+
+        const sections = await sectionModel.find({ type: { $in: filter } });
+
+
+        const sectionIds = sections.map(section => section._id);
+
+
+        const projects = await projectModel.find({ sections: { $in: sectionIds } });
+
+        res.json(projects);
+
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(500);
+    }
+});
+
+
+router.get('/favourites/filters', async (req, res) => {
+    try {
+        const filter = req.query.filters; 
+
+        if (!filter) {
+            return res.status(400).json({ error: "Filter is required." });
+        }
+
+        
+
+        const favouriteProjects = await projectModel.find({ favourites: { $in: filter } });
+
+
+        const sectionIds = sections.map(section => section._id);
+
+
+        const projects = await projectModel.find({ sections: { $in: sectionIds } });
+
+        res.json(projects);
+
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(500);
+    }
+});
+
+router.post('/favourite/add/:userId', async(req, res) =>{
+    const {userId} = req.params;
+    const {projectId} = req.body;
+
+    try{
+
+        
+        const user = await expertModel.findById(userId);
+        console.log(user);
+        if (!user) {
+            return res.status(404).json({ message: "Error." });
+        }
+    
+    if(!user.favorites.includes(projectId)){
+        user.favorites.push(projectId);
+        await user.save();
+    }
+
+    
+
+    }catch(error){
+        console.error(error);
+        res.sendStatus(500);
+    }
+    
+})
+router.get('/favourite/:userId', async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        const user = await expertModel.findById(userId).populate('favorites');
+        if (!user) {
+            return res.status(404).json({ message: "User not found." });
+        }
+
+        const favouriteProjects = user.favorites; // now this contains full project objects
+        res.json(favouriteProjects);
+        console.log(favouriteProjects);
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(500); 
+    }
+});
+
+
+module.exports = router;
 
 module.exports = router;

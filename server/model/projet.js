@@ -14,13 +14,11 @@ const projetSchema = new mongoose.Schema({
     },
     coord: {
         type: String,
-        required: true,
-        unique: true,
+        default: "",
         trim: true
     },
     localisation: {
         type: String,
-        required: true,
         trim: true
     },
     style: {
@@ -30,17 +28,10 @@ const projetSchema = new mongoose.Schema({
     },
     photoUrl: {
         type: String,
-        required: true,
-        validate: {
-            validator: function(v) {
-                return /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(v);
-            },
-            message: props => `${props.value} is not a valid URL!`
-        }
+        default: ""
     },
     dateConstruction: {
         type: Date,
-        required: true
     },
     chef: {
         type: mongoose.Schema.Types.ObjectId,
@@ -50,41 +41,29 @@ const projetSchema = new mongoose.Schema({
     collaborateurs: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Expert",
-        required: true,
     }],
     demandes: [{
-
-        expert: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Expert",
-            required: true
-        },
-        status: {
-            type: String,
-            enum: ["pending", "accepted", "rejected"],
-            default: "pending"
-        }
-
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Expert",
     }],
-    sections: [{
+    sections: [{ //list of ids of sections contained in a peoject
         type: mongoose.Schema.Types.ObjectId,
         ref: "Section",
-
+        required: true,
     }],
     archivePar: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true,
+    },
+    keywords: {
+        type: String
     },
     archive: {
         type: Boolean,
-        required: true
+        default: false
     },
-    keywords: {
-
-    }
 }, { timestamps: true });
 
-const projetModel = mongoose.model("Projet", projetSchema);
+const projectModel = mongoose.model("Projet", projetSchema);
 
-module.exports = projetModel;
+module.exports = projectModel;

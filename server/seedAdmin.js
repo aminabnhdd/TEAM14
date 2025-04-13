@@ -20,8 +20,8 @@ async function createAdmin() {
 
         // Create admin user
         const admin = new userModel({
-            nom: "admin",
-            prenom: "admin",
+            name: "admin",
+            lastName: "admin",
             email: "admin@gmail.com",
             password: hashedPassword, // Store hashed password,
             userValide: true,

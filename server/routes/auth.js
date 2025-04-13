@@ -92,41 +92,64 @@ router.post('/signup/expert', async(req, res) => {
 
 
 
-router.post('/login', async(req, res) => {
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res.status(400).json({ error: "Email and password are required" });
+        }
 
-    const { email, password } = req.body;
+        const user = await userModel.findOne({ email: email });
+        if (!user) return res.status(404).json({ error: "There is no user with this email!" });
 
-    const user = await userModel.findOne({ email: email });
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) return res.status(403).json({ error: "Invalid email or password" });
 
-    if (!user) return res.status(404).json({ error: 'there is no user with this email !' });
+        if (!user.userValide) return res.status(403).json({ error: "Account not validated yet" });
 
-    const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.status(403).json({ error: 'invalid email or password ' });
+        // Generate tokens
+        const accessToken = jwt.sign(
+            { id: user.id, nom: user.nom, prenom: user.prenom, email: user.email, role: user.role },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: '900s' }
+        );
 
+        const refreshToken = jwt.sign(
+            { id: user.id, nom: user.nom, prenom: user.prenom, email: user.email, role: user.role },
+            process.env.REFRESH_TOKEN_SECRET,
+            { expiresIn: '1d' }
+        );
 
-    if (!user.userValide) return res.status(403).json({ err: "account not validated yet" });
+        // Save refresh token in the database
+        user.refreshToken = refreshToken;
+        await user.save();
 
+        // Send refresh token as HTTP-only cookie
+        res.cookie('jwt', refreshToken, {
+            httpOnly: true,
+            maxAge: 1000 * 3600 * 24, 
+            sameSite: 'none', 
+            secure: true
+        });
 
-    const accessToken = jwt.sign({ id: user.id, nom: user.nom, prenom: user.prenom, email: user.email, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '900s' });
-    const refreshToken = jwt.sign({ id: user.id, nom: user.nom, prenom: user.prenom, email: user.email, role: user.role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
+        res.json({
+            refreshToken,
+            accessToken,
+            prenom: user.prenom,
+            nom: user.nom,
+            id: user._id,
+            role: user.role
+        });
 
-    user.refreshToken = refreshToken;
-    await user.save();
-
-
-    res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 1000 * 3600 * 24, sameSite: 'none', secure: true });
-
-    res.json({ refreshToken: refreshToken, accessToken: accessToken, prenom: user.prenom, nom: user.nom, id: user._id, role: user.role });
-
-
+    } catch (error) {
+        console.log("login error", error);
+        res.status(500).json({ error: "Internal server error" });
+        
+    }
 });
 
 
-router.post('/password/forgotten', async(req, res) => {
 
 
-
-
-});
 
 module.exports = router;

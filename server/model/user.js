@@ -1,13 +1,15 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+
+
 
 
 const userSchema = new mongoose.Schema({
-    name: {
+    nom: {
         type: String,
         required: true,
         trim: true
     },
-    lastName: {
+    prenom: {
         type: String,
         required: true,
         trim: true
@@ -20,10 +22,9 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         match: [/^\S+@\S+\.\S+$/, 'Invalid email format']
     },
-    password: {
+    password:{
         type: String,
-        required: true,
-        trim: true
+        required: true
     },
     role: {
         type: String,
@@ -33,11 +34,24 @@ const userSchema = new mongoose.Schema({
     userValide: {
         type: Boolean,
         default: false
+    },
+    refreshToken:{
+        type:String,
+        default:""
+    },
+    pfp:{
+        type:String,
+        default:""
+    },
+    favorites:{
+        type:[mongoose.SchemaTypes.ObjectId],
+        default:[],
+        ref:"Projet"
     }
+
 }, { timestamps: true }); //timestamps manages automatically two fields createdat and updatedat
 
 const userModel = mongoose.model("User", userSchema);
-
 
 
 const expertSchema = new mongoose.Schema({
@@ -53,13 +67,17 @@ const expertSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    expertise: {
+    niveau: {
         type: String,
         required: true
     },
     projets: {
-        type: [String], //normally a ref to project
-        required: true
+        type: [mongoose.SchemaTypes.ObjectId],
+        default:[]
+    },
+    fileUrl: {
+        type: String,
+        default: ""
     }
 
 })
@@ -67,4 +85,7 @@ const expertSchema = new mongoose.Schema({
 
 const expertModel = userModel.discriminator("Expert", expertSchema);
 
-module.exports = { userModel, expertModel };
+
+
+
+module.exports = {userModel,expertModel};

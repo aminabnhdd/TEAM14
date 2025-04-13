@@ -1,23 +1,26 @@
-import imj from "../../assets/material-symbols_search.svg"
-import "../../ComponentsStyles/SearchBar styles/SearchBar.css";
+import { useState } from "react";
+import {FaSearch} from "react-icons/fa";
+import "./SearchBar.css";
 
-function SearchBar({ onSearch,title }) {
+function SearchBar({ onSearch }) {
+  const [query, setQuery] = useState("");
 
-  
+  const handleChange = (e) => {
+    setQuery(e.target.value);
+    onSearch(e.target.value); // Pass search query to parent component
+  };
 
   return (
-    <div className="search-div">
-      <div className="search-bar">
+    <div className="search-container">
        <input
       type="text"
-      placeholder={title}
-      onChange={(e) => onSearch(e.target.value)}
+      placeholder="Rechercher Un Projet..."
+      value={query}
+      onChange={handleChange}
       className="search-input"
     />
-    <img src={imj} alt="j" className="search-icon" />
+    <FaSearch className="search-icon" /> 
     </div>
-    </div>
-    
    
   );
 }

@@ -19,7 +19,10 @@ import EditorEditable from './pages/editeur/editorEditable.jsx';
 import EditorNonEditable from './pages/editeur/editorNonEditable.jsx';
 import Gallerie from './components/editeur/gallerie.jsx';
 import Visualisation from './pages/visualisation/visualisation.jsx';
-
+import Decouvrir from "./pages/Decouvrir";
+import SearchBar from "./components/SearchBar/SearchBar";
+import SideNav from "./components/SideNav/SideNav";
+import Favoris from "./pages/Favoris";
 function App() {
   const [authState, setAuthState] = useState({
     email: "",
@@ -49,7 +52,8 @@ function App() {
           {/* Route for annotatins */}
           <Route path="/editeur/annoter/:sectionId" element={<EditorNonEditable />} />
           <Route path="/visualisation/:projetId" element={<Visualisation />} />
-
+          <Route path="/discover" element={<Decouvrir />} />
+          <Route path="/favoris" element={<Favoris />} />
 
         </Routes>
       </Router>

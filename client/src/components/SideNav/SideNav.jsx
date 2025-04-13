@@ -1,32 +1,46 @@
-import '../../ComponentsStyles/SideNav styles/SideNav.css'
+import './SideNav.css'
 import { Link } from "react-router-dom";
 import { FaCompass, FaStar, FaEdit, FaBell } from "react-icons/fa";
 import { FaQuestionCircle } from "react-icons/fa";
 function SideNav(){
     return(
         <div className="side-nav">
-            <Link to="">
-            {/*<img className="discover-icon" src="/assets/images/discover.png"></img>*/}
+
+           
+
+            <Link to="/discover"className="discover">
             <FaCompass className="discover-icon" />
+            <div className="nav-link">
+            <span className="tooltip">Discover</span>
+            </div>
             </Link>
 
-            <Link to="">
-            {/*<img className="favorite-icon" src="/assets/images/favorite.png"></img>*/}
-            <FaEdit className="favorite-icon" />
+            <Link to="/favoris" className="favourite">
+            <FaStar className="favorite-icon" />
+            <div className="nav-link">
+            <span className="tooltip">Favourites</span>
+            </div>
             </Link>
 
-            <Link to="">
-            {/*<img className="document-icon" src="/assets/images/document.png"></img>*/}
-            <FaStar className="document-icon" />
+            <Link to="" className="document">
+            <FaEdit className="document-icon" />
+            <div className="nav-link">
+            <span className="tooltip">Documents</span>
+            </div>
             </Link>
 
-            <Link to="">
-            {/*<img className="notification-icon" src="/assets/images/notification.png"></img>*/}
-            <FaBell className="notification-icon" />
+            <Link to="" className="notifications">
+            <FaBell className="notifications-icon" />
+            <div className="nav-link">
+            <span className="tooltip">Notifications</span>
+            </div>
             </Link>
 
-            <Link to="">
+            <Link to=""className="help">
             <FaQuestionCircle className="help-icon" />;
+            <div className="nav-link">
+            <span className="tooltip">Help</span>
+            </div>
             </Link>
             
 

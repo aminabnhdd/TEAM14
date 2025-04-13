@@ -33,7 +33,7 @@
         border: 1px solid var(--NEUTRAL-400, #A0A5A6);
         background: var(--white, #FEFEFE);
         width:100%;
-        color: rgba(85, 85, 94, 0.70);
+        color: #2D2D2D;
         font-size: 12px;
         font-style: normal;
         font-weight: 400;
@@ -103,6 +103,7 @@
     font-weight: 400;
     line-height: normal;
     cursor: pointer;
+    text-decoration: underline  ;
 }
 
 .info-two {

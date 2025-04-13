@@ -49,7 +49,9 @@ function App() {
           {/* Route for annotatins */}
           <Route path="/editeur/annoter/:sectionId" element={<EditorNonEditable />} />
           <Route path="/visualisation/:projetId" element={<Visualisation />} />
-
+          <Route path="/projets" element={<LsProjets />} />
+          <Route path="/notifications-admin" element={<NotifAdmin />} />
+          <Route path="/list-utilisateurs" element={<ListUtil />} />
 
         </Routes>
       </Router>

@@ -34,16 +34,17 @@
     width: 88%;
     border-radius: 9px;
     background: var(--Neutral-100, #F3F4F5);
-    gap: 1.5%;
     font-size: 14px;
     position: relative;
 }
+
 .search-div{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 81px;
-    gap: 1.5%;
+    height: 64px;
     position: relative;
+    margin-top: 14px;
+    flex-shrink: 0;
 
 }

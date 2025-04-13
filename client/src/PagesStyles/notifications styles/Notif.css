@@ -4,17 +4,28 @@
     height: 100vh;
     width: 100vw;
     display: flex;
+    overflow-x: hidden;
 }
 
 .navigation-bar{
     width: 6%;
     height: 100%;
-    background-color: #C57642;
 }
 
 .secondary-notif{
-    height: inherit;
+    display: flex;
+    flex-direction: column;
+}
+.secondary-notif{
     width: 94%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100vh;
+    overflow-x: overlay;
+    scrollbar-gutter: stable; 
+    position: relative;
+
 }
 
 
@@ -36,18 +47,13 @@
         justify-content: flex-start;
         flex-direction: column;
         margin-left: 6.5%;
-        height: 70%;
+        height: auto;
 }
 
 .p-recherche{
     color: #A0A5A6;
 }
 
-.secondary-notif{
-    display: flex;
-    flex-direction: column;
-    gap: 5%;
-}
 
 .imgrecherche{
     width: 25px;
@@ -63,7 +69,7 @@
 
 .hnotif{
     font-size: 23px;
-    margin-bottom: 0.5%;
+    margin-bottom: 3px;
 }
 
 .pnotif{
@@ -114,7 +120,6 @@
 .textos{
     display: flex;
     flex-direction: column;
-    gap: 2%;
     margin-left: 6.5%;
 
 }
@@ -127,9 +132,11 @@
 
 .note{
         display: flex;
-        padding: 1.5% 2%;
+        padding: 0 2%;
         width: 100%;
+        height: 65px;
         border: none;
+        border-radius: 6px;
         border-bottom: 1.5px solid #D1D4D5;
 }
 
@@ -195,6 +202,8 @@
     cursor: pointer;
     font-size: 13px;
 }
+
+ 
 
 .refusIcon {
     width: 20px;

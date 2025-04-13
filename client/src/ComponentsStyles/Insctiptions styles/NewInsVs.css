@@ -32,7 +32,7 @@
         border: 1px solid var(--NEUTRAL-400, #A0A5A6);
         background: var(--white, #FEFEFE);
         width:100%;
-        color: rgba(85, 85, 94, 0.70);
+        color: #2D2D2D;
         font-size: 12px;
         font-style: normal;
         font-weight: 400;
@@ -116,6 +116,7 @@
     font-weight: 400;
     line-height: normal;
     cursor: pointer;
+    text-decoration: underline;
 }
 
 .info-one {
@@ -141,6 +142,12 @@
         font-style: normal;
         font-weight: 600;
         line-height: normal;
+        transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn1-one:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
 }
 
 .close-btn-one {
@@ -191,7 +198,7 @@
     color: #EF4444;
     position:absolute;
     border: 1.5px;
-    top: 53px;
+    top: 51px;
     left: 5px;
 }
 

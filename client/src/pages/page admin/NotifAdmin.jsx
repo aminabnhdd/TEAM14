@@ -4,6 +4,9 @@ import Collaboration from "../../components/popUpsNotif/Collaboration"
 import ConflitRes from "../../components/popUpsNotif/ConflitRes"
 import SearchBar from "../../components/SearchBar/SearchBar"
 import SideNav from "../../components/SideNav/SideNav"
+import SideNavAdmin from "../../components/SideNav/SideNavAdmin"
+import Validation from "../../components/popUpsNotif/Validation"
+import Validation2 from "../../components/popUpsNotif/Validation2"
 
 
 import imjjjjjj from "../../assets/person.png"
@@ -11,20 +14,42 @@ import imjjjjjj from "../../assets/person.png"
 
 function NotifAdmin() {
 
-    const notificationsConflit = [
-        {type:"expert",imge:imjjjjjj,user:"Aliouche Ghazine",time:"1min",button:"Détails"},
-        {type:"expert",imge:imjjjjjj,user:"Souames Manel",time:"2min",button:"Détails"},
-        {type:"expert",imge:imjjjjjj,user:"Yahia Lina",time:"4min",button:"Détails"},
-        
-    ]    
-    const notificationsCol = [
-        {type:"visiteur",imge:imjjjjjj,user:"Rahim Sarah",time:"1min",button:"Détails"},
-        {type:"visiteur",imge:imjjjjjj,user:"Rachem Mohamed Riadh ",time:"2min",button:"Détails"},
-        {type:"visiteur",imge:imjjjjjj,user:"Haddad Amina ",time:"4min",button:"Détails"}
-    ]    
+    const [notificationsConflit, setNotificationsConflit] = useState([
+        { id: "1", type: "expert", seen: false, imge: imjjjjjj, user: "Aliouche Ghazine", time: "1min", button: "Détails" },
+        { id: "2", type: "expert", seen: false, imge: imjjjjjj, user: "Souames Manel", time: "2min", button: "Détails" },
+        { id: "3", type: "expert", seen: false, imge: imjjjjjj, user: "Yahia Lina", time: "4min", button: "Détails" },
+    ]);   
+    const [notificationsCol, setNotificationsCol] = useState([
+        { seen: false, id: "4", type: "visiteur", imge: imjjjjjj, user: "Rahim Sarah", time: "1min", button: "Détails" },
+        { seen: false, id: "5", type: "visiteur", imge: imjjjjjj, user: "Rachem Mohamed Riadh", time: "2min", button: "Détails" },
+        { seen: false, id: "6", type: "visiteur", imge: imjjjjjj, user: "Haddad Amina", time: "4min", button: "Détails" },
+        { seen: false, id: "7", type: "visiteur", imge: imjjjjjj, user: "Rahim Sarah", time: "1min", button: "Détails" },
+        { seen: false, id: "8", type: "visiteur", imge: imjjjjjj, user: "Rachem Mohamed Riadh", time: "2min", button: "Détails" },
+        { seen: false, id: "9", type: "visiteur", imge: imjjjjjj, user: "Haddad Amina", time: "4min", button: "Détails" },
+        { seen: false, id: "10", type: "visiteur", imge: imjjjjjj, user: "Rahim Sarah", time: "1min", button: "Détails" },
+        { seen: false, id: "11", type: "visiteur", imge: imjjjjjj, user: "Rachem Mohamed Riadh", time: "2min", button: "Détails" },
+        { seen: false, id: "12", type: "visiteur", imge: imjjjjjj, user: "Haddad Amina", time: "4min", button: "Détails" },
+        { seen: false, id: "13", type: "visiteur", imge: imjjjjjj, user: "Rahim Sarah", time: "1min", button: "Détails" },
+        { seen: false, id: "14", type: "visiteur", imge: imjjjjjj, user: "Rachem Mohamed Riadh", time: "2min", button: "Détails" },
+        { seen: false, id: "15", type: "visiteur", imge: imjjjjjj, user: "Haddad Amina", time: "4min", button: "Détails" },
+    ]); 
     
     
+    const handleSeenConflit = (id,type) => {
+        if (type === "expert") {
+        const updated = notificationsConflit.map(n =>
+            n.id === id ? { ...n, seen: true } : n
+        );
+        setNotificationsConflit(updated)}
 
+        else if (type === "visiteur") {
+            const updated = notificationsCol.map(n =>
+                n.id === id ? { ...n, seen: true } : n
+            );
+            setNotificationsCol(updated);
+        
+    }
+}
     
 
     useEffect(() => {
@@ -51,15 +76,12 @@ function NotifAdmin() {
 
    
 
-    const handleDetailsClick = (type) => {
-        if (type === "conflitResolu") {
-            setPoop(true);
-        }
+    const handleDetailsClick = (type) => {  
+        if (type === "visiteur") setPoop(true)
+        if (type === "expert") setPoop3(true)
+        
     };
 
-    const handleDetailsClick2 = (type) => {
-        if (type === "demandeCollaboration") setPoop3(true)
-    }
     
 
 const close = () => {
@@ -83,7 +105,7 @@ const [poop3,setPoop3] = useState(false)
 
     <div className="main-notif">
         <div className="navigation-bar-notifAd">
-            <SideNav/>
+            <SideNavAdmin/>
         </div>
         <div className="secondary-notif-notifAd">
 
@@ -108,35 +130,33 @@ const [poop3,setPoop3] = useState(false)
                     <div className="notifications-notifAd">
                         
                         {conflit && notificationsConflit.map(element => (
-                            <div className="note-notifAd">
+                            <div key={element.id} className="note-notifAd" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage-notifAd">
                             <img className="notif-icon-notifAd" src={element.imge} alt="Notification Icon" />
                             <p className="notif-message-notifAd"><span className="userName">{element.user}</span> souhaite créer un compte {element.type}</p>
                             </div>
                             <div className="notwtabwdom-notifAd">
                             <span className="notif-time-notifAd">{element.time}</span>
-                            <button className="det-button-notifAd" onClick={() => handleDetailsClick(element.type)}>
+                            <button className="det-button-notifAd" onClick={() => {handleDetailsClick(element.type);handleSeenConflit(element.id,"expert")}}>
                                 {element.button}
                             </button>
                             </div>
-                            {<ConflitRes popUp={poop} close={close}/>}
-                            
-
-                            
+                            {<Validation2 popUp={poop3} close={close3}/>}
                         </div>
                         ))}
 
+
                         {col && notificationsCol.map(element => (
-                            <div className="note-notifAd">
+                            <div key={element.id} className="note-notifAd" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage-notifAd">
                             <img className="notif-icon-notifAd" src={element.imge} alt="Notification Icon" />
                             <p className="notif-message-notifAd"><span className="userName">{element.user}</span> souhaite créer un compte {element.type} </p>
                             </div>
                             <div className="notwtabwdom-notifAd">
                             <span className="notif-time-notifAd">{element.time}</span>
-                            <button className="det-button-notifAd" onClick={()=>handleDetailsClick2(element.type)}>{element.button}</button>
+                            <button className="det-button-notifAd" onClick={()=>{handleDetailsClick(element.type); handleSeenConflit(element.id,"visiteur")}}>{element.button}</button>
                             </div>
-                            {<Collaboration popUp={poop3} close={close3}/>}
+                        {<Validation popUp={poop} close={close}/>}
                         </div>
                         ))}
 

@@ -6,9 +6,9 @@ import ConflitRes from "../../components/popUpsNotif/ConflitRes"
 import ConflitChat from "../../components/popUpsNotif/ConflitChat"
 import Refus from "../../components/popUpsNotif/Refus"
 import Acceptation from "../../components/popUpsNotif/Acceptation"
+import SideNav from "../../components/SideNav/SideNav"
+import SearchBar from "../../components/SearchBar/SearchBar"
 
-import im from "../../assets/material-symbols_search.svg"
-import imj from "../../assets/gg_profile.svg"
 import imjj from "../../assets/Alert triangle (1).png"
 import imjjj from "../../assets/Alert triangle.png"
 import imjjjj from "../../assets/ix_success.png"
@@ -159,7 +159,24 @@ function Notif() {
         if (type === "demandeAccepte") setPoop5(true)
     }
     
-
+    const handleSeen = (id, type) => {
+        if (type === "conflit") {
+            const updatedNotifications = notificationsConflit.map(notification =>
+                notification._id === id ? { ...notification, seen: true } : notification
+            );
+            setNotificationsConflit(updatedNotifications);
+        } else if (type === "col") {
+            const updatedNotifications = notificationsCol.map(notification =>
+                notification._id === id ? { ...notification, seen: true } : notification
+            );
+            setNotificationsCol(updatedNotifications);
+        } else if (type === "dem") {
+            const updatedNotifications = notificationsDem.map(notification =>
+                notification._id === id ? { ...notification, seen: true } : notification
+            );
+            setNotificationsDem(updatedNotifications);
+        }
+    };
 const close = () => {
     setPoop(false);
 }
@@ -195,19 +212,11 @@ const [poop5,setPoop5] = useState(false)
 
     <div className="main-notif">
         <div className="navigation-bar">
-
+            <SideNav/>
         </div>
         <div className="secondary-notif">
 
-            <div className="search-div">
-
-                <label className="search-bar">
-                    <img className="imgrecherche" src={im} />
-                    <input className="inprech" type="text" placeholder="Rechercher un projet" />
-                </label>
-                <img className="imgprofil" src={imj} />
-
-            </div>
+        <SearchBar  title="Rechercher Un Projet"/>
                 <div className=" textos">
                     <h1 className="hnotif">Notifications</h1>
                     <div>
@@ -227,7 +236,7 @@ const [poop5,setPoop5] = useState(false)
                     <div className="notifications">
                         
                         {conflit && notificationsConflit.map(element => (
-                            <div className="note" key={element._id}>
+                            <div key={element._id} className="note" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage">
                             <img className="notif-icon" src={element.imge} alt="Notification Icon" />
                             <p className="notif-message">{element.message}</p>
@@ -238,7 +247,7 @@ const [poop5,setPoop5] = useState(false)
                             <img className="tab" src={element.tab}></img>
                             <p className="dom">{element.dom}</p>
                             </div>
-                            <button className="det-button" onClick={() => {setNotifConf(element);handleDetailsClick(element.type); }}>
+                            <button className="det-button" onClick={() => {setNotifConf(element);handleDetailsClick(element.type); handleSeen(element._id,"conflit"); }}>
                                 Détails
                             </button>
                             </div>
@@ -251,7 +260,7 @@ const [poop5,setPoop5] = useState(false)
                         {<ConflitSignal popUp={poop1} close={close1} notif={notifConf}/>}
                         {<ConflitChat popUp={poop2} close={close2} notif={notifConf}/>}
                         {col && notificationsCol.map(element => (
-                            <div className="note">
+                            <div key={element._id} className="note" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage">
                             <img className="notif-icon" src={element.imge} alt="Notification Icon" />
                             <p className="notif-message">{element.message}</p>
@@ -262,7 +271,7 @@ const [poop5,setPoop5] = useState(false)
                             <img className="tab" src={element.tab}></img>
                             <p className="dom">{element.dom}</p>
                             </div>
-                            <button className="det-button" onClick={()=>{setNotifCol(element); handleDetailsClick2(element.type)}}>Détails</button>
+                            <button className="det-button" onClick={()=>{setNotifCol(element);handleSeen(element._id,"col"); handleDetailsClick2(element.type)}}>Détails</button>
                             </div>
                             
                         </div>
@@ -271,7 +280,7 @@ const [poop5,setPoop5] = useState(false)
                         {<Collaboration popUp={poop3} close={close3} notif={notifCol}/>}
 
                         {dem && notificationsDem.map(element => (
-                            <div className="note">
+                            <div key={element._id} className="note" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage">
                             <img className={element.type === "demandeRefuse" ? "refusIcon" : "notif-icon"} src={element.imge} alt="Notification Icon" />
                             <p className="notif-message">{element.message}</p>
@@ -282,7 +291,7 @@ const [poop5,setPoop5] = useState(false)
                             <img className="tab" src={element.tab}></img>
                             <p className="dom">{element.dom}</p>
                             </div>
-                            <button className="det-button" onClick={()=>{setNotifDem(element); handleDetailsClick3(element.type)}}>Détails</button>
+                            <button className="det-button" onClick={()=>{setNotifDem(element); handleDetailsClick3(element.type);handleSeen(element._id,"dem")}}>Détails</button>
                             </div>
                             
                         </div>

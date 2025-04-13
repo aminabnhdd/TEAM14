@@ -33,8 +33,8 @@ function Collaboration ({popUp,close,notif}) {
             {notif.projet}</p>
             </div>
             <div className="batens">
-                <button className="baten1" onClick={()=>{colab("accept")}}>Accepter</button>
-                <button className="baten2" onClick={()=>{colab("refuse")}}>Refuser</button>
+                <button className="baten3" onClick={()=>{colab("accept")}}>Accepter</button>
+                <button className="baten4" onClick={()=>{colab("refuse")}}>Refuser</button>
             </div>
         </div>
     </div>  )

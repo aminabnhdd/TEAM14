@@ -2,12 +2,20 @@ import arrLeft from "../../assets/arrow-left-solid.svg";
 import doc from "../../assets/uil_file-upload-alt.png";
 import { useRef, useState } from "react";
 import axios from "axios";
+import ximg from "../../assets/x.png"
 import Demande from "../popUps/Demande";
 import "../../ComponentsStyles/Insctiptions styles/NewInsEx3.css";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
-function NewInsEx3({ prevPopUp2 }) {
-  const navigate = useNavigate() ;
+function NewInsEx3({ prevPopUp2,swipeDirection }) {
+    const navigate = useNavigate();
+
+
+    const onX = () =>{
+        setAppX(false)
+        setPreview(null)
+    }
 
   const goToConnexion = () => {
     navigate("/connexion");
@@ -17,7 +25,8 @@ function NewInsEx3({ prevPopUp2 }) {
     const [files, setFiles] = useState([]);
     const [popDem, setPopDem] = useState(false);
     const [preview, setPreview] = useState(null); // Store file preview URL
-    const [borderColor, setBorderColor] = useState("#A0A5A6"); // Default border color
+    const [borderStyle, setBorderStyle] = useState("1px dashed #A0A5A6");
+    const [appX,setAppX] = useState(false);
     const [formData, setFormData] = useState({
         nom: "",
         prenom: "",
@@ -34,11 +43,11 @@ function NewInsEx3({ prevPopUp2 }) {
     const handleFileChange = async (event) => {
         const selectedFiles = Array.from(event.target.files);
         setFiles(selectedFiles);
-        setBorderColor("#A0A5A6"); // Reset border to default
+        setBorderStyle("1px dashed #A0A5A6");
 
-        // Set preview image if it's an image file
         if (selectedFiles.length > 0) {
             const file = selectedFiles[0];
+            setAppX(true)
             if (file.type.startsWith("image/")) {
                 setPreview(URL.createObjectURL(file));
             }
@@ -64,14 +73,13 @@ function NewInsEx3({ prevPopUp2 }) {
             localStorage.removeItem("formData1");
             localStorage.removeItem("formData2");    
         }
-        
-      
     };
 
     const handleSubmit = () => {
         if (files.length === 0) {
+            setBorderStyle("1.6px dashed red");
+            setErrorMessage("Veuillez ajouter un fichier.");
 
-            setBorderColor("red"); // Set border to red if no file is uploaded
         } else {
             const data = new FormData();
             for (const key in formData) {
@@ -91,15 +99,24 @@ function NewInsEx3({ prevPopUp2 }) {
             
         }
     };
+    const [errorMessage, setErrorMessage] = useState("");
+
 
     return (
-        <div className="inscription-form-four">
+
+        <motion.div
+      className="inscription-form-four"
+      initial={{ x: swipeDirection === "right" ? -100 : 100, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: swipeDirection === "left" ? 100 : -100, opacity: 0 }}
+      transition={{ duration: 0.35, ease: "easeInOut" }}
+    >
+        
             <div className="texts-four">
                 <p className="bien-four">Bienvenue sur </p>
                 <p className="athar-four">ATHAR</p>
                 <p className="compte-four">
-                    Vous avez déjà un compte ?
-                    <span className="connexion-four" onClick={goToConnexion}> Connectez vous.</span>
+                    Vous avez déjà un compte ? <span className="connexion-four" onClick={goToConnexion}>Connectez vous.</span>
                 </p>
             </div>
             <div className="documents-four">
@@ -108,7 +125,7 @@ function NewInsEx3({ prevPopUp2 }) {
                     className="documents-square-four" 
                     onClick={handleClick} 
                     style={{ 
-                        border: `1px dashed ${borderColor}`, 
+                        border: borderStyle,
                         padding: "20px", 
                         cursor: "pointer", 
                         borderRadius: "10px", 
@@ -117,13 +134,14 @@ function NewInsEx3({ prevPopUp2 }) {
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                         backgroundRepeat: "no-repeat",
-                        height: "200px", // Fixed height
+                        height: "200px",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         position: "relative",
                     }}
                 >
+                    {appX && <img onClick={onX} className="xi" src={ximg} alt="x" style={{position:"absolute",width:"23px",top:"6px",right:"6px",cursor:"pointer",zIndex:"100"}} />}
                     {!preview && (
                         <>
                             <img src={doc} alt="Upload" className="circle" style={{ width: "19%", height: "31%" }} />
@@ -135,6 +153,11 @@ function NewInsEx3({ prevPopUp2 }) {
                         </>
                     )}
                 </div>
+                {errorMessage && (
+        <p  className="erri">
+            {errorMessage}
+        </p>
+    )}
                 <input
                     type="file"
                     multiple
@@ -150,8 +173,9 @@ function NewInsEx3({ prevPopUp2 }) {
                 <button className="cnct-btn" onClick={handleSubmit}>S'inscrire</button>
             </div>
             {<Demande popUp={popDem} foncone={() => setPopDem(false)} />}
-        </div>
+        
+        </motion.div>
     );
 }
 
-export default NewInsEx3;
+export default NewInsEx3

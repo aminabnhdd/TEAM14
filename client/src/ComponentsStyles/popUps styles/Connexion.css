@@ -41,7 +41,7 @@
         border: 1px solid var(--NEUTRAL-400, #A0A5A6);
         background: var(--white, #FEFEFE);
         width: 100%;
-        color: rgba(85, 85, 94, 0.70);
+        color: #2D2D2D;
         font-size: 12px;
         font-style: normal;
         font-weight: 400;
@@ -74,7 +74,7 @@
 .popUp1-compte {
     color: #707778;
     text-align: center;
-    font-size: 11px;
+    font-size: 11.5px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -82,17 +82,18 @@
 
 .popUp1-connexion{
     color: #C57642;
-    font-size: 10px;
+    font-size: 11.5px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     cursor: pointer;
+    text-decoration: underline;
 }
 
 
 .popUp1-mdp-oublie {
     color: #C57642;
-    font-size: 10.5px;
+    font-size: 11.5px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -125,6 +126,12 @@
         font-style: normal;
         font-weight: 600;
         line-height: normal;
+        transition: transform 0.3s,box-shadow 0.3s;
+}
+
+.popUp1-btn1:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
 }
 
 

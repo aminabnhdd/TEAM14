@@ -77,7 +77,7 @@ function ReiniMdp() {
                             e.target.style.outline = "none"; 
                           }} 
                     />
-                    {errors.password && <p className="err_message">{errors.password}</p>}
+                    {errors.password && <p className="err_message4">{errors.password}</p>}
                     <div className="popUp5-eye1" onClick={TogglePass}>
                         {visible ? <FiEyeOff /> : <FiEye />}
                     </div>
@@ -100,7 +100,7 @@ function ReiniMdp() {
                             e.target.style.outline = "none"; 
                           }} 
                     />
-                    {errors.password2 && <p className="err_message">{errors.password2}</p>}
+                    {errors.password2 && <p className="err_message4">{errors.password2}</p>}
                     <div className="popUp5-eye2" onClick={TogglePass2}>
                         {visible2 ? <FiEyeOff /> : <FiEye />}
                     </div>

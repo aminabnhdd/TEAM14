@@ -1,36 +1,43 @@
 import '../../ComponentsStyles/SideNav styles/SideNav.css'
-import { Link } from "react-router-dom";
 import { FaCompass, FaStar, FaEdit, FaBell } from "react-icons/fa";
 import { FaQuestionCircle } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+import img from "../../assets/Screenshot 2025-03-03 at 8.36.18 PM 1.png"
+
 function SideNav(){
+    const navigate = useNavigate()
+
+    const goToLsProjets = () => {
+    navigate("/") // hna tdir la page li rak hab troh liha
+    }
+    const goToLsUtil = () => {
+    navigate("/")
+    }
+    const goToNotifAdmin = () => {
+    navigate("/")
+    }
+
     return(
+        <div className="parent-sideNav">
         <div className="side-nav">
-            <Link to="">
-            {/*<img className="discover-icon" src="/assets/images/discover.png"></img>*/}
-            <FaCompass className="discover-icon" />
-            </Link>
-
-            <Link to="">
-            {/*<img className="favorite-icon" src="/assets/images/favorite.png"></img>*/}
-            <FaEdit className="favorite-icon" />
-            </Link>
-
-            <Link to="">
-            {/*<img className="document-icon" src="/assets/images/document.png"></img>*/}
-            <FaStar className="document-icon" />
-            </Link>
-
-            <Link to="">
-            {/*<img className="notification-icon" src="/assets/images/notification.png"></img>*/}
-            <FaBell className="notification-icon" />
-            </Link>
-
-            <Link to="">
-            <FaQuestionCircle className="help-icon" />;
-            </Link>
-            
-
-        </div>
+                    <div className="upperIcons1">
+        
+                    <img src={img} alt="hh"  className="ico1"/>
+        
+                    <div className="icons1">
+                    <FaCompass className="iconus1" onClick={goToLsProjets} />
+                    <FaStar className="iconus1" onClick={goToLsUtil}/>
+                    <FaEdit className="iconus1"  onClick={goToNotifAdmin}/>
+                    <FaBell className="iconus1"  onClick={goToNotifAdmin}/>
+                    </div>
+        
+                    </div>
+                    <div className="lowerIcon1">
+                    <FaQuestionCircle className="lastIcon" />
+                    </div>
+                    
+                </div>
+                </div>
         
         
     )

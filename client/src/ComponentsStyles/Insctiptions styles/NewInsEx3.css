@@ -29,6 +29,11 @@
     height: 24px;
 }
 
+.xi:hover{
+    filter: invert(18%) sepia(100%) saturate(7497%) hue-rotate(1deg) brightness(101%) contrast(104%);
+
+}
+
 .athar-four {
     color: var(--brown, #C57642);
     text-align: center;
@@ -42,7 +47,7 @@
 .compte-four {
     color: #707778;
     text-align: center;
-    font-size: 0.9vw;
+    font-size: 11.52px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -51,37 +56,48 @@
 .connexion-four {
     color: #C57642;
     text-align: center;
-    font-size: 0.9vw;
+    font-size: 11.52px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    text-decoration: underline;
     cursor: pointer;
 }
 
 .footer-four{
     display: flex;
     width: 82%;
+    align-items: center;
     justify-content: flex-end;
 }
 
 .cnct-btn {
     
-        padding: 3% 6%;
-        border-radius: 32px;
-        background: #E8C07D;
-        border: none;
-        cursor: pointer;
-        color: var(--black, #2D2D2D);
-        text-align: center;
-        font-size: 1.15vw;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-
+    padding: 3% 0;
+    border-radius: 32px;
+    width: 29%;
+    background: #E8C07D;
+    border: none;
+    cursor: pointer;
+    color: var(--black, #2D2D2D);
+    text-align: center;
+    font-size: 14.7px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    transition: transform 0.3s, box-shadow 0.3s;        
 }
 
+.erri{
+    color: red;
+    font-size: 11px;
+    position: absolute;
+}
 
-
+.cnct-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+  }
 
 .close-btn-four img {
     width: 25px;
@@ -96,13 +112,10 @@
     width: 16px;
     height: 16px;
     position: absolute;
-    bottom: 9%;
+    left: 9%;
     cursor: pointer;
 }
 
-.lr-four {
-    left: 9%;
-}
 
  .lr-four:hover {
     filter: invert(66%) sepia(25%) saturate(747%) hue-rotate(1deg) brightness(101%) contrast(104%);

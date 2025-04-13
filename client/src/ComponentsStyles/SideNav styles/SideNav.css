@@ -53,3 +53,17 @@
     flex-direction: column;
     padding-bottom: 37%;
 }
+
+.parent-sideNav {
+    position: relative;
+    display: flex;
+}
+
+.lastIcon{
+    position: absolute;
+    color: white;
+    font-size: 160%;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}

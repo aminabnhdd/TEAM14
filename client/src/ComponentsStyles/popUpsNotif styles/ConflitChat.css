@@ -13,6 +13,14 @@
     background-color: #E2E5E6;
     cursor: pointer;
     font-weight: 600;
+    transition: color 0.3s,background-color 0.3s,transform 0.3s,box-shadow 0.3s ;
+}
+
+.batens2:hover{
+    color: black;
+    background-color: #E8C07D;
+    transform: scale(1.05);
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
 }
 
 .linkimg{

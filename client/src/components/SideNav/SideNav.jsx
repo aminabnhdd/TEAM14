@@ -18,7 +18,7 @@ function SideNav(){
     }
 
     return(
-
+        <div className="parent-sideNav">
         <div className="side-nav">
                     <div className="upperIcons1">
         
@@ -33,9 +33,10 @@ function SideNav(){
         
                     </div>
                     <div className="lowerIcon1">
-                    <FaQuestionCircle className="iconus1" />
+                    <FaQuestionCircle className="lastIcon" />
                     </div>
                     
+                </div>
                 </div>
         
         

@@ -9,19 +9,38 @@ import imjjjjjj from "../../assets/person.png"
 
 function ListUtil() {
 
-    const notificationsConflit = [
+    const [notificationsConflit, setNotificationsConflit] = useState([
         
-        {type:"expert",imge:imjjjjjj,util:"Benhaddad Amina",dom:"Expert en Architecture",button:"Voir compte"},
-        {type:"expert",imge:imjjjjjj,util:"Rahim Sarah",dom:"Expert en Histoire",button:"Voir compte"},
-        {type:"expert",imge:imjjjjjj,util:"Souames Rayhane Manel",dom:"Expert en Architecture",button:"Voir compte"},
-        {type:"expert",imge:imjjjjjj,util:"Yahiha-Cherif Lina",dom:"Expert en Histoire",button:"Voir compte"},
-    ]    
-    
-    const notificationsCol = [
-        {type:"visiteur",imge:imjjjjjj,util:"Rahim Sarah",button:"Voir compte"},
-        {type:"visiteur",imge:imjjjjjj,util:"Rachem Riadh",button:"Voir compte"},
-        {type:"visiteur",imge:imjjjjjj,util:"l'Aliouche",button:"Voir compte"},
-    ]   
+        {id:"1",seen:false,type:"expert",imge:imjjjjjj,util:"Benhaddad Amina",dom:"Expert en Architecture",button:"Voir compte"},
+        {id:"2",seen:false,type:"expert",imge:imjjjjjj,util:"Rahim Sarah",dom:"Expert en Histoire",button:"Voir compte"},
+        {id:"3",seen:false,type:"expert",imge:imjjjjjj,util:"Souames Rayhane Manel",dom:"Expert en Architecture",button:"Voir compte"},
+        {id:"4",seen:false,type:"expert",imge:imjjjjjj,util:"Yahiha-Cherif Lina",dom:"Expert en Histoire",button:"Voir compte"},
+    ]   ) 
+        const [notificationsCol , setNotificationsCol] = useState([
+        {id:"5",seen:false,type:"visiteur",imge:imjjjjjj,util:"Rahim Sarah",button:"Voir compte"},
+        {id:"6",seen:false,type:"visiteur",imge:imjjjjjj,util:"Rachem Riadh",button:"Voir compte"},
+        {id:"7",seen:false,type:"visiteur",imge:imjjjjjj,util:"l'Aliouche",button:"Voir compte"},
+        {id:"8",seen:false,type:"visiteur",imge:imjjjjjj,util:"Rahim Sarah",button:"Voir compte"},
+        {id:"9",seen:false,type:"visiteur",imge:imjjjjjj,util:"Rachem Riadh",button:"Voir compte"},
+        {id:"10",seen:false,type:"visiteur",imge:imjjjjjj,util:"l'Aliouche",button:"Voir compte"},
+        {id:"11",seen:false,type:"visiteur",imge:imjjjjjj,util:"Rahim Sarah",button:"Voir compte"},
+        {id:"12",seen:false,type:"visiteur",imge:imjjjjjj,util:"Rachem Riadh",button:"Voir compte"},
+        {id:"13",seen:false,type:"visiteur",imge:imjjjjjj,util:"l'Aliouche",button:"Voir compte"},
+    ])
+
+    const handleSeenProjet = (id,type) => {
+        if (type === "expert") {
+        const updated = notificationsConflit.map(n =>
+          n.id === id ? { ...n, seen: true } : n
+        );
+        setNotificationsConflit(updated);
+    }else if (type === "visiteur") {
+        const updated = notificationsCol.map(n =>
+          n.id === id ? { ...n, seen: true } : n
+        );
+        setNotificationsCol(updated);
+    }
+      };
 
     const [searchQuery, setSearchQuery] = useState("");
       
@@ -89,7 +108,7 @@ const [col,setCol] = useState(false)
                     <div className="notifications-LsUtil">
                         
                         {conflit && filteredNotifications.map(element => (
-                            <div className="note-LsUtil1">
+                            <div className="note-LsUtil1" key={element.id} style={{ background: element.seen ? "#f1f1f1" : "white" }}>
                             <div className="iconwmessage-LsUtil1">
                             <img className="notif-icon-LsUtil1" src={element.imge} alt="Notification Icon" />
                             <p className="notif-message-LsUtil1">{element.util}</p>
@@ -98,7 +117,7 @@ const [col,setCol] = useState(false)
                             <div className="tabwdom-LsUtil1">
                             <p className="dom-LsUtil1">{element.dom}</p>
                             </div>
-                            <button className="det-button-LsUtil1" >
+                            <button className="det-button-LsUtil1" onClick={( ) => handleSeenProjet(element.id,"expert")}>
                                 {element.button}
                             </button>
                             </div>
@@ -108,13 +127,13 @@ const [col,setCol] = useState(false)
                         ))}
 
                         {col && filteredNotifications1.map(element => (
-                            <div className="note-LsUtil2">
+                            <div className="note-LsUtil2" key={element.id} style={{ background: element.seen ? "#f1f1f1" : "white" }}>
                             <div className="iconwmessage-LsUtil2">
                             <img className="notif-icon-LsUtil1" src={element.imge} alt="Notification Icon" />
                             <p className="notif-message-LsUtil2">{element.util}</p>
                             </div>
                             <div className="notwtabwdom-LsUtil2">
-                            <button className="det-button-LsUtil1" >{element.button}</button>
+                            <button className="det-button-LsUtil1" onClick={( ) => handleSeenProjet(element.id,"visiteur")} >{element.button}</button>
                             </div>
                         </div>
                         ))}

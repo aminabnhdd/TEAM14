@@ -19,8 +19,8 @@ function Collaboration ({popUp,close}) {
             {e.project}</p>
             </div>
             <div className="batens">
-                <button className="baten1">Accepter</button>
-                <button className="baten2">Refuser</button>
+                <button className="baten3">Accepter</button>
+                <button className="baten4">Refuser</button>
             </div>
         </div>
     </div>  )

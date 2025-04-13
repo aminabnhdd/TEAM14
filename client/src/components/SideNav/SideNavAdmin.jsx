@@ -23,6 +23,7 @@ function SideNavAdmin(){
 
 
     return(
+        
         <div className="side-nav">
             <div className="upperIcons">
 

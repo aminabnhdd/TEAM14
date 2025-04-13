@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 * {
     margin: 0;
@@ -53,6 +52,8 @@
     display: flex;
     flex-direction: column;
     gap: 3%;
+    overflow-x: overlay;
+    scrollbar-gutter: stable; 
 }
 
 .imgrecherche-lsPrjct{
@@ -123,7 +124,7 @@
 }
 
 .line-lsPrjct{
-    width: 91%;
+    width: 93%;
     height: 1.33px;
     background: #D1D4D5;
 }
@@ -143,7 +144,7 @@
 }
 
 .notifications-lsPrjct{
-    width: 91%;
+    width: 93%;
 
 }
 
@@ -162,7 +163,7 @@
     font-size: 13px;
     width: 72%;
     align-items: center;
-    gap: 18%;
+    gap: 20%;
 }
 
 .notif-message-lsPrjct{
@@ -183,6 +184,7 @@
 .dom-lsPrjct{
     width: 57%;
     font-weight: 600;
+    
 }
 
 .tab-lsPrjct{
@@ -193,13 +195,14 @@
 
 .det-button-lsPrjct{
     display: flex;
-    padding: 8px 8%;
+    padding: 10px 0%;
+    width: 26%;
+    justify-content: center;
     align-items: center;
     border: none;
     gap: 12px;
     border-radius: 36px;
     background: var(--dune, #E8C07D);
-    width: auto;
     cursor: pointer;
     font-size: 13px;
 }

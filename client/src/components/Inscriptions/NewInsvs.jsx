@@ -61,8 +61,7 @@ function NewInsvs () {
                 <p className="bien-one">Bienvenue sur </p>
                 <p className="athar-one">ATHAR</p>
                 <p className="compte-one">
-                  Vous avez déjà un compte ? {" "}
-                  <span className="connexion-one" onClick={goToConnexion}>Connectez-vous.</span>
+                  Vous avez déjà un compte ?  <span className="connexion-one" onClick={goToConnexion}> Connectez-vous.</span>
                 </p>
               </div>
 

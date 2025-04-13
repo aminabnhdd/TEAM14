@@ -21,7 +21,7 @@ function ConflitChat ({popUp,close}) {
                 </div>
                 
                 <button className="batens2">
-                    <p className="baten3">Lien vers chat</p>
+                    <p className="baten5">Lien vers chat</p>
                     <img className="linkimg" src={link} alt="walter white" />
                     
                 </button>

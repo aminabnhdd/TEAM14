@@ -17,12 +17,16 @@
 
 .form-group-three {
     display: flex;
+    position: relative;
     flex-direction: column;
     outline: none;
     gap: 2px;
-    position: relative;
     height: 20%;
 }
+.select-wrapper {
+    position: relative;
+    width: 100%;
+  }
 
 .input-three {
     display: flex;
@@ -32,7 +36,7 @@
     border: 1px solid var(--NEUTRAL-400, #A0A5A6);
     background: var(--white, #FEFEFE);
     width:100%;
-    color: rgba(85, 85, 94, 0.70);
+    color: #2d2d2d;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
@@ -41,23 +45,44 @@
     outline: none;
     transition: border-color 0.3s;
 }
+ .fa-solid{
+    font-size: 10px;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    pointer-events: none;
+    color: #A0A5A6;
+    transform: translateY(-50%);
+} 
+
 .input-three-select , .input-error-select {
+    appearance: none;
     display: flex;
-    padding: 0 5px;
+    padding: 0 7px;
     align-items: center;
+    position: relative;
     border-radius: 10px;
     border: 1px solid var(--NEUTRAL-400, #A0A5A6);
     background: var(--white, #FEFEFE);
     width:100%;
-    color: rgba(85, 85, 94, 0.70);
+    color: #2D2D2D;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     height: 32px;
     outline: none;
-    
 }
+
+
+
+.opt{
+
+}
+
+.input-three-select:invalid {
+    color: gray;
+  }
 
 .input-error-select {
     border: 1.5px solid #EF4444 !important;
@@ -99,15 +124,16 @@
 .compte-three {
     color: #707778;
     text-align: center;
-    font-size: 0.9vw;
+    font-size: 11.5px;
     font-weight: 400;
 }
 
 .connexion-three {
     color: #C57642;
-    font-size: 0.9vw;
+    font-size: 11.5px;
     font-weight: 400;
     cursor: pointer;
+    text-decoration: underline;
 }
 
 .info-three {

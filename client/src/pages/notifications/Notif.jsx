@@ -19,21 +19,37 @@ import imjjjjjjjj from "../../assets/utilisateur-verifie 1.png"
 
 function Notif() {
 
-    const notificationsConflit = [
-        {type:"conflitResolu",imge:imjjjj,message:"Un conflit a été résolu !",time:"1min",tab:imjjjjj,dom:"Architecture",button:"Détails"},
-        {type:"conflitSignal",imge:imjj,message:"Un conflit a été signalé !",time:"2min",tab:imjjjjj,dom:"Histoire",button:"Détails"},
-        {type:"conflitValid",imge:imjjj,message:"Un conflit a été signalé dans l’un de vos projets !",time:"4min",tab:imjjjjj,dom:"Archéologie",button:"Détails"}
-    ]    
+    const [notificationsConflit, setNotificationsConflit] = useState([
+        {id:"1",seen: false,  type:"conflitResolu",imge:imjjjj,message:"Un conflit a été résolu !",time:"1min",tab:imjjjjj,dom:"Architecture",button:"Détails"},
+        {id:"2",seen: false,  type:"conflitSignal",imge:imjj,message:"Un conflit a été signalé !",time:"2min",tab:imjjjjj,dom:"Histoire",button:"Détails"},
+        {id:"3",seen: false,  type:"conflitValid",imge:imjjj,message:"Un conflit a été signalé dans l’un de vos projets !",time:"4min",tab:imjjjjj,dom:"Archéologie",button:"Détails"},
+        {id:"4",seen: false,  type:"conflitResolu",imge:imjjjj,message:"Un conflit a été résolu !",time:"1min",tab:imjjjjj,dom:"Architecture",button:"Détails"},
+        {id:"5",seen: false,  type:"conflitSignal",imge:imjj,message:"Un conflit a été signalé !",time:"2min",tab:imjjjjj,dom:"Histoire",button:"Détails"},
+        {id:"6",seen: false,  type:"conflitValid",imge:imjjj,message:"Un conflit a été signalé dans l’un de vos projets !",time:"4min",tab:imjjjjj,dom:"Archéologie",button:"Détails"},
+        {id:"7",seen: false,  type:"conflitResolu",imge:imjjjj,message:"Un conflit a été résolu !",time:"1min",tab:imjjjjj,dom:"Architecture",button:"Détails"},
+        
+    ]);    
     
-    const notificationsCol = [
-        {type:"demandeCollaboration",imge:imjjjjjj,message:"Rahim Sarah souhaite collaborer dans votre projet",time:"1min",tab:imjjjjj,dom:"Architecture",button:"Détails"},
-        {type:"demandeCollaboration",imge:imjjjjjj,message:"Rachem Riadh souhaite collaborer dans votre projet ",time:"2min",tab:imjjjjj,dom:"Archéologie",button:"Détails"},
-    ]   
+    const [notificationsCol, setNotificationsCol] = useState([
+        {id:"8" ,seen: false ,type:"demandeCollaboration",imge:imjjjjjj,message:"Rahim Sarah souhaite collaborer dans votre projet",time:"1min",tab:imjjjjj,dom:"Architecture",button:"Détails"},
+        {id:"9" ,seen: false ,type:"demandeCollaboration",imge:imjjjjjj,message:"Rachem Riadh souhaite collaborer dans votre projet ",time:"2min",tab:imjjjjj,dom:"Archéologie",button:"Détails"},
+        {id:"10",seen: false  ,type:"demandeCollaboration",imge:imjjjjjj,message:"Rahim Sarah souhaite collaborer dans votre projet",time:"1min",tab:imjjjjj,dom:"Architecture",button:"Détails"},
+        {id:"11",seen: false  ,type:"demandeCollaboration",imge:imjjjjjj,message:"Rachem Riadh souhaite collaborer dans votre projet ",time:"2min",tab:imjjjjj,dom:"Archéologie",button:"Détails"},
+        {id:"12",seen: false  ,type:"demandeCollaboration",imge:imjjjjjj,message:"Rahim Sarah souhaite collaborer dans votre projet",time:"1min",tab:imjjjjj,dom:"Architecture",button:"Détails"},
+        {id:"13",seen: false  ,type:"demandeCollaboration",imge:imjjjjjj,message:"Rachem Riadh souhaite collaborer dans votre projet ",time:"2min",tab:imjjjjj,dom:"Archéologie",button:"Détails"},
+        
+    ])
 
-    const notificationsDem = [
-        {type:"demandeRefuse",imge:imjjjjjjj,message:"Votre demande de collaboration a été refusée.",time:"5min",tab:imjjjjj,dom:"Archéologie",button:"Détails"},
-        {type:"demandeAccepte",imge:imjjjjjjjj,message:"Votre demande de collaboration a été acceptée ! ",time:"34min",tab:imjjjjj,dom:"Histoire",button:"Détails"},
-    ]    
+    const [notificationsDem, setNotificationsDem] = useState([
+        {id:"14",seen: false ,type:"demandeRefuse",imge:imjjjjjjj,message:"Votre demande de collaboration a été refusée.",time:"5min",tab:imjjjjj,dom:"Archéologie",button:"Détails"},
+        {id:"15",seen: false ,type:"demandeAccepte",imge:imjjjjjjjj,message:"Votre demande de collaboration a été acceptée ! ",time:"34min",tab:imjjjjj,dom:"Histoire",button:"Détails"},
+        {id:"16",seen: false ,type:"demandeRefuse",imge:imjjjjjjj,message:"Votre demande de collaboration a été refusée.",time:"5min",tab:imjjjjj,dom:"Archéologie",button:"Détails"},
+        {id:"17",seen: false ,type:"demandeAccepte",imge:imjjjjjjjj,message:"Votre demande de collaboration a été acceptée ! ",time:"34min",tab:imjjjjj,dom:"Histoire",button:"Détails"},
+        {id:"18",seen: false ,type:"demandeRefuse",imge:imjjjjjjj,message:"Votre demande de collaboration a été refusée.",time:"5min",tab:imjjjjj,dom:"Archéologie",button:"Détails"},
+        {id:"19",seen: false ,type:"demandeAccepte",imge:imjjjjjjjj,message:"Votre demande de collaboration a été acceptée ! ",time:"34min",tab:imjjjjj,dom:"Histoire",button:"Détails"},
+        {id:"20",seen: false ,type:"demandeRefuse",imge:imjjjjjjj,message:"Votre demande de collaboration a été refusée.",time:"5min",tab:imjjjjj,dom:"Archéologie",button:"Détails"},
+        {id:"21",seen: false ,type:"demandeAccepte",imge:imjjjjjjjj,message:"Votre demande de collaboration a été acceptée ! ",time:"34min",tab:imjjjjj,dom:"Histoire",button:"Détails"},
+    ]  )  
 
     useEffect(() => {
         // Make "Conflits" active at the beginning
@@ -88,7 +104,24 @@ function Notif() {
         if (type === "demandeAccepte") setPoop5(true)
     }
     
-
+    const handleSeen = (id, type) => {
+        if (type === "conflit") {
+            const updatedNotifications = notificationsConflit.map(notification =>
+                notification.id === id ? { ...notification, seen: true } : notification
+            );
+            setNotificationsConflit(updatedNotifications);
+        } else if (type === "col") {
+            const updatedNotifications = notificationsCol.map(notification =>
+                notification.id === id ? { ...notification, seen: true } : notification
+            );
+            setNotificationsCol(updatedNotifications);
+        } else if (type === "dem") {
+            const updatedNotifications = notificationsDem.map(notification =>
+                notification.id === id ? { ...notification, seen: true } : notification
+            );
+            setNotificationsDem(updatedNotifications);
+        }
+    };
 const close = () => {
     setPoop(false);
 }
@@ -148,7 +181,7 @@ const [poop5,setPoop5] = useState(false)
                     <div className="notifications">
                         
                         {conflit && notificationsConflit.map(element => (
-                            <div className="note">
+                            <div key={element.id} className="note" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage">
                             <img className="notif-icon" src={element.imge} alt="Notification Icon" />
                             <p className="notif-message">{element.message}</p>
@@ -159,7 +192,7 @@ const [poop5,setPoop5] = useState(false)
                             <img className="tab" src={element.tab}></img>
                             <p className="dom">{element.dom}</p>
                             </div>
-                            <button className="det-button" onClick={() => handleDetailsClick(element.type)}>
+                            <button className="det-button" onClick={() => {handleDetailsClick(element.type); handleSeen(element.id,"conflit"); }}>
                                 {element.button}
                             </button>
                             </div>
@@ -172,7 +205,7 @@ const [poop5,setPoop5] = useState(false)
                         ))}
 
                         {col && notificationsCol.map(element => (
-                            <div className="note">
+                            <div key={element.id} className="note" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage">
                             <img className="notif-icon" src={element.imge} alt="Notification Icon" />
                             <p className="notif-message">{element.message}</p>
@@ -183,14 +216,14 @@ const [poop5,setPoop5] = useState(false)
                             <img className="tab" src={element.tab}></img>
                             <p className="dom">{element.dom}</p>
                             </div>
-                            <button className="det-button" onClick={()=>handleDetailsClick2(element.type)}>{element.button}</button>
+                            <button className="det-button" onClick={()=> {handleDetailsClick2(element.type);handleSeen(element.id,"col")}}>{element.button}</button>
                             </div>
                             {<Collaboration popUp={poop3} close={close3}/>}
                         </div>
                         ))}
 
                         {dem && notificationsDem.map(element => (
-                            <div className="note">
+                            <div key={element.id} className="note" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage">
                             <img className={element.type === "demandeRefuse" ? "refusIcon" : "notif-icon"} src={element.imge} alt="Notification Icon" />
                             <p className="notif-message">{element.message}</p>
@@ -201,7 +234,7 @@ const [poop5,setPoop5] = useState(false)
                             <img className="tab" src={element.tab}></img>
                             <p className="dom">{element.dom}</p>
                             </div>
-                            <button className="det-button" onClick={()=>handleDetailsClick3(element.type)}>{element.button}</button>
+                            <button className="det-button" onClick={()=> {handleDetailsClick3(element.type);handleSeen(element.id,"dem")}}>{element.button}</button>
                             </div>
                             {<Refus  popUp={poop4} close={close4}/>}
                             {<Acceptation  popUp={poop5} close={close5}/>}

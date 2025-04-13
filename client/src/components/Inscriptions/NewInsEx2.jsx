@@ -1,24 +1,23 @@
+import { motion } from "framer-motion";
 import { useState } from "react";
 import arrRight from "../../assets/arrow-right-solid.svg";
 import arrLeft from "../../assets/arrow-left-solid.svg";
 import "../../ComponentsStyles/Insctiptions styles/NewInsEx2.css";
 import { useNavigate } from "react-router-dom";
 
-function NewInsEx2({ prevPopUp, fn }) {
 
-
-  const navigate = useNavigate() ;
+function NewInsEx2({ prevPopUp, fn,swipeDirection}) {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    expertise: "",
+    etablissement: "",
+    discipline: "",
+  });
+  const [errors, setErrors] = useState({});
 
   const goToConnexion = () => {
     navigate("/Con");
-  }
-  
-  const [formData, setFormData] = useState({
-    discipline: "",
-    etablissement: "",
-    expertise: ""
-  });
-  const [errors, setErrors] = useState({});
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -26,90 +25,110 @@ function NewInsEx2({ prevPopUp, fn }) {
 
   const validateForm = () => {
     let newErrors = {};
-
     if (!formData.discipline.trim()) newErrors.discipline = "Discipline requise";
     if (!formData.etablissement.trim()) newErrors.etablissement = "Etablissement requis";
-    if (!formData.expertise.trim()) newErrors.expertise = "Domaine d'expertise requis";
-
+    if (!formData.expertise.trim()) newErrors.expertise = "Niveau d'expertise requis";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = () => {
     if (validateForm()) {
-      fn();
+      setTimeout(() => fn()); // Call fn after animation
     }
   };
 
+  const handleBack = () => {
+    setTimeout(prevPopUp);
+  };
+  
   return (
-    <div className="inscription-form-three">
+    
+    <motion.div
+      className="inscription-form-three"
+      initial={{ x: swipeDirection === "right" ? -100 : 100, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: swipeDirection === "left" ? 100 : -100, opacity: 0 }}
+      transition={{ duration: 0.35, ease: "easeInOut" }}
+    >
+    
       <div className="texts-three">
         <p className="bien-three">Bienvenue sur </p>
         <p className="athar-three">ATHAR</p>
         <p className="compte-three">
-          Vous avez déjà un compte ?
-          <span className="connexion-three" onClick={goToConnexion}> Connectez vous.</span>
+          Vous avez déjà un compte ? <span className="connexion-three" onClick={goToConnexion}>Connectez-vous.</span>
         </p>
       </div>
+
       <form className="info-three">
-        {["discipline", "etablissement", "laboratoire"].map((field) => (
-          <div key={field} className="form-group-three">
-            <label className="label-three" htmlFor={field}>
-              {field.charAt(0).toUpperCase() + field.slice(1)}
-              {field !== "laboratoire" && <span className="redstar"> *</span>}
-            </label>
-            <input
-              className={`input-three ${errors[field] ? "input-error" : ""}`}
-              type="text"
-              id={field}
-              placeholder={field}
-              value={formData[field]}
-              onChange={handleChange}
-              onFocus={(e) => {
-                e.target.style.border = "1px solid #E8C07D";
-                e.target.style.outline = "0.5px solid #E8C07D";
-              }}
-              onBlur={(e) => {
-                e.target.style.border = errors[field] ? "" : "1px solid #A0A5A6";
-                e.target.style.outline = "none";
-              }}
-            />
-            {errors[field] && <p className="err_message">{errors[field]}</p>}
-          </div>
-        ))}
+      {["expertise", "etablissement", "laboratoire"].map((field) => (
+  <div key={field} className="form-group-three">
+    <label className="label-three" htmlFor={field}>
+      {field === "expertise"
+        ? "Niveau d'expertise"
+        : field.charAt(0).toUpperCase() + field.slice(1)}
+      {field !== "laboratoire" && <span className="redstar"> *</span>}
+    </label>
+    <input
+      className={`input-three ${errors[field] ? "input-error" : ""}`}
+      type="text"
+      id={field}
+      placeholder={field === "expertise" ? "niveau d'expertise" : field}
+      value={formData[field]}
+      onChange={handleChange}
+      onFocus={(e) => {
+        e.target.style.border = "1px solid #E8C07D";
+        e.target.style.outline = "0.5px solid #E8C07D";
+      }}
+      onBlur={(e) => {
+        e.target.style.border = errors[field] ? "" : "1px solid #A0A5A6";
+        e.target.style.outline = "none";
+      }}
+    />
+    {errors[field] && <p className="err_message">{errors[field]}</p>}
+  </div>
+))}
+
+        
         <div className="form-group-three">
-          <label className="label-three" htmlFor="expertise">
-            Domaine d'expertise<span className="redstar"> *</span>
+          <label className="label-three" htmlFor="discipline">
+            Discipline<span className="redstar"> *</span>
           </label>
+          <div className="select-wrapper">
+
           <select
-            className={`input-three-select ${errors.expertise ? "input-error-select" : ""}`}
-            id="expertise"
-            value={formData.expertise}
+            className={`input-three-select ${errors.discipline ? "input-error-select" : ""}`}
+            id="discipline"
+            required
+            value={formData.discipline}
             onChange={handleChange}
             onFocus={(e) => {
               e.target.style.border = "1px solid #E8C07D";
               e.target.style.outline = "0.5px solid #E8C07D";
             }}
             onBlur={(e) => {
-              e.target.style.border = errors.expertise ? "" : "1px solid #A0A5A6";
+              e.target.style.border = errors.discipline ? "" : "1px solid #A0A5A6";
               e.target.style.outline = "none";
             }}
           >
-            <option value="">Sélectionnez un domaine</option>
-            <option value="archeologie">Archéologie</option>
-            <option value="histoire">Histoire</option>
-            <option value="architecture">Architecture</option>
+            <option className="opt" value="">Sélectionnez une discipline</option>
+            <option className="opt" value="archeologie">Archéologie</option>
+            <option className="opt" value="histoire">Histoire</option>
+            <option className="opt" value="architecture">Architecture</option>
           </select>
-          {errors.expertise && <p className="err_message">{errors.expertise}</p>}
+              <i className="fa-solid fa-chevron-down dropdown-icon-container"></i>
+          </div>
+          {errors.discipline && <p className="err_message">{errors.discipline}</p>}
         </div>
       </form>
+
       <div className="rr-three">
         <img src={arrRight} alt="rr" onClick={handleSubmit} />
       </div>
       <div className="lr-three">
-        <img src={arrLeft} alt="ll" onClick={prevPopUp} />
+        <img src={arrLeft} alt="ll" onClick={handleBack} />
       </div>
-    </div>
+    </motion.div>
   );
 }
 

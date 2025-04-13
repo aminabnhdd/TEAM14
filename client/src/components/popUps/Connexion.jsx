@@ -51,8 +51,7 @@ function Connect({   mdpPopUp,fun }) {
             <div className="popUp1-texts">
                 <p className="popUp1-bien">Heureux de vous revoir !</p>
                 <p className="popUp1-compte">
-                    Vous n'avez pas de compte ?
-                    <span className="popUp1-connexion" onClick={goLandingPage}> Inscrivez-vous.</span>
+                    Vous n'avez pas de compte ? <span className="popUp1-connexion" onClick={goLandingPage}>Inscrivez-vous.</span>
                 </p>
             </div>
 

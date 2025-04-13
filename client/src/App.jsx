@@ -4,6 +4,7 @@ import InsVs from "./pages/page inscription/PageInsVs"
 import Notif from "./pages/notifications/Notif";
 import Con from "./pages/page connexion/PageConnexion";
 import AuthContext from "./helpers/AuthContext";
+import AfficherExpert from "./pages/Profilpages/AfficherExpert.jsx";
 import { useState } from "react";
 import ReiniMotdps from "./pages/page connexion/PageReinit";
 import { BrowserRouter as  Router,Route,Routes } from "react-router-dom";
@@ -51,6 +52,7 @@ function App() {
           <Route path="/visualisation/:projetId" element={<Visualisation />} />
           <Route path="/projets" element={<LsProjets />} />
           <Route path="/notifications-admin" element={<NotifAdmin />} />
+          <Route path="/afficher-expert" element={<AfficherExpert />} />
           <Route path="/list-utilisateurs" element={<ListUtil />} />
 
         </Routes>

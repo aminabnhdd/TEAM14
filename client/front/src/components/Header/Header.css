@@ -37,3 +37,10 @@
     left: 30%;
     font-size: 1.5rem;
 }
+
+.profile-icon{
+    position: absolute;
+    left: 90%;
+    font-size: 1.5rem;
+    color: black;
+}

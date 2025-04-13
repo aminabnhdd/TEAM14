@@ -5,7 +5,7 @@ import axios from 'axios'
 
 function Card({size="medium", data}){
     
-    const userId = "67c1deb48c91379392eb7c51";
+    const userId = "67c8ce049495385077e83e95";  
     const [isFavorited, setIsFavorited] = useState(false);
 
     const toggleFavourite = async(project) => {

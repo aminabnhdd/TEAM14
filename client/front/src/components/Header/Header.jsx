@@ -1,5 +1,5 @@
 import './Header.css';
-import { FaUser } from 'react-icons/fa';
+import { FaUserCircle } from 'react-icons/fa';
 import {useNavigate} from 'react-router-dom';
 function Header(){
 
@@ -13,7 +13,7 @@ function Header(){
     return(
         <div className="header">
             <div onClick={handleClick} style={{ cursor: 'pointer' }}>
-            <FaUser size={30} color="#333" />
+            <FaUserCircle className="profile-icon" />
             </div>
             <h1 className="title-1">Plongez dans la l'histoire et la beauté de <br />
             <div className="hilighted-discover">L'Architecture Algerienne</div>

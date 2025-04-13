@@ -84,4 +84,35 @@ const sendPasswordForgotten = async ({ to, username, status }) => {
 };
 
 
-module.exports = sendAccountStatusEmail;
+const sendAccDis = async ({to,username})=>{
+  if (!to || !username) {
+    throw new Error("Missing email parameters");
+  }
+
+  const subject = "Votre compte a été désactivé !";
+
+  const htmlMessage = `
+      <h2>Bonjour, ${username}</h2>
+      <p>Votre Compte ATHAR a été désactivé par l'admin :(</p>
+      <p>Vous pouvez nous contacter sur : athar.e14.esi@gmail.com, pour plus d'informations.</p>
+    `;
+
+  const textMessage =`Cher ${username} ! Votre compte a été désactivé. Vous pouvez nous contacter sur athar.e14.esi@gmail.com`;
+
+  try {
+    await transporter.sendMail({
+      from: `"Support Admin" <${process.env.EMAIL}>`,
+      to,
+      subject,
+      text: textMessage, 
+      html: htmlMessage,
+    });
+
+    console.log(`Email envoyé à ${to}`);
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de l'email:", error);
+    throw new Error("Échec de l'envoi de l'email");
+  }
+}
+
+module.exports = {sendAccountStatusEmail,sendAccDis};

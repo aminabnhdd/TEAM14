@@ -6,7 +6,7 @@ const { userModel, expertModel } = require("../model/user");
 const visitorRole = process.env.VISITOR_ROLE;
 
 
-const sendAccountStatusEmail = require("../middlewares/emailMiddleware");
+const {sendAccountStatusEmail,sendAccDis} = require("../middlewares/emailMiddleware");
 
 
 router.put("/:userId", async (req, res) => {
@@ -133,6 +133,29 @@ router.get('/search/users', async (req, res) => {
         res.sendStatus(500);
     }
 });
+
+
+
+router.put('/disable/:userId',async (req, res) => {
+    try {
+        const { userId } = req.params;
+        if (!userId) {
+            return res.status(400).json({ message: "ID utilisateur non fourni" });
+        }
+        const user = await userModel.findById(userId);
+        user.userValide = false;
+        await user.save();
+        await sendAccDis({
+            to: user.email,
+            username: `${user.prenom} ${user.nom}`,
+        });
+        res.json({ message: "User disabled" });
+    } catch (error) {
+       console.log(error); 
+    }
+    
+})
+
 
 
 

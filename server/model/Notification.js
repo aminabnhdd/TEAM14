@@ -20,6 +20,7 @@ const notificationSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Section",
         required: false,
+        default: null
     },
     recepientId: {
         type: mongoose.Schema.Types.ObjectId,

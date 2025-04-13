@@ -6,13 +6,12 @@ import "../../pagesStyles/ProfilpagesStyle/ChangerMotdePasse.css";
 
 
 const ChangerMotDePasse = () => {
-  const oldPassword = "Team14"; 
 
   return (
     <div classname="root1">
     <div className="password-page">
       <PasswordHeader />
-      <PasswordCard oldPassword={oldPassword} />
+      <PasswordCard />
     </div>
     </div>
   );

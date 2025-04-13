@@ -1,25 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../componentsStyles/ProfilStyles/FormExpert.css";
 import { FiSave } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const FormExpert = () => {
   // État initial vide pour stocker les valeurs saisies par l'utilisateur
   const [user, setUser] = useState({
-    nom: "Benhaddad",
-    prenom: "Amina",
-    email: "aminabenhaddad200876@gmail.com",
-    etablissement: "École nationale supérieure",
-    labo: "LMCS",
-    telephone: "0550 ** ** **",
-    niveau: "Avancé",
-    discipline: "Histoire",
-    password : "1234",
+    nom: "",
+    prenom: "",
+    email: "",
+    etablissement: "",
+    labo: "",
+    telephone: "",
+    niveau: "",
+    discipline: ""
   });
+  const [authState, setAuthState] = useState({email:"",role:"",accessToken:""});
+  useEffect(() => {
+    axios.get("http://localhost:3001/refresh",{withCredentials:true})
+        .then((response) => {
+            // if (response.data.error) return navigate('/')
+            setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
+            axios.get("http://localhost:3001/profil/mon-compte",{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
+            .then((response) => {
+          
+              setUser(response.data);
+            }
+            )
+            .catch((error) => {
+                console.log(error);
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+              
+  }, []);
 
   //  mettre à jour l'état lorsqu'un champ est modifié
   const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name] : e.target.value });
+    console.log(user);
   };
 
 
@@ -30,7 +52,15 @@ const FormExpert = () => {
       {/* En-tête */}
       <div className="form-header">
         <h2>Informations Personnelles & Professionnelles</h2>
-        <button className="save-button" onClick={() => navigate("/modifier-expert")}>
+        <button className="save-button" onClick={() =>{
+          axios.put("http://localhost:3001/profil/mon-compte/modifier/expert",user,{headers:{Authorization:`Bearer ${authState.accessToken}`}})
+          .then((response) => {
+          navigate("/modifier-expert")
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        }}>
           Sauvegarder <FiSave size={16} />
         </button>
       </div>

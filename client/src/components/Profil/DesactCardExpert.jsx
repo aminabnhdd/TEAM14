@@ -53,7 +53,12 @@ const DesactivExpert = ({ usersData }) => {
           </div>
           <div>
             <span className="info-label">Dossier</span>
-            <span className="info-value">{user.fileUrl || "Non renseigné"}</span>
+            <span className="info-value">{
+              user.fileUrl ? (
+                <a href={`${user.fileUrl}`} target="_blank">Document attestant l'expertise</a>
+              ) :
+                "Non renseigné"
+              }</span>
           </div>
         </div>
       </div>

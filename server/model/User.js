@@ -47,6 +47,10 @@ const userSchema = new mongoose.Schema({
         type:[mongoose.SchemaTypes.ObjectId],
         default:[],
         ref:"Projet"
+    },
+    telephone:{
+        type:String,
+        default:""
     }
 
 }, { timestamps: true }); //timestamps manages automatically two fields createdat and updatedat

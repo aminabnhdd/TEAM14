@@ -96,24 +96,33 @@ import DesactiverVisiteur from "./pages/Profilpages/DesactiverVisiteur.jsx";
 import SaveVisiteur from "./pages/Profilpages/SaveVisiteur.jsx";
 import ChangerMotDePasse from "./pages/Profilpages/ChangerMotdePasse.jsx";
 import ProjetsExpert2 from "./pages/Profilpages/ProjetsExpert2.jsx";
+import { useState } from "react";
+import  AuthContext  from "./helpers/AuthContext.jsx";
 
 function App() {
+  const [authState, setAuthState] = useState({
+    email: "",
+    role:"",
+    accessToken: "",
+  });
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<AfficherExpert />} />  
-        <Route path="/afficher-expert" element={<AfficherExpert />} />
-        <Route path="/modifier-expert" element={<ModifierExpert />} />
-        <Route path="/projets-expert" element={<ProjetsExpert />} />
-        <Route path="/desactiver-expert" element={<DesactiverExpert />} />
-        <Route path="/projets-expert2" element={<ProjetsExpert2 />} />
-        <Route path="/save-expert" element={<SaveExpert />} />
-        <Route path="/modifier-visiteur" element={<ModifierVisiteur />} />
-        <Route path="/desactiver-visiteur" element={<DesactiverVisiteur />} />
-        <Route path="/save-visiteur" element={<SaveVisiteur />} />
-        <Route path="/changer-mdp" element={<ChangerMotDePasse />} />
-      </Routes>
-    </Router>
+    <AuthContext.Provider value={{ authState, setAuthState }}>
+        <Router>
+        <Routes>
+          <Route path="/" element={<AfficherExpert />} />  
+          <Route path="/afficher-expert" element={<AfficherExpert />} />
+          <Route path="/modifier-expert" element={<ModifierExpert />} />
+          <Route path="/projets-expert" element={<ProjetsExpert />} />
+          <Route path="/desactiver-expert" element={<DesactiverExpert />} />
+          <Route path="/projets-expert2" element={<ProjetsExpert2 />} />
+          <Route path="/save-expert" element={<SaveExpert />} />
+          <Route path="/modifier-visiteur" element={<ModifierVisiteur />} />
+          <Route path="/desactiver-visiteur" element={<DesactiverVisiteur />} />
+          <Route path="/save-visiteur" element={<SaveVisiteur />} />
+          <Route path="/changer-mdp" element={<ChangerMotDePasse />} />
+        </Routes>
+      </Router>
+    </AuthContext.Provider>
   );
 }
 

@@ -22,11 +22,6 @@ const projetSchema = new mongoose.Schema({
         unique: true,
         trim: true
     },
-    longitude: {
-        type: String,
-        unique: true,
-        trim: true
-    },
     localisation: {
         type: String,
         trim: true

@@ -11,7 +11,6 @@ import NotifAdmin from "./pages/page admin/NotifAdmin";
 function App() {
   return (
     <div>
-      {/* <Notif/> */}
       
         <Routes>  
           <Route path="/con" element={<Con />} />
@@ -19,11 +18,10 @@ function App() {
           <Route path="/InsEx" element={<InsEx/>}/>
           <Route path="/InsVs" element={<InsVs/>}/> 
           <Route path="/ReiniMotdps" element={<ReiniMotdps/>}/>
-        
-
+      
           <Route path="/lsProjet" element={<LsProjets/>}/>
           <Route path="/lsUtil" element={<ListUtil/>}/>
-          <Route path="/NotifAdmin" element={<NotifAdmin/>}/> 
+          <Route path="/NotifAdmin" element={<NotifAdmin/>}/>
 
 
         </Routes>

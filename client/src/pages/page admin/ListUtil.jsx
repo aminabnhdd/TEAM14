@@ -91,7 +91,7 @@ const [col,setCol] = useState(false)
                 <SideNavAdmin />
             </div>
             <div className="secondary-notif-LsUtil">
-
+                    <div className="teqsam1">
                     <div className=" textos-LsUtil">
                         <h1 className="hnotif-LsUtil">Listes des utilisateurs</h1>
                         <div>
@@ -145,9 +145,10 @@ const [col,setCol] = useState(false)
                     </div>
                 </div>
             </div>
+            </div>
         </div>
     </div>
- )
+)
 }
 
 export default ListUtil

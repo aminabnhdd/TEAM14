@@ -1,12 +1,17 @@
 import imj from "../../assets/material-symbols_search.svg"
 import "../../ComponentsStyles/SearchBar styles/SearchBar.css";
+import ijj from "../../assets/gg_profile.svg" 
+import { useNavigate } from "react-router-dom";
 
 function SearchBar({ onSearch,title }) {
-
-  
+    const navigate = useNavigate(); 
+    const goToProfil = () => {
+      navigate("/profil")
+    }
 
   return (
     <div className="search-div">
+      <img src={ijj} alt="null" className="prf" onClick={goToProfil}/>
       <div className="search-bar">
        <input
       type="text"

@@ -40,7 +40,7 @@
                 <SideNavAdmin />
             </div>
             <div className="secondary-notif-lsPrjct">
-
+                    <div className="teqsam1">
                     <div className=" textos-lsPrjct">
                         <h1 className="hnotif-lsPrjct">Listes des projets</h1>
                         <div>
@@ -74,6 +74,7 @@
                             </div>
                             ))}
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

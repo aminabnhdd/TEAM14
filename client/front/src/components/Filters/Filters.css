@@ -1,0 +1,65 @@
+/*.filters {
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    padding-bottom: 5px;
+  }
+  
+  .filters a {
+    cursor: pointer;
+    text-decoration: none;
+   
+    font-size: 1rem;
+    color: black;
+    padding: 10px 20px;
+    transition: color 0.3s ease-in-out;
+  }*/
+  
+  
+  /* Underline Effect */
+
+  /*.filters .active{
+    color: #c57642;
+  }*/
+
+
+  .filters {
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    padding-bottom: 5px;
+  }
+  
+  /* Filter links */
+  .filters a {
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1rem;
+    color: black;
+    padding: 10px 20px;
+    transition: color 0.3s ease-in-out;
+    position: relative;
+  }
+  
+  /* Underline effect */
+  .filters a::after {
+    content: '';
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background-color: #c57642;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Active link underline expands */
+  .filters .active::after {
+    transform: scaleX(1);
+  }
+  
+  .filters .active {
+    color: #c57642;
+  }

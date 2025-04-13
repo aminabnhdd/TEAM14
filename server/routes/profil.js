@@ -26,54 +26,8 @@ router.get("/mon-compte", validateToken, async (req, res) => {
 });
 
 
-router.put("/mon-compte/modifier/expert", validateToken, async (req, res) => {
-  try {
-    console.log(req.body);
-    const userId = req.user.id;
-    const updates = req.body;
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const algerianPhoneRegex = /^\+213[5-7]\d{8}$/;
-
-    if (updates.email && !emailRegex.test(updates.email)) {
-      return res.status(400).json({ message: "Email format invalide." });
-    }
-
-    if (updates.email) {
-      const existingUser = await userModel.findOne({ email: updates.email });
-      if (existingUser && existingUser._id.toString() !== userId) {
-        return res.status(400).json({ message: "Email déja utilisé" });
-      }
-    }
-
-    if (updates.password) {
-      return res
-        .status(400)
-        .json({ message: "Mot de passe ne peut pas être changé içi." });
-    }
-
-    if (updates.phoneNumber && !algerianPhoneRegex.test(updates.phoneNumber)) {
-      return res
-        .status(400)
-        .json({ message: "Invalid phone number format. Use +213XXXXXXXXX." });
-    }
-
-    // Update user
-    const user = await expertModel
-      .findByIdAndUpdate(userId, updates, { new: true, runValidators: true })
-      .select("-password -refreshToken -accessToken");
-
-    if (!user) {
-      return res.status(404).json({ message: "Utilisateur introuvable." });
-    }
-
-    res.json({ message: "Profile mis à jour.", user });
-  } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
-  }
-});
 router.put("/mon-compte/modifier", validateToken, async (req, res) => {
   try {
-    console.log(req.body);
     const userId = req.user.id;
     const updates = req.body;
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

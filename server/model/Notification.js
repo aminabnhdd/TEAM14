@@ -13,7 +13,7 @@ const notificationSchema = new mongoose.Schema({
     },
     sendeId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Expert",
+        ref: "User",
         required: true,
     },
     sectionId:{
@@ -24,7 +24,7 @@ const notificationSchema = new mongoose.Schema({
     },
     recepientId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Expert",
+        ref: "User",
         required: true,
     },
     content: {

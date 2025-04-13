@@ -87,14 +87,12 @@ router.get("/modifier/:id",  validateToken, validateRole(expertRole, adminRole),
 });
 
 
-
 router.put('/archive/:projectID',validateToken,validateRole(expertRole,adminRole),async (req,res)=>{
     try {
 
         const userID = req.user.id;
 
         const projectID = req.params.projectID;
-
         const found = await projectModel.findById(projectID);
         if (!found) return res.status(404).json({err:"project not found "});
 
@@ -582,7 +580,6 @@ router.post("/:projectId/:sectionId/demande", validateToken, validateProjectOwne
     }
 
 })
-
 
 //request for the project owner to validate or not the demandes of collaborating on  the prject
 

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const { userModel, expertModel } = require("../model/user");
-
+const notificationModel = require('../model/Notification');
 
 const visitorRole = process.env.VISITOR_ROLE;
 
@@ -98,33 +98,7 @@ router.get("/search/projects", async(req, res) => {
 
 router.get('/search/users', async (req, res) => {
     try {
-        const { searchTerm } = req.body;
-
-        if (!searchTerm || typeof searchTerm !== 'string') {
-            return res.status(400).json({ error: "Invalid search term." });
-        }
-
-        const words = searchTerm.trim().split(/\s+/); 
-        const userSet = new Set(); 
-        let users = []; 
-
-        for (const word of words) {
-            const query = {
-                $or: [
-                    { nom: { $regex: word, $options: "i" } },
-                    { prenom: { $regex: word, $options: "i" } }
-                ]
-            };
-
-            const result = await userModel.find(query).select("-password -refreshToken -accessToken").limit(10);
-
-            for (const user of result) {
-                if (!userSet.has(user._id.toString())) {
-                    userSet.add(user._id.toString());
-                    users.push(user);
-                }
-            }
-        }
+        const users = await userModel.find();
 
         res.json(users);
 
@@ -153,9 +127,29 @@ router.put('/disable/:userId',async (req, res) => {
     } catch (error) {
        console.log(error); 
     }
-    
-})
+});
 
+router.get('/notifications', async (req, res) => {
+    try {
+        const notifications = await notificationModel.find({type: {$in : ["validerVisiteur","validerExpert"]} }).populate("sendeId").sort({ createdAt: -1 });
+        
+        res.json(notifications);
+    } catch (err) {
+        res.status(500).json({ message: "Server error" });
+        console.log(err);
+    }
+});
+
+router.delete('/notif/:id',async(req,res)=>{
+    try {
+        const id = req.params.id;
+        const notif = await notificationModel.findByIdAndDelete(id);
+        res.status(200).json({message:"deleted with success"});
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error);
+    }
+})
 
 
 

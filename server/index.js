@@ -20,7 +20,6 @@ const notificationsRouter = require('./routes/notifications');
 const refreshRouter = require('./routes/refresh');
 
 
-
 const corsOptions = {
     origin: ['http://localhost:5173'],
     credentials: true, 

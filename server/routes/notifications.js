@@ -13,7 +13,8 @@ const nodemailer = require ('nodemailer');
 const {expertModel,userModel} = require('../model/user');
 
 
-router.put("/valider/:conflitId",validateToken, async (req, res) => {
+
+router.put("/valider/:conflitId",validateToken,validateProjectOwner, async (req, res) => {
     try {
       const { conflitId } = req.params;
       const { decision,notifId } = req.body;
@@ -101,7 +102,6 @@ router.get("/:notifId", validateToken, async (req, res) => {
     return res.status(500).json({ message: "Erreur serveur" });
   }
 });
-
 
 router.get("/", validateToken, async (req, res) => {
   try {

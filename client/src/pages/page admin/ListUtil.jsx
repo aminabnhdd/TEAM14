@@ -5,9 +5,12 @@ import SideNav from "../../components/SideNav/SideNav"
 import SideNavAdmin from "../../components/SideNav/SideNavAdmin"
 
 import imjjjjjj from "../../assets/person.png"
+import axios from "axios"
 
 
 function ListUtil() {
+
+
 
     const [notificationsConflit, setNotificationsConflit] = useState([
         
@@ -57,6 +60,7 @@ function ListUtil() {
             el.classList.remove("active");
         });
         document.querySelector(".transptext:first-child")?.classList.add("active");
+        
     }, []);
 
     const click1 = (e) => {
@@ -87,7 +91,7 @@ const [col,setCol] = useState(false)
                 <SideNavAdmin />
             </div>
             <div className="secondary-notif-LsUtil">
-
+                    <div className="teqsam1">
                     <div className=" textos-LsUtil">
                         <h1 className="hnotif-LsUtil">Listes des utilisateurs</h1>
                         <div>
@@ -141,9 +145,10 @@ const [col,setCol] = useState(false)
                     </div>
                 </div>
             </div>
+            </div>
         </div>
     </div>
- )
+)
 }
 
 export default ListUtil

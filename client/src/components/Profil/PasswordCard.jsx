@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; 
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import "../../componentsStyles/ProfilStyles/PasswordCard.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -69,7 +69,7 @@ export default function PasswordChange() {
             className={`password-input ${error && inputOldPassword !== oldPassword ? "error" : ""}`}
           />
           <span className="eye-icon" onClick={() => togglePasswordVisibility("old")}>
-            {showOldPassword ? <FaEyeSlash /> : <FaEye />}
+            {showOldPassword ? <FiEyeOff /> : <FiEye />}
           </span>
         </div>
       </div>
@@ -85,7 +85,7 @@ export default function PasswordChange() {
             className={`password-input ${error && newPassword !== confirmPassword ? "error" : ""}`}
           />
           <span className="eye-icon" onClick={() => togglePasswordVisibility("new")}>
-            {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+            {showNewPassword ? <FiEyeOff /> : <FiEye />}
           </span>
         </div>
       </div>
@@ -101,7 +101,7 @@ export default function PasswordChange() {
             className={`password-input ${error && newPassword !== confirmPassword ? "error" : ""}`}
           />
           <span className="eye-icon" onClick={() => togglePasswordVisibility("confirm")}>
-            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+            {showConfirmPassword ? <FiEyeOff /> : <FiEye />}
           </span>
         </div>
       </div>

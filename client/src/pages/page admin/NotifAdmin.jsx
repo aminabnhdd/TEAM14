@@ -7,6 +7,7 @@ import SideNav from "../../components/SideNav/SideNav"
 import SideNavAdmin from "../../components/SideNav/SideNavAdmin"
 import Validation from "../../components/popUpsNotif/Validation"
 import Validation2 from "../../components/popUpsNotif/Validation2"
+import axios from "axios"
 
 
 import imjjjjjj from "../../assets/person.png"
@@ -14,37 +15,20 @@ import imjjjjjj from "../../assets/person.png"
 
 function NotifAdmin() {
 
-    const [notificationsConflit, setNotificationsConflit] = useState([
-        { id: "1", type: "expert", seen: false, imge: imjjjjjj, user: "Aliouche Ghazine", time: "1min", button: "Détails" },
-        { id: "2", type: "expert", seen: false, imge: imjjjjjj, user: "Souames Manel", time: "2min", button: "Détails" },
-        { id: "3", type: "expert", seen: false, imge: imjjjjjj, user: "Yahia Lina", time: "4min", button: "Détails" },
-    ]);   
-    const [notificationsCol, setNotificationsCol] = useState([
-        { seen: false, id: "4", type: "visiteur", imge: imjjjjjj, user: "Rahim Sarah", time: "1min", button: "Détails" },
-        { seen: false, id: "5", type: "visiteur", imge: imjjjjjj, user: "Rachem Mohamed Riadh", time: "2min", button: "Détails" },
-        { seen: false, id: "6", type: "visiteur", imge: imjjjjjj, user: "Haddad Amina", time: "4min", button: "Détails" },
-        { seen: false, id: "7", type: "visiteur", imge: imjjjjjj, user: "Rahim Sarah", time: "1min", button: "Détails" },
-        { seen: false, id: "8", type: "visiteur", imge: imjjjjjj, user: "Rachem Mohamed Riadh", time: "2min", button: "Détails" },
-        { seen: false, id: "9", type: "visiteur", imge: imjjjjjj, user: "Haddad Amina", time: "4min", button: "Détails" },
-        { seen: false, id: "10", type: "visiteur", imge: imjjjjjj, user: "Rahim Sarah", time: "1min", button: "Détails" },
-        { seen: false, id: "11", type: "visiteur", imge: imjjjjjj, user: "Rachem Mohamed Riadh", time: "2min", button: "Détails" },
-        { seen: false, id: "12", type: "visiteur", imge: imjjjjjj, user: "Haddad Amina", time: "4min", button: "Détails" },
-        { seen: false, id: "13", type: "visiteur", imge: imjjjjjj, user: "Rahim Sarah", time: "1min", button: "Détails" },
-        { seen: false, id: "14", type: "visiteur", imge: imjjjjjj, user: "Rachem Mohamed Riadh", time: "2min", button: "Détails" },
-        { seen: false, id: "15", type: "visiteur", imge: imjjjjjj, user: "Haddad Amina", time: "4min", button: "Détails" },
-    ]); 
+    const [notificationsConflit, setNotificationsConflit] = useState([]);   
+    const [notificationsCol, setNotificationsCol] = useState([]); 
     
     
     const handleSeenConflit = (id,type) => {
         if (type === "expert") {
         const updated = notificationsConflit.map(n =>
-            n.id === id ? { ...n, seen: true } : n
+            n._id === id ? { ...n, seen: true } : n
         );
         setNotificationsConflit(updated)}
 
         else if (type === "visiteur") {
             const updated = notificationsCol.map(n =>
-                n.id === id ? { ...n, seen: true } : n
+                n._id === id ? { ...n, seen: true } : n
             );
             setNotificationsCol(updated);
         
@@ -58,6 +42,12 @@ function NotifAdmin() {
             el.classList.remove("active");
         });
         document.querySelector(".transptext:first-child")?.classList.add("active");
+        axios.get("http://localhost:3001/admin/notifications")
+        .then((res)=>{
+            console.log(res.data)
+            setNotificationsConflit(res.data.filter((el) => el.type === "validerExpert").map((el) => ({...el, seen: false,imge: imjjjjjj,genre:"expert"})));
+            setNotificationsCol(res.data.filter((el) => el.type === "validerVisiteur").map((el) => ({...el, seen: false,imge: imjjjjjj,genre:"visiteur"})));
+        })
     }, []);
 
     const click1 = (e) => {
@@ -91,7 +81,24 @@ const close = () => {
 const close3 = () => {
     setPoop3(false);
 }
+const getTime = (time) => {
 
+    let creationTime = new Date(time).getTime();
+    let actualTime = new Date().getTime();
+    let result = actualTime - creationTime;
+
+    const seconds = Math.floor(result / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30);
+
+    if (months > 0) return `${months} mois`;
+    if (days > 0) return `${days} jour${days > 1 ? 's' : ''}`;
+    if (hours > 0) return `${hours} heure${hours > 1 ? 's' : ''}`;
+    if (minutes > 0) return `${minutes} min`;
+    return `${seconds} sec`;
+}
 
 const [conflit,setConflit] = useState(true)
 const [col,setCol] = useState(false)
@@ -133,15 +140,15 @@ const [poop3,setPoop3] = useState(false)
                             <div key={element.id} className="note-notifAd" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage-notifAd">
                             <img className="notif-icon-notifAd" src={element.imge} alt="Notification Icon" />
-                            <p className="notif-message-notifAd"><span className="userName">{element.user}</span> souhaite créer un compte {element.type}</p>
+                            <p className="notif-message-notifAd"><span className="userName">{element.sendeId.nom } {element.sendeId.prenom}</span> souhaite créer un compte {element.genre}</p>
                             </div>
                             <div className="notwtabwdom-notifAd">
-                            <span className="notif-time-notifAd">{element.time}</span>
-                            <button className="det-button-notifAd" onClick={() => {handleDetailsClick(element.type);handleSeenConflit(element.id,"expert")}}>
-                                {element.button}
+                            <span className="notif-time-notifAd">{getTime(element.time)}</span>
+                            <button className="det-button-notifAd" onClick={() => {handleDetailsClick(element.genre);handleSeenConflit(element._id,"expert")}}>
+                                Détails
                             </button>
                             </div>
-                            {<Validation2 popUp={poop3} close={close3}/>}
+                            {<Validation2 popUp={poop3} close={close3} notif={element}/>}
                         </div>
                         ))}
 
@@ -150,13 +157,13 @@ const [poop3,setPoop3] = useState(false)
                             <div key={element.id} className="note-notifAd" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage-notifAd">
                             <img className="notif-icon-notifAd" src={element.imge} alt="Notification Icon" />
-                            <p className="notif-message-notifAd"><span className="userName">{element.user}</span> souhaite créer un compte {element.type} </p>
+                            <p className="notif-message-notifAd"><span className="userName">{element.sendeId.nom} {element.sendeId.prenom}</span> souhaite créer un compte {element.genre} </p>
                             </div>
                             <div className="notwtabwdom-notifAd">
-                            <span className="notif-time-notifAd">{element.time}</span>
-                            <button className="det-button-notifAd" onClick={()=>{handleDetailsClick(element.type); handleSeenConflit(element.id,"visiteur")}}>{element.button}</button>
+                            <span className="notif-time-notifAd">{getTime(element.time)}</span>
+                            <button className="det-button-notifAd" onClick={()=>{handleDetailsClick(element.genre); handleSeenConflit(element._id,"visiteur")}}>Détails</button>
                             </div>
-                        {<Validation popUp={poop} close={close}/>}
+                        {<Validation popUp={poop} close={close} notif={element}/>}
                         </div>
                         ))}
 

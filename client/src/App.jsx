@@ -15,16 +15,15 @@ function App() {
       
         <Routes>  
           <Route path="/con" element={<Con />} />
-          <Route path="/" element={<h1>I hate racisme</h1>}/>
+          <Route path="/" element={<h1>I hate Niggers</h1>}/>
           <Route path="/InsEx" element={<InsEx/>}/>
           <Route path="/InsVs" element={<InsVs/>}/> 
           <Route path="/ReiniMotdps" element={<ReiniMotdps/>}/>
         
 
-          {/* <Route path="/" element={<h1>Main page</h1>}/>
           <Route path="/lsProjet" element={<LsProjets/>}/>
           <Route path="/lsUtil" element={<ListUtil/>}/>
-          <Route path="/NotifAdmin" element={<NotifAdmin/>}/> */}
+          <Route path="/NotifAdmin" element={<NotifAdmin/>}/> 
 
 
         </Routes>

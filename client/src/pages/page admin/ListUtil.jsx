@@ -5,9 +5,12 @@ import SideNav from "../../components/SideNav/SideNav"
 import SideNavAdmin from "../../components/SideNav/SideNavAdmin"
 
 import imjjjjjj from "../../assets/person.png"
+import axios from "axios"
 
 
 function ListUtil() {
+
+
 
     const [notificationsConflit, setNotificationsConflit] = useState([
         
@@ -57,6 +60,7 @@ function ListUtil() {
             el.classList.remove("active");
         });
         document.querySelector(".transptext:first-child")?.classList.add("active");
+        
     }, []);
 
     const click1 = (e) => {

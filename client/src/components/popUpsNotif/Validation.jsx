@@ -1,31 +1,46 @@
 import i from "../../assets/x.png"
+import axios from "axios"
 
-function Validation ({popUp,close}) {
-    const parts = [{tit:"Demande de validation de compte",sender:"Benhaddad Amina",type:"Visiteur"}]
+function Validation ({popUp,close,notif}) {
 
+    const handleValidation = (action) => {
+        axios.put(`http://localhost:3001/admin/${notif.sendeId._id}`, { action : action })
+        .then((res) => {
+            console.log(res.data);
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+        axios.delete(`http://localhost:3001/admin/notif/${notif._id}`)
+        .then((res)=>{
+            console.log(res.data)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
 
     return(
         popUp &&
-         parts.map(e =>   
         <div className="main-bac-notif">
             <div className="notif-pop2">
     
                 <div className="Ti2">
-                <p >{e.tit}</p>
+                <p >Demande de validation de compte</p>
                 </div>
                 <img className="close-btn2" src={i} alt="fd" onClick={close} />
                 <div className="ktibaa">
-                <p><span className="gris">Utilisateur: </span>{e.sender} <br />
+                <p><span className="gris">Utilisateur: </span>{notif.sendeId.nom } {notif.sendeId.prenom} <br />
                 <span className="gris">Type de compte: </span> 
-                {e.type}</p>
+                Visiteur</p>
                 </div>
                 <div className="batens">
-                    <button className="baten3">Accepter</button>
-                    <button className="baten4">Refuser</button>
+                    <button className="baten3" onClick={()=>{handleValidation("validate")}}>Accepter</button>
+                    <button className="baten4" onClick={()=>{handleValidation("reject")} }>Refuser</button>
                 </div>
             </div>
         </div>  )
-     )
+     
 
 }
 export default Validation

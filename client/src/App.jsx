@@ -43,7 +43,7 @@ function App() {
   return (
     <AuthContext.Provider value={{ authState, setAuthState }}>
 
-    <div>
+    <div className="contianer-app">
         <Router>
         <Routes>
           <Route path="/ihateracism" element={<h1>I hate racisme</h1>}/>

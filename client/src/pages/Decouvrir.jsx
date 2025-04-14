@@ -3,9 +3,9 @@ import SearchBar from '../components/SearchBar/SearchBar';
 import SideNav from '../components/SideNav/SideNav';
 import Header from '../components/Header/Header';
 import Filters from '../components/Filters/Filters';
-import {useState, useEffect, useContext} from 'react';
+import {useState, useEffect} from 'react';
 import axios from "axios";
-import AuthContext from '../helpers/AuthContext';
+/*import AuthContext from '../helpers/AuthContext';*/
 
 function Decouvrir(){
     const [projects, setProjects] = useState([]);
@@ -32,7 +32,7 @@ function Decouvrir(){
 
 
 
-    const fetchFilteredProjects = async (filter) => {
+    /*const fetchFilteredProjects = async (filter) => {
         try{
 
           // Get refreshed token and user info
@@ -44,7 +44,7 @@ function Decouvrir(){
               email: refreshResponse.data.email,
               role: refreshResponse.data.role,
               accessToken: refreshResponse.data.accessToken,
-          });*/
+          });
 
             let url = 'http://localhost:3001/projects/search/filters';
             if(filter != "Tout"){
@@ -57,7 +57,7 @@ function Decouvrir(){
 
             const response = await axios.get(url);
 
-           /* console.log("Access Token:", refreshResponse.data.accessToken);*/
+           /* console.log("Access Token:", refreshResponse.data.accessToken);
 
            const data = response.data;
 
@@ -78,7 +78,42 @@ function Decouvrir(){
             } catch (error) {
               console.error("Error fetching filtered projects", error);
             }
-        };
+        };*/
+
+        const fetchFilteredProjects = async (filter) => {
+          try{
+              let url = 'http://localhost:3001/projects/search/filters';
+              if(filter != "Tout"){
+                  url += `?filters=${filter}`;
+              }else{
+                  url = 'http://localhost:3001/projects';
+              }
+  
+              console.log("fetchig from", url);
+  
+              const response = await axios.get(url);
+             const data = response.data;
+  
+             console.log("full response : ", response);
+             console.log("data : ", data);
+  
+             if (!Array.isArray(response.data)) {
+              console.error("Unexpected API response format:", response.data);
+              return;
+          }
+  
+              const projectsWithSizes = data.map((project) => ({
+                  ...project,
+                  size: getRandomSize(),
+                }));
+          
+                setProjects(projectsWithSizes);
+              } catch (error) {
+                console.error("Error fetching filtered projects", error);
+              }
+          };
+        
+  
       
 
       useEffect(() => {

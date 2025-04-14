@@ -27,16 +27,29 @@
     opacity: 1;
 }
 
-.text{
+.card p{
+    /*position: absolute;
+    top: 50%;
+    left: 25%;
+    transform: translateY(-50%); 
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;    
+    color: white;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s ease;*/
+
     position: absolute;
     top: 50%;
-    left: 10%;
-    font-family: 'poppins', sans-serif;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Poppins', sans-serif;
     font-size: 1.5rem;    
     color: white;
     z-index: 2;
     opacity: 0;
     transition: opacity 0.3s ease;
+    font-weight: bold; 
 }
 
 .card img {

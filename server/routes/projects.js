@@ -169,16 +169,17 @@ router.get("/search", async (req, res) => {
   });
 
 
-
-router.get('/search/filters',  async (req, res) => {
+  router.get('/search/filters', async (req, res) => {
     try {
-        const filters = req.query.filters; 
+        const filter = req.query.filters; 
 
-        if (!filters || !Array.isArray(filters)) {
-            return res.status(400).json({ error: "Filters must be an array." });
+        if (!filter) {
+            return res.status(400).json({ error: "Filter is required." });
         }
 
-        const sections = await sectionModel.find({ type: { $in: filters } });
+        
+
+        const sections = await sectionModel.find({ type: { $in: filter } });
 
 
         const sectionIds = sections.map(section => section._id);
@@ -186,7 +187,7 @@ router.get('/search/filters',  async (req, res) => {
 
         const projects = await projectModel.find({ sections: { $in: sectionIds } });
 
-        res.json({ sections, projects });
+        res.json(projects);
 
     } catch (error) {
         console.error(error);

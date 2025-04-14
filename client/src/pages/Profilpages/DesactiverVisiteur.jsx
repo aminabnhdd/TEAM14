@@ -38,7 +38,7 @@ const DesactiverVisiteur = () => {
   
   return (
      <>
-         <div classname="root1">
+         <div className="root1">
       <HeaderSection />
       <ProfilInfowithoutlink usersData={usersData} />
       <AfficherCardVisiteur usersData={usersData} />

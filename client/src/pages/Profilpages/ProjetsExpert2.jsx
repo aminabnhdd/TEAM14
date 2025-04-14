@@ -57,7 +57,7 @@ const ProjetsExpert2 =() => {
     }, []);
   return(
     <>
-        <div classname="root1">
+        <div className="root1">
       <ProjetsInfos2 />
       <ProfilInfowithoutlink usersData={usersData} />
       <ProjectsContainer projets={projects}/>

@@ -8,7 +8,7 @@ import "../../pagesStyles/ProfilpagesStyle/ChangerMotdePasse.css";
 const ChangerMotDePasse = () => {
 
   return (
-    <div classname="root1">
+    <div className="root1">
     <div className="password-page">
       <PasswordHeader />
       <PasswordCard />

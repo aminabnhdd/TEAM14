@@ -4,6 +4,7 @@
     left: 12%;
     top: 35%;
     width: 80vw;
+    overflow-x: hidden;
 }
 
 .search-input {

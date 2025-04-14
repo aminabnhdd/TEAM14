@@ -11,6 +11,20 @@ const notificationModel = require("../model/Notification");
 const cloudinary = require('../config/cloudinary');
 const { upload } = require('../middlewares/multerMiddleware');
 
+
+
+//request to get all the projects
+router.get('', async(req, res) => {
+    try {
+        const projects = await projectModel.find();
+        res.json(projects);
+    } catch (error) {
+        console.error("Error fetching projects ", error);
+        res.status(500).json({ message: "server error" });
+    }
+
+});
+
 router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.single("image"), async (req, res) => {
     try {
 
@@ -136,6 +150,25 @@ router.put('/restore/:projectID',validateToken ,async (req,res)=>{
         return res.sendStatus(500);
     }
 });
+
+
+router.get("/search", async (req, res) => {
+    const { keyword } = req.query;
+  
+    if (!keyword) {
+      return res.status(400).json({ message: "Keyword is required" });
+    }
+  
+    try {
+      const results = await projectModel.find({
+        keywords: { $regex: keyword, $options: "i" }, // case-insensitive
+      });
+  
+      res.json(results);
+    } catch (error) {
+      res.status(500).json({ message: "Server error", error: error.message });
+    }
+  });
 
 
 

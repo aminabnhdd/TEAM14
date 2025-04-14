@@ -170,7 +170,7 @@ router.get("/search", async (req, res) => {
 
 
 
-router.get('/search/filters', validateToken, async (req, res) => {
+router.get('/search/filters',  async (req, res) => {
     try {
         const filters = req.query.filters; 
 

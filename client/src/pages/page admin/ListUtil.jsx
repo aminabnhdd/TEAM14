@@ -1,15 +1,18 @@
 import "../../PagesStyles/Pages Admin Styles/ListUtil.css"
-import {useState,useEffect} from "react"
+import {useState,useEffect, useContext} from "react"
 import SearchBar from "../../components/SearchBar/SearchBar"
 import SideNav from "../../components/SideNav/SideNav"
 import SideNavAdmin from "../../components/SideNav/SideNavAdmin"
 
 import imjjjjjj from "../../assets/person.png"
 import axios from "axios"
+import AuthContext from '../../helpers/AuthContext'
+import { useNavigate } from "react-router-dom"
 
 
 function ListUtil() {
 
+    const {authState,setAuthState} = useContext(AuthContext);
 
 
     const [notificationsConflit, setNotificationsConflit] = useState([
@@ -60,7 +63,31 @@ function ListUtil() {
             el.classList.remove("active");
         });
         document.querySelector(".transptext:first-child")?.classList.add("active");
-        
+        axios.get("http://localhost:3001/refresh", { withCredentials: true })
+        .then((res) => {
+            if (res.data.error) return navigate("/connexion")
+            setAuthState({email:res.data.email,role:res.data.role,accessToken:res.data.accessToken});
+            axios.get("http://localhost:3001/admin/search/experts",{headers: {Authorization: `Bearer ${res.data.accessToken}`}})
+            .then((res)=>{
+                console.log(res.data)
+                setNotificationsConflit(res.data.map((el) => ({...el, seen: false,type:"expert",imge:imjjjjjj,util:`${el.nom} ${el.prenom}`,dom:`Expert en ${el.discipline}`})));
+            })
+            .catch((error)=>{
+                console.error("Error fetching experts:", error);
+            })
+            axios.get("http://localhost:3001/admin/search/visitors",{headers: {Authorization: `Bearer ${res.data.accessToken}`}})
+            .then((res)=>{
+                console.log(res.data)
+                setNotificationsCol(res.data.map((el) => ({...el, seen: false,imge:imjjjjjj,util:`${el.nom} ${el.prenom}`,type:"visiteur"})));
+            })
+            .catch((error)=>{
+                console.error("Error fetching experts:", error);
+            })
+        })
+        .catch((error)=>{
+            console.error("Error fetching refresh token:", error);
+            navigate("/connexion")
+        })
     }, []);
 
     const click1 = (e) => {
@@ -112,7 +139,7 @@ const [col,setCol] = useState(false)
                     <div className="notifications-LsUtil">
                         
                         {conflit && filteredNotifications.map(element => (
-                            <div className="note-LsUtil1" key={element.id} style={{ background: element.seen ? "#f1f1f1" : "white" }}>
+                            <div className="note-LsUtil1" key={element._id} style={{ background: element.seen ? "#f1f1f1" : "white" }}>
                             <div className="iconwmessage-LsUtil1">
                             <img className="notif-icon-LsUtil1" src={element.imge} alt="Notification Icon" />
                             <p className="notif-message-LsUtil1">{element.util}</p>
@@ -122,7 +149,7 @@ const [col,setCol] = useState(false)
                             <p className="dom-LsUtil1">{element.dom}</p>
                             </div>
                             <button className="det-button-LsUtil1" onClick={( ) => handleSeenProjet(element.id,"expert")}>
-                                {element.button}
+                                Voir Compte
                             </button>
                             </div>
                             
@@ -131,13 +158,13 @@ const [col,setCol] = useState(false)
                         ))}
 
                         {col && filteredNotifications1.map(element => (
-                            <div className="note-LsUtil2" key={element.id} style={{ background: element.seen ? "#f1f1f1" : "white" }}>
+                            <div className="note-LsUtil2" key={element._id} style={{ background: element.seen ? "#f1f1f1" : "white" }}>
                             <div className="iconwmessage-LsUtil2">
                             <img className="notif-icon-LsUtil1" src={element.imge} alt="Notification Icon" />
                             <p className="notif-message-LsUtil2">{element.util}</p>
                             </div>
                             <div className="notwtabwdom-LsUtil2">
-                            <button className="det-button-LsUtil1" onClick={( ) => handleSeenProjet(element.id,"visiteur")} >{element.button}</button>
+                            <button className="det-button-LsUtil1" onClick={( ) => handleSeenProjet(element.id,"visiteur")} >Voir Compte</button>
                             </div>
                         </div>
                         ))}

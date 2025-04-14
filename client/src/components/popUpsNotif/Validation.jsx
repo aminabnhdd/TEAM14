@@ -1,19 +1,26 @@
 import i from "../../assets/x.png"
 import axios from "axios"
+import React, { useContext } from "react"
+import AuthContext from "../../helpers/AuthContext"
+import {useNavigate} from "react-router-dom"
 
 function Validation ({popUp,close,notif}) {
+    const {authState,setAuthState} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleValidation = (action) => {
-        axios.put(`http://localhost:3001/admin/${notif.sendeId._id}`, { action : action })
+        axios.put(`http://localhost:3001/admin/${notif.sendeId._id}`, { action : action },{headers: {Authorization: `Bearer ${authState.accessToken}`}})
         .then((res) => {
             console.log(res.data);
         })
         .catch((err)=>{
             console.log(err);
         })
-        axios.delete(`http://localhost:3001/admin/notif/${notif._id}`)
+        axios.delete(`http://localhost:3001/admin/notif/${notif._id}`,{headers: {Authorization: `Bearer ${authState.accessToken}`}})
         .then((res)=>{
             console.log(res.data)
+            close()
+            window.location.reload()
         })
         .catch((err)=>{
             console.log(err)

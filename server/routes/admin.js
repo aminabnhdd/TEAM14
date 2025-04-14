@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const { userModel, expertModel } = require("../model/user");
 const notificationModel = require('../model/Notification');
+const projectModel = require('../model/Projet');
 
 const visitorRole = process.env.VISITOR_ROLE;
 
@@ -69,36 +70,30 @@ router.get("/users/unvalidated", async(req, res) => {
     }
 })
 
-router.get("/experts/All", async(req, res) => {
-    try {
-        const experts = await expertModel.find({userValide: true});
-        res.json(experts);
-    } catch (err) {
-        res.status(500).json({ message: "Server error" });
-    }
-})
-router.get("/visitors/All", async(req, res) => {
-    try {
-        const visitors = await userModel.find({role: visitorRole,userValide: true});
-        res.json(visitors);
-    } catch (err) {
-        res.status(500).json({ message: "Server error" });
-    }
-});
 
 router.get("/search/projects", async(req, res) => {
     try {
-        const {title} = req.body;
-        const projects = await projectModel.find({title: {$regex: title, $options: "i"}});
+        const projects = await projectModel.find().populate('chef');
         res.json(projects);
     } catch (err) {
         res.status(500).json({ message: "Server error" });
     }
 })
 
-router.get('/search/users', async (req, res) => {
+router.get('/search/experts', async (req, res) => {
     try {
-        const users = await userModel.find();
+        const users = await expertModel.find({userValide:true});
+
+        res.json(users);
+
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(500);
+    }
+});
+router.get('/search/visitors', async (req, res) => {
+    try {
+        const users = await userModel.find({role:visitorRole,userValide:true});
 
         res.json(users);
 

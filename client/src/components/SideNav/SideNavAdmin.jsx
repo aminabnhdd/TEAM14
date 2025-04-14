@@ -12,13 +12,13 @@ import { useNavigate } from "react-router-dom";
 function SideNavAdmin(){
     const navigate = useNavigate()
     const goToLsProjets = () => {
-    navigate("/lsProjet")
+    navigate("/projets")
     }
     const goToLsUtil = () => {
-    navigate("/lsUtil")
+    navigate("/list-utilisateurs")
     }
     const goToNotifAdmin = () => {
-    navigate("/NotifAdmin")
+    navigate("/notifications-admin")
     }
 
 

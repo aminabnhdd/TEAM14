@@ -1,24 +1,22 @@
     import "../../PagesStyles/Pages Admin Styles/ListProjets.css"
-    import {useState} from "react"
+    import {useState,useEffect} from "react"
     import SearchBar from "../../components/SearchBar/SearchBar"
     import SideNavAdmin from "../../components/SideNav/SideNavAdmin"
 
     import imjjjjjj from "../../assets/person.png"
     import imjjjjjjjjj from "../../assets/mingcute_file-line.svg"
+    import axios from 'axios'
+    import { useNavigate } from "react-router-dom"
+    import AuthContext from '../../helpers/AuthContext'
+    import { useContext } from "react"
+
 
     function LsProjets() {
 
-        const [notificationsConflit, setNotificationsConflit] = useState([
-            { id: "1", seen: false, type: "projet", imge: imjjjjjjjjj, titre: "khdawej al 3emya", tab: imjjjjjj, owner: "Benhaddad Amina", button: "Voir projet" },
-            { id: "2", seen: false, type: "projet", imge: imjjjjjjjjj, titre: "Azeffoun", tab: imjjjjjj, owner: "Rachem Mohamed Ryad", button: "Voir projet" },
-            { id: "3", seen: false, type: "projet", imge: imjjjjjjjjj, titre: "Bab zouar", tab: imjjjjjj, owner: "Rachem Ryad Mohamed", button: "Voir projet" },
-            { id: "4", seen: false, type: "projet", imge: imjjjjjjjjj, titre: "li jat", tab: imjjjjjj, owner: "Aliouche Razine", button: "Voir projet" },
-            { id: "5", seen: false, type: "projet", imge: imjjjjjjjjj, titre: "khdawej al 3emya", tab: imjjjjjj, owner: "Benhaddad Amina", button: "Voir projet" },
-            { id: "6", seen: false, type: "projet", imge: imjjjjjjjjj, titre: "Azeffoun", tab: imjjjjjj, owner: "Rachem Mohamed Ryad", button: "Voir projet" },
-            { id: "7", seen: false, type: "projet", imge: imjjjjjjjjj, titre: "Bab zouar", tab: imjjjjjj, owner: "Rachem Ryad Mohamed", button: "Voir projet" },
-            { id: "8", seen: false, type: "projet", imge: imjjjjjjjjj, titre: "li jat", tab: imjjjjjj, owner: "Aliouche Razine", button: "Voir projet" },
-            // ... continue like this for the rest
-          ]);
+        const {authState,setAuthState} = useContext(AuthContext);
+        const navigate = useNavigate();
+
+        const [notificationsConflit, setNotificationsConflit] = useState([]);
           
           
         const [searchQuery, setSearchQuery] = useState("");
@@ -32,6 +30,26 @@
             );
             setNotificationsConflit(updated);
           };
+
+        useEffect(()=>{
+            axios.get("http://localhost:3001/refresh", { withCredentials: true })
+            .then((res) => {
+                if (res.data.error) return navigate("/connexion")
+                setAuthState({email:res.data.email,role:res.data.role,accessToken:res.data.accessToken});
+            axios.get("http://localhost:3001/admin/search/projects",{headers: {Authorization: `Bearer ${res.data.accessToken}`}})
+            .then((res)=>{
+                console.log(res.data)
+                setNotificationsConflit(res.data.map((el) => ({...el, seen: false,imge:imjjjjjjjjj,tab:imjjjjjj,owner:`${el.chef.nom} ${el.chef.prenom}`})));
+            })
+            .catch((error)=>{
+                console.error("Error fetching experts:", error);
+            })
+        })
+        .catch((error)=>{
+            console.error("Error fetching refresh token:", error);
+            navigate("/connexion")
+        })
+        },[])
 
     return(
 
@@ -67,7 +85,7 @@
                                 <p className="dom-lsPrjct">{element.owner}</p>
                                 </div>
                                 <button className="det-button-lsPrjct" onClick={() => handleSeenProjet(element.id)}>
-                                    {element.button}
+                                    Voir Projet
                                 </button>
                                 </div>
                                 

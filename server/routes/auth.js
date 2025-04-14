@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {userModel,expertModel} = require('../model/user');
+const notificationModel = require('../model/Notification');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cloudinary = require('../config/cloudinary');
@@ -22,6 +23,13 @@ router.post('/signup/visitor',async (req,res)=>{
         const hashedpwd = await bcrypt.hash(password,10);
 
         const user = await userModel.create({nom:nom,prenom:prenom,email:email,password:hashedpwd});
+
+        const notif = await notificationModel.create({
+            type:'validerVisiteur',
+            sendeId:user._id,
+            receiverId:user._id,
+            content:`${nom} ${prenom} souhaite créer un compte visiteur`
+        });
 
         res.status(201).json('account successfully created ! waiting for admin validation');
     } catch (error) {
@@ -56,6 +64,13 @@ router.post('/signup/expert', upload.single('image'), async (req, res) => {
             email,
             password: hashedPwd,
             fileUrl: result.secure_url 
+        });
+
+        const notif = await notificationModel.create({
+            type:'validerExpert',
+            sendeId:user._id,
+            receiverId:user._id,
+            content:`${nom} ${prenom} souhaite créer un compte expert`
         });
 
         res.status(201).json({ 

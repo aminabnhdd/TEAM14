@@ -8,6 +8,9 @@ import SideNavAdmin from "../../components/SideNav/SideNavAdmin"
 import Validation from "../../components/popUpsNotif/Validation"
 import Validation2 from "../../components/popUpsNotif/Validation2"
 import axios from "axios"
+import AuthContext  from "../../helpers/AuthContext"
+import { useNavigate } from "react-router-dom"
+import { useContext } from "react"
 
 
 import imjjjjjj from "../../assets/person.png"
@@ -17,6 +20,9 @@ function NotifAdmin() {
 
     const [notificationsConflit, setNotificationsConflit] = useState([]);   
     const [notificationsCol, setNotificationsCol] = useState([]); 
+
+    const {authState,setAuthState} = useContext(AuthContext);
+    const navigate = useNavigate();
     
     
     const handleSeenConflit = (id,type) => {
@@ -42,12 +48,25 @@ function NotifAdmin() {
             el.classList.remove("active");
         });
         document.querySelector(".transptext:first-child")?.classList.add("active");
-        axios.get("http://localhost:3001/admin/notifications")
-        .then((res)=>{
-            console.log(res.data)
-            setNotificationsConflit(res.data.filter((el) => el.type === "validerExpert").map((el) => ({...el, seen: false,imge: imjjjjjj,genre:"expert"})));
-            setNotificationsCol(res.data.filter((el) => el.type === "validerVisiteur").map((el) => ({...el, seen: false,imge: imjjjjjj,genre:"visiteur"})));
+        axios.get("http://localhost:3001/refresh", { withCredentials: true })
+        .then((res) => {
+            if (res.data.error) return navigate("/connexion")
+            setAuthState({email:res.data.email,role:res.data.role,accessToken:res.data.accessToken});
+            axios.get("http://localhost:3001/admin/notifications",{headers: {Authorization: `Bearer ${res.data.accessToken}`}})
+            .then((res)=>{
+                console.log(res.data)
+                setNotificationsConflit(res.data.filter((el) => el.type === "validerExpert").map((el) => ({...el, seen: false,imge: imjjjjjj,genre:"expert"})));
+                setNotificationsCol(res.data.filter((el) => el.type === "validerVisiteur").map((el) => ({...el, seen: false,imge: imjjjjjj,genre:"visiteur"})));
+            })
+            .catch((error)=>{
+                console.error("Error fetching notifications:", error);
+            })
         })
+        .catch((error)=>{
+            console.error("Error fetching refresh token:", error);
+            navigate("/connexion")
+        })
+        
     }, []);
 
     const click1 = (e) => {

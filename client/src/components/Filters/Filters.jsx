@@ -1,5 +1,5 @@
 import './Filters.css';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 function Filters({fetchFilteredProjects}) {
  // Run when filters change
@@ -7,9 +7,11 @@ function Filters({fetchFilteredProjects}) {
  
     const HandleFilterClick = (filter) => {
         setActiveFilter(filter);
-        fetchFilteredProjects(activeFilter);  // Call the function passed from parent
-        
-      };
+        };
+
+      useEffect(() => {
+        fetchFilteredProjects(activeFilter);
+      }, [activeFilter]);
 
 
   return (

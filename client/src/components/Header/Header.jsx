@@ -6,14 +6,14 @@ function Header(){
     const navigate = useNavigate();
 
     const handleClick = () => {
-    navigate('/profile'); // Change this to your desired route
+    navigate('/mesprojets'); // Change this to your desired route
     };
 
 
     return(
         <div className="header">
             <div onClick={handleClick} style={{ cursor: 'pointer' }}>
-            <FaUser size={30} color="#333" />
+            <FaUser className="icon"  />
             </div>
             <h1 className="title-1">Plongez dans l'histoire et la beauté de <br />
             <div className="hilighted-discover">L'Architecture Algérienne</div>

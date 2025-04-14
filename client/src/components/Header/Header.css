@@ -37,3 +37,11 @@
     left: 27%;
     font-size: 1.5rem;
 }
+
+.icon{
+    font-size: 1.2rem;
+    color: #C57642;
+    position: absolute;
+    left: 95%;
+    top:5%;
+}

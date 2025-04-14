@@ -23,9 +23,6 @@ function InsEx() {
   return (
     <div className="main-page-two">
       <div className="back-home">
-        <div className="tooltip">
-          <span className="tooltip-text">Retour à l'accueil</span>
-          </div>
           <img src={image2} className="backHome-logo-two" />
         <div className="pres2">
           <p className="pri">ATHAR, une </p>

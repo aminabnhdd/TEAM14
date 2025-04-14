@@ -109,6 +109,8 @@ const [poop3,setPoop3] = useState(false)
         </div>
         <div className="secondary-notif-notifAd">
 
+
+        <div className="teqsam">
         <SearchBar  title="Rechercher un projet" />
 
                 <div className=" textos-notifAd">
@@ -161,7 +163,7 @@ const [poop3,setPoop3] = useState(false)
                         ))}
 
                         
-                        
+                    </div>
                     </div>
                 </div>
             </div>

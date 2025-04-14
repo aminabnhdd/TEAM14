@@ -161,14 +161,15 @@ const [poop5,setPoop5] = useState(false)
         </div>
         <div className="secondary-notif">
 
+        <div className="teqsam">
         <SearchBar  title="Rechercher Un Projet"/>
-                <div className=" textos">
-                    <h1 className="hnotif">Notifications</h1>
-                    <div>
-                    <p className="pnotif">Un conflit a été détecté ? Retrouvez ici toutes les notifications concernant les divergences</p>
-                    <p className="pnotif">dans les contributions et prenez les décisions appropriées.</p>
-                    </div>
+            <div className=" textos">
+                <h1 className="hnotif">Notifications</h1>
+                <div>
+                <p className="pnotif">Un conflit a été détecté ? Retrouvez ici toutes les notifications concernant les divergences</p>
+                <p className="pnotif">dans les contributions et prenez les décisions appropriées.</p>
                 </div>
+            </div>
 
             <div className="second-div">
                 <div className="final-div">
@@ -244,6 +245,7 @@ const [poop5,setPoop5] = useState(false)
                         
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </div>

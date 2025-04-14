@@ -8,6 +8,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../helpers/AuthContext.jsx";
 import { useContext } from "react";
+import { useParams } from "react-router-dom";
 
 
 const ProjetsExpert2 =() => {
@@ -16,13 +17,14 @@ const ProjetsExpert2 =() => {
   const [projects,setProjects] = useState([]);
   const [loading,setLoading] = useState(true);
     const navigate = useNavigate();
+    const { id } = useParams();
     useEffect(() => {
       axios.get("http://localhost:3001/refresh",{withCredentials:true})
           .then((response) => {
               const accessToken = response.data.accessToken;
               if (response.data.error) return navigate('/connexion')
               setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
-              axios.get("http://localhost:3001/profil/mon-compte",{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
+              axios.get(`http://localhost:3001/profil/expert/${id}`,{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
               .then((response) => {
                 const updatedUsers = [...usersData, response.data].map((user) => ({
                   ...user, 

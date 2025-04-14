@@ -4,7 +4,6 @@ import InsVs from "./pages/page inscription/PageInsVs"
 import Notif from "./pages/notifications/Notif";
 import Con from "./pages/page connexion/PageConnexion";
 import AuthContext from "./helpers/AuthContext";
-import AfficherExpert from "./pages/Profilpages/AfficherExpert.jsx";
 import { useState } from "react";
 import ReiniMotdps from "./pages/page connexion/PageReinit";
 import { BrowserRouter as  Router,Route,Routes } from "react-router-dom";
@@ -20,6 +19,16 @@ import EditorEditable from './pages/editeur/editorEditable.jsx';
 import EditorNonEditable from './pages/editeur/editorNonEditable.jsx';
 import Gallerie from './components/editeur/gallerie.jsx';
 import Visualisation from './pages/visualisation/visualisation.jsx';
+import ModifierExpert from "./pages/Profilpages/ModifierExpert.jsx";
+import AfficherExpert from "./pages/Profilpages/AfficherExpert.jsx";
+import DesactiverExpert from "./pages/Profilpages/DesactiverExpert.jsx";
+import ProjetsExpert from "./pages/Profilpages/ProjetsExpert.jsx";
+import SaveExpert from "./pages/Profilpages/SaveExpert.jsx";
+import ModifierVisiteur from "./pages/Profilpages/ModifierVisiteur.jsx";
+import DesactiverVisiteur from "./pages/Profilpages/DesactiverVisiteur.jsx";
+import SaveVisiteur from "./pages/Profilpages/SaveVisiteur.jsx";
+import ChangerMotDePasse from "./pages/Profilpages/ChangerMotdePasse.jsx";
+import ProjetsExpert2 from "./pages/Profilpages/ProjetsExpert2.jsx";
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -54,6 +63,18 @@ function App() {
           <Route path="/notifications-admin" element={<NotifAdmin />} />
           <Route path="/afficher-expert" element={<AfficherExpert />} />
           <Route path="/list-utilisateurs" element={<ListUtil />} />
+          {/*Profil routes*/ }
+          <Route path="/afficher-expert/:id" element={<AfficherExpert />} />
+          <Route path="/modifier-expert/:id" element={<ModifierExpert />} />
+          <Route path="/projets-expert/:id" element={<ProjetsExpert />} />
+          <Route path="/desactiver-expert/:id" element={<DesactiverExpert />} />
+          <Route path="/projets-expert2/:id" element={<ProjetsExpert2 />} />
+          <Route path="/save-expert/:id" element={<SaveExpert />} />
+          <Route path="/modifier-visiteur/:id" element={<ModifierVisiteur />} />
+          <Route path="/desactiver-visiteur/:id" element={<DesactiverVisiteur />} />
+          <Route path="/save-visiteur/:id" element={<SaveVisiteur />} />
+          <Route path="/changer-mdp" element={<ChangerMotDePasse />} />
+        
 
         </Routes>
       </Router>
@@ -85,49 +106,3 @@ function App() {
 
 export default App;
 */
-
-
-
-/*import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ModifierExpert from "./pages/Profilpages/ModifierExpert.jsx";
-import AfficherExpert from "./pages/Profilpages/AfficherExpert.jsx";
-import DesactiverExpert from "./pages/Profilpages/DesactiverExpert.jsx";
-import ProjetsExpert from "./pages/Profilpages/ProjetsExpert.jsx";
-import SaveExpert from "./pages/Profilpages/SaveExpert.jsx";
-import ModifierVisiteur from "./pages/Profilpages/ModifierVisiteur.jsx";
-import DesactiverVisiteur from "./pages/Profilpages/DesactiverVisiteur.jsx";
-import SaveVisiteur from "./pages/Profilpages/SaveVisiteur.jsx";
-import ChangerMotDePasse from "./pages/Profilpages/ChangerMotdePasse.jsx";
-import ProjetsExpert2 from "./pages/Profilpages/ProjetsExpert2.jsx";
-import { useState } from "react";
-import  AuthContext  from "./helpers/AuthContext.jsx";
-
-function App() {
-  const [authState, setAuthState] = useState({
-    email: "",
-    role:"",
-    accessToken: "",
-  });
-  return (
-    <AuthContext.Provider value={{ authState, setAuthState }}>
-        <Router>
-        <Routes>
-          <Route path="/" element={<AfficherExpert />} />  
-          <Route path="/afficher-expert" element={<AfficherExpert />} />
-          <Route path="/modifier-expert" element={<ModifierExpert />} />
-          <Route path="/projets-expert" element={<ProjetsExpert />} />
-          <Route path="/desactiver-expert" element={<DesactiverExpert />} />
-          <Route path="/projets-expert2" element={<ProjetsExpert2 />} />
-          <Route path="/save-expert" element={<SaveExpert />} />
-          <Route path="/modifier-visiteur" element={<ModifierVisiteur />} />
-          <Route path="/desactiver-visiteur" element={<DesactiverVisiteur />} />
-          <Route path="/save-visiteur" element={<SaveVisiteur />} />
-          <Route path="/changer-mdp" element={<ChangerMotDePasse />} />
-        </Routes>
-      </Router>
-    </AuthContext.Provider>
-  );
-}
-
-export default App;*/

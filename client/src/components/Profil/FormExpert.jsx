@@ -3,6 +3,7 @@ import "../../componentsStyles/ProfilStyles/FormExpert.css";
 import { FiSave } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const FormExpert = () => {
   // État initial vide pour stocker les valeurs saisies par l'utilisateur
@@ -16,13 +17,14 @@ const FormExpert = () => {
     niveau: "",
     discipline: ""
   });
+  const {id} = useParams();
   const [authState, setAuthState] = useState({email:"",role:"",accessToken:""});
   useEffect(() => {
     axios.get("http://localhost:3001/refresh",{withCredentials:true})
         .then((response) => {
             // if (response.data.error) return navigate('/')
             setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
-            axios.get("http://localhost:3001/profil/mon-compte",{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
+            axios.get(`http://localhost:3001/profil/expert/${id}`,{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
             .then((response) => {
           
               setUser(response.data);

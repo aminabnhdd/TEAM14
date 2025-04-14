@@ -9,11 +9,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../helpers/AuthContext.jsx";
 import { useContext } from "react";
+import { useParams } from "react-router-dom";
 
 
 const DesactiverVisiteur = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [usersData,setUsersData] = useState([]);
+  const {id} = useParams();
     const {authState,setAuthState} = useContext(AuthContext);
       const navigate = useNavigate();
       useEffect(() => {
@@ -21,7 +23,7 @@ const DesactiverVisiteur = () => {
             .then((response) => {
                 if (response.data.error) return navigate('/connexion')
                 setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
-                axios.get("http://localhost:3001/profil/mon-compte",{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
+                axios.get(`http://localhost:3001/profil/visiteur/${id}`,{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
                 .then((response) => {
                   setUsersData([{...response.data,role:"Visiteur"}]);
                 }

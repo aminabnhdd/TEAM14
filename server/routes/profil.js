@@ -114,6 +114,20 @@ router.get("/expert/:id", validateToken, validateRole([expertRole, adminRole].fi
     res.status(500).json({ message: "Erreur serveur", error: error.message });
   }
 });
+router.get("/visiteur/:id", validateToken, async (req, res) => { 
+  try {
+    const id = req.params.id; 
+
+    const visiteur = await userModel.findById(id).select("-password -refreshToken -accessToken"); 
+    if (!visiteur) { 
+      return res.status(404).json({ message: "Visiteur introuvable" });
+    }
+
+    res.json(visiteur);
+  } catch (error) {
+    res.status(500).json({ message: "Erreur serveur", error: error.message });
+  }
+});
 
 router.get("/expert/:id/projets",validateToken, validateRole([expertRole, adminRole].filter(Boolean)), async (req, res) => {
     try {

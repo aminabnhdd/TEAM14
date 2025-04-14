@@ -3,6 +3,7 @@ import "../../componentsStyles/ProfilStyles/FormVisiteur.css";
 import { FiSave } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const FormVisiteur = () => {
   // État initial pour stocker les valeurs saisies
@@ -12,7 +13,7 @@ const FormVisiteur = () => {
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-
+  const {id} = useParams();
 
 
   const navigate = useNavigate(); 
@@ -22,7 +23,7 @@ const FormVisiteur = () => {
         .then((response) => {
             // if (response.data.error) return navigate('/')
             setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
-            axios.get("http://localhost:3001/profil/mon-compte",{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
+            axios.get(`http://localhost:3001/profil/visiteur/${id}`,{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
             .then((response) => {
           
               setUser(response.data);

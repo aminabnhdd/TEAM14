@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+.card {
+    margin: 10px 10px;
+    padding: 0;
+    border-radius: 16px;
+    position: relative;
+}
+
+.card::after{
+    content:"";
+    position: absolute;
+    top:0; left: 0;
+    width: 100%; height: 100%;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover::after {
+    opacity: 1;
+  }
+
+.card:hover .text{
+    opacity: 1;
+}
+
+.text{
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    font-family: 'poppins', sans-serif;
+    font-size: 1.5rem;    
+    color: white;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card img {
+    width: 100%;
+    /* Make image take full width */
+    height: 100%;
+    /* Maintain aspect ratio */
+    object-fit: cover;
+    /* Crop the image to fit */
+    border-radius: 10px;
+}
+
+.favourite-icon{
+    position: absolute;
+    top: 5%;
+    left: 87%;
+    color: white;
+    font-size: 1.2rem;
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover .favourite-icon{
+    opacity: 1;
+}
+
+
+
+.small {
+    grid-row-end: span 26;
+}
+
+.medium {
+    grid-row-end: span 33;
+}
+
+.large {
+    grid-row-end: span 45;
+}
+

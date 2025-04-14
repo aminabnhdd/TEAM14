@@ -5,6 +5,8 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 
+
+
 function Connect({   mdpPopUp,fun }) {
 
     const navigate = useNavigate();
@@ -40,11 +42,14 @@ function Connect({   mdpPopUp,fun }) {
         return Object.keys(newErrors).length === 0;
     };
 
+
     const handleSubmit = () => {
+       
         if (validateForm()) {
             axios.post("http://localhost:3001/auth/login", formData,{withCredentials:true})
             .then((res) => {
                 console.log(res.data);
+                navigate('/discover'); 
             })
             .catch((err) => {
                 console.log(err);
@@ -52,6 +57,7 @@ function Connect({   mdpPopUp,fun }) {
             
             fun()
         }
+
     };
 
     return  (

@@ -6,7 +6,7 @@ import { useContext } from "react"
 import AuthContext from '../../helpers/AuthContext'
 import RefreshService from "../../services/RefreshService";
 import RetourButton from '../../components/editeur/retourButton';
-import SideNav from "../../components/SideNav";
+import SideNav from "../../components/SideNav/SideNav";
 import "../../componentsStyles/editeur/editor.css";
 import DropDownButton from "../../components/editeur/dropdownButton";
 import SignalerConflit from "../../components/editeur/signalerConflit";

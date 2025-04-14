@@ -5,7 +5,7 @@
     width: 100vw;
     height: auto;
     left:0%;
-    top: 5%;
+    top: 3%;
 }
 
 .header h1{
@@ -20,11 +20,11 @@
 
 .hilighted-discover{
     color: #C57642;
-    width: 65%;
+    width: 70%;
     font-family:'Poppins', sans-serif;
     font-size: 2.5rem;
     position: absolute;
-    left: 20%;
+    left: 15%;
     margin-top: 1%;
   
     
@@ -33,7 +33,7 @@
 .header p{
     font-family:'Poppins', sans-serif;
     position: absolute;
-    margin-top: 15%;
-    left: 30%;
+    margin-top: 8%;
+    left: 27%;
     font-size: 1.5rem;
 }

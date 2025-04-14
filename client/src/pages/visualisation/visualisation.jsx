@@ -1,4 +1,4 @@
-import SideNav from "../../components/SideNav"
+import SideNav from "../../components/SideNav/SideNav"
 import TitleBar from "../../components/visualisation/titleBar"
 import LeftSection from "../../components/visualisation/leftSection"
 import RightSection from "../../components/visualisation/rightSection"

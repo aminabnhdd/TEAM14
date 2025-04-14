@@ -15,8 +15,8 @@ function Header(){
             <div onClick={handleClick} style={{ cursor: 'pointer' }}>
             <FaUser size={30} color="#333" />
             </div>
-            <h1 className="title-1">Plongez dans la l'histoire et la beauté de <br />
-            <div className="hilighted-discover">L'Architecture Algerienne</div>
+            <h1 className="title-1">Plongez dans l'histoire et la beauté de <br />
+            <div className="hilighted-discover">L'Architecture Algérienne</div>
             </h1>
             <p>Où chaque pierre raconte une époque, une culture et une identité unique</p> 
 

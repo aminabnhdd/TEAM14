@@ -1,0 +1,140 @@
+.side-nav {
+    position: relative;
+    width: 4vw;
+    height: 100vh;
+    margin: 0%;
+    padding: 0%;
+    position: fixed;
+    left: 0%;
+    top: 0;
+    background-color: #C57642;
+}
+
+.folder-icon {
+    position: absolute;
+    left: 25%;
+    top: 20%;
+    font-size: 2rem !important;
+    color: white;
+}
+
+.user-icon {
+    position: absolute;
+    left: 25%;
+    top: 35%;
+    font-size: 2rem !important;
+    color: white;
+}
+
+
+.notification-icon {
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    font-size: 2rem !important;
+    color: white;
+}
+
+.help-icon{
+    position: absolute;
+    top: 93%;
+    left: 25%;
+    font-size: 2rem !important;
+    color: white;
+}
+
+
+
+
+.folder-settings .nav-link{
+    position: absolute;
+    text-decoration: none;
+    top:20%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+.user-settings .nav-link{
+    position: absolute;
+    text-decoration: none;
+    top:35%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+
+.notification .nav-link{
+    position: absolute;
+    text-decoration: none;
+    top:50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+.help .nav-link{
+    position: absolute;
+    text-decoration: none;
+    top:93%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+
+
+.nav-link:hover .icon {
+    color: #007bff;
+}
+
+/* Tooltip Styling */
+.tooltip {
+    position: absolute;
+    left: 60px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateX(-10px);
+}
+
+/* Show tooltip on hover */
+.nav-link:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+    .side-nav {
+        width: 15vw;
+        /* Make it wider on smaller screens */
+    }
+    .folder-icon,
+    .user-icon {
+        font-size: 5vw !important;
+        /* Make icons larger on small screens */
+    }
+}

@@ -13,6 +13,7 @@ const expertRole = process.env.EXPERT_ROLE;
 const adminRole = process.env.ADMIN_ROLE;
 const { handleImages } = require('../middlewares/multerMiddleware');
 const { upload } = require('../middlewares/multerMiddleware');
+const { route } = require("./auth");
 
 // Sauvegarder section
 router.put("/editable/:sectionId", upload.array("images"), validateToken, handleImages, async (req, res) => {

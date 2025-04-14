@@ -678,5 +678,4 @@ router.put("/update/:id", upload.single("image"), validateToken, async (req, res
     }
   });
 
-
 module.exports = router;

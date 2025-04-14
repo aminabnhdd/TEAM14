@@ -30,6 +30,10 @@ import SaveVisiteur from "./pages/Profilpages/SaveVisiteur.jsx";
 import ChangerMotDePasse from "./pages/Profilpages/ChangerMotdePasse.jsx";
 import ProjetsExpert2 from "./pages/Profilpages/ProjetsExpert2.jsx";
 
+import Decouvrir from "./pages/Decouvrir";
+import SearchBar from "./components/SearchBar/SearchBar";
+import SideNav from "./components/SideNav/SideNav";
+import Favoris from "./pages/Favoris";
 function App() {
   const [authState, setAuthState] = useState({
     email: "",
@@ -74,6 +78,8 @@ function App() {
           <Route path="/save-visiteur/:id" element={<SaveVisiteur />} />
           <Route path="/changer-mdp" element={<ChangerMotDePasse />} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
+          <Route path="/discover" element={<Decouvrir />} />
+          <Route path="/favoris" element={<Favoris />} />
 
         </Routes>
       </Router>

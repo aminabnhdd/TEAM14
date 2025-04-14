@@ -1,0 +1,43 @@
+.search-container {
+    position: absolute;
+    display: inline-block;
+    left: 12%;
+    top: 35%;
+    width: 80vw;
+    overflow-x: hidden;
+}
+
+.search-input {
+    width: 100%;
+    height: 7vh;
+    display: flex;
+    padding-left: 8%;
+    border: 2px solid #ddd;
+    border-radius: 16px;
+    font-size: 16px;
+    outline: none;
+    background-color:#f2f0f0;
+    z-index: auto;
+}
+
+.search-input:focus {
+    border-color: #E8C07D;
+}
+
+.search-icon {
+    position: absolute;
+    right: 95%;
+    top: 50%;
+    transform: translateY(-50%);
+    color: gray;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.icon{
+    position: sticky;
+    top: 0; /* or however much from the top you want it to stay */
+    z-index: 1000; /* ensure it stays above other content */
+    /*background-color: white; /* to avoid overlap issues */
+    padding: 10px;
+}

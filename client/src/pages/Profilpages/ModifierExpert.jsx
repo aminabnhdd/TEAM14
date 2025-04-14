@@ -45,7 +45,7 @@ const ModifierExpert = () => {
   }, []);
   return (
     <>
-        <div classname="root1">
+        <div className="root1">
       <InfoHeaderBtn />
       <ProfilInfolink usersData={usersData} />
       

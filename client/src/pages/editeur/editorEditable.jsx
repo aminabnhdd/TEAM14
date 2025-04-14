@@ -3,7 +3,7 @@ import TiptapEditable from "../../components/editeur/tiptapEditable";
 import Conflicts from "../../components/editeur/conflicts";
 import Annotations from "../../components/editeur/annotations";
 import SaveButton from "../../components/editeur/saveButton";
-import SideNav from "../../components/SideNav";
+import SideNav from "../../components/SideNav/SideNav";
 import "../../componentsStyles/editeur/editor.css";
 import DropDownButton from "../../components/editeur/dropdownButton";
 import { useContext } from "react"

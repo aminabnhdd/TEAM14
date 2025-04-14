@@ -34,7 +34,7 @@ const ModifierVisiteur = () => {
   }, []);
   return (
     <>
-        <div classname="root1">
+        <div className="root1">
       <InfoHeaderBtn />
       <ProfilInfolink usersData={usersData}  />
       <ModifCardVisiteur usersData={usersData} />

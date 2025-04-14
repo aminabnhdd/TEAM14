@@ -714,4 +714,49 @@ router.put("/update/:id", upload.single("image"), validateToken, async (req, res
     }
   });
 
+  router.post('/favourite/add', validateToken, async(req, res) =>{
+    const userId = req.user.id;
+    const {projectId} = req.body;
+
+    try{
+
+        
+        const user = await expertModel.findById(userId);
+        console.log(user);
+        if (!user) {
+            return res.status(404).json({ message: "Error." });
+        }
+    
+    if(!user.favorites.includes(projectId)){
+        user.favorites.push(projectId);
+        await user.save();
+    }
+
+    
+
+    }catch(error){
+        console.error(error);
+        res.sendStatus(500);
+    }
+    
+})
+router.get('/favourite/', validateToken, async (req, res) => {
+    const userId = req.user.id;
+
+    try {
+        const user = await expertModel.findById(userId).populate('favorites');
+        if (!user) {
+            return res.status(404).json({ message: "User not found." });
+        }
+
+        const favouriteProjects = user.favorites; // now this contains full project objects
+        res.json(favouriteProjects);
+        console.log(favouriteProjects);
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(500); 
+    }
+});
+
+
 module.exports = router;

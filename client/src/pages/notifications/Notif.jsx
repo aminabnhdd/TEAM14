@@ -32,7 +32,7 @@ function Notif() {
 
     const [notificationsDem,setNotificationsDem] = useState([]);
     const [notifDem,setNotifDem] = useState({});
-    // let navigate = useNavigate('');
+    const navigate = useNavigate();
     useEffect(() => {
         // Make "Conflits" active at the beginning
         document.querySelectorAll(".transptext").forEach(el => {
@@ -41,7 +41,8 @@ function Notif() {
         document.querySelector(".transptext:first-child")?.classList.add("active");
         axios.get("http://localhost:3001/refresh",{withCredentials:true})
         .then((response) => {
-            // if (response.data.error) return navigate('/')
+            // if (response.data.error) return navigate('/connexion')
+            console.log(response.data)
             setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
             axios.get("http://localhost:3001/notifications",{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
             .then((response) => {

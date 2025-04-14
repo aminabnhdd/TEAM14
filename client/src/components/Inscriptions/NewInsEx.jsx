@@ -47,9 +47,11 @@ navigate("/connexion");
 
   const handleSubmit = () => {
     if (validateForm()) {
-      setTimeout(() => {
-        fn(); // Call function after animation
-      }); // Wait for animation to complete
+      if (localStorage.getItem("formData1")) {
+        localStorage.removeItem("formData1");
+      }
+      localStorage.setItem("formData1", JSON.stringify(formData));
+      fn();
     }
   };
 

@@ -51,7 +51,6 @@ function App() {
           <Route path="/reinitialisation/mdp" element={<ReiniMotdps/>}/>
           <Route path="/signup/expert" element={<InsEx/>} />
           <Route path="/signup/visiteur" element={<InsVs/>} />
-          <Route path="*" element={<h1>404 Not Found</h1>} />
           <Route path="/mesprojets" element={<MyProjects />} />
           <Route path="/restoreprojects" element={<RestoreProjects />} />
           <Route path="/editeur/editable/:sectionId" element={<EditorEditable  />} />
@@ -74,7 +73,7 @@ function App() {
           <Route path="/desactiver-visiteur/:id" element={<DesactiverVisiteur />} />
           <Route path="/save-visiteur/:id" element={<SaveVisiteur />} />
           <Route path="/changer-mdp" element={<ChangerMotDePasse />} />
-        
+          <Route path="*" element={<h1>404 Not Found</h1>} />
 
         </Routes>
       </Router>

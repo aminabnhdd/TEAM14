@@ -9,7 +9,6 @@ const notificationSchema = new mongoose.Schema({
     projetId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Projet",
-        required: true,
     },
     sendeId: {
         type: mongoose.Schema.Types.ObjectId,

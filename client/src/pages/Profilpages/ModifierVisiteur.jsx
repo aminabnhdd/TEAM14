@@ -11,7 +11,7 @@ import { useParams } from "react-router-dom";
 const ModifierVisiteur = () => {
   const [usersData,setUsersData] = useState([]);
   const navigate = useNavigate();
-  const {id} = useParams();
+  const {id} = useParams()
   useEffect(() => {
     axios.get("http://localhost:3001/refresh",{withCredentials:true})
         .then((response) => {

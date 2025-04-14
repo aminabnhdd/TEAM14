@@ -27,7 +27,8 @@ router.post('/signup/visitor',async (req,res)=>{
         const notif = await notificationModel.create({
             type:'validerVisiteur',
             sendeId:user._id,
-            receiverId:user._id,
+            recepientId:user._id,
+            time:new Date(),
             content:`${nom} ${prenom} souhaite créer un compte visiteur`
         });
 
@@ -69,7 +70,8 @@ router.post('/signup/expert', upload.single('image'), async (req, res) => {
         const notif = await notificationModel.create({
             type:'validerExpert',
             sendeId:user._id,
-            receiverId:user._id,
+            recepientId:user._id,
+            time:new Date(),
             content:`${nom} ${prenom} souhaite créer un compte expert`
         });
 
@@ -107,7 +109,7 @@ router.post('/login',async (req,res)=>{
     await user.save();
 
     
-    res.cookie('jwt',refreshToken,{ httpOnly:true,maxAge:1000*3600*24,sameSite:'none',secure:false});
+    res.cookie('jwt',refreshToken,{ httpOnly:true,maxAge:1000*3600*24,sameSite:'lax',secure:false});
     console.log('Setting jwt cookie');
     res.json({refreshToken:refreshToken,accessToken:accessToken,prenom:user.prenom,nom:user.nom,id:user._id,role:user.role});
 

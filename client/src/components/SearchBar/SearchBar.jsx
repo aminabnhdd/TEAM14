@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {FaSearch} from "react-icons/fa";
+import {FaSearch, FaUser} from "react-icons/fa";
 import "./SearchBar.css";
 
 function SearchBar({ onSearch }) {
@@ -11,6 +11,8 @@ function SearchBar({ onSearch }) {
   };
 
   return (
+    <>
+  
     <div className="search-container">
        <input
       type="text"
@@ -21,6 +23,7 @@ function SearchBar({ onSearch }) {
     />
     <FaSearch className="search-icon" /> 
     </div>
+   </> 
    
   );
 }

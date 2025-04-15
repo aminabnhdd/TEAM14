@@ -17,7 +17,7 @@ export function Auteur (props){
             navigate(`/profil-expert-admin/${props.user._id}`); 
         } else {
             console.log('is not admin');
-            navigate(`/profil-expert/${props.user._id}`); 
+            navigate(`/afficher-expert/${props.user._id}`); 
         }
          
     };

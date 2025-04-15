@@ -15,6 +15,7 @@ function NewInsEx3({ prevPopUp2,swipeDirection }) {
     const onX = () =>{
         setAppX(false)
         setPreview(null)
+        navigate("/");
     }
 
   const goToConnexion = () => {

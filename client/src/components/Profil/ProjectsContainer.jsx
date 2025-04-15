@@ -9,7 +9,10 @@ const DEFAULT_IMAGE_URL = "https://previews.123rf.com/images/yupiramos/yupiramos
 
 const ProjectsContainer = ({ projets = [] }) => { 
   console.log("Received projets:", projets);
-
+  const navigate = useNavigate(); 
+  const handleProjectClick = (projectId) => {
+    navigate(`/visualisation/${projectId}`); // ✅ Navigate on click
+  };
   return (
     <div className="project-section">
       <h3 className="project-heading">Projets</h3>
@@ -17,7 +20,7 @@ const ProjectsContainer = ({ projets = [] }) => {
         <div className="project-list">
           {projets?.length > 0 && (
             projets.map((project) => (
-              <div key={project._id || project.titre} className="project-item">
+              <div key={project._id || project.titre} className="project-item" onClick={() => handleProjectClick(project._id)}>
                 <div className="image-wrapper">
                   <img src={project.photoUrl || DEFAULT_IMAGE_URL} alt="Projet" className="project-thumbnail" />
                   <div className="overlay-container">

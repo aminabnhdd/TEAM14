@@ -5,7 +5,7 @@ const DEFAULT_IMAGE_URL = "https://img.freepik.com/vecteurs-premium/icone-profil
 
 const ProfilInfonolink = ({ usersData }) => {
   return usersData.map((user) => (
-    <div key={user.id} className="profil-card">
+    <div key={user._id} className="profil-card">
       {/* Avatar + Infos */}
       <div className="profil-details">
         <img src={user.pfp || DEFAULT_IMAGE_URL} alt="Avatar" className="avatar" />

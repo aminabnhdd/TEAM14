@@ -139,6 +139,7 @@ router.post("/conflits/:projetId/:sectionId", validateToken, isCollaborator, asy
         });
 
         await notification.save()
+        section.conflits = section.conflits || [];
         section.conflits.push(conflit._id);
         await section.save();
         return res.status(201).json({ 

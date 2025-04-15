@@ -13,7 +13,7 @@ function Collaboration ({popUp,close,notif}) {
         axios.put(`http://localhost:3001/notifications/collaboration/valider/${notif._id}`,{decision:action},{headers:{Authorization:`Bearer ${authState.accessToken}`}})    
         .then((response)=>{
             console.log(response.data)
-            navigate("/Notifications")
+            navigate("/notifications")
             
             
         })

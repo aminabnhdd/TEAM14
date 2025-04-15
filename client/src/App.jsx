@@ -64,7 +64,6 @@ function App() {
           <Route path="/visualisation/:projetId" element={<Visualisation />} />
           <Route path="/projets" element={<LsProjets />} />
           <Route path="/notifications-admin" element={<NotifAdmin />} />
-          <Route path="/afficher-expert" element={<AfficherExpert />} />
           <Route path="/list-utilisateurs" element={<ListUtil />} />
           {/*Profil routes*/ }
           <Route path="/afficher-expert/:id" element={<AfficherExpert />} />

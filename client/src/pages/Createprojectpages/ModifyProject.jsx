@@ -9,6 +9,8 @@ import {UpdateProject } from "../../services/ModifyProject.js";
 import AuthContext from '../../helpers/AuthContext'
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import SideNav from "../../components/SideNav";
+import SearchBar from "../../components/SearchBar.jsx";
 
 const ModifyProject = () => {
   const [error, setError] = useState(false);
@@ -56,6 +58,10 @@ const ModifyProject = () => {
 
   return (
     <>
+    <div className="modifprojetsearchbar">
+      <SearchBar />
+    </div>
+    <SideNav />
     <div className="root1">
       <ModifProjectHeader />
       <div className="create-project-content">

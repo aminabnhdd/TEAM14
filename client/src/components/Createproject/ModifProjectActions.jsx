@@ -11,8 +11,8 @@ const ModifProjectActions = ({ onModify ,projetId}) => {
   }
   return (
     <div className="project-actions">
-      <button className="cancel" onClick={Annuler}>Annuler</button>
-      <button className="create" onClick={onModify}>
+      <button className="cancelmodif" onClick={Annuler}>Annuler</button>
+      <button className="createmodif" onClick={onModify}>
       <Save className="icon-save" size={15} style={{ marginRight: "8px" }} />
         Sauvegarder
       </button>

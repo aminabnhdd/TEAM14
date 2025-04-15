@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../helpers/AuthContext.jsx";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
+import SideNav from "../../components/SideNav";
+import SearchBar from "../../components/SearchBar.jsx";
 
 
 const DesactiverExpert = () => {
@@ -52,6 +54,11 @@ const DesactiverExpert = () => {
 
   return (
      <>
+
+      <div className="desactxpertsearchbar">
+        <SearchBar />
+       </div>
+      <SideNav />
       <div className="root1">
       <InfosProjets2 />
       <ProfilInfowithoutlink usersData={usersData} />

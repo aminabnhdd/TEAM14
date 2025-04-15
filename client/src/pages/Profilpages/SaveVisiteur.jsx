@@ -7,6 +7,8 @@ import { useState,useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import SideNav from "../../components/SideNav";
+import SearchBar from "../../components/SearchBar.jsx";
 
 const SaveVisiteur = () => {
   const [usersData,setUsersData] = useState([]);
@@ -33,9 +35,16 @@ const SaveVisiteur = () => {
   }, []);
   return (
     <>
+    <div className="savevisitsearchbar">
+        <SearchBar />
+       </div>
+    <SideNav />
+     <div className="root1">
      <InfoHeader/>
      <ProfilInfosave usersData={usersData} />
      <FormVisiteur  />
+     </div>
+   
     </>
 
   );

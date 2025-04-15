@@ -1,4 +1,4 @@
-import SideNav from "../../components/SideNav/SideNav"
+import SideNav from "../../components/SideNav"
 import TitleBar from "../../components/visualisation/titleBar"
 import LeftSection from "../../components/visualisation/leftSection"
 import RightSection from "../../components/visualisation/rightSection"
@@ -11,7 +11,7 @@ import AuthContext from '../../helpers/AuthContext'
 import VisuService from "../../services/VisuService";
 import RefreshService from "../../services/RefreshService";
 import { useParams } from "react-router-dom";
-
+import SearchBar from "../../components/SearchBar.jsx"
 export default function Visualisation(){
     const { projetId } = useParams();
     const [isExpert, setIsExpert] = useState(null);
@@ -72,15 +72,11 @@ export default function Visualisation(){
      <p>Loading section...</p>
    </div>
  ) : (
-          <div className="flex relative max-w-full">
+          <div className="flex relative max-w-full ">
             <SideNav className="" />
             <div className="flex-1 w-full bg-white main-content">
-              <div className="h-[106px] py-5 w-full flex items-center justify-center bg-white sticky top-0 z-10">
-                <div className="bg-neutral-200 w-[86%] h-full flex items-center pl-4">
-                  Rechercher un projet
-                </div>
-              </div>
-              <main className="">
+                <SearchBar/>
+               <main className="">
                 <div className="mt-5 bg w-[86%] mx-auto mb-10">
                   <TitleBar isExpert={isExpert} projet={projet} />
                   <div className="flex align-items justify-between mt-[30px]">

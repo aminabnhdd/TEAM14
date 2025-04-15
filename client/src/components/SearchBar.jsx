@@ -1,26 +1,28 @@
-import { useState } from "react";
-import {FaSearch} from "react-icons/fa";
-import "../componentsStyles/SearchBar.css";
+import imj from "../assets/material-symbols_search.svg"
+import "../ComponentsStyles/SearchBar.css";
+import ijj from "../assets/gg_profile.svg" 
+import { useNavigate } from "react-router-dom";
 
-function SearchBar({ onSearch }) {
-  const [query, setQuery] = useState("");
-
-  const handleChange = (e) => {
-    setQuery(e.target.value);
-    onSearch(e.target.value); // Pass search query to parent component
-  };
+function SearchBar({ onSearch,title }) {
+    const navigate = useNavigate(); 
+    const goToProfil = () => {
+      navigate("/profil")
+    }
 
   return (
-    <div className="search-container">
+    <div className="rsearch-div">
+      <img src={ijj} alt="null" className="rprf" onClick={goToProfil}/>
+      <div className="rsearch-bar">
        <input
       type="text"
-      placeholder="Search..."
-      value={query}
-      onChange={handleChange}
-      className="search-input"
+      placeholder={title}
+      onChange={(e) => onSearch(e.target.value)}
+      className="rsearch-input"
     />
-    <FaSearch className="search-icon" /> 
+    <img src={imj} alt="j" className="rsearch-icon" />
     </div>
+    </div>
+    
    
   );
 }

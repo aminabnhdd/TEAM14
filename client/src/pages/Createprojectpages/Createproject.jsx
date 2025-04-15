@@ -9,6 +9,8 @@ import { addProject } from "../../services/projetService.js";
 import AuthContext from '../../helpers/AuthContext'
 import RefreshService from "../../services/RefreshService.js";
 import { useNavigate } from "react-router-dom";
+import SideNav from "../../components/SideNav";
+import SearchBar from "../../components/SearchBar.jsx";
 
 
 //lina you need to add ta3 useeffect with local storage or else whenever he will refresh he will get new data 
@@ -77,6 +79,10 @@ const CreateProject = () => {
 
   return (
     <>
+    <div className="createprojetsearchbar">
+      <SearchBar />
+    </div>
+    <SideNav />
     <div className="root1">
       <ProjectHeader />
       <div className="create-project-content">

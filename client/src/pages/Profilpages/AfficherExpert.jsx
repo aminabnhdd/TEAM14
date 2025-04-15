@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import SideNav from "../../components/SideNav";
+import SearchBar from "../../components/SearchBar.jsx";
 
 const AfficherExpert  = () => {
   const [usersData,setUsersData] = useState([]);
@@ -45,6 +47,10 @@ const AfficherExpert  = () => {
   }, []);
   return(
     <>
+    <div className="affexpertsearchbar">
+        <SearchBar />
+       </div>
+    <SideNav />
     <div className="root1">
     <InfosProjets id = {id} />
     <ProfilInfowithoutlink usersData={usersData} />

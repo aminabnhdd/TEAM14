@@ -3,8 +3,7 @@ import TiptapEditable from "../../components/editeur/tiptapEditable";
 import Conflicts from "../../components/editeur/conflicts";
 import Annotations from "../../components/editeur/annotations";
 import SaveButton from "../../components/editeur/saveButton";
-import SideNav from "../../components/SideNav/SideNav";
-import "../../componentsStyles/editeur/editor.css";
+ import "../../componentsStyles/editeur/editor.css";
 import DropDownButton from "../../components/editeur/dropdownButton";
 import { useContext } from "react"
 import AuthContext from '../../helpers/AuthContext'
@@ -12,6 +11,8 @@ import SectionService from "../../services/sectionService";
 import GallerieEditable from "../../components/editeur/gallerieEditable";
 import RefreshService from "../../services/RefreshService";
 import { useParams } from "react-router-dom";
+import SideNav from "../../components/SideNav";
+import SearchBar from "../../components/SearchBar";
 
 export default function EditorEditable() {
   const { sectionId } = useParams();
@@ -195,15 +196,10 @@ setAuthState({email:response.email,role:response.role,accessToken:response.acces
 
   return (
     <>
-      <div className="flex max-w-full">
-        <SideNav />
-        <div className="flex-1 w-full bg-white main-content">
-          <div className="h-[106px] px-10 py-5 w-full flex items-center justify-center bg-white sticky top-0 z-2000">
-            <div className="bg-neutral-200 w-full h-full flex items-center pl-4">
-              {" "}
-              Recherchere un projet
-            </div>
-          </div>
+   <div className="flex relative max-w-full ">
+            <SideNav className="" />
+            <div className="flex-1 w-full bg-white main-content">
+                <SearchBar/>
           <main>
             <div className="mt-5 bg w-[86%] mx-auto mb-10">
               <div className="flex justify-between align-items mb-5">

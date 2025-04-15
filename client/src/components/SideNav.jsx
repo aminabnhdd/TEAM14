@@ -1,32 +1,135 @@
-import '../componentsStyles/SideNav.css'
-import { Link } from "react-router-dom";
-import discoverIcon from "../assets/images/discover.png"
-import documentIcon from "../assets/images/document.png"
-import favoriteIcon from "../assets/images/favorite.png"
-import notificationIcon from "../assets/images/notification.png"
+import '../ComponentsStyles/SideNav.css'
+import {FaUserCog, FaFolderOpen, FaCompass, FaStar, FaEdit, FaBell } from "react-icons/fa";
+import { FaQuestionCircle } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+import img from "../assets/Screenshot 2025-03-03 at 8.36.18 PM 1.png"
+import { useState } from 'react';
 
 function SideNav(){
+
+    const [isExpert, setIsExpert] = useState(true);
+    const [isAdmin, setIsAdmin] = useState(false);
+
+
+    const navigate = useNavigate()
+
+
+
+    const goToDecouvrir = () => {
+        navigate("/discover") // hna tdir la page li rak hab troh liha
+        }
+
+    const goToFavoris = () => {
+        navigate("/favoris") // hna tdir la page li rak hab troh liha
+        }
+
+    const goToMesProjets = () => {
+        navigate("/mesprojets") // hna tdir la page li rak hab troh liha
+        }
+
+    const goToNotifExpert = () => {
+        navigate("/notifications") // hna tdir la page li rak hab troh liha
+        }
+
+    const goToLsProjets = () => {
+    navigate("/list-projets") // hna tdir la page li rak hab troh liha
+    }
+    const goToLsUtil = () => {
+    navigate("/list-utilisateurs")
+    }
+    const goToNotifAdmin = () => {
+    navigate("/notifications-admin")
+    }
+
+    
+
     return(
+        <div className="parent-sideNav">
         <div className="side-nav">
+                    <div className="upperIcons1">
+        
+                    <img src={img} alt="hh"  className="ico1" onClick={goToDecouvrir} />
+                    
+                    
+                    
+                    <div className="icons1">
 
-            <Link to="">
-            <img className="discover-icon" src={discoverIcon}></img>
-            </Link>
+                    {!isExpert && !isAdmin && <>
+                        <div className='nav-link'>
+                            <span className="tooltip">Découvrir</span>
+                            <FaCompass className="iconus" onClick={goToDecouvrir} />
+                        </div>
 
-            <Link to="">
-            <img className="favorite-icon" src={documentIcon}></img>
-            </Link>
+                        <div className='nav-link'>
+                            <span className="tooltip">Favoris</span>
+                            <FaStar className="iconus" onClick={goToFavoris}/>
+                        </div>
 
-            <Link to="">
-            <img className="document-icon" src={favoriteIcon}></img>
-            </Link>
+ 
+                        </>}
 
-            <Link to="">
-            <img className="notification-icon" src={notificationIcon}></img>
-            </Link>
-            
 
-        </div>
+                    {isExpert && <>
+                        <div className='nav-link'>
+                            <span className="tooltip">Découvrir</span>
+                            <FaCompass className="iconus" onClick={goToDecouvrir} />
+                        </div>
+
+                        <div className='nav-link'>
+                            <span className="tooltip">Favoris</span>
+                            <FaStar className="iconus" onClick={goToFavoris}/>
+                        </div>
+
+                         <div className='nav-link'>
+                            <span className="tooltip">Mes projets</span>
+                            <FaEdit className="iconus"  onClick={goToMesProjets}/>
+                            </div>
+
+                        <div className='nav-link'>
+                            <span className="tooltip">Notifications</span>
+                            <FaBell className="iconus"  onClick={goToNotifExpert}/>
+                            </div>
+                        </>}
+
+                        {isAdmin && <>
+
+
+                            <div className='nav-link'>
+                            <span className="tooltip">Gestion projets</span>
+                            <FaFolderOpen className="iconus" onClick={goToLsProjets} />
+                            </div>
+
+                            <div className='nav-link'>
+                            <span className="tooltip">Gestion utilisateurs</span>
+                            <FaUserCog className="iconus" onClick={goToLsUtil}/>
+                            </div>
+
+                            <div className='nav-link'>
+                            <span className="tooltip">Notifications</span>
+                            <FaBell className="iconus"  onClick={goToNotifAdmin}/>
+                            </div>
+ 
+</>}
+
+                        
+
+
+
+                        
+
+
+                    
+                    </div>
+        
+                    </div>
+                    <div className="lowerIcon1">
+                    <span className="tooltip">Aide</span>
+
+                    <FaQuestionCircle className="lastIcon" />
+                    </div>
+                    
+                </div>
+                </div>
         
         
     )

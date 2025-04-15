@@ -36,7 +36,7 @@ export default Favoris;*/
 
 
 import SearchBar from '../components/SearchBar/SearchBar';
-import SideNav from '../components/SideNav/SideNav';
+import SideNav from '../components/SideNav';
 import HeaderFavourites from '../components/HeaderFavourites/HeaderFavourites';
 import PinterestLayout from '../components/PinterestLayout/PinterestLayout';
 import axios from "axios";

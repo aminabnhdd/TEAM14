@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../helpers/AuthContext.jsx";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
+import SideNav from "../../components/SideNav";
+import SearchBar from "../../components/SearchBar.jsx";
 
 const ProjetsExpert =() => {
   const [usersData,setUsersData] = useState([]);
@@ -58,8 +60,12 @@ const ProjetsExpert =() => {
     }, []);
   return(
     <>
-        <div className="root1">
-      <ProjetsInfos id = {id}/>
+      <div className="projetexpertsearchbar">
+        <SearchBar />
+      </div>
+      <SideNav />
+      <div className="root1">
+      <ProjetsInfos  id = {id} />
       <ProfilInfowithoutlink usersData={usersData} />
       {!loading && (
         <ProjectsContainer projets={projects} />

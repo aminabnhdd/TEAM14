@@ -1,4 +1,4 @@
-import logo from '../assets/footer-white.png'
+import logo from "../assets/Screenshot 2025-03-03 at 8.36.18 PM 1.png"
 import '../componentsStyles/Footer.css'
 
 export default function Footer() {

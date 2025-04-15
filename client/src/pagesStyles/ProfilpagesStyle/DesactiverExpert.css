@@ -24,3 +24,8 @@
 .desactiver-btn:hover {
   background: rgba(255, 0, 0, 0.1); 
 }
+
+.desactxpertsearchbar {
+  width: 94%; 
+  margin-left: 5%;
+}

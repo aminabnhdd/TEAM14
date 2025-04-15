@@ -1,6 +1,6 @@
 import PinterestLayout from '../components/PinterestLayout/PinterestLayout';
 import SearchBar from '../components/SearchBar/SearchBar';
-import SideNav from '../components/SideNav/SideNav';
+import SideNav from '../components/SideNav';
 import Header from '../components/Header/Header';
 import Filters from '../components/Filters/Filters';
 import {useState, useEffect} from 'react';

@@ -25,7 +25,7 @@ export default function ArchiverProjet(props){
             )
         await VisuService.Archiver(props.projet._id,authState.accessToken);
     
-        navigate(`/decouvrir`); 
+        navigate(`/discover`); 
         setShowConfirmation(false);
     } catch (error) {
         console.error("Error Annotation:", error);

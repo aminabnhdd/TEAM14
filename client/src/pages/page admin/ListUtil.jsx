@@ -1,6 +1,6 @@
 import "../../PagesStyles/Pages Admin Styles/ListUtil.css"
 import {useState,useEffect, useContext} from "react"
-import SearchBar from "../../components/SearchBar/SearchBar"
+import SearchBar from "../../components/SearchBar"
 import SideNav from "../../components/SideNav/SideNav"
 import SideNavAdmin from "../../components/SideNav/SideNavAdmin"
 
@@ -104,7 +104,7 @@ const [col,setCol] = useState(false)
             <div className="secondary-notif-LsUtil">
                     <div className="teqsam1">
                     <div className=" textos-LsUtil">
-                        <h1 className="hnotif-LsUtil">Listes des utilisateurs</h1>
+                        <h1 className="hnotif">Listes des utilisateurs</h1>
                         <div>
                         <p className="pnotif-LsUtil">Gérez les utilisateurs de l’application. Examinez chaque compte et visualisez les détails de l’utilisateur.</p>
                         </div>

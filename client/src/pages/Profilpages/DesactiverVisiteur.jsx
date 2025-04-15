@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../helpers/AuthContext.jsx";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
+import SideNav from "../../components/SideNav";
+import SearchBar from "../../components/SearchBar.jsx";
 
 
 const DesactiverVisiteur = () => {
@@ -40,7 +42,11 @@ const DesactiverVisiteur = () => {
   
   return (
      <>
-         <div className="root1">
+      <div className="desactvisitsearchbar">
+        <SearchBar />
+       </div>
+      <SideNav />
+      <div className="root1">
       <HeaderSection />
       <ProfilInfowithoutlink usersData={usersData} />
       <AfficherCardVisiteur usersData={usersData} />

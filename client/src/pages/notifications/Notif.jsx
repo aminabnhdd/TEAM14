@@ -7,7 +7,7 @@ import ConflitChat from "../../components/popUpsNotif/ConflitChat"
 import Refus from "../../components/popUpsNotif/Refus"
 import Acceptation from "../../components/popUpsNotif/Acceptation"
 import SideNav from "../../components/SideNav/SideNav"
-import SearchBar from "../../components/SearchBar/SearchBar"
+import SearchBar from "../../components/SearchBar"
 
 import imjj from "../../assets/Alert triangle (1).png"
 import imjjj from "../../assets/Alert triangle.png"
@@ -234,7 +234,7 @@ const [poop5,setPoop5] = useState(false)
                         <p onClick={click2} className="transptext">Demandes de collaboration</p>
                         <p onClick={click3} className="transptext">Mes demandes</p>
                     </div>
-                    <div className="line"></div>
+                    <div className="line-riadh  "></div>
                     <div className="notifications">
                         
                         {conflit && notificationsConflit.map(element => (

@@ -13,7 +13,7 @@ const ModifExpertCard = ({ usersData }) => {
       {/* Titre + Bouton Modifier */}
       <div className="card-header">
         <h2>Informations Personnelles & Professionnelles</h2>
-        <button className="edit-button" onClick={() => navigate("/save-expert")}>
+        <button className="edit-button" onClick={() => navigate(`/save-expert/${user.id}`)}>
           Modifier <FaRegEdit size={16} />
         </button>
       </div>

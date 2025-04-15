@@ -90,4 +90,6 @@ html{
   .buttons { font-size: var(--font-size-buttons); font-weight: var(--font-weight-buttons); }
 }
 
-
+body {
+  overflow-x: hidden;
+}

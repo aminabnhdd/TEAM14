@@ -24,3 +24,8 @@
 .desactiver-btn:hover {
   background: rgba(255, 0, 0, 0.1); 
 }
+
+.desactvisitsearchbar {
+  width: 94%; 
+  margin-left: 5%;
+}

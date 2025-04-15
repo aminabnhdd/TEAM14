@@ -7,6 +7,8 @@ import  {useState, useEffect} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom"; 
+import SideNav from "../../components/SideNav";
+import SearchBar from "../../components/SearchBar.jsx";
 
 const ModifierExpert = () => {
   const [usersData,setUsersData] = useState([]);
@@ -45,10 +47,13 @@ const ModifierExpert = () => {
   }, []);
   return (
     <>
-        <div className="root1">
+      <div className="modfexpertsearchbar">
+        <SearchBar />
+       </div>
+      <SideNav />
+      <div className="root1">
       <InfoHeaderBtn />
       <ProfilInfolink usersData={usersData} />
-      
       <ModifExpertCard usersData={usersData} />
       </div>
     </>

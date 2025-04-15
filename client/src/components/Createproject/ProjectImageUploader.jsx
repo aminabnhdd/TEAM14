@@ -7,6 +7,7 @@ const ProjectImageUploader = ({ onImageChange }) => {
   const handleRemoveImage = () => {
     setImage(null);
     onImageChange(null);
+
   };
 
   const [image, setImage] = useState(null);
@@ -25,6 +26,7 @@ const ProjectImageUploader = ({ onImageChange }) => {
       if (image) URL.revokeObjectURL(image);
     };
   }, [image]);
+  
 
   return (
     <div className="project-image-uploader">
@@ -43,6 +45,8 @@ const ProjectImageUploader = ({ onImageChange }) => {
       <X size={20} />
     </button>
   </>
+  
+  
 ) : (
           <>
             <div className="upload-icon-container">

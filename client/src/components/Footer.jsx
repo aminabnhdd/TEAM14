@@ -1,4 +1,4 @@
-import { useState } from "react";
+/*import { useState } from "react";
 import {FaSearch} from "react-icons/fa";
 import "../componentsStyles/SearchBar.css";
 import ijj from "../assets/gg_profile.svg" 
@@ -41,4 +41,18 @@ function SearchBar({ onSearch }) {
   
 }
 
-export default SearchBar;
+export default SearchBar;*/
+
+import logo from "../assets/Screenshot 2025-03-03 at 8.36.18 PM 1.png"
+import '../componentsStyles/Footer.css'
+
+export default function Footer() {
+    return (
+        <div className="footer">
+            <img className="footer-logo" src={logo} alt="Logo" />
+            <p className="footer-text">
+                EQUIPE14 | <span className="footer-brand">ATHAR</span> © 2025
+            </p>
+        </div>
+    )
+}

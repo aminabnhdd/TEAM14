@@ -15,34 +15,19 @@ function ListUtil() {
     const {authState,setAuthState} = useContext(AuthContext);
 
 
-    const [notificationsConflit, setNotificationsConflit] = useState([
-        
-        {id:"1",seen:false,type:"expert",imge:imjjjjjj,util:"Benhaddad Amina",dom:"Expert en Architecture",button:"Voir compte"},
-        {id:"2",seen:false,type:"expert",imge:imjjjjjj,util:"Rahim Sarah",dom:"Expert en Histoire",button:"Voir compte"},
-        {id:"3",seen:false,type:"expert",imge:imjjjjjj,util:"Souames Rayhane Manel",dom:"Expert en Architecture",button:"Voir compte"},
-        {id:"4",seen:false,type:"expert",imge:imjjjjjj,util:"Yahiha-Cherif Lina",dom:"Expert en Histoire",button:"Voir compte"},
-    ]   ) 
-        const [notificationsCol , setNotificationsCol] = useState([
-        {id:"5",seen:false,type:"visiteur",imge:imjjjjjj,util:"Rahim Sarah",button:"Voir compte"},
-        {id:"6",seen:false,type:"visiteur",imge:imjjjjjj,util:"Rachem Riadh",button:"Voir compte"},
-        {id:"7",seen:false,type:"visiteur",imge:imjjjjjj,util:"l'Aliouche",button:"Voir compte"},
-        {id:"8",seen:false,type:"visiteur",imge:imjjjjjj,util:"Rahim Sarah",button:"Voir compte"},
-        {id:"9",seen:false,type:"visiteur",imge:imjjjjjj,util:"Rachem Riadh",button:"Voir compte"},
-        {id:"10",seen:false,type:"visiteur",imge:imjjjjjj,util:"l'Aliouche",button:"Voir compte"},
-        {id:"11",seen:false,type:"visiteur",imge:imjjjjjj,util:"Rahim Sarah",button:"Voir compte"},
-        {id:"12",seen:false,type:"visiteur",imge:imjjjjjj,util:"Rachem Riadh",button:"Voir compte"},
-        {id:"13",seen:false,type:"visiteur",imge:imjjjjjj,util:"l'Aliouche",button:"Voir compte"},
-    ])
+    const [notificationsConflit, setNotificationsConflit] = useState([]) 
+    const [notificationsCol , setNotificationsCol] = useState([])
+    const navigate = useNavigate();
 
     const handleSeenProjet = (id,type) => {
         if (type === "expert") {
         const updated = notificationsConflit.map(n =>
-          n.id === id ? { ...n, seen: true } : n
+          n._id === id ? { ...n, seen: true } : n
         );
         setNotificationsConflit(updated);
     }else if (type === "visiteur") {
         const updated = notificationsCol.map(n =>
-          n.id === id ? { ...n, seen: true } : n
+          n._id === id ? { ...n, seen: true } : n
         );
         setNotificationsCol(updated);
     }
@@ -65,7 +50,7 @@ function ListUtil() {
         document.querySelector(".transptext:first-child")?.classList.add("active");
         axios.get("http://localhost:3001/refresh", { withCredentials: true })
         .then((res) => {
-            if (res.data.error) return navigate("/connexion")
+            // if (res.data.error) return navigate("/connexion")
             setAuthState({email:res.data.email,role:res.data.role,accessToken:res.data.accessToken});
             axios.get("http://localhost:3001/admin/search/experts",{headers: {Authorization: `Bearer ${res.data.accessToken}`}})
             .then((res)=>{
@@ -86,7 +71,6 @@ function ListUtil() {
         })
         .catch((error)=>{
             console.error("Error fetching refresh token:", error);
-            navigate("/connexion")
         })
     }, []);
 
@@ -148,7 +132,7 @@ const [col,setCol] = useState(false)
                             <div className="tabwdom-LsUtil1">
                             <p className="dom-LsUtil1">{element.dom}</p>
                             </div>
-                            <button className="det-button-LsUtil1" onClick={( ) => handleSeenProjet(element.id,"expert")}>
+                            <button className="det-button-LsUtil1" onClick={( ) => {handleSeenProjet(element._id,"expert");navigate(`/afficher-expert/${element._id}`)}}>
                                 Voir Compte
                             </button>
                             </div>
@@ -164,7 +148,7 @@ const [col,setCol] = useState(false)
                             <p className="notif-message-LsUtil2">{element.util}</p>
                             </div>
                             <div className="notwtabwdom-LsUtil2">
-                            <button className="det-button-LsUtil1" onClick={( ) => handleSeenProjet(element.id,"visiteur")} >Voir Compte</button>
+                            <button className="det-button-LsUtil1" onClick={( ) => {handleSeenProjet(element._id,"visiteur");navigate(`/afficher-expert/${element._id}`)}} >Voir Compte</button>
                             </div>
                         </div>
                         ))}

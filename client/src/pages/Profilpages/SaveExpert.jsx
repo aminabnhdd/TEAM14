@@ -47,7 +47,7 @@ const SaveExpert = () => {
     <div className="root1">
      <InfoHeader/>
      <ProfilInfosave usersData={usersData} />
-     <FormExpert />
+     <FormExpert id={id}/>
      </div>
     </>
 

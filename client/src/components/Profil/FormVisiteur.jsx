@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-const FormVisiteur = () => {
+const FormVisiteur = ({id}) => {
   // État initial pour stocker les valeurs saisies
   const [user, setUser] = useState({});
 
@@ -13,7 +13,6 @@ const FormVisiteur = () => {
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-  const {id} = useParams();
 
 
   const navigate = useNavigate(); 
@@ -47,7 +46,7 @@ const FormVisiteur = () => {
         <button className="frmv-save-button" onClick={() =>{
           axios.put("http://localhost:3001/profil/mon-compte/modifier",user,{headers:{Authorization:`Bearer ${authState.accessToken}`}})
           .then((response) => {
-            navigate("/modifier-visiteur")
+            navigate(`/modifier-visiteur/${id}`)
           })
           .catch((error) => {
             console.log(error);

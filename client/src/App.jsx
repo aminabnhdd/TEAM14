@@ -77,10 +77,9 @@ function App() {
           <Route path="/desactiver-visiteur/:id" element={<DesactiverVisiteur />} />
           <Route path="/save-visiteur/:id" element={<SaveVisiteur />} />
           <Route path="/changer-mdp" element={<ChangerMotDePasse />} />
-          <Route path="*" element={<h1>404 Not Found</h1>} />
           <Route path="/discover" element={<Decouvrir />} />
           <Route path="/favoris" element={<Favoris />} />
-
+          <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </Router>
       

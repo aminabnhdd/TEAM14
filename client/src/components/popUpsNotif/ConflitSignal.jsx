@@ -3,13 +3,16 @@ import i from "../../assets/x.png"
 import axios from "axios"
 import  AuthContext from "../../helpers/AuthContext"
 import {useContext} from "react"
+import { useNavigate } from "react-router-dom"
 
 function ConflitSignal ({popUp,close,notif}) {
+    const navigate = useNavigate()
     const {authState} = useContext(AuthContext);
     const validate = (action) => {
         axios.put(`http://localhost:3001/notifications/valider/${notif.conflitId}`,{decision:action,notifId:notif._id,projetId:notif.projetId},{headers:{Authorization:`Bearer ${authState.accessToken}`}})    
         .then((response)=>{
             console.log(response.data)
+            navigate("/Notifications")
             
             
         })

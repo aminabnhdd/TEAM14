@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-const FormExpert = () => {
+const FormExpert = ({id}) => {
   // État initial vide pour stocker les valeurs saisies par l'utilisateur
   const [user, setUser] = useState({
     nom: "",
@@ -17,7 +17,6 @@ const FormExpert = () => {
     niveau: "",
     discipline: ""
   });
-  const {id} = useParams();
   const [authState, setAuthState] = useState({email:"",role:"",accessToken:""});
   useEffect(() => {
     axios.get("http://localhost:3001/refresh",{withCredentials:true})
@@ -57,7 +56,7 @@ const FormExpert = () => {
         <button className="save-button" onClick={() =>{
           axios.put("http://localhost:3001/profil/mon-compte/modifier/expert",user,{headers:{Authorization:`Bearer ${authState.accessToken}`}})
           .then((response) => {
-          navigate("/modifier-expert")
+          navigate(`/modifier-expert/${id}`)
           })
           .catch((error) => {
             console.log(error);

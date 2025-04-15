@@ -26,7 +26,7 @@
 
         const handleSeenProjet = (id) => {
             const updated = notificationsConflit.map(n =>
-              n.id === id ? { ...n, seen: true } : n
+              n._id === id ? { ...n, seen: true } : n
             );
             setNotificationsConflit(updated);
           };
@@ -74,7 +74,7 @@
                         <div className="notifications-lsPrjct">
                             
                             { filteredNotifications.map(element => (
-                                <div className="note-lsPrjct" key={element.id} style={{ background: element.seen ? "#f1f1f1" : "white" }}>
+                                <div className="note-lsPrjct" key={element._id} style={{ background: element.seen ? "#f1f1f1" : "white" }}>
                                 <div className="iconwmessage-lsPrjct">
                                 <img className="notif-icon-lsPrjct" src={element.imge} alt="Notification Icon" />
                                 <p className="notif-message-lsPrjct">{element.titre}</p>
@@ -84,7 +84,7 @@
                                 <img className="tab-lsPrjct" src={element.tab}></img>
                                 <p className="dom-lsPrjct">{element.owner}</p>
                                 </div>
-                                <button className="det-button-lsPrjct" onClick={() => handleSeenProjet(element.id)}>
+                                <button className="det-button-lsPrjct" onClick={() => {handleSeenProjet(element._id);navigate(`/visualisation/${element._id}`)}}>
                                     Voir Projet
                                 </button>
                                 </div>

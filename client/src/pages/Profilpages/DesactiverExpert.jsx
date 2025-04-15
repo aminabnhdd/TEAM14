@@ -53,7 +53,7 @@ const DesactiverExpert = () => {
   return (
      <>
       <div className="root1">
-      <InfosProjets2 />
+      <InfosProjets2 id={id} />
       <ProfilInfowithoutlink usersData={usersData} />
       <DesactCardExpert usersData={usersData} />
 

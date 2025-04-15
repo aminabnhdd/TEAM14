@@ -35,7 +35,7 @@ const SaveVisiteur = () => {
     <>
      <InfoHeader/>
      <ProfilInfosave usersData={usersData} />
-     <FormVisiteur  />
+     <FormVisiteur  id = {id}/>
     </>
 
   );

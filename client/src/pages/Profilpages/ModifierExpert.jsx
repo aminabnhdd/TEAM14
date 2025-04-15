@@ -49,7 +49,7 @@ const ModifierExpert = () => {
       <InfoHeaderBtn />
       <ProfilInfolink usersData={usersData} />
       
-      <ModifExpertCard usersData={usersData} />
+      <ModifExpertCard usersData={usersData} id ={id}/>
       </div>
     </>
   );

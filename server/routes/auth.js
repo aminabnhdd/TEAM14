@@ -110,7 +110,6 @@ router.post('/login',async (req,res)=>{
 
     
     res.cookie('jwt',refreshToken,{ httpOnly:true,maxAge:1000*3600*24,sameSite:'lax',secure:false});
-    console.log('Setting jwt cookie');
     res.json({refreshToken:refreshToken,accessToken:accessToken,prenom:user.prenom,nom:user.nom,id:user._id,role:user.role});
 
 

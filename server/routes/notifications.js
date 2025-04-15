@@ -14,7 +14,7 @@ const {expertModel,userModel} = require('../model/user');
 
 
 
-router.put("/valider/:conflitId",validateToken,validateProjectOwner, async (req, res) => {
+router.put("/valider/:conflitId",validateToken, async (req, res) => {
     try {
       const { conflitId } = req.params;
       const { decision,notifId } = req.body;
@@ -47,7 +47,7 @@ router.put("/valider/:conflitId",validateToken,validateProjectOwner, async (req,
           collab.discipline &&
           collab.discipline.toLowerCase() == section.type.toLowerCase()
       );
-
+      console.log(section)
       section.conflits.push(conflit._id);
       await section.save();
 
@@ -120,9 +120,9 @@ router.get("/", validateToken, async (req, res) => {
         
         return {
           ...notif.toObject(), 
-          sender: user.nom + " " + user.prenom,
-          recepient: rec.nom + " " + rec.prenom,
-          projet: projet.titre,
+          sender: user?.nom || "" + " " + user?.prenom || "",
+          recepient: rec?.nom || "" + " " + rec?.prenom || "",
+          projet: projet?.titre || "",
           dom: conflit ? conflit.sectionId.type : section ? section.type : "",
         };
         

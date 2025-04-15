@@ -21,6 +21,9 @@ function NotifAdmin() {
     const [notificationsConflit, setNotificationsConflit] = useState([]);   
     const [notificationsCol, setNotificationsCol] = useState([]); 
 
+    const [notifEx,setNotifEx] = useState({});
+    const [notifVs,setNotifVs] = useState({});
+
     const {authState,setAuthState} = useContext(AuthContext);
     const navigate = useNavigate();
     
@@ -50,7 +53,7 @@ function NotifAdmin() {
         document.querySelector(".transptext:first-child")?.classList.add("active");
         axios.get("http://localhost:3001/refresh", { withCredentials: true })
         .then((res) => {
-            if (res.data.error) return navigate("/connexion")
+            // if (res.data.error) return navigate("/connexion")
             setAuthState({email:res.data.email,role:res.data.role,accessToken:res.data.accessToken});
             axios.get("http://localhost:3001/admin/notifications",{headers: {Authorization: `Bearer ${res.data.accessToken}`}})
             .then((res)=>{
@@ -165,11 +168,11 @@ const [poop3,setPoop3] = useState(false)
                             </div>
                             <div className="notwtabwdom-notifAd">
                             <span className="notif-time-notifAd">{getTime(element.time)}</span>
-                            <button className="det-button-notifAd" onClick={() => {handleDetailsClick(element.genre);handleSeenConflit(element._id,"expert")}}>
+                            <button className="det-button-notifAd" onClick={() => {handleDetailsClick(element.genre);setNotifEx(element);handleSeenConflit(element._id,"expert")}}>
                                 Détails
                             </button>
                             </div>
-                            {<Validation2 popUp={poop3} close={close3} notif={element}/>}
+                            {<Validation2 popUp={poop3} close={close3} notif={notifEx}/>}
                         </div>
                         ))}
 
@@ -182,9 +185,9 @@ const [poop3,setPoop3] = useState(false)
                             </div>
                             <div className="notwtabwdom-notifAd">
                             <span className="notif-time-notifAd">{getTime(element.time)}</span>
-                            <button className="det-button-notifAd" onClick={()=>{handleDetailsClick(element.genre); handleSeenConflit(element._id,"visiteur")}}>Détails</button>
+                            <button className="det-button-notifAd" onClick={()=>{handleDetailsClick(element.genre);setNotifVs(element); handleSeenConflit(element._id,"visiteur")}}>Détails</button>
                             </div>
-                        {<Validation popUp={poop} close={close} notif={element}/>}
+                        {<Validation popUp={poop} close={close} notif={notifVs}/>}
                         </div>
                         ))}
 

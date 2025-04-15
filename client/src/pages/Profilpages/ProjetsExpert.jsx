@@ -59,7 +59,7 @@ const ProjetsExpert =() => {
   return(
     <>
         <div className="root1">
-      <ProjetsInfos />
+      <ProjetsInfos id = {id}/>
       <ProfilInfowithoutlink usersData={usersData} />
       {!loading && (
         <ProjectsContainer projets={projects} />

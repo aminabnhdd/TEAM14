@@ -13,6 +13,8 @@
     flex-direction: column;
     align-items: center;
     transition: width 0.3s ease;
+    overflow: visible; /* allow tooltip overflow */
+    z-index: 10; /* make sure it's above base content */
 }
 
 @media (max-width: 768px) {
@@ -101,5 +103,6 @@
     opacity: 1;
     visibility: visible;
     transform: translateX(0);
+    
 }
 

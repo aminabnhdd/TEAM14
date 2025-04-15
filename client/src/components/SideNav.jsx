@@ -16,7 +16,7 @@ function SideNav(){
 
 
     const goToDecouvrir = () => {
-        navigate("/decouvrir") // hna tdir la page li rak hab troh liha
+        navigate("/discover") // hna tdir la page li rak hab troh liha
         }
 
     const goToFavoris = () => {

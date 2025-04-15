@@ -25,7 +25,7 @@ const Navbar = ({ openPopUp }) => {  // Receive openPopUp as a prop
   }, []);
 
   return (
-    <nav>
+    <nav className="nav-landing">
       <div className="logo-container">
         <img src={logo} alt="Logo" />
         <span>ATHAR</span>

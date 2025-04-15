@@ -6,13 +6,14 @@ import { useContext } from "react"
 import AuthContext from '../../helpers/AuthContext'
 import RefreshService from "../../services/RefreshService";
 import RetourButton from '../../components/editeur/retourButton';
-import SideNav from "../../components/SideNav/SideNav";
-import "../../componentsStyles/editeur/editor.css";
+ import "../../componentsStyles/editeur/editor.css";
 import DropDownButton from "../../components/editeur/dropdownButton";
 import SignalerConflit from "../../components/editeur/signalerConflit";
 import SectionService from "../../services/sectionService";
 import Gallerie from "../../components/editeur/gallerie";
 import { useParams } from "react-router-dom";
+import SideNav from "../../components/SideNav";
+import SearchBar from "../../components/SearchBar";
 
 window.scrollToAnnotation = function (annotationId) {
   console.log("scrollToAnnotation called with ID:", annotationId);
@@ -195,15 +196,10 @@ export default function EditorNonEditable() {
 
   return (
     <>
-      <div className="flex max-w-full">
-        <SideNav />
-        <div className="flex-1 w-full bg-white main-content">
-          <div className="h-[106px] px-10 py-5 w-full flex items-center justify-center bg-white sticky top-0 z-10">
-            <div className="bg-neutral-200 w-full h-full flex items-center pl-4">
-              {" "}
-              Recherchere un projet
-            </div>
-          </div>
+      <div className="flex relative max-w-full ">
+            <SideNav className="" />
+            <div className="flex-1 w-full bg-white main-content">
+                <SearchBar/>
           <main>
             <div className="mt-5 bg w-[86%] mx-auto mb-10">
               <div className="flex justify-between align-items mb-5">

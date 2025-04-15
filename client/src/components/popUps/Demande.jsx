@@ -1,9 +1,14 @@
 import "../../ComponentsStyles/popUps styles/Demande.css";
 import imj from "../../assets/x.png";
-
+import { useNavigate } from "react-router-dom";
 function Demande({popUp,foncone}) {
     
+    const navigate = useNavigate();
+    function close (){
+        foncone();
+        navigate('/')
 
+    }
     return (
         popUp && (
             <div className="main-background2">
@@ -16,7 +21,7 @@ function Demande({popUp,foncone}) {
                         <p className="popUp2-paragraph">Merci de patienter et de <span className="popUp2-verification">vérifier</span> votre boîte de réception pour la suite.</p>
                     </p>
                 </div>
-                <img className="popUp2-close-button" src={imj} alt="xx" onClick={foncone} />
+                <img className="popUp2-close-button" src={imj} alt="xx" onClick={close} />
             </div>
             </div>
         )

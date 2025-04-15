@@ -12,8 +12,8 @@ function Header(){
 
     return(
         <div className="header">
-            <div onClick={handleClick} style={{ cursor: 'pointer' }}>
-            <FaUser clasName="icon"/>
+            <div onClick={handleClick}>
+            <FaUser className="icon"/>
             
             </div>
             <h1 className="title-1">Plongez dans l'histoire et la beauté de <br />

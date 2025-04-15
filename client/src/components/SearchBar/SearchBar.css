@@ -34,10 +34,3 @@
     cursor: pointer;
 }
 
-.icon{
-    position: sticky;
-    top: 0; /* or however much from the top you want it to stay */
-    z-index: 1000; /* ensure it stays above other content */
-    /*background-color: white; /* to avoid overlap issues */
-    padding: 10px;
-}

@@ -1,9 +1,58 @@
- 
-  
-  .search-input {
-     
-    height: 50px; /* Adjusted height here */
-   
-     
-  }
-  
+
+
+.rsearch-input {
+  width: 88%;
+  height: 41px;
+  padding-left: 45px;
+  display: flex;
+  border: 2px solid #ddd;
+  border-radius: 10.5px;
+  font-size: 13px;
+  outline: none;
+  background-color: #F3F4F5;
+  z-index: auto;
+  border: none;
+  color: black;
+}
+
+.rsearch-input:focus {
+  border-color: #007bff;
+}
+
+.rsearch-icon {
+  position: absolute;
+  left: 1.2%;
+  top: 9px;
+  color: gray;
+  cursor: pointer;
+  width: 24px;
+}
+.rsearch-bar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 88%;
+  border-radius: 9px;
+  background: var(--Neutral-100, #F3F4F5);
+  font-size: 14px;
+  position: relative;
+}
+
+.rsearch-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 64px;
+  position: relative;
+  margin-top: 14px;
+  flex-shrink: 0;
+}
+
+.rprf{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 01.2%;
+  width: 35px;
+  cursor: pointer;
+}

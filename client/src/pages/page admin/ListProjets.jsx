@@ -1,6 +1,6 @@
     import "../../PagesStyles/Pages Admin Styles/ListProjets.css"
     import {useState,useEffect} from "react"
-    import SearchBar from "../../components/SearchBar/SearchBar"
+    import SearchBar from "../../components/SearchBar"
     import SideNavAdmin from "../../components/SideNav/SideNavAdmin"
 
     import imjjjjjj from "../../assets/person.png"
@@ -60,7 +60,7 @@
             <div className="secondary-notif-lsPrjct">
                     <div className="teqsam1">
                     <div className=" textos-lsPrjct">
-                        <h1 className="hnotif-lsPrjct">Listes des projets</h1>
+                        <h1 className="hnotif">Listes des projets</h1>
                         <div>
                         <p className="pnotif-lsPrjct">Gérez les projets. Examinez chaque ressource, visualisez le chef du projet, les <br />
                         collaborateurs et gardez un œil sur le projet.</p>

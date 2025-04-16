@@ -2,7 +2,7 @@ import "../../PagesStyles/Pages Admin Styles/NotifAdmin.css"
 import {useState,useEffect} from "react"
 import Collaboration from "../../components/popUpsNotif/Collaboration"
 import ConflitRes from "../../components/popUpsNotif/ConflitRes"
-import SearchBar from "../../components/SearchBar/SearchBar"
+import SearchBar from "../../components/SearchBar"
 import SideNav from "../../components/SideNav/SideNav"
 import SideNavAdmin from "../../components/SideNav/SideNavAdmin"
 import Validation from "../../components/popUpsNotif/Validation"
@@ -140,7 +140,7 @@ const [poop3,setPoop3] = useState(false)
         <SearchBar  title="Rechercher un projet" />
 
                 <div className=" textos-notifAd">
-                    <h1 className="hnotif-notifAd">Notifications</h1>
+                    <h1 className="hnotif">Notifications</h1>
                     <div>
                     <p className="pnotif-notifAd">Gérez les demandes de validation de compte. Examinez chaque demande et choisissez de l’accepter ou de la <br />
                     refuser en fonction des informations de l’utilisateur</p>

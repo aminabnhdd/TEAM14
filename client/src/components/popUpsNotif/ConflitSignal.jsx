@@ -10,8 +10,6 @@ function ConflitSignal ({popUp,close,notif}) {
         axios.put(`http://localhost:3001/notifications/valider/${notif.conflitId}`,{decision:action,notifId:notif._id,projetId:notif.projetId},{headers:{Authorization:`Bearer ${authState.accessToken}`}})    
         .then((response)=>{
             console.log(response.data)
-            
-            
         })
         .catch((error)=>{
             console.log(error)
@@ -29,7 +27,7 @@ function ConflitSignal ({popUp,close,notif}) {
             <img className="close-btn" src={i} alt="fd" onClick={close}/>
             <div className="ktiba">
             <p><span className="gris">Par: </span>{notif.sender} <br />
-            <span className="gris">Sujet:</span> <br /> 
+            <span className="gris">Sujet:</span> 
               {notif.content}</p>
             </div>
             <div className="batens">

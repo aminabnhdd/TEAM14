@@ -13,16 +13,20 @@ function SearchBar({ onSearch }) {
   return (
     <>
   
-    <div className="search-container">
-       <input
-      type="text"
-      placeholder="Rechercher Un Projet..."
+     <div className="rsearch-div">
+          <div className="rsearch-bar" >
+          <input
+          type="text"
+      placeholder="Rechercher par mots-clés..."
       value={query}
       onChange={handleChange}
-      className="search-input"
-    />
-    <FaSearch className="search-icon" /> 
+          className="rsearch-input"
+        />
+        <div></div>
+    <FaSearch className="rsearch-icon " /> 
     </div>
+        </div>
+       
    </> 
    
   );

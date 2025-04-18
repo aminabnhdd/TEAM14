@@ -1,6 +1,6 @@
 .side-nav {
     position: relative;
-    width: 5%;
+    width: 6%;
     height: 100vh;
     margin: 0;
     padding: 0;
@@ -14,7 +14,7 @@
     align-items: center;
     transition: width 0.3s ease;
     overflow: visible; /* allow tooltip overflow */
-    z-index: 10; /* make sure it's above base content */
+    z-index: 1000; /* make sure it's above base content */
 }
 
 @media (max-width: 768px) {
@@ -37,13 +37,13 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    gap: 19.5%;
+    gap: 22%;
     height: 70%;
 }
 
 .iconus {
     color: white;
-    font-size: 200%;
+    font-size: 170%;
     cursor: pointer;
 
 }

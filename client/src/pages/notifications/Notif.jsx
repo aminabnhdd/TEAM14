@@ -6,7 +6,7 @@ import ConflitRes from "../../components/popUpsNotif/ConflitRes"
 import ConflitChat from "../../components/popUpsNotif/ConflitChat"
 import Refus from "../../components/popUpsNotif/Refus"
 import Acceptation from "../../components/popUpsNotif/Acceptation"
-import SideNav from "../../components/SideNav/SideNav"
+import SideNav from "../../components/SideNav"
 import SearchBar from "../../components/SearchBar"
 
 import imjj from "../../assets/Alert triangle (1).png"

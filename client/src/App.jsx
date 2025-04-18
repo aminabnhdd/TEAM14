@@ -30,8 +30,6 @@ import SaveVisiteur from "./pages/Profilpages/SaveVisiteur.jsx";
 import ChangerMotDePasse from "./pages/Profilpages/ChangerMotdePasse.jsx";
 import ProjetsExpert2 from "./pages/Profilpages/ProjetsExpert2.jsx";
 import Decouvrir from "./pages/Decouvrir";
-import SearchBar from "./components/SearchBar/SearchBar";
-import SideNav from "./components/SideNav/SideNav";
 import Favoris from "./pages/Favoris";
 
 function App() {

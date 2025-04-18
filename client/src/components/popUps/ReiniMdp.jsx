@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "../../ComponentsStyles/popUps styles/ReiniMdp.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function ReiniMdp() {
+function ReiniMdp({otl}) {
     const [visible, setVisible] = useState(false);
     const [typo, setTypo] = useState("password");
     const [visible2, setVisible2] = useState(false);
@@ -12,6 +14,7 @@ function ReiniMdp() {
         password2: "",
     });
     const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
     const TogglePass = () => {
         setVisible(!visible);
@@ -46,7 +49,14 @@ function ReiniMdp() {
 
     const handleSubmit = () => {
         if (validateForm()) {
-            console.log("Mot de passe réinitialisé avec succès");
+            axios.post(`http://localhost:3001/auth/pwd-forgotten/change-pwd/${otl}`, { password: formData.password })
+            .then((response) => {
+                alert('success');
+            })
+            .catch((error) => {
+                console.log(error);
+                alert("Erreur lors de la réinitialisation du mot de passe, si elle persiste veuillez recommencer le processus");
+            });
         }
     };
 

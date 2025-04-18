@@ -71,7 +71,7 @@ export default function Visualisation(){
    <div className="flex justify-center items-center h-screen">
      <p>Loading section...</p>
    </div>
- ) : (
+ ) : (<>
           <div className="flex relative max-w-full ">
             <SideNav className="" />
             <div className="flex-1 w-full bg-white main-content">
@@ -110,8 +110,8 @@ export default function Visualisation(){
             <DemandeCollaboration projet={projet} user={user} isExpert={isExpert} isCollaborateur={isCollaborateur} collaborateurs={collaborateurs}  />
           
             
-             </div> )}
-             <Footer/>
+             </div> <Footer/></>)}
+             
 
         </>
       );

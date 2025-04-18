@@ -16,7 +16,7 @@ const { upload } = require('../middlewares/multerMiddleware');
 //request to get all the projects
 router.get('', async(req, res) => {
     try {
-        const projects = await projectModel.find();
+        const projects = await projectModel.find({archive:false});
         res.json(projects);
     } catch (error) {
         console.error("Error fetching projects ", error);

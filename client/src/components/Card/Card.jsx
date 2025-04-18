@@ -62,12 +62,17 @@ function Card({ size = "medium", data}) {
   );*/
 
   return (
-    <div className={`card ${size}`} onClick={clickCard}>
-      <img src={data.photoUrl} alt="project" />
-      <p className="text">{data.titre}</p>
-      <div onClick={(e) => toggleFavourite(data, e)} className="favourite-icon">
-        {isFavorited ? <AiFillStar color="white" /> : <AiOutlineStar />}
+    <div className={`card ${size}`}  onClick={clickCard} >
+      <img src={data.photoUrl} alt="project"/>
+      <div className="text-div">
+      <p className="text buttons">{data.titre}</p>
       </div>
+      <div onClick={(e) => {
+  e.stopPropagation(); // Prevent card click
+  toggleFavourite(data);
+}} className="favourite-icon">
+  {isFavorited ? <AiFillStar color="white" /> : <AiOutlineStar />}
+</div>
     </div>
   );
 }

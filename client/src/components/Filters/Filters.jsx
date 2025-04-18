@@ -15,12 +15,12 @@ function Filters({fetchFilteredProjects}) {
 
 
   return (
-    <div className="filters">
+    <div className="filters buttons">
       <a onClick={() => HandleFilterClick("Tout")} className={activeFilter === "Tout" ? "active" : ""}>Tout</a>
-      <a onClick={() => HandleFilterClick("Histoire")} className={activeFilter === "Histoire" ? "active" : ""}>Histoire</a>
-      <a onClick={() => HandleFilterClick("Architecture")} className={activeFilter === "Architecture" ? "active" : ""}>Architecture</a>
-      <a onClick={() => HandleFilterClick("Archeologie")} className={activeFilter === "Archeologie" ? "active" : ""}>Archeologie</a>
-      <a onClick={() => HandleFilterClick("Autre")} className={activeFilter === "Autre" ? "active" : ""}>Autre</a>
+      <a onClick={() => HandleFilterClick("histoire")} className={activeFilter === "histoire" ? "active" : ""}>Histoire</a>
+      <a onClick={() => HandleFilterClick("architecture")} className={activeFilter === "architecture" ? "active" : ""}>Architecture</a>
+      <a onClick={() => HandleFilterClick("archeologie")} className={activeFilter === "archeologie" ? "active" : ""}>Archeologie</a>
+      <a onClick={() => HandleFilterClick("autre")} className={activeFilter === "autre" ? "active" : ""}>Autre</a>
       {/* Underline animation */}
       
     </div>

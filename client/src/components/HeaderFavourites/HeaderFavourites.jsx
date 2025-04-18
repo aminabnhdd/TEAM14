@@ -2,11 +2,18 @@ import './HeaderFavourites.css';
 
 function HeaderFavourites(){
     return(
-        <div className="header-favourites">
-            <h1>Votre Selcetion Personnalisée <br /> <span className="hilighted-favourites">Favoris</span> </h1>
-            <p>Gardez Une Trace De Ce Qui Compte Pour Vous</p> 
+      
+         <div className="header relative">
+         <div>
+         <h1 className="titres titles text-center mt-16 mb-4 text-black">Votre Selection Personnalisée  <br />
+         <div className="hilighted-discover text-brown">Favoris</div>
+         </h1>
+         <p className="text-xl text-center" >Gardez une trace de ce qui compte pour vous</p> 
+         </div>
+        
+     </div>
 
-        </div>
+        
     )
 }
 

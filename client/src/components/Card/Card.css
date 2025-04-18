@@ -5,6 +5,7 @@
     padding: 0;
     border-radius: 16px;
     position: relative;
+    cursor:pointer;
 }
 
 .card::after{
@@ -12,8 +13,8 @@
     position: absolute;
     top:0; left: 0;
     width: 100%; height: 100%;
-    border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 16px;
+    background-color: rgba(0, 0, 0, 0.7);
     z-index: 1;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -27,29 +28,28 @@
     opacity: 1;
 }
 
-.card p{
-    /*position: absolute;
-    top: 50%;
-    left: 25%;
-    transform: translateY(-50%); 
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;    
-    color: white;
-    z-index: 2;
-    opacity: 0;
-    transition: opacity 0.3s ease;*/
-
+.text-div{
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;    
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center; /* centers horizontally */
+    align-items: center;     /* centers vertically */
+    text-align: center; /* ensures multi-line text is centered */
+    padding: 0 10px; /* optional: adds breathing room for longer lines */
+    box-sizing: border-box; 
+}
+
+.card p{
+     
+    font-family: 'Poppins', sans-serif;    
     color: white;
     z-index: 2;
     opacity: 0;
     transition: opacity 0.3s ease;
-    font-weight: bold; 
+  
 }
 
 .card img {
@@ -59,7 +59,7 @@
     /* Maintain aspect ratio */
     object-fit: cover;
     /* Crop the image to fit */
-    border-radius: 10px;
+    border-radius: 16px;
 }
 
 .favourite-icon{
@@ -71,6 +71,7 @@
     opacity: 0;
     z-index: 2;
     transition: opacity 0.3s ease;
+    cursor:pointer;
 }
 
 .card:hover .favourite-icon{

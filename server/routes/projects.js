@@ -16,7 +16,7 @@ const { upload } = require('../middlewares/multerMiddleware');
 //request to get all the projects
 router.get('', async(req, res) => {
     try {
-        const projects = await projectModel.find();
+        const projects = await projectModel.find({archive: false});
         res.json(projects);
     } catch (error) {
         console.error("Error fetching projects ", error);
@@ -678,20 +678,15 @@ router.put("/update/:id", upload.single("image"), validateToken, async (req, res
       if (req.file) {
        
         if (project.photoUrl) {
-          const oldImagePublicId = project.photoUrl.split('/').pop().split('.')[0];
-          await cloudinary.uploader.destroy(oldImagePublicId);
-        }
-  
-        const result = await cloudinary.uploader.upload(req.file.path);
-        photoUrl = result.secure_url;
-      } else {
-       
-        if (project.photoUrl) {
+        
           const oldImagePublicId = project.photoUrl.split('/').pop().split('.')[0];
           await cloudinary.uploader.destroy(oldImagePublicId);
           photoUrl = "";
         }
-      }
+  
+        const result = await cloudinary.uploader.upload(req.file.path);
+        photoUrl = result.secure_url;
+      } 
   
     
       project.titre = projet.titre;

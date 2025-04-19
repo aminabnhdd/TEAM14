@@ -65,14 +65,14 @@ function App() {
           <Route path="/list-utilisateurs" element={<ListUtil />} />
           {/*Profil routes*/ }
           <Route path="/afficher-expert/:id" element={<AfficherExpert />} />
-          <Route path="/modifier-expert/:id" element={<ModifierExpert />} />
+          <Route path="/modifier-expert" element={<ModifierExpert />} />
           <Route path="/projets-expert/:id" element={<ProjetsExpert />} />
           <Route path="/desactiver-expert/:id" element={<DesactiverExpert />} />
           <Route path="/projets-expert2/:id" element={<ProjetsExpert2 />} />
-          <Route path="/save-expert/:id" element={<SaveExpert />} />
-          <Route path="/modifier-visiteur/:id" element={<ModifierVisiteur />} />
+          <Route path="/save-expert" element={<SaveExpert />} />
+          <Route path="/modifier-visiteur" element={<ModifierVisiteur />} />
           <Route path="/desactiver-visiteur/:id" element={<DesactiverVisiteur />} />
-          <Route path="/save-visiteur/:id" element={<SaveVisiteur />} />
+          <Route path="/save-visiteur" element={<SaveVisiteur />} />
           <Route path="/changer-mdp" element={<ChangerMotDePasse />} />
           <Route path="/discover" element={<Decouvrir />} />
           <Route path="/favoris" element={<Favoris />} />
@@ -84,27 +84,3 @@ function App() {
     </div>
     </AuthContext.Provider>)}
     export default App;
-
-/*
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { ProjectsProvider } from "./context/ProjectsContext.jsx";
-import MyProjects from "./pages/MyProjectspages/MyProjects.jsx";
-import RestoreProjects from "./pages/MyProjectspages/RestoreProjects.jsx";
-
-function App() {
-  return (
-    <ProjectsProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Navigate to="/myprojects" />} />
-          <Route path="/myprojects" element={<MyProjects />} />
-          <Route path="/restoreprojects" element={<RestoreProjects />} />
-        </Routes>
-      </Router>
-    </ProjectsProvider>
-  );
-}
-
-export default App;
-*/

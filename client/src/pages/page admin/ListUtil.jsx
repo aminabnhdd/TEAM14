@@ -131,7 +131,7 @@ const [col,setCol] = useState(false)
                             <div className="tabwdom-LsUtil1">
                             <p className="dom-LsUtil1">{element.dom}</p>
                             </div>
-                            <button className="det-button-LsUtil1" onClick={( ) => {handleSeenProjet(element._id,"expert");navigate(`/afficher-expert/${element._id}`)}}>
+                            <button className="det-button-LsUtil1" onClick={( ) => {handleSeenProjet(element._id,"expert");navigate(`/desactiver-expert/${element._id}`)}}>
                                 Voir Compte
                             </button>
                             </div>
@@ -147,7 +147,7 @@ const [col,setCol] = useState(false)
                             <p className="notif-message-LsUtil2">{element.util}</p>
                             </div>
                             <div className="notwtabwdom-LsUtil2">
-                            <button className="det-button-LsUtil1" onClick={( ) => {handleSeenProjet(element._id,"visiteur");navigate(`/afficher-expert/${element._id}`)}} >Voir Compte</button>
+                            <button className="det-button-LsUtil1" onClick={( ) => {handleSeenProjet(element._id,"visiteur");navigate(`/desactiver-expert/${element._id}`)}} >Voir Compte</button>
                             </div>
                         </div>
                         ))}

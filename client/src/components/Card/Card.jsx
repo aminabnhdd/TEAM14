@@ -6,8 +6,8 @@ import AuthContext from "../../helpers/AuthContext";
 import{useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Card({ size = "medium", data}) {
-  const [isFavorited, setIsFavorited] = useState(false);
+function Card({ size = "medium", data,fav}) {
+  const [isFavorited, setIsFavorited] = useState(fav);
   const { setAuthState} = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -45,6 +45,34 @@ function Card({ size = "medium", data}) {
         );
 
         console.log("Added to favorites:", res.data);
+      } catch (err) {
+        console.error("Error adding to favorites:", err);
+      }
+    } else{
+      try {
+        const refreshResponse = await axios.get("http://localhost:3001/refresh", {
+          withCredentials: true,
+        });
+        console.log(refreshResponse.data)
+
+        setAuthState({
+          email: refreshResponse.data.email,
+          role: refreshResponse.data.role,
+          accessToken: refreshResponse.data.accessToken,
+        });
+
+        const res = await axios.put(
+          'http://localhost:3001/projects/favourite/remove',
+          { projectId: project._id },
+          {
+            headers: {
+              Authorization: `Bearer ${refreshResponse.data.accessToken}`,
+            },
+            withCredentials: true,
+          }
+        );
+
+        console.log("removed from favorites:", res.data);
       } catch (err) {
         console.error("Error adding to favorites:", err);
       }

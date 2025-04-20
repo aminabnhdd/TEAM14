@@ -28,7 +28,7 @@ router.get('', async(req, res) => {
 router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.single("image"), async (req, res) => {
     try {
 
-        const { titre, type, latitude, longitude, localisation, style, dateConstruction } = req.body;
+        const { titre, type, latitude, longitude, localisation, style, dateConstruction,keywords } = req.body;
         const userID = req.user?.id;
         let imageUrl = "";
         if (req.file) {
@@ -59,6 +59,7 @@ router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.si
             longitude: longitude || "",
             localisation: localisation || "",
             style: style || "",
+            keywords: keywords || [],
             photoUrl: imageUrl || "",
             dateConstruction: dateConstruction || "",
             chef: userID,
@@ -199,7 +200,7 @@ router.get("/search", async (req, res) => {
 router.get('/favorites', validateToken, async (req, res) => { 
     try {
         const user = await userModel.find({_id:req.user.id}); 
-        const projects = await projectModel.find({ _id: { $in: user.favorites } });
+        const projects = await projectModel.find({ _id: { $in: user.favorites }, archive: false });
         res.json(projects);
     } catch (error) {
         console.error(error);
@@ -697,6 +698,7 @@ router.put("/update/:id", upload.single("image"), validateToken, async (req, res
       project.style = projet.style;
       project.dateConstruction = projet.dateConstruction;
       project.photoUrl = photoUrl;
+      project.keywords = projet.keywords;
   
       await project.save();
   
@@ -733,6 +735,30 @@ router.put("/update/:id", upload.single("image"), validateToken, async (req, res
     }
     
 })
+router.put('/favourite/remove', validateToken, async(req, res) =>{
+    const userId = req.user.id;
+    const {projectId} = req.body;
+
+    try{     
+        const user = await expertModel.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "Error." });
+        }
+    
+        if(!user.favorites.includes(projectId)){
+            return res.sendStatus(200);
+        }
+        user.favorites = user.favorites.filter((el) => el.toString() !== projectId.toString());
+        await user.save();
+        res.status(200).json({ message: "Project removed from favorites" });
+    
+
+    }catch(error){
+        console.error(error);
+        res.sendStatus(500);
+    }
+    
+})
 router.get('/favourite/', validateToken, async (req, res) => {
     const userId = req.user.id;
 
@@ -742,7 +768,8 @@ router.get('/favourite/', validateToken, async (req, res) => {
             return res.status(404).json({ message: "User not found." });
         }
 
-        const favouriteProjects = user.favorites; // now this contains full project objects
+        let favouriteProjects = user.favorites; // now this contains full project objects
+        favouriteProjects = favouriteProjects.filter(project => project.archive === false);
         res.json(favouriteProjects);
         console.log(favouriteProjects);
     } catch (error) {

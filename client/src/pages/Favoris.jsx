@@ -100,7 +100,7 @@ function Favoris() {
       
            <HeaderFavourites />
            <SearchBar/>
-           {favoriteProjects.length === 0 ? <p className='pl-20 main-text text-black text-center my-10'>Aucun projet trouvé.</p> : <PinterestLayout projects={favoriteProjects} />} 
+           {favoriteProjects.length === 0 ? <p className='pl-20 main-text text-black text-center my-10'>Aucun projet trouvé.</p> : <PinterestLayout projects={favoriteProjects} fav={true}/>} 
 
           
           </main>

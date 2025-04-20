@@ -23,6 +23,8 @@ function NotifAdmin() {
     const [notifEx,setNotifEx] = useState({});
     const [notifVs,setNotifVs] = useState({});
 
+    const [notif,setNotif] = useState({});
+
     const {authState,setAuthState} = useContext(AuthContext);
     const navigate = useNavigate();
     
@@ -30,13 +32,13 @@ function NotifAdmin() {
     const handleSeenConflit = (id,type) => {
         if (type === "expert") {
         const updated = notificationsConflit.map(n =>
-            n._id === id ? { ...n, seen: true } : n
+            n._id === id ? { ...n, read: true } : n
         );
         setNotificationsConflit(updated)}
 
         else if (type === "visiteur") {
             const updated = notificationsCol.map(n =>
-                n._id === id ? { ...n, seen: true } : n
+                n._id === id ? { ...n, read: true } : n
             );
             setNotificationsCol(updated);
         
@@ -52,7 +54,7 @@ function NotifAdmin() {
         document.querySelector(".transptext:first-child")?.classList.add("active");
         axios.get("http://localhost:3001/refresh", { withCredentials: true })
         .then((res) => {
-            // if (res.data.error) return navigate("/connexion")
+            if (res.data.error) return navigate("/connexion")
             setAuthState({email:res.data.email,role:res.data.role,accessToken:res.data.accessToken});
             axios.get("http://localhost:3001/admin/notifications",{headers: {Authorization: `Bearer ${res.data.accessToken}`}})
             .then((res)=>{
@@ -97,10 +99,24 @@ function NotifAdmin() {
 
 const close = () => {
     setPoop(false);
+    axios.put(`http://localhost:3001/notifications/read/${notif._id}`,{},{headers:{Authorization:`Bearer ${authState.accessToken}`}})
+    .then((response) => {
+        console.log(response.data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 }
 
 const close3 = () => {
     setPoop3(false);
+    axios.put(`http://localhost:3001/notifications/read/${notif._id}`,{},{headers:{Authorization:`Bearer ${authState.accessToken}`}})
+    .then((response) => {
+        console.log(response.data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 }
 const getTime = (time) => {
 
@@ -160,14 +176,14 @@ const [poop3,setPoop3] = useState(false)
                     <div className="notifications-notifAd">
                         
                         {conflit && notificationsConflit.map(element => (
-                            <div key={element.id} className="note-notifAd" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
+                            <div key={element.id} className="note-notifAd" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage-notifAd">
                             <img className="notif-icon-notifAd" src={element.imge} alt="Notification Icon" />
                             <p className="notif-message-notifAd"><span className="userName">{element.sendeId.nom } {element.sendeId.prenom}</span> souhaite créer un compte {element.genre}</p>
                             </div>
                             <div className="notwtabwdom-notifAd">
                             <span className="notif-time-notifAd">{getTime(element.time)}</span>
-                            <button className="det-button-notifAd" onClick={() => {handleDetailsClick(element.genre);setNotifEx(element);handleSeenConflit(element._id,"expert")}}>
+                            <button className="det-button-notifAd" onClick={() => {handleDetailsClick(element.genre);setNotifEx(element);handleSeenConflit(element._id,"expert");setNotif(element)}}>
                                 Détails
                             </button>
                             </div>
@@ -177,14 +193,14 @@ const [poop3,setPoop3] = useState(false)
 
 
                         {col && notificationsCol.map(element => (
-                            <div key={element.id} className="note-notifAd" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
+                            <div key={element.id} className="note-notifAd" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage-notifAd">
                             <img className="notif-icon-notifAd" src={element.imge} alt="Notification Icon" />
                             <p className="notif-message-notifAd"><span className="userName">{element.sendeId.nom} {element.sendeId.prenom}</span> souhaite créer un compte {element.genre} </p>
                             </div>
                             <div className="notwtabwdom-notifAd">
                             <span className="notif-time-notifAd">{getTime(element.time)}</span>
-                            <button className="det-button-notifAd" onClick={()=>{handleDetailsClick(element.genre);setNotifVs(element); handleSeenConflit(element._id,"visiteur")}}>Détails</button>
+                            <button className="det-button-notifAd" onClick={()=>{handleDetailsClick(element.genre);setNotifVs(element); handleSeenConflit(element._id,"visiteur");setNotif(element)}}>Détails</button>
                             </div>
                         {<Validation popUp={poop} close={close} notif={notifVs}/>}
                         </div>

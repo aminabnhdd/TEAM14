@@ -147,7 +147,7 @@ function Decouvrir() {
             <SearchBar onSearch={handleSearch} />
     
              <Filters fetchFilteredProjects={fetchFilteredProjects}/> 
-            {projects.length === 0 ? <p className='pl-20 main-text text-black text-center my-10'>Aucun projet trouvé.</p> : <PinterestLayout projects={projects} />} 
+            {projects.length === 0 ? <p className='pl-20 main-text text-black text-center my-10'>Aucun projet trouvé.</p> : <PinterestLayout projects={projects} fav={false}/>} 
            
            </main>
           

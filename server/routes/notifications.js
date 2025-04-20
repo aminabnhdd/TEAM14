@@ -183,5 +183,21 @@ router.put("/collaboration/valider/:notifId", validateToken, async (req, res) =>
     return res.status(500).json({ message: "Erreur serveur" });
   }
 });
+router.put("/read/:notifId", validateToken, async (req, res) => {
+  try {
+    const { notifId } = req.params;
+    const notification = await notificationModel.findById(notifId);
+    if (!notification) {
+      return res.status(404).json({ message: "Notification not found" });
+    }
+    notification.read = true;
+    await notification.save();
+    return res.status(200).json({ message: "Notification marked as read" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Erreur serveur" });
+  }
+}
+);
 module.exports = router;
 

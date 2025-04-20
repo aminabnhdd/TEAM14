@@ -281,7 +281,7 @@ const [poop5,setPoop5] = useState(false)
                     <div className="notifications">
                         
                         {conflit && (notificationsConflit.length>0 ? notificationsConflit.map(element => (
-                            <div key={element._id} className="note" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
+                            <div key={element._id} className="note" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage">
                             <img className="notif-icon" src={element.imge} alt="Notification Icon" />
                             <p className="notif-message">{element.message}</p>
@@ -305,7 +305,7 @@ const [poop5,setPoop5] = useState(false)
                         {<ConflitSignal popUp={poop1} close={close1} notif={notifConf}/>}
                         {<ConflitChat popUp={poop2} close={close2} notif={notifConf}/>}
                         {col &&  (notificationsCol.length>0 ? notificationsCol.map(element => (
-                            <div key={element._id} className="note" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
+                            <div key={element._id} className="note" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage">
                             <img className="notif-icon" src={element.imge} alt="Notification Icon" />
                             <p className="notif-message">{element.message}</p>
@@ -325,7 +325,7 @@ const [poop5,setPoop5] = useState(false)
                         {<Collaboration popUp={poop3} close={close3} notif={notifCol}/>}
 
                         {dem &&  (notificationsDem.length>0 ? notificationsDem.map(element => (
-                            <div key={element._id} className="note" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
+                            <div key={element._id} className="note" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage">
                             <img className={element.type === "demandeRefuse" ? "refusIcon" : "notif-icon"} src={element.imge} alt="Notification Icon" />
                             <p className="notif-message">{element.message}</p>

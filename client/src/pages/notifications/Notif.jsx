@@ -32,6 +32,7 @@ function Notif() {
 
     const [notificationsDem,setNotificationsDem] = useState([]);
     const [notifDem,setNotifDem] = useState({});
+    const [notif,setNotif] = useState({});
     const navigate = useNavigate();
     useEffect(() => {
         // Make "Conflits" active at the beginning
@@ -41,7 +42,7 @@ function Notif() {
         document.querySelector(".transptext:first-child")?.classList.add("active");
         axios.get("http://localhost:3001/refresh",{withCredentials:true})
         .then((response) => {
-            // if (response.data.error) return navigate('/connexion')
+            if (response.data.error) return navigate('/connexion')
             console.log(response.data)
             setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
             axios.get("http://localhost:3001/notifications",{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
@@ -163,38 +164,80 @@ function Notif() {
     const handleSeen = (id, type) => {
         if (type === "conflit") {
             const updatedNotifications = notificationsConflit.map(notification =>
-                notification._id === id ? { ...notification, seen: true } : notification
+                notification._id === id ? { ...notification, read: true } : notification
             );
             setNotificationsConflit(updatedNotifications);
         } else if (type === "col") {
             const updatedNotifications = notificationsCol.map(notification =>
-                notification._id === id ? { ...notification, seen: true } : notification
+                notification._id === id ? { ...notification, read: true } : notification
             );
             setNotificationsCol(updatedNotifications);
         } else if (type === "dem") {
             const updatedNotifications = notificationsDem.map(notification =>
-                notification._id === id ? { ...notification, seen: true } : notification
+                notification._id === id ? { ...notification, read: true } : notification
             );
             setNotificationsDem(updatedNotifications);
         }
     };
 const close = () => {
     setPoop(false);
+    axios.put(`http://localhost:3001/notifications/read/${notif._id}`,{},{headers:{Authorization:`Bearer ${authState.accessToken}`}})
+    .then((response) => {
+        console.log(response.data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 }
 const close1 =  () => {
     setPoop1(false);
+    axios.put(`http://localhost:3001/notifications/read/${notif._id}`,{},{headers:{Authorization:`Bearer ${authState.accessToken}`}})
+    .then((response) => {
+        console.log(response.data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 }
 const close2 = () => {
     setPoop2(false);
+    axios.put(`http://localhost:3001/notifications/read/${notif._id}`,{},{headers:{Authorization:`Bearer ${authState.accessToken}`}})
+    .then((response) => {
+        console.log(response.data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 }
 const close3 = () => {
     setPoop3(false);
+    axios.put(`http://localhost:3001/notifications/read/${notif._id}`,{},{headers:{Authorization:`Bearer ${authState.accessToken}`}})
+    .then((response) => {
+        console.log(response.data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 }
 const close4 = () => {
     setPoop4(false);
+    axios.put(`http://localhost:3001/notifications/read/${notif._id}`,{},{headers:{Authorization:`Bearer ${authState.accessToken}`}})
+    .then((response) => {
+        console.log(response.data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 }
 const close5 = () => {
     setPoop5(false);
+    axios.put(`http://localhost:3001/notifications/read/${notif._id}`,{},{headers:{Authorization:`Bearer ${authState.accessToken}`}})
+    .then((response) => {
+        console.log(response.data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 }
 
 const [conflit,setConflit] = useState(true)
@@ -249,7 +292,7 @@ const [poop5,setPoop5] = useState(false)
                             <img className="tab" src={element.tab}></img>
                             <p className="dom">{element.dom}</p>
                             </div>
-                            <button className="det-button" onClick={() => {setNotifConf(element);handleDetailsClick(element.type); handleSeen(element._id,"conflit"); }}>
+                            <button className="det-button" onClick={() => {setNotifConf(element);handleDetailsClick(element.type); handleSeen(element._id,"conflit");setNotif(element) }}>
                                 Détails
                             </button>
                             </div>
@@ -261,7 +304,7 @@ const [poop5,setPoop5] = useState(false)
                         {<ConflitRes popUp={poop} close={close} notif={notifConf}/>}
                         {<ConflitSignal popUp={poop1} close={close1} notif={notifConf}/>}
                         {<ConflitChat popUp={poop2} close={close2} notif={notifConf}/>}
-                        {col && (notificationsCol.length>0 ? notificationsCol.map(element => (
+                        {col &&  (notificationsCol.length>0 ? notificationsCol.map(element => (
                             <div key={element._id} className="note" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage">
                             <img className="notif-icon" src={element.imge} alt="Notification Icon" />
@@ -273,7 +316,7 @@ const [poop5,setPoop5] = useState(false)
                             <img className="tab" src={element.tab}></img>
                             <p className="dom">{element.dom}</p>
                             </div>
-                            <button className="det-button" onClick={()=>{setNotifCol(element);handleSeen(element._id,"col"); handleDetailsClick2(element.type)}}>Détails</button>
+                            <button className="det-button" onClick={()=>{setNotifCol(element);handleSeen(element._id,"col"); handleDetailsClick2(element.type);setNotif(element)}}>Détails</button>
                             </div>
                             
                         </div>
@@ -281,7 +324,7 @@ const [poop5,setPoop5] = useState(false)
                         )):<p className="pt-2 main-text" >Aucune notification.</p>)}
                         {<Collaboration popUp={poop3} close={close3} notif={notifCol}/>}
 
-                        {dem && (notificationsDem.length>0 ? notificationsDem.map(element => (
+                        {dem &&  (notificationsDem.length>0 ? notificationsDem.map(element => (
                             <div key={element._id} className="note" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage">
                             <img className={element.type === "demandeRefuse" ? "refusIcon" : "notif-icon"} src={element.imge} alt="Notification Icon" />
@@ -293,7 +336,7 @@ const [poop5,setPoop5] = useState(false)
                             <img className="tab" src={element.tab}></img>
                             <p className="dom">{element.dom}</p>
                             </div>
-                            <button className="det-button" onClick={()=>{setNotifDem(element); handleDetailsClick3(element.type);handleSeen(element._id,"dem")}}>Détails</button>
+                            <button className="det-button" onClick={()=>{setNotifDem(element); handleDetailsClick3(element.type);handleSeen(element._id,"dem");setNotif(element)}}>Détails</button>
                             </div>
                             
                         </div>

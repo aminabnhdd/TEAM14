@@ -4,7 +4,7 @@ import Card from "../Card/Card";
 
 
 
-function PinterestLayout({projects}){
+function PinterestLayout({projects,fav}){
 
 
 
@@ -16,7 +16,7 @@ function PinterestLayout({projects}){
     
         <div className="layoutDiv">
           {projects.map((project, index) => (
-            <Card key={index} size={project.size} data={project} />
+            <Card key={index} size={project.size} data={project} fav={fav} />
           ) )}
             
         </div>

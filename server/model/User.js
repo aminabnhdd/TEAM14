@@ -74,8 +74,7 @@ const expertSchema = new mongoose.Schema({
         required: true
     },
     labo: {
-        type: String,
-        required: true
+        type: String
     },
     etablissement: {
         type: String,

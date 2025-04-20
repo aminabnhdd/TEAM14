@@ -4,6 +4,12 @@ const {userModel} = require('../model/user');
 const jwt = require('jsonwebtoken');
 
 
+const getRole = (role) => {
+    if (role === process.env.ADMIN_ROLE) return "Admin";
+    if (role === process.env.EXPERT_ROLE) return "Expert";
+    return "Visiteur";
+}
+
 
 router.get('/',async(req,res)=>{
 
@@ -22,8 +28,8 @@ router.get('/',async(req,res)=>{
 
     try {
         if (validRefresh) {
-            const accessToken = jwt.sign({nom:user.nom,prenom:user.prenom,id:user._id,email:user.email,role:user.role},process.env.ACCESS_TOKEN_SECRET,{expiresIn:'900s'});
-            res.json({email:user.email,role:user.role,accessToken:accessToken});
+            const accessToken = jwt.sign({nom:user.nom,prenom:user.prenom,id:user._id,email:user.email,role:getRole(user.role)},process.env.ACCESS_TOKEN_SECRET,{expiresIn:'900s'});
+            res.json({email:user.email,role:getRole(user.role),accessToken:accessToken});
         }
     } catch (error) {
         res.json({error:'forbidden !'});

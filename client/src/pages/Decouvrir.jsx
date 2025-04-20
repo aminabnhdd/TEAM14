@@ -6,13 +6,13 @@ import Footer from "../components/Footer"
 import { FaUser } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import Filters from '../components/Filters/Filters';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from "axios";
-/*import AuthContext from '../helpers/AuthContext';*/
+import AuthContext from '../helpers/AuthContext';
 
 function Decouvrir() {
   const [projects, setProjects] = useState([]);
-  /*const { setAuthState } = useContext(AuthContext);*/
+  const { authState,setAuthState } = useContext(AuthContext);
 
 
   const handleSearch = async (query) => {
@@ -85,6 +85,7 @@ function Decouvrir() {
 
   const fetchFilteredProjects = async (filter) => {
     try {
+      
       let url = 'http://localhost:3001/projects/search/filters';
       if (filter != "Tout") {
         url += `?filters=${filter}`;
@@ -120,6 +121,16 @@ function Decouvrir() {
 
 
   useEffect(() => {
+    axios.get("http://localhost:3001/refresh",{withCredentials:true})
+      .then((response) => {
+          if (response.data.error) return navigate('/connexion');
+          console.log(response.data);
+          setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
+      })
+      .catch((error)=>{
+        console.log(error);
+        navigate('/connexion')
+      })
     fetchFilteredProjects("Tout"); // Load all projects on page load
   }, []);
 
@@ -129,7 +140,7 @@ function Decouvrir() {
   }
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate('/modifier-profil'); // Change this to your desired route
+    navigate(`/modifier-${authState.role === "Expert" ? "expert" : "visiteur"}`); // Change this to your desired route
     };
 
   return (
@@ -147,7 +158,7 @@ function Decouvrir() {
             <SearchBar onSearch={handleSearch} />
     
              <Filters fetchFilteredProjects={fetchFilteredProjects}/> 
-            {projects.length === 0 ? <p className='pl-20 main-text text-black text-center my-10'>Aucun projet trouvé.</p> : <PinterestLayout projects={projects} />} 
+            {projects.length === 0 ? <p className='pl-20 main-text text-black text-center my-10'>Aucun projet trouvé.</p> : <PinterestLayout projects={projects} fav={false}/>} 
            
            </main>
           

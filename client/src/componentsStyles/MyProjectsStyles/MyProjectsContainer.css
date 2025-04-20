@@ -1,7 +1,7 @@
 .projects-grid {
   display: grid;
   margin: 3% 4%;
-  padding: 0;
+  padding-bottom: 40px;
   width: 78vw;
   background-color: white ;
   position: absolute;
@@ -9,6 +9,7 @@
   grid-template-columns: repeat(4, calc((100% - (3 * 1.3em)) / 4));
   grid-auto-rows: 25vw;
   gap: 1.3em;
+  
 }
 
 .project-card {

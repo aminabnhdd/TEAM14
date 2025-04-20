@@ -80,7 +80,7 @@ export default function ListSections(props) {
 
         {/* List dropdown */}
         {listOpen && (
-          <div className="absolute  left-0 mt-2 w-42 bg-white rounded-[12px] shadow-lg overflow-hidden transition-all duration-300 transform origin-top border border-neutral-400 z-[4000]">
+          <div className="absolute  left-0 mt-2 w-42 bg-white rounded-[12px] shadow-lg overflow-hidden transition-all duration-300 transform origin-top border border-neutral-400 z-[600]">
             <ul className="py-1">
               {props.sectionsExistantes.map((section, index) => (
                 <li key={index}  >

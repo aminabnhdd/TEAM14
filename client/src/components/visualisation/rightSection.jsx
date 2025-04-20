@@ -82,6 +82,8 @@ export default function RightSection(props) {
           collaborateurs={props.collaborateurs}
           setCollaborateurs={props.setCollaborateurs}
           isAdmin={props.isAdmin}
+          showPopup={props.showPopup}
+          setShowPopup={props.setShowPopup}
         />
       )}
       <div id="bottom-marker"></div>

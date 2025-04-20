@@ -36,8 +36,8 @@ const MyProjectsContainer = () => {
     navigate(`/visualisation/${projetId}`);
   };
 
-  return (
-    <div className="projects-grid">
+  return (<>
+     <div className="projects-grid">
       
       <div className="add-project"  onClick={handleAddProjectClick}>
         <span className="plus-icon">+</span>
@@ -55,6 +55,8 @@ const MyProjectsContainer = () => {
         </div>
       ))}
     </div>
+    
+    </>
   );
 };
 

@@ -109,7 +109,7 @@ function Favoris() {
        </div>
 
      </div>
-     <Footer/>
+
    </div>
     );
 }

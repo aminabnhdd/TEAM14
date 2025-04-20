@@ -237,7 +237,7 @@ const [poop5,setPoop5] = useState(false)
                     <div className="line-riadh  "></div>
                     <div className="notifications">
                         
-                        {conflit && notificationsConflit.map(element => (
+                        {conflit && (notificationsConflit.length>0 ? notificationsConflit.map(element => (
                             <div key={element._id} className="note" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage">
                             <img className="notif-icon" src={element.imge} alt="Notification Icon" />
@@ -257,11 +257,11 @@ const [poop5,setPoop5] = useState(false)
 
                             
                         </div>
-                        ))}
+                        )):<p className="pt-2 main-text" >Aucune notification.</p>)}
                         {<ConflitRes popUp={poop} close={close} notif={notifConf}/>}
                         {<ConflitSignal popUp={poop1} close={close1} notif={notifConf}/>}
                         {<ConflitChat popUp={poop2} close={close2} notif={notifConf}/>}
-                        {col && notificationsCol.map(element => (
+                        {col && (notificationsCol.length>0 ? notificationsCol.map(element => (
                             <div key={element._id} className="note" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage">
                             <img className="notif-icon" src={element.imge} alt="Notification Icon" />
@@ -278,10 +278,10 @@ const [poop5,setPoop5] = useState(false)
                             
                         </div>
                         
-                        ))}
+                        )):<p className="pt-2 main-text" >Aucune notification.</p>)}
                         {<Collaboration popUp={poop3} close={close3} notif={notifCol}/>}
 
-                        {dem && notificationsDem.map(element => (
+                        {dem && (notificationsDem.length>0 ? notificationsDem.map(element => (
                             <div key={element._id} className="note" style={{ background: element.seen ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage">
                             <img className={element.type === "demandeRefuse" ? "refusIcon" : "notif-icon"} src={element.imge} alt="Notification Icon" />
@@ -297,7 +297,7 @@ const [poop5,setPoop5] = useState(false)
                             </div>
                             
                         </div>
-                        ))}
+                        )):<p className="pt-2 main-text" >Aucune notification.</p>)}
                         {<Refus  popUp={poop4} close={close4} notif={notifDem}/>}
                         {<Acceptation  popUp={poop5} close={close5} notif={notifDem}/>}
                         

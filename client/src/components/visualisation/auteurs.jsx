@@ -17,7 +17,7 @@ export default function Auteurs(props){
         </ul>
  
 
-        <Auteur user={props.chef} isAdmin={props.isAdmin} />
+        <Auteur user={props.chef} utilisateur={props.utilisateur} isAdmin={props.isAdmin} />
 
         {props.projet.collaborateurs.length>0 &&
         <ul>
@@ -28,7 +28,7 @@ export default function Auteurs(props){
         {props.collaborateurs.length>0 &&   props.collaborateurs.map ((collaborateur)=>{
             if (props.chef._id !== collaborateur._id)
             return(
-            <Auteur key={collaborateur._id} user={collaborateur}  isChef={props.isChef} projet={props.projet} setProjet={props.setProjet} collaborateurs={props.collaborateurs} setCollaborateurs={props.setCollaborateurs} isAdmin={props.isAdmin} />
+            <Auteur key={collaborateur._id} user={collaborateur} utilisateur={props.utilisateur}  isChef={props.isChef} projet={props.projet} setProjet={props.setProjet} collaborateurs={props.collaborateurs} setCollaborateurs={props.setCollaborateurs} isAdmin={props.isAdmin} />
             )
         })
         }

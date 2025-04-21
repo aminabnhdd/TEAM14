@@ -66,7 +66,7 @@
                         collaborateurs et gardez un œil sur le projet.</p>
                         </div>
                     </div>
-                <SearchBar onSearch={setSearchQuery} title="Rechercher un Projet"/>
+                <SearchBar onSearch={setSearchQuery} title="Rechercher un Projet"  fixed={true} admin={true}/>
 
                 <div className="second-div-lsPrjct">
                     <div className="final-div-lsPrjct">

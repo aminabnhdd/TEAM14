@@ -14,6 +14,7 @@ const ChangerMotDePasse = () => {
     <div className="mdpsearchbar">
         <SearchBar />
     </div>
+    
     <SideNav />
     <div className="root1">
     <div className="password-page">

@@ -101,6 +101,7 @@ export default function Visualisation(){
                       isExpert={isExpert}
                       isChef={isChef}
                       setProjet={setProjet}
+                      utilisateur={user}
                       chef={chef}
                       collaborateurs={collaborateurs}
                       setCollaborateurs={setCollaborateurs}

@@ -84,6 +84,7 @@ export default function RightSection(props) {
           isAdmin={props.isAdmin}
           showPopup={props.showPopup}
           setShowPopup={props.setShowPopup}
+          utilisateur={props.utilisateur}
         />
       )}
       <div id="bottom-marker"></div>

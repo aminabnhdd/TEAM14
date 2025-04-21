@@ -2,13 +2,12 @@ import imj from "../assets/material-symbols_search.svg"
 import "../ComponentsStyles/SearchBar.css";
 import { useState, useEffect, useContext } from "react";
 import AuthContext from '../helpers/AuthContext';
-import defaultPfp from "../assets/Default_pfp.svg.png";
 import { useNavigate } from "react-router-dom";
 import { FaUser } from 'react-icons/fa';
+import Pfp from "./pfp";
 
 
-
-function SearchBar({ onSearch,title  }) {
+function SearchBar({ onSearch,title ,fixed=false,admin=false }) {
     const navigate = useNavigate(); 
 
     const { setAuthState } = useContext(AuthContext);
@@ -26,7 +25,7 @@ function SearchBar({ onSearch,title  }) {
     const title2=title || "Rechercher un Projet...";
 
   return (
-    <div className="rsearch-div">
+    <div className="rsearch-div sticky top-0 right-0 ">
       <div className="rsearch-bar" >
        <input
       type="text"
@@ -36,14 +35,7 @@ function SearchBar({ onSearch,title  }) {
     />
     <img src={imj} alt="j" className="rsearch-icon" />
     </div>
-  <div
-  className={`rprf w-12 w-12 border-2 border-white ${!imgUrl && "border-brown"} 
-             `}
-  onClick={handleClick}
->
-  {imgUrl ? <img src={imgUrl} /> :
-  <FaUser className="text-brown w-6 h-6" /> }
-</div>
+   <Pfp fixed={fixed} admin={admin}/>
     </div>
     
    

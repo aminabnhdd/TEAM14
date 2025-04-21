@@ -36,13 +36,21 @@ export default function Conflict(props){
     return(
     <div id={props.id} className="border border-neutral-300 rounded-[12px] p-5 mb-3">
     <div className="flex items-center align-items mb-3">
-    <div className="w-8 h-8 mr-2 bg-neutral-500 rounded-full overflow-hidden">
+    <div className="w-8 h-8 mr-2 bg-white rounded-full overflow-hidden">
     <img src={props.conflit.signaleur.pfp||defaultPfp} className="w-full h-full object-cover" alt="Profile" />
 </div>
 
          <p className="thinner-text">{props.conflit.signaleur.nom} {props.conflit.signaleur.prenom}</p>
     </div> 
-    <p className="small-remark break-words whitespace-pre-wrap  overflow-y-auto text-black text-justify mb-3" >{props.conflit.content}</p>   
+    <p
+  className="text-neutral-500 text-md  text-justify mb-3 overflow-hidden"
+  style={{
+    display: "-webkit-box",
+    WebkitLineClamp: 3, // Change this number to the number of lines you want
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+  }}
+>{props.conflit.content}</p>   
     {(props.projet.chef._id === props.user._id|| props.conflit.signaleur._id ===props.user._id) && <button onClick={resoudreConflit} className="main-text text-center w-full text-success cursor-pointer hover:underline">
     <FontAwesomeIcon icon={faCircleCheck} className=" w-4 h-4 mr-2" />Résoudre conflit
     </button>}

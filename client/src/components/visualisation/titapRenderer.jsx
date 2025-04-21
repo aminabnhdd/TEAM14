@@ -23,7 +23,7 @@ const TiptapRenderer = ({ content }) => {
   const html = useMemo(() => {
     // First validate the content
     if (!content || typeof content !== 'object' || !content.type) {
-      return `<p>La section n’est pas encore renseignée.</p>`
+      return `<p>Cette section n’est pas encore renseignée.</p>`
     }
 
     try {

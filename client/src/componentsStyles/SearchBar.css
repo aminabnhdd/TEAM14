@@ -44,6 +44,7 @@
 .rsearch-div{
   
   display: flex;
+  z-index: 2900;
   justify-content: end;
   align-items: center;
   height: 64px;
@@ -53,6 +54,7 @@
   column-gap: 30px;
   margin-right: 10px;
   flex-shrink: 0;
+  background-color: #fefefe;
 
   
   

@@ -180,8 +180,21 @@ router.get("/search", async (req, res) => {
 
         
 
-        const sections = await sectionModel.find({ type: { $in: filter } });
-
+        // const sections = await sectionModel.find({
+        //     type: { $in: filter },
+        //     "contenu.content.0": { $exists: true } 
+        //   });
+          
+          const rawSections = await sectionModel.find({
+            type: { $in: filter }
+          }).lean();
+          
+          const sections = rawSections.filter(section => {
+            const outer = section?.contenu?.content;
+            const inner = outer?.[0]?.content;
+          
+            return Array.isArray(inner) && inner.some(e => e?.text?.trim());
+          });
 
         const sectionIds = sections.map(section => section._id);
 

@@ -9,15 +9,19 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom"; 
 import SideNav from "../../components/SideNav";
 import SearchBar from "../../components/SearchBar.jsx";
+import { useContext } from "react";
+import AuthContext from "../../helpers/AuthContext.jsx";
 
 const ModifierExpert = () => {
   const [usersData,setUsersData] = useState([]);
   const navigate = useNavigate();
+  const {authState,setAuthState} = useContext(AuthContext);
+
   useEffect(() => {
     axios.get("http://localhost:3001/refresh",{withCredentials:true})
         .then((response) => {
             if (response.data.error) return navigate('/connexion')
-            // setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
+            setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
             axios.get(`http://localhost:3001/profil/mon-compte`,{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
             .then((response) => {
               const updatedUsers = [...usersData, response.data].map((user) => ({

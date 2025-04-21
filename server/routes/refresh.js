@@ -7,7 +7,8 @@ const jwt = require('jsonwebtoken');
 const getRole = (role) => {
     if (role === process.env.ADMIN_ROLE) return "Admin";
     if (role === process.env.EXPERT_ROLE) return "Expert";
-    return "Visiteur";
+    if (role === process.env.VISITOR_ROLE) return "Visiteur";
+    return "Unknown";
 }
 
 
@@ -28,7 +29,7 @@ router.get('/',async(req,res)=>{
 
     try {
         if (validRefresh) {
-            const accessToken = jwt.sign({nom:user.nom,prenom:user.prenom,id:user._id,email:user.email,role:getRole(user.role)},process.env.ACCESS_TOKEN_SECRET,{expiresIn:'900s'});
+            const accessToken = jwt.sign({nom:user.nom,prenom:user.prenom,id:user._id,email:user.email,role:user.role},process.env.ACCESS_TOKEN_SECRET,{expiresIn:'900s'});
             res.json({email:user.email,role:getRole(user.role),accessToken:accessToken});
         }
     } catch (error) {

@@ -95,13 +95,13 @@ router.post('/login',async (req,res)=>{
 
     const user = await userModel.findOne({email:email});
 
-    if (!user) return res.status(404).json({error:'there is no user with this email !'});
+    if (!user) return res.status(404).json({email:"il n'y a pas d'utilisateur avec cet email"});
 
     const match = await bcrypt.compare(password,user.password);
-    if(!match) return res.status(403).json({error:'invalid email or password '});
+    if(!match) return res.status(403).json({password:'mot de passe invalide '});
 
 
-    if (!user.userValide) return res.status(403).json({err:"account not validated yet"});
+    if (!user.userValide) return res.status(403).json({password:"compte pas encore validé"});
 
     
     const accessToken = jwt.sign({nom:user.nom,prenom:user.prenom,id:user._id,email:user.email,role:user.role},process.env.ACCESS_TOKEN_SECRET,{expiresIn:'900s'});

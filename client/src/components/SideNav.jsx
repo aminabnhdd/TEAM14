@@ -10,8 +10,8 @@ import AuthContext from '../helpers/AuthContext';
 function SideNav(){
     const { authState,setAuthState } = useContext(AuthContext);
 
-    const [isExpert, setIsExpert] = useState( authState.role === "Expert" );
-    const [isAdmin, setIsAdmin] = useState( authState.role === "Admin" );
+    const isExpert = authState.role === "Expert";
+    const isAdmin = authState.role === "Admin";
 
 
     const navigate = useNavigate()
@@ -43,7 +43,9 @@ function SideNav(){
     const goToNotifAdmin = () => {
     navigate("/notifications-admin")
     }
-
+    useEffect(()=>{
+        console.log("isExpert : ",isExpert," // isAdmin : ",isAdmin);
+    },[]);
     
 
     return(

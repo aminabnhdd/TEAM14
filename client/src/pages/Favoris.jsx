@@ -48,6 +48,7 @@ import defaultPfp from "../assets/Default_pfp.svg.png"
 
 function Favoris() {
     const [favoriteProjects, setFavoriteProjects] = useState([]);
+    const [user, setUser] = useState({});
     const { setAuthState } = useContext(AuthContext);
 
      const [user,setUser]=useState(null);
@@ -72,6 +73,14 @@ function Favoris() {
                     role: refreshResponse.data.role,
                     accessToken: refreshResponse.data.accessToken,
                 });
+
+                const userResponse = await axios.get('http://localhost:3001/profil/mon-compte',{
+                    headers: {
+                        Authorization: `Bearer ${refreshResponse.data.accessToken}`,
+                    }
+                });
+                setUser(userResponse.data);
+                console.log(userResponse.data);
 
                 // Fetch favorite projects
                 const res = await axios.get('http://localhost:3001/projects/favourite', {

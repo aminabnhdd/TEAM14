@@ -13,6 +13,7 @@ import defaultPfp from "../assets/Default_pfp.svg.png"
 
 function Decouvrir() {
   const [projects, setProjects] = useState([]);
+  const [user, setUser] = useState({});
   const { authState,setAuthState } = useContext(AuthContext);
 
   const [user,setUser]=useState(null);
@@ -136,6 +137,23 @@ function Decouvrir() {
       .catch((error)=>{
         console.log(error);
         navigate('/connexion')
+      })
+    axios.get("http://localhost:3001/refresh",{withCredentials:true})
+      .then((response) => {
+          if (response.data.error) return navigate('/connexion');
+          console.log(response.data);
+          setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
+          axios.get("http://localhost:3001/profil/mon-compte",{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
+          .then((response) => {
+              setUser(response.data);
+              console.log(response.data);
+          })
+          .catch((error)=>{
+            console.log(error);
+          })
+      })
+      .catch((error)=>{
+        console.log(error);
       })
     fetchFilteredProjects("Tout"); // Load all projects on page load
   }, []);

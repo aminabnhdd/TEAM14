@@ -13,13 +13,12 @@ import SearchBar from "../../components/SearchBar.jsx";
 const ModifierVisiteur = () => {
   const [usersData,setUsersData] = useState([]);
   const navigate = useNavigate();
-  const {id} = useParams()
   useEffect(() => {
     axios.get("http://localhost:3001/refresh",{withCredentials:true})
         .then((response) => {
             if (response.data.error) return navigate('/connexion')
             // setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
-            axios.get(`http://localhost:3001/profil/visiteur/${id}`,{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
+            axios.get(`http://localhost:3001/profil/mon-compte`,{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
             .then((response) => {
           
               setUsersData([{...response.data,role:"Visiteur"}]);
@@ -43,7 +42,7 @@ const ModifierVisiteur = () => {
       <div className="root1">
       <InfoHeaderBtn />
       <ProfilInfolink usersData={usersData}  />
-      <ModifCardVisiteur usersData={usersData} id={id} />
+      <ModifCardVisiteur usersData={usersData}/>
       </div>
     </>
 

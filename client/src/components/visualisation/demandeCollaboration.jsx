@@ -109,13 +109,13 @@ export default function DemandeCollaboration(props) {
             <div className="flex justify-around gap-3 mt-5">
               <button
                 onClick={confirmRequest}
-                className="buttons text-black bg-dune py-4 w-40 mt-2 rounded-[36px] items-center justify-center hover:brightness-105  hover:scale-102 transition-all duration-300 cursor-pointer"
+                className="buttons text-black bg-dune py-3 w-40 mt-2 rounded-[36px] items-center justify-center hover:brightness-105  hover:scale-102 transition-all duration-300 cursor-pointer"
               >
                 Confirmer
               </button>
               <button
                 onClick={() => setShowConfirmPopup(false)}
-                className="buttons text-black bg-neutral-100 py-4 w-40 mt-2 rounded-[36px] items-center justify-center hover:brightness-95 hover:scale-102 transition-all duration-300 cursor-pointer"
+                className="buttons text-black bg-neutral-100 py-3 w-40  mt-2 rounded-[36px] items-center justify-center hover:brightness-95 hover:scale-102 transition-all duration-300 cursor-pointer"
               >
                 Annuler
               </button>

@@ -3,7 +3,7 @@ import { FaRegEdit } from "react-icons/fa";
 import "../../componentsStyles/ProfilStyles/ModifCardVisiteur.css";
 import { useNavigate } from "react-router-dom";
 
-const ModifVisiteurCard = ({ usersData,id }) => {
+const ModifVisiteurCard = ({ usersData }) => {
   const navigate = useNavigate(); 
   return (
     <>
@@ -12,7 +12,7 @@ const ModifVisiteurCard = ({ usersData,id }) => {
           {/* Titre + Bouton Modifier */}
           <div className="visiteur-card-header">
             <h2>Informations Personnelles</h2>
-            <button className="visiteur-edit-button" onClick={() => navigate(`/save-visiteur/${id}`)}>
+            <button className="visiteur-edit-button" onClick={() => navigate(`/save-visiteur`)}>
               Modifier <FaRegEdit size={16} />
             </button>
           </div>

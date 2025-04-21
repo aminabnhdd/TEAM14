@@ -1,10 +1,9 @@
 .root1 {
   width: 80%;
   position: absolute;
-  top: 5%;
+  top: 80px;
   left: 10%;
-}
-
+ }
 .restaurerprojetssearchbar {
   width: 94%; 
   margin-left: 6%;

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const ModifExpertCard = ({ usersData, id }) => {
+const ModifExpertCard = ({ usersData}) => {
   const navigate = useNavigate(); 
   
   return usersData.map((user) => (
@@ -13,7 +13,7 @@ const ModifExpertCard = ({ usersData, id }) => {
       {/* Titre + Bouton Modifier */}
       <div className="card-header">
         <h2>Informations Personnelles & Professionnelles</h2>
-        <button className="edit-button" onClick={() => navigate(`/save-expert/${id}`)}>
+        <button className="edit-button" onClick={() => navigate(`/save-expert`)}>
           Modifier <FaRegEdit size={16} />
         </button>
       </div>

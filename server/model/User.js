@@ -51,6 +51,16 @@ const userSchema = new mongoose.Schema({
     telephone:{
         type:String,
         default:""
+    },
+    otl:{
+        link:{
+            type:String,
+            default:""
+        },
+        used:{
+            type:Boolean,
+            default:false
+        }
     }
 
 }, { timestamps: true }); //timestamps manages automatically two fields createdat and updatedat
@@ -64,8 +74,7 @@ const expertSchema = new mongoose.Schema({
         required: true
     },
     labo: {
-        type: String,
-        required: true
+        type: String
     },
     etablissement: {
         type: String,

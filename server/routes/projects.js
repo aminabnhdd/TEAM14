@@ -16,7 +16,7 @@ const { upload } = require('../middlewares/multerMiddleware');
 //request to get all the projects
 router.get('', async(req, res) => {
     try {
-        const projects = await projectModel.find();
+        const projects = await projectModel.find({archive: false});
         res.json(projects);
     } catch (error) {
         console.error("Error fetching projects ", error);
@@ -28,7 +28,7 @@ router.get('', async(req, res) => {
 router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.single("image"), async (req, res) => {
     try {
 
-        const { titre, type, latitude, longitude, localisation, style, dateConstruction } = req.body;
+        const { titre, type, latitude, longitude, localisation, style, dateConstruction,keywords } = req.body;
         const userID = req.user?.id;
         let imageUrl = "";
         if (req.file) {
@@ -59,6 +59,7 @@ router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.si
             longitude: longitude || "",
             localisation: localisation || "",
             style: style || "",
+            keywords: keywords || [],
             photoUrl: imageUrl || "",
             dateConstruction: dateConstruction || "",
             chef: userID,
@@ -184,8 +185,9 @@ router.get("/search", async (req, res) => {
 
         const sectionIds = sections.map(section => section._id);
 
+       
 
-        const projects = await projectModel.find({ sections: { $in: sectionIds } });
+        const projects = await projectModel.find({ sections: { $in: sectionIds },archive: false });
 
         res.json(projects);
 
@@ -678,20 +680,15 @@ router.put("/update/:id", upload.single("image"), validateToken, async (req, res
       if (req.file) {
        
         if (project.photoUrl) {
-          const oldImagePublicId = project.photoUrl.split('/').pop().split('.')[0];
-          await cloudinary.uploader.destroy(oldImagePublicId);
-        }
-  
-        const result = await cloudinary.uploader.upload(req.file.path);
-        photoUrl = result.secure_url;
-      } else {
-       
-        if (project.photoUrl) {
+        
           const oldImagePublicId = project.photoUrl.split('/').pop().split('.')[0];
           await cloudinary.uploader.destroy(oldImagePublicId);
           photoUrl = "";
         }
-      }
+  
+        const result = await cloudinary.uploader.upload(req.file.path);
+        photoUrl = result.secure_url;
+      } 
   
     
       project.titre = projet.titre;
@@ -702,6 +699,7 @@ router.put("/update/:id", upload.single("image"), validateToken, async (req, res
       project.style = projet.style;
       project.dateConstruction = projet.dateConstruction;
       project.photoUrl = photoUrl;
+      project.keywords = projet.keywords;
   
       await project.save();
   
@@ -738,6 +736,30 @@ router.put("/update/:id", upload.single("image"), validateToken, async (req, res
     }
     
 })
+router.put('/favourite/remove', validateToken, async(req, res) =>{
+    const userId = req.user.id;
+    const {projectId} = req.body;
+
+    try{     
+        const user = await expertModel.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "Error." });
+        }
+    
+        if(!user.favorites.includes(projectId)){
+            return res.sendStatus(200);
+        }
+        user.favorites = user.favorites.filter((el) => el.toString() !== projectId.toString());
+        await user.save();
+        res.status(200).json({ message: "Project removed from favorites" });
+    
+
+    }catch(error){
+        console.error(error);
+        res.sendStatus(500);
+    }
+    
+})
 router.get('/favourite/', validateToken, async (req, res) => {
     const userId = req.user.id;
 
@@ -747,7 +769,8 @@ router.get('/favourite/', validateToken, async (req, res) => {
             return res.status(404).json({ message: "User not found." });
         }
 
-        const favouriteProjects = user.favorites; // now this contains full project objects
+        let favouriteProjects = user.favorites; // now this contains full project objects
+        favouriteProjects = favouriteProjects.filter(project => project.archive === false);
         res.json(favouriteProjects);
         console.log(favouriteProjects);
     } catch (error) {

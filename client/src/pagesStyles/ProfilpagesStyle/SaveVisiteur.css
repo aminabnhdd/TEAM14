@@ -1,10 +1,9 @@
-.root {
+.root1 {
   width: 80%;
   position: absolute;
-  top: 10%;
+  top: 80px;
   left: 10%;
-}
-
+ }
 .savevisitsearchbar {
   width: 94%; 
   margin-left: 5%;

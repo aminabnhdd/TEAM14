@@ -11,7 +11,8 @@ import AuthContext from '../../helpers/AuthContext'
 import VisuService from "../../services/VisuService";
 import RefreshService from "../../services/RefreshService";
 import { useParams } from "react-router-dom";
-import SearchBar from "../../components/SearchBar.jsx"
+import SearchBar from "../../components/SearchBar.jsx";
+import PopAjouterCollaborateur from "../../components/visualisation/popupAjouterCollaborateur.jsx"
 export default function Visualisation(){
     const { projetId } = useParams();
     const [isExpert, setIsExpert] = useState(null);
@@ -25,6 +26,8 @@ export default function Visualisation(){
     const [chef,setChef] = useState(null);
     const [collaborateurs,setCollaborateurs] =useState(null);
     const {authState,setAuthState} = useContext(AuthContext);
+    const [showPopup, setShowPopup] = useState(false);
+
     useEffect(() => {
         const fetchProjet = async () => {
           try {
@@ -66,12 +69,13 @@ export default function Visualisation(){
 
 
        return (
+
         <>
          {loading ? (
    <div className="flex justify-center items-center h-screen">
      <p>Loading section...</p>
    </div>
- ) : (
+ ) : (<>
           <div className="flex relative max-w-full ">
             <SideNav className="" />
             <div className="flex-1 w-full bg-white main-content">
@@ -100,6 +104,8 @@ export default function Visualisation(){
                       chef={chef}
                       collaborateurs={collaborateurs}
                       setCollaborateurs={setCollaborateurs}
+                      showPopup={showPopup}
+                      setShowPopup={setShowPopup}
                     />
                   </div>
                 </div>
@@ -110,8 +116,12 @@ export default function Visualisation(){
             <DemandeCollaboration projet={projet} user={user} isExpert={isExpert} isCollaborateur={isCollaborateur} collaborateurs={collaborateurs}  />
           
             
-             </div> )}
-             <Footer/>
+             </div> <Footer/>
+             {showPopup && (
+        <PopAjouterCollaborateur onClose={() => setShowPopup(false)} projet={projet} setProjet={setProjet} collaborateurs={collaborateurs} setCollaborateurs={setCollaborateurs} />
+      )}
+             </>)}
+             
 
         </>
       );

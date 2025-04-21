@@ -1,6 +1,7 @@
 import { useState } from "react";
 import closeButton from "../../assets/x.png";
 import "../../ComponentsStyles/popUps styles/MdpOublie.css";
+import axios from "axios";
 
 function MdpOublie({ carti, fun, fun2 }) {
     const [formData, setFormData] = useState({ email: "" });
@@ -21,8 +22,18 @@ function MdpOublie({ carti, fun, fun2 }) {
 
     const handleSubmit = () => {
         if (validateForm()) {
-            console.log("Lien de réinitialisation envoyé", formData);
-            fun2();
+            axios.post("http://localhost:3001/auth/pwd-forgotten/send-link", { email: formData.email })
+            .then((response) => {
+                fun2();
+            })
+            .catch((error) => {
+                if (error.response && error.response.status === 404) {
+                    return setErrors({ email: "Aucun compte trouvé avec cette adresse email" });
+                    
+                }
+                console.log(error);
+                alert('Erreur lors de l\'envoi de l\'email de réinitialisation. ');
+            })
         }
     };
 

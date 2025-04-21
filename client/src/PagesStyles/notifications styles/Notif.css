@@ -74,13 +74,13 @@
 }
 
 .hnotif{
-    font-size: 1.6vw;
+    font-size: 2.25rem;
     margin-bottom: 3px;
     font-weight: 700;
 }
 
 .pnotif{
-    font-size: 1.1vw;
+    font-size: 1.125rem;
 }
 
 .transport{
@@ -99,7 +99,8 @@
 .transptext {
     position: relative;
     cursor: pointer;
-    font-size: 1vw;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 .transptext.active {
@@ -177,11 +178,11 @@
 }
 
 .notif-message{
-    font-size: 1vw;
+    font-size: 1rem;
 }
 .notif-time{
     width: 15%;
-    font-size: 1vw;
+    font-size: 1.rem;
 }
 
 .tabwdom {
@@ -193,7 +194,7 @@
 .dom{
     text-decoration: underline;
     cursor: pointer;
-    font-size: 1vw;
+    font-size: 1rem;
 
 }
 

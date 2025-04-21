@@ -1,9 +1,9 @@
-.root1  {
+.root1 {
   width: 80%;
   position: absolute;
-  top: 10%;
+  top: 80px;
   left: 10%;
-}
+ }
 
 .modifiervisitsearchbar {
   width: 94%; 

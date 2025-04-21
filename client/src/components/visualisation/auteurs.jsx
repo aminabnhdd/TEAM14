@@ -33,7 +33,8 @@ export default function Auteurs(props){
         })
         }
         </div>
-        {props.isChef && props.collaborateurs.length<3 && <AjouterCollaborateur projet={props.projet} setProjet={props.setProjet} collaborateurs={props.collaborateurs} setCollaborateurs={props.setCollaborateurs} />}
+        {props.isChef && props.collaborateurs.length<3 && <AjouterCollaborateur projet={props.projet} setProjet={props.setProjet} collaborateurs={props.collaborateurs} setCollaborateurs={props.setCollaborateurs} showPopup={props.showPopup}
+                      setShowPopup={props.setShowPopup} />}
     </>
     )
 }

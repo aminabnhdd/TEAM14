@@ -1,19 +1,11 @@
 .layoutDiv {
     margin: 0;
-    padding: 0;
-    width: 82vw;
+    padding:16px 0px ;
+    width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 250px);
+    grid-template-columns: repeat(auto-fill, 262px);
     grid-auto-rows: 10px;
-    position: absolute;
-    top: 53%;
-    left: 52%;
-    padding-top: 2%;
-    transform: translateX(-50%);
     justify-content: center;
     background-color: white;
-}
-
-
-  
+  }
   

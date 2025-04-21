@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const sectionModel = require("../model/section");
+const {userModel,expertModel} = require('../model/user');
 const projetModel = require("../model/Projet");
 const notificationModel = require("../model/Notification");
 const conflitModel = require("../model/conflit");
 const referenceModel = require("../model/Reference");
-const annotationModel = require("../model/Annotation");
+const annotationModel = require("../model/annotation");
 const validateToken = require("../middlewares/authMiddleware");
 const {validateRole} = require('../middlewares/roleMiddleware');
 const isCollaborator = require("../middlewares/collaborationMiddleware");
@@ -49,8 +50,13 @@ router.put("/editable/:sectionId", upload.array("images"), validateToken, handle
 router.get("/editable/:sectionId", validateToken, async (req, res) => {
     try {
         const sectionId = req.params.sectionId;
-
+        const expertId = req.user.id;
+        const expert = await expertModel.findById(expertId);
        
+        if (!expert){
+            return res.status(404).json({ message: "Expert not found" });
+        }
+
         const section = await sectionModel.findById(sectionId)
             .populate({
                 path: "annotations",
@@ -77,14 +83,10 @@ router.get("/editable/:sectionId", validateToken, async (req, res) => {
         const projet = section.projetId;
         const userChef = projet.chef;
 
-        // Find the collaborator whose discipline matches the section type
-        const userEditing = projet.collaborateurs.find(collaborateur => collaborateur.discipline === section.type) || null;
-
-
         return res.status(200).json({
             section,
             images: section.images,
-            userEditing,
+            userEditing: expert,
             userChef,
             projet,
             annotations: section.annotations,

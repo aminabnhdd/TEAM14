@@ -241,7 +241,13 @@ router.get("/mesprojets", validateToken, async (req, res) => {
         if (!expert) {              
             return res.status(404).json({ message: "Expert not found" });
         }
-      const projects = await projectModel.find({ chef: expertId ,archive: false});
+        const projects = await projectModel.find({
+            archive: false,
+            $or: [
+              { chef: expertId },
+              { collaborateurs: expertId }
+            ]
+          });
 
       return res.status(200).json({ projects });
       

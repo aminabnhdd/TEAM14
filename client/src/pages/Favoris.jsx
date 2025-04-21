@@ -46,6 +46,7 @@ import AuthContext from '../helpers/AuthContext';
 import { useNavigate } from 'react-router-dom';
 function Favoris() {
     const [favoriteProjects, setFavoriteProjects] = useState([]);
+    const [user, setUser] = useState({});
     const { setAuthState } = useContext(AuthContext);
 
     useEffect(() => {
@@ -64,6 +65,14 @@ function Favoris() {
                     role: refreshResponse.data.role,
                     accessToken: refreshResponse.data.accessToken,
                 });
+
+                const userResponse = await axios.get('http://localhost:3001/profil/mon-compte',{
+                    headers: {
+                        Authorization: `Bearer ${refreshResponse.data.accessToken}`,
+                    }
+                });
+                setUser(userResponse.data);
+                console.log(userResponse.data);
 
                 // Fetch favorite projects
                 const res = await axios.get('http://localhost:3001/projects/favourite', {

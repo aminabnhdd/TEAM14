@@ -201,7 +201,7 @@ router.get("/search", async (req, res) => {
 router.get('/favorites', validateToken, async (req, res) => { 
     try {
         const user = await userModel.find({_id:req.user.id}); 
-        const projects = await projectModel.find({ _id: { $in: user.favorites } });
+        const projects = await projectModel.find({ _id: { $in: user.favorites } ,archive: false});
         res.json(projects);
     } catch (error) {
         console.error(error);

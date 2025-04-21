@@ -14,6 +14,7 @@ const adminRole = process.env.ADMIN_ROLE;
 const { handleImages } = require('../middlewares/multerMiddleware');
 const { upload } = require('../middlewares/multerMiddleware');
 const { route } = require("./auth");
+const {userModel,expertModel} = require('../model/user');
 
 // Sauvegarder section
 router.put("/editable/:sectionId", upload.array("images"), validateToken, handleImages, async (req, res) => {
@@ -45,12 +46,16 @@ router.put("/editable/:sectionId", upload.array("images"), validateToken, handle
     }
 });
 
-// Get section
-router.get("/editable/:sectionId", validateToken, async (req, res) => {
+    router.get("/editable/:sectionId", validateToken, async (req, res) => {
     try {
         const sectionId = req.params.sectionId;
-
+        const expertId = req.user.id;
+        const expert = await expertModel.findById(expertId);
        
+        if (!expert){
+            return res.status(404).json({ message: "Expert not found" });
+        }
+
         const section = await sectionModel.findById(sectionId)
             .populate({
                 path: "annotations",
@@ -77,14 +82,10 @@ router.get("/editable/:sectionId", validateToken, async (req, res) => {
         const projet = section.projetId;
         const userChef = projet.chef;
 
-        // Find the collaborator whose discipline matches the section type
-        const userEditing = projet.collaborateurs.find(collaborateur => collaborateur.discipline === section.type) || null;
-
-
         return res.status(200).json({
             section,
             images: section.images,
-            userEditing,
+            userEditing: expert,
             userChef,
             projet,
             annotations: section.annotations,
@@ -92,8 +93,8 @@ router.get("/editable/:sectionId", validateToken, async (req, res) => {
         });
     } catch (error) {
         console.error("Server error:", error);
-        return res.status(500).json({ message: "Erreur serveur" });
-    }
+        return res.status(500).json({ message: "Erreur serveur" });
+    }
 });
 
 // Signaler conflit

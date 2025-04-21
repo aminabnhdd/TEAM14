@@ -5,12 +5,15 @@ import PopConflit from "./popupConflit";
 import ConflitService from "../../services/ConflitService";
 import  AuthContext from "../../helpers/AuthContext.jsx"
 import {useContext} from "react"
-
+import PopConflit2 from "./popupConflit2.jsx";
 
 export default function SignalerConflit({conflits,setConflits,user,projet,section}){
     const [showPopup, setShowPopup] = useState(false);
+    const [showPopup2, setShowPopup2] = useState(false);
     const {authState} = useContext(AuthContext);
-    const handleSignalerConflit = async (content) => {
+    const [isChef,setIsChef] =useState(false);
+    // setIsChef(props.user._id === props.projet.chef._id);
+      const handleSignalerConflit = async (content) => {
         try {
 
 
@@ -18,7 +21,8 @@ export default function SignalerConflit({conflits,setConflits,user,projet,sectio
             const newConflit = await ConflitService.signalerConflit(
               section._id,
               projet._id,
-               content,authState.accessToken
+               content,
+               authState.accessToken
             );
             console.log(conflits);
             console.log(newConflit.conflit);
@@ -26,7 +30,13 @@ export default function SignalerConflit({conflits,setConflits,user,projet,sectio
         } catch (error) {
             console.error("Error reporting conflict:", error);
           } finally {
+            if (content){
+              if(isChef){
+                setShowPopup(false);
+                //valider sur place
+              } else {
             setShowPopup(false);
+            setShowPopup2(true);}}
           }            
     };
 
@@ -42,6 +52,13 @@ export default function SignalerConflit({conflits,setConflits,user,projet,sectio
     
         onClose={() => setShowPopup(false)}
         onSubmit={handleSignalerConflit        }
+        />
+    )}
+    {showPopup2 && (
+        <PopConflit2
+    
+        onClose={() => setShowPopup2(false)}
+        
         />
     )}
     </>

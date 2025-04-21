@@ -48,7 +48,18 @@ router.put("/valider/:conflitId",validateToken, async (req, res) => {
           collab.discipline.toLowerCase() == section.type.toLowerCase()
       );
       console.log(section)
-      section.conflits.push(conflit._id);
+      const index = section.conflits.findIndex(id => id.toString() === conflit._id.toString());
+
+if (index !== -1) {
+  // Replace existing entry
+  section.conflits[index] = conflit._id;
+} else {
+  // Add new entry if not found
+  section.conflits.push(conflit._id);
+}
+
+await section.save();
+
       await section.save();
 
       const people = [...new Set([projet.chef, conflit.signaleur, expert].filter(Boolean))];

@@ -44,9 +44,17 @@ import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import AuthContext from '../helpers/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import defaultPfp from "../assets/Default_pfp.svg.png"
+
 function Favoris() {
     const [favoriteProjects, setFavoriteProjects] = useState([]);
     const { setAuthState } = useContext(AuthContext);
+
+     const [user,setUser]=useState(null);
+      //const imgUrl = user.pfp ;
+    
+      //temporary
+      const imgUrl = defaultPfp;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -84,14 +92,20 @@ function Favoris() {
 
     const navigate = useNavigate();
   const handleClick = () => {
-    navigate('/modifier-profil'); // Change this to your desired route
+    navigate(`/modifier-${authState.role === "Expert" ? "expert" : "visiteur"}`); // Change this to your desired route
     };
 
     return (
         <div className='min-h-screen relative flex flex-col'>
-        <div className='sticky top-10 pr-4 self-end z-50 cursor-pointer' onClick={handleClick}>
-           <FaUser className="icon text-brown w-6 h-6" />
-     </div>
+         <div
+  className={`fixed top-7 right-4 z-5000 w-12 h-12 rounded-full border-2 border-white ${!imgUrl && "border-brown"} 
+             bg-white flex items-center justify-center cursor-pointer 
+              hover:brightness-105 hover:scale-105 transition-transform duration-200`}
+  onClick={handleClick}
+>
+  {imgUrl ? <img src={imgUrl} /> :
+  <FaUser className="text-brown w-6 h-6" /> }
+</div>
      <div className="flex-1 flex relative  max-w-full ">
        <SideNav className="" />
        <div className="flex-1 w-full bg-white main-content">

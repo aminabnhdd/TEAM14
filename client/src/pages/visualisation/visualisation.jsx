@@ -56,7 +56,7 @@ export default function Visualisation(){
 
      const sections = ['description','architecture','histoire','archeologie','autre'];
 
-   
+ 
    
      const sectionsExistantes = projet && projet.sections && Array.isArray(projet.sections)
      ? sections.filter(section => 

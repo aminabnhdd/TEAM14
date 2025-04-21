@@ -10,7 +10,7 @@ import axios from "axios"
 import AuthContext  from "../../helpers/AuthContext"
 import { useNavigate } from "react-router-dom"
 import { useContext } from "react"
-
+import SideNav from "../../components/SideNav"
 
 import imjjjjjj from "../../assets/person.png"
 
@@ -149,7 +149,8 @@ const [poop3,setPoop3] = useState(false)
 
     <div className="main-notif">
         <div className="navigation-bar-notifAd">
-            <SideNavAdmin/>
+            {/* <SideNavAdmin/> */}
+            <SideNav/>
         </div>
         <div className="secondary-notif-notifAd">
 

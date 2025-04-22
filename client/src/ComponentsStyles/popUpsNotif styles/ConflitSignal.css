@@ -26,7 +26,7 @@
     position: relative;
     background: white; /* Ensure it has a solid background */
     animation: fadeIn 0.3s;
-    z-index: 1100; /* Ensure the pop-up is above everything */
+    z-index: 11000; /* Ensure the pop-up is above everything */
     border: none;
 }
 .close-btn:hover {

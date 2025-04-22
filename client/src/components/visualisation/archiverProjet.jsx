@@ -51,7 +51,7 @@ console.log(props.projet.archive);
         Le projet est archivé</button>}
 
         {showConfirmation && (
-                <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[1001]">
+                <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[4001]">
                     <div className="bg-white rounded-[36px] shadow-lg w-120 px-10 py-7 relative border border-black">
                         {/* Close Button */}
                         <button

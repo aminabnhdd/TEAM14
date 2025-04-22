@@ -56,7 +56,7 @@ const RestoreProjectsContainer = () => {
 
   return (
     <div className="restored-projects-grid">
-      {archivedProjects.map((project) => (
+      {archivedProjects.length > 0 ? archivedProjects.map((project) => (
         <div key={project._id} className="restored-project-card">
           <div className="restored-image-container">
             <img src={project.photoUrl || DEFAULT_IMAGE_URL} alt="Archived Project" className="restored-project-image" />
@@ -65,7 +65,7 @@ const RestoreProjectsContainer = () => {
             </div>
           </div>
         </div>
-      ))}
+      )): <p className="pt-2 main-text" >Aucune projet archivé.</p>}
 
       {selectedProject && (
         <PopupRestore

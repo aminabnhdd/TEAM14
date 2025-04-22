@@ -93,7 +93,7 @@ export default function DemandeCollaboration(props) {
 
       {/* Confirmation Popup */}
       {showConfirmPopup && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[1001]">
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[4001]">
           <div 
             ref={confirmPopupRef}
             className="bg-white rounded-[36px] shadow-lg w-110 px-10 py-7 relative border border-black"
@@ -105,7 +105,7 @@ export default function DemandeCollaboration(props) {
               &times;
             </button>
             <h2 className="big-remark text-center text-black mb-5">Confirmer la demande</h2>
-            <p className="mb-2 text-justify main-text">Voulez-vous vraiment envoyer une demande de collaboration pour ce projet?</p>
+            <p className="mb-2 text-justify main-text">Voulez-vous envoyer une demande de collaboration pour ce projet?</p>
             <div className="flex justify-around gap-3 mt-5">
               <button
                 onClick={confirmRequest}
@@ -126,7 +126,7 @@ export default function DemandeCollaboration(props) {
 
       {/* Waiting Approval Popup */}
       {showWaitingPopup && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[1001]">
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[4001]">
           <div 
             ref={waitingPopupRef}
             className="bg-white rounded-[36px] shadow-lg w-120 px-10 py-7 relative border border-black"

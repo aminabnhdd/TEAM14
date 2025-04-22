@@ -27,7 +27,7 @@ export default function ReferencesSection(props){
       className="main-text  group mb-1 text-brown  transition-colors duration-200"
     >
       [{ref.number}] <span >
-        {ref.text.substring(0, 25)}{ref.text.length > 25 ? "..." : ""}
+      { ref.text }.
       </span>
     </div>
   ));

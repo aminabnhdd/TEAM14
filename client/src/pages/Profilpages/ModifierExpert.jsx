@@ -31,7 +31,7 @@ const ModifierExpert = () => {
                     ? "historien"
                     : user.discipline.toLowerCase() === "architecture"
                     ? "architecte"
-                    : user.discipline.toLowerCase() === "archéologie"
+                    : (user.discipline.toLowerCase() === "archéologie" || user.discipline.toLowerCase() === "archeologie")
                     ? "archéologue"
                     : "",
               }));

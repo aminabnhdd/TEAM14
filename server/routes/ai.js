@@ -9,11 +9,20 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { ImageAnnotatorClient } = require('@google-cloud/vision');
 const annotationAIModel = require('../model/AnnotationAI');
 const cloudinary = require('../config/cloudinary');
-
+const validateToken = require("../middlewares/authMiddleware");
 
 // Initialize AI models
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const visionClient = new ImageAnnotatorClient();
+
+function toFormattedText(text) {
+  const lines = text.split('\n').slice(1); // skip the first line
+  return lines
+    .filter(line => line.trim() !== '') // remove empty lines
+    .map(line => line.replace(/•/g, '  *')) // bullet formatting
+    .join('\n\n'); // double line spacing between paragraphs
+}
+
 
 
 const upload = multer({ storage: multer.memoryStorage() });
@@ -29,8 +38,9 @@ async function analyzeWithGemini(imageBuffer, prompt) {
     };
     
     const result = await model.generateContent([prompt, imagePart]);
+    const markdown = toFormattedText(result.response.text());
     return {
-      text: result.response.text(),
+      text: markdown,
       model: "Gemini Pro Vision"
     };
   } catch (error) {
@@ -63,6 +73,24 @@ router.post('/api/analyze/gemini', upload.single('image'), async (req, res) => {
   }
 });
 
+router.post('/approve-annotation', validateToken, async (req, res) => {
+  try {
+    const { id } = req.body; 
+
+    const annot = await annotationAIModel.findById(id);
+    if (!annot) {
+      return res.status(404).json({ message: "Annotation non trouvée" });
+    }
+
+    annot.public = true;
+    await annot.save();
+
+    return res.status(200).json({ message: "L'annotation a été approuvée." });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Erreur serveur" });
+  }
+});
 /*
 // Cloud Vision Analysis
 async function analyzeWithCloudVision(imageBuffer) {

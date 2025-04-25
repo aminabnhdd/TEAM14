@@ -117,7 +117,6 @@ router.get("/", validateToken, async (req, res) => {
         const projet = await projetModel.findById(notif.projetId);
         const conflit = await conflitModel.findById(notif.conflitId).populate("sectionId");
         const section = await sectionModel.findById(notif.sectionId);
-        
         return {
           ...notif.toObject(), 
           sender: user?.nom || "" + " " + user?.prenom || "",

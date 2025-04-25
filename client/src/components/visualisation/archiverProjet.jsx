@@ -35,19 +35,23 @@ export default function ArchiverProjet(props){
         event.stopPropagation();
         setShowConfirmation(true);
     };
-
+console.log(props.projet.archive);
     return(
+      
     <>
+      {!props.projet.archive ?
         <button  onClick={openConfirmation}
          className="ml-auto mt-auto text-warning bg-white border border-warning mt-4
         rounded-[30px] py-3 flex align-items items-center gap-3 bolder-text px-5
         hover:brightness-105  hover:scale-102 transition-all duration-300 cursor-pointer">
             <FontAwesomeIcon icon={faArchive} className=" w-5 h-5" />
             Archiver le projet
-        </button>
+        </button> : <button    className="ml-auto mt-auto text-warning bg-white  mt-4
+        rounded-[30px] py-3 flex align-items items-center gap-3 bolder-text px-5">
+        Le projet est archivé</button>}
 
         {showConfirmation && (
-                <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[1001]">
+                <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[4001]">
                     <div className="bg-white rounded-[36px] shadow-lg w-120 px-10 py-7 relative border border-black">
                         {/* Close Button */}
                         <button

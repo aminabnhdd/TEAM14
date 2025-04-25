@@ -11,8 +11,8 @@
     background: white; /* Ensure it has a solid background */
     animation: fadeIn 0.3s;
     border: none;
-
-    z-index: 1100; /* Ensure the pop-up is above everything */
+    animation: fadeIn 0.3s;
+    z-index: 11000; /* Ensure the pop-up is above everything */
 }
 
 .Ti3{

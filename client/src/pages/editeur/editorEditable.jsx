@@ -40,7 +40,7 @@ export default function EditorEditable() {
   const [references, setReferences] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem("hasLoadedBefore", "true");
+    localStorage.setItem("hasLoadedBefore", true);
   }, []);
 
   useEffect(() => {

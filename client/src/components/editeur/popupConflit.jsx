@@ -1,14 +1,15 @@
-import { useRef } from "react"; // Import useRef instead of useState
+import { useRef,useState } from "react"; // Import useRef instead of useState
 
 export default function PopConflit({ onClose, onSubmit }) {
   // Create a ref to hold the input element
   const inputRef = useRef(null);
-
+  const [error,setError] = useState (false);
   const handleSubmit = (e) => {
     e.preventDefault();
     // Access the value of the input field directly using the ref
     const content = inputRef.current.value;
     onSubmit(content); // Pass the content to the parent component
+    if (!content)  {setError(true)} else {setError(false)}
   };
 
   return (
@@ -34,6 +35,8 @@ export default function PopConflit({ onClose, onSubmit }) {
             placeholder="Décrivez le sujet du conflit dans la section afin de clarifier le problème."
             className="w-full text-justify main-text px-4 py-2 border border-neutral-300 rounded-xl text-neutral-500 resize-none focus:outline-none focus:ring-1 focus:ring-dune "
           />
+          {error &&
+          <p className="small-remark text-warning ">Le contenu du conflit ne doit pas être vide.</p>}
 
           {/* Action Buttons */}
           <div className="flex justify-around gap-3 ">

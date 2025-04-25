@@ -15,6 +15,7 @@ const adminRole = process.env.ADMIN_ROLE;
 const { handleImages } = require('../middlewares/multerMiddleware');
 const { upload } = require('../middlewares/multerMiddleware');
 const { route } = require("./auth");
+const {userModel,expertModel} = require('../model/user');
 
 // Sauvegarder section
 router.put("/editable/:sectionId", upload.array("images"), validateToken, handleImages, async (req, res) => {
@@ -46,8 +47,7 @@ router.put("/editable/:sectionId", upload.array("images"), validateToken, handle
     }
 });
 
-// Get section
-router.get("/editable/:sectionId", validateToken, async (req, res) => {
+    router.get("/editable/:sectionId", validateToken, async (req, res) => {
     try {
         const sectionId = req.params.sectionId;
         const expertId = req.user.id;
@@ -94,8 +94,8 @@ router.get("/editable/:sectionId", validateToken, async (req, res) => {
         });
     } catch (error) {
         console.error("Server error:", error);
-        return res.status(500).json({ message: "Erreur serveur" });
-    }
+        return res.status(500).json({ message: "Erreur serveur" });
+    }
 });
 
 // Signaler conflit

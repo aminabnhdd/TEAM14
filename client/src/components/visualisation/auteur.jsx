@@ -1,9 +1,5 @@
-import { useState } from 'react';
-import removeIcon from '../../assets/remove-user.png'
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinus} from "@fortawesome/free-solid-svg-icons";  
-
+import defaultPfp from "../../assets/Default_pfp.svg.png"
 
 export function Auteur (props){
 
@@ -11,13 +7,22 @@ export function Auteur (props){
 
     // const [showConfirmation, setShowConfirmation] = useState(false);
 
+   
     const visitProfile = (event) => { 
+        console.log(props.user,props.utilisateur)
         if (props.isAdmin){
-            console.log('is admin');
-            navigate(`/profil-expert-admin/${props.user._id}`); 
+           
+            navigate(`/desactiver-expert/${props.user._id}`);
+         
+           
         } else {
-            console.log('is not admin');
-            navigate(`/modifier-expert/${props.user._id}`); 
+            if(props.user._id === props.utilisateur._id){
+                navigate(`/modifier-expert/`); 
+            } else {
+                navigate(`/afficher-expert/${props.user._id}`);
+
+            }
+            
         }
          
     };
@@ -51,8 +56,8 @@ export function Auteur (props){
     return (
         <>
             <div onClick={visitProfile} id={props.user._id} key={props.user._id} className="flex relative gap-3 items-center align-items rounded-[12px] hover:bg-neutral-100 py-2 px-4 cursor-pointer break-words ">
-                <div className="w-8 h-8 mr-2 bg-neutral-500 rounded-full">
-                    <img src={props.user.pfp} className="w-full h-full rounded-full object-cover" alt="Profile" />
+                <div className="w-8 h-8 mr-2 bg-white rounded-full">
+                    <img src={props.user.pfp || defaultPfp} className="w-full h-full rounded-full object-cover" alt="Profile" />
                 </div>
                 <div className="max-w-full">
                     <p className="main-text mb-[2px]">{props.user.nom} {props.user.prenom}</p>

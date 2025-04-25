@@ -9,7 +9,7 @@ const PopLink = ({ initialUrl, onClose, onSubmit }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[1001]">
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[4001]">
       <div className="bg-white rounded-[20px] shadow-lg w-100 px-10 py-7  relative border border-black">
         {/* Close Button */}
         <button

@@ -9,12 +9,15 @@ import Filters from '../components/Filters/Filters';
 import { useState, useEffect, useContext } from 'react';
 import axios from "axios";
 import AuthContext from '../helpers/AuthContext';
-
+import Pfp from '../components/pfp';
 function Decouvrir() {
   const [projects, setProjects] = useState([]);
-  const [user, setUser] = useState({});
   const { authState,setAuthState } = useContext(AuthContext);
 
+  const [user,setUser]=useState({});
+ 
+
+  
 
   const handleSearch = async (query) => {
     try {
@@ -132,23 +135,6 @@ function Decouvrir() {
         console.log(error);
         navigate('/connexion')
       })
-    axios.get("http://localhost:3001/refresh",{withCredentials:true})
-      .then((response) => {
-          if (response.data.error) return navigate('/connexion');
-          console.log(response.data);
-          setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
-          axios.get("http://localhost:3001/profil/mon-compte",{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
-          .then((response) => {
-              setUser(response.data);
-              console.log(response.data);
-          })
-          .catch((error)=>{
-            console.log(error);
-          })
-      })
-      .catch((error)=>{
-        console.log(error);
-      })
     fetchFilteredProjects("Tout"); // Load all projects on page load
   }, []);
 
@@ -160,12 +146,10 @@ function Decouvrir() {
   const handleClick = () => {
     navigate(`/modifier-${authState.role === "Expert" ? "expert" : "visiteur"}`); // Change this to your desired route
     };
-
+    const imgUrl = user.pfp ;
   return (
     <div className='min-h-screen relative flex flex-col'>
-         <div className='sticky top-10 pr-4 self-end z-50 cursor-pointer' onClick={handleClick}>
-            <FaUser className="icon text-brown w-6 h-6" />
-      </div>
+       <Pfp fixed={true}/>
       <div className="flex-1 flex relative  max-w-full ">
         <SideNav className="" />
         <div className="flex-1 w-full bg-white main-content">

@@ -175,7 +175,7 @@ const [poop3,setPoop3] = useState(false)
                     <div className="line-notifAd"></div>
                     <div className="notifications-notifAd">
                         
-                        {conflit && notificationsConflit.map(element => (
+                        {conflit && ((notificationsConflit.length>0) ? notificationsConflit.map(element => (
                             <div key={element.id} className="note-notifAd" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage-notifAd">
                             <img className="notif-icon-notifAd" src={element.imge} alt="Notification Icon" />
@@ -189,10 +189,10 @@ const [poop3,setPoop3] = useState(false)
                             </div>
                             {<Validation2 popUp={poop3} close={close3} notif={notifEx}/>}
                         </div>
-                        ))}
+                        )):<p className="pt-2 main-text mt-3" >Aucune notification.</p>)}
 
 
-                        {col && notificationsCol.map(element => (
+                        {col && (notificationsCol.length>0 ? notificationsCol.map(element => (
                             <div key={element.id} className="note-notifAd" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage-notifAd">
                             <img className="notif-icon-notifAd" src={element.imge} alt="Notification Icon" />
@@ -204,7 +204,7 @@ const [poop3,setPoop3] = useState(false)
                             </div>
                         {<Validation popUp={poop} close={close} notif={notifVs}/>}
                         </div>
-                        ))}
+                        )):<p className="pt-2 main-text mt-3" >Aucune notification.</p>)}
 
                         
                     </div>

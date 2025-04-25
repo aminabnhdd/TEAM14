@@ -108,7 +108,7 @@ const [col,setCol] = useState(false)
                         <p className="pnotif-LsUtil">Gérez les utilisateurs de l’application. Examinez chaque compte et visualisez les détails de l’utilisateur.</p>
                         </div>
                     </div>
-                <SearchBar  title="Rechercher un utilisateur" onSearch={setSearchQuery}/>
+                <SearchBar  title="Rechercher un utilisateur" onSearch={setSearchQuery} fixed={true} admin={true} />
 
                 
 

@@ -300,7 +300,7 @@ const [poop5,setPoop5] = useState(false)
 
                             
                         </div>
-                        )):<p className="pt-2 main-text" >Aucune notification.</p>)}
+                        )):<p className="pt-2 main-text mt-3" >Aucune notification.</p>)}
                         {<ConflitRes popUp={poop} close={close} notif={notifConf}/>}
                         {<ConflitSignal popUp={poop1} close={close1} notif={notifConf}/>}
                         {<ConflitChat popUp={poop2} close={close2} notif={notifConf}/>}
@@ -321,7 +321,7 @@ const [poop5,setPoop5] = useState(false)
                             
                         </div>
                         
-                        )):<p className="pt-2 main-text" >Aucune notification.</p>)}
+                        )):<p className="pt-2 main-text mt-3" >Aucune notification.</p>)}
                         {<Collaboration popUp={poop3} close={close3} notif={notifCol}/>}
 
                         {dem &&  (notificationsDem.length>0 ? notificationsDem.map(element => (
@@ -340,7 +340,7 @@ const [poop5,setPoop5] = useState(false)
                             </div>
                             
                         </div>
-                        )):<p className="pt-2 main-text" >Aucune notification.</p>)}
+                        )):<p className="pt-2 main-text mt-3" >Aucune notification.</p>)}
                         {<Refus  popUp={poop4} close={close4} notif={notifDem}/>}
                         {<Acceptation  popUp={poop5} close={close5} notif={notifDem}/>}
                         

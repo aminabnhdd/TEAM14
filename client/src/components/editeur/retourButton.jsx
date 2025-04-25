@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function RetourButton({projetId}){
     const navigate = useNavigate();
     function handleReturn(){
+        localStorage.setItem("hasLoadedBefore", true);
         navigate(`/visualisation/${projetId}`);
     }
 

@@ -3,16 +3,19 @@ import {FaUserCog, FaFolderOpen, FaCompass, FaStar, FaEdit, FaBell } from "react
 import { FaQuestionCircle } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import img from "../assets/Screenshot 2025-03-03 at 8.36.18 PM 1.png"
-import { useState } from 'react';
+import { useState, useEffect, useContext } from "react";
+import AuthContext from '../helpers/AuthContext';
+
 
 function SideNav(){
+    const { authState,setAuthState } = useContext(AuthContext);
 
-    const [isExpert, setIsExpert] = useState(true);
-    const [isAdmin, setIsAdmin] = useState(false);
+    const isExpert = authState.role === "Expert";
+    const isAdmin = authState.role === "Admin";
 
 
     const navigate = useNavigate()
-
+  
 
 
     const goToDecouvrir = () => {
@@ -40,7 +43,9 @@ function SideNav(){
     const goToNotifAdmin = () => {
     navigate("/notifications-admin")
     }
-
+    useEffect(()=>{
+        console.log("isExpert : ",isExpert," // isAdmin : ",isAdmin);
+    },[]);
     
 
     return(

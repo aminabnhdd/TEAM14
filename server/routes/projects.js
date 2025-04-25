@@ -180,8 +180,21 @@ router.get("/search", async (req, res) => {
 
         
 
-        const sections = await sectionModel.find({ type: { $in: filter } });
-
+        // const sections = await sectionModel.find({
+        //     type: { $in: filter },
+        //     "contenu.content.0": { $exists: true } 
+        //   });
+          
+          const rawSections = await sectionModel.find({
+            type: { $in: filter }
+          }).lean();
+          
+          const sections = rawSections.filter(section => {
+            const outer = section?.contenu?.content;
+            const inner = outer?.[0]?.content;
+          
+            return Array.isArray(inner) && inner.some(e => e?.text?.trim());
+          });
 
         const sectionIds = sections.map(section => section._id);
 
@@ -201,7 +214,7 @@ router.get("/search", async (req, res) => {
 router.get('/favorites', validateToken, async (req, res) => { 
     try {
         const user = await userModel.find({_id:req.user.id}); 
-        const projects = await projectModel.find({ _id: { $in: user.favorites } });
+        const projects = await projectModel.find({ _id: { $in: user.favorites } ,archive: false});
         res.json(projects);
     } catch (error) {
         console.error(error);
@@ -228,7 +241,13 @@ router.get("/mesprojets", validateToken, async (req, res) => {
         if (!expert) {              
             return res.status(404).json({ message: "Expert not found" });
         }
-      const projects = await projectModel.find({ chef: expertId ,archive: false});
+        const projects = await projectModel.find({
+            archive: false,
+            $or: [
+              { chef: expertId },
+              { collaborateurs: expertId }
+            ]
+          });
 
       return res.status(200).json({ projects });
       

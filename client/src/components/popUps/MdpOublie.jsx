@@ -27,12 +27,9 @@ function MdpOublie({ carti, fun, fun2 }) {
                 fun2();
             })
             .catch((error) => {
-                if (error.response && error.response.status === 404) {
-                    return setErrors({ email: "Aucun compte trouvé avec cette adresse email" });
-                    
-                }
+                if(error.status === 404) return setErrors({email:"il n'y a pas d'utilisateur avec cet email"});
+                alert(error.response);
                 console.log(error);
-                alert('Erreur lors de l\'envoi de l\'email de réinitialisation. ');
             })
         }
     };

@@ -1,11 +1,12 @@
-import { useRef } from "react";
+import { useRef,useState } from "react";
 
 export default function PopAnnotation({ onClose, onSubmit }) {
   const inputRef = useRef(null);
-
+  const [error,setError] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     const content = inputRef.current.value;
+    setError(!content);
     onSubmit(content); // Pass the content to the parent component
   };
 
@@ -32,6 +33,9 @@ export default function PopAnnotation({ onClose, onSubmit }) {
             placeholder="Rédigez une annotation sur cette section pour suggérer des modifications ou des ajouts."
             className="w-full text-justify main-text px-4 py-2 border border-neutral-300 rounded-xl text-neutral-500 resize-none focus:outline-none focus:ring-1 focus:ring-dune"
           />
+          {error &&
+          <p className="small-remark text-warning ">Le contenu du l'annotation ne doit pas être vide.</p>}
+
 
           {/* Action Buttons */}
           <div className="flex justify-around gap-3">

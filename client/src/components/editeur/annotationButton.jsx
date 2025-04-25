@@ -47,7 +47,8 @@ export default function AnnotationButton({
     } catch (error) {
       console.error("Error Annotation:", error);
     } finally {
-      setIsPopupOpen(false);
+    if(content){
+      setIsPopupOpen(false);}
     }
   };
 

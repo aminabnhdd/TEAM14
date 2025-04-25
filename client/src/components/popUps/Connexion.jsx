@@ -44,6 +44,7 @@ function Connect({   mdpPopUp,fun }) {
 
 
     const handleSubmit = () => {
+        let newErrors = {}; 
        
         if (validateForm()) {
             axios.post("http://localhost:3001/auth/login", formData,{withCredentials:true})
@@ -52,7 +53,9 @@ function Connect({   mdpPopUp,fun }) {
                 navigate('/discover'); 
             })
             .catch((err) => {
-                console.log(err);
+                console.log(err.response.data.error);
+                newErrors = err.response.data;
+                setErrors(newErrors);
             });
             
             fun()

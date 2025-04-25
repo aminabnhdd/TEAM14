@@ -147,7 +147,7 @@ const [col,setCol] = useState(false)
                             <p className="notif-message-LsUtil2">{element.util}</p>
                             </div>
                             <div className="notwtabwdom-LsUtil2">
-                            <button className="det-button-LsUtil1" onClick={( ) => {handleSeenProjet(element._id,"visiteur");navigate(`/desactiver-expert/${element._id}`)}} >Voir Compte</button>
+                            <button className="det-button-LsUtil1" onClick={( ) => {handleSeenProjet(element._id,"visiteur");navigate(`/desactiver-visiteur/${element._id}`)}} >Voir Compte</button>
                             </div>
                         </div>
                         ))}

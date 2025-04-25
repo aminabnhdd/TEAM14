@@ -1,5 +1,5 @@
 import "../../componentsStyles/LandingPage/Navbar.css";
-import logo from '../../assets/logo.png';
+import logo from '../../assets/Screenshot 2025-03-03 at 8.36.18 PM 1.png';
 import React, { useState, useEffect } from "react";
 import { Link } from "react-scroll";
 import { useNavigate } from "react-router-dom";

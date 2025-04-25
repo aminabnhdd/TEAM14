@@ -64,7 +64,7 @@ function Notif() {
                 .filter((notif) => notif.type === "demandeCollaboration")
                 .map((notif) => {
                     
-                    return { ...notif, imge: imjjjjjj, tab: imjjjjj, message: `${notif.sender} souhaite collaborer dans votre projet` };
+                    return { ...notif, imge: imjjjjjj, tab: imjjjjj,senderId:`${notif.senderId}`, name:`${notif.sender}` ,message: `souhaite collaborer dans votre projet` ,dom:`${notif.dom}`};
                     
                 });
                 const demNotifs = response.data.notifications
@@ -261,7 +261,7 @@ const [poop5,setPoop5] = useState(false)
         <div className="secondary-notif">
 
         <div className="teqsam">
-        <SearchBar  title="Rechercher Un Projet"/>
+        <SearchBar  title="Rechercher un projet"/>
             <div className=" textos">
                 <h1 className="hnotif">Notifications</h1>
                 <div>
@@ -307,8 +307,10 @@ const [poop5,setPoop5] = useState(false)
                         {col &&  (notificationsCol.length>0 ? notificationsCol.map(element => (
                             <div key={element._id} className="note" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
                             <div className="iconwmessage">
-                            <img className="notif-icon" src={element.imge} alt="Notification Icon" />
-                            <p className="notif-message">{element.message}</p>
+                            <img className="notif-icon" src={element.imge}  alt="Notification Icon" />
+                            <p className="notif-message"><span
+                                                        onClick={()=>{navigate(`/afficher-expert/${element.senderId}`)}}                               
+                                                        className="font-semibold cursor-pointer hover:underline">{element.name}</span> {element.message}</p>
                             </div>
                             <div className="notwtabwdom">
                             <span className="notif-time">{getTime(element.time)}</span>

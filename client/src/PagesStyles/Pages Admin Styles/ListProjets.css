@@ -152,7 +152,7 @@
 
 .iconwmessage-lsPrjct{
     display: flex;
-    width: 28%;
+    width: 60%;
    
     gap: 6%;
     justify-content: flex-start;
@@ -184,7 +184,7 @@
 }
 
 .dom-lsPrjct{
-    width: 57%;
+    width: 50%;
     font-weight: 600;
     
 }

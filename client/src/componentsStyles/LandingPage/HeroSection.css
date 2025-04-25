@@ -3,25 +3,29 @@
 
 
 .hero-content {
+   
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     width: 100%;
+    
 
 }
 
 .hero-content h1 {
+    
     color: var(--black, #2D2D2D);
     text-align: center;
-    font-size: 35px;
+    font-size: clamp(26px, 5vh, 30px);
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-top: 17vh;
+    margin-bottom: 2.5vh;
 }
 
 #second {
-    margin-top: 30px;
+    margin-top: 2vw;
     /* Hide anything that goes beyond this container */
     align-items: flex-end;
 
@@ -29,26 +33,25 @@
 }
 
 .outside-second {
-
+height: 0px;
     position: relative;
-    height: 350px;
-
-    padding-bottom: 100px;
+    
 }
 
 .hero-content p {
     color: #2D2D2D;
     max-width: 600px;
     text-align: center;
-    font-size: 24px;
-    font-weight: 400;
-    margin-bottom: 30px;
+    font-size: clamp(14px, 2.8vh, 16px);
+
+    
+    font-weight: 500;
+    margin-bottom: 4vh;
 }
 
 
 
 .whole-gallery {
-    position: relative;
     width: 100%;
 }
 
@@ -56,39 +59,44 @@
 .whole-gallery::after {
     content: "";
     position: absolute;
-    bottom: -100px;
-    top: 390px;
+    top: 90vh;
     left: 50%;
     transform: translateX(-50%);
     width: 120%;
-    height: 200px;
+    height: 24vh;
     background:
         linear-gradient(0deg, #E8C07D 0%, rgba(232, 192, 125, 0.90) 36.83%, rgba(232, 192, 125, 0.75) 58.42%, rgba(232, 192, 125, 0.50) 80%, rgba(232, 192, 125, 0.25) 90%, rgba(232, 192, 125, 0.13) 95%, rgba(232, 192, 125, 0.00) 100%),
         linear-gradient(0deg, rgba(232, 192, 125, 0.00) 0%, rgba(232, 192, 125, 0.13) 5%, rgba(232, 192, 125, 0.25) 10%, rgba(232, 192, 125, 0.50) 20%, rgba(232, 192, 125, 0.75) 41.58%, rgba(232, 192, 125, 0.90) 63.17%, #E8C07D 100%);
     pointer-events: none;
     filter: blur(15px);
+    z-index: 100;
+
+
+}
+
+.cover{
+    position:absolute;
     z-index: 1;
-
-
+    width: 100%;
+    height: 40vh;
+    top: 100vh;
+    background-color: #fefefe;
 }
 
 
 
 .bigbutton {
     display: flex;
-    width: 180px;
-    padding: 12px 24px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+    padding: 1.5vh 2.5vw;
+    justify-content: center;    
     border-radius: 35px;
     background: var(--brown, #C57642);
     border: 2px solid var(--brown, #C57642);
     cursor: pointer;
     color: var(--white, #FEFEFE);
     text-align: center;
-    font-size: 22px;
-    margin-bottom: 40px;
+    font-size: clamp(16px, 3vh, 18px);
+    margin-bottom: 5vh;
     font-weight: 600;
     transition: box-shadow 0.3s ease-in-out;
 }
@@ -102,22 +110,22 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    gap: 25px;
+    gap: 2vw;
     position: relative;
     margin: auto;
 }
 
 #second div {
-    width: 300px;
+    width: 18.5vw;
     height: 100px;
     border-radius: 30px 30px 0 0;
     position: relative;
-
 }
 
 #first div {
-    width: 300px;
-    height: 450px;
+    
+    width : 18.5vw;
+    height: 27.75vw;
     border-radius: 30px;
     position: relative;
 
@@ -127,13 +135,14 @@
     content: "";
     position: absolute;
     bottom: 0;
-
     left: 0;
     width: 100%;
     height: 20%;
+
     /* Adjust this for how much of the fade you want */
     background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
     pointer-events: none;
+    
 }
 
 /* Positioning */

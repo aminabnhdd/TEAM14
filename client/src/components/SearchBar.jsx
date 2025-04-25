@@ -22,7 +22,7 @@ function SearchBar({ onSearch,title ,fixed=false,admin=false }) {
           const handleClick = () => {
             navigate(`/modifier-${authState.role === "Expert" ? "expert" : "visiteur"}`); // Change this to your desired route
           };
-    const title2=title || "Rechercher un Projet...";
+    const title2=title || "Rechercher un projet...";
 
   return (
     <div className="rsearch-div sticky top-0 right-0 ">

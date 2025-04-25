@@ -122,7 +122,7 @@ router.post('/pwd-forgotten/send-link',async (req,res)=>{
     try {
         const token = crypto.randomBytes(32).toString('hex');
         const user = await userModel.findOne({email:req.body.email});
-        if (!user) return res.status(404).json({error:'there is no user with this email !'});
+        if (!user) return res.status(404).json({email:"il n'y a pas d'utilisateur avec cet email"});
         user.otl.link = token;
         user.otl.used = false;
         await user.save();

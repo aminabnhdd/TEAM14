@@ -264,10 +264,23 @@ const [poop5,setPoop5] = useState(false)
         <SearchBar  title="Rechercher un projet"/>
             <div className=" textos">
                 <h1 className="hnotif">Notifications</h1>
+                {conflit &&
                 <div>
-                <p className="pnotif">Un conflit a été détecté ? Retrouvez ici toutes les notifications concernant les divergences</p>
-                <p className="pnotif">dans les contributions et prenez les décisions appropriées.</p>
-                </div>
+                <p className="pnotif">Un conflit a été détecté ? Retrouvez ici toutes les notifications concernant les divergences dans les contributions et prenez les décisions appropriées.</p>
+                </div>}
+
+                {col &&
+                <div>
+                <p className="pnotif">Gérez les demandes de collaboration. Examinez chaque proposition et choisissez de l’accepter ou de la 
+                refuser en fonction des besoins du projet.</p>
+                </div>}
+
+                {dem &&
+                <div>
+                <p className="pnotif">Retrouvez ici le statut de vos demandes de collaboration. Consultez les réponses pour savoir si elles ont
+                été acceptées ou refusées et accédez aux détails de chaque décision.</p>
+                </div>}
+
             </div>
 
             <div className="second-div">
@@ -292,7 +305,7 @@ const [poop5,setPoop5] = useState(false)
                             <img className="tab" src={element.tab}></img>
                             <p className="dom">{element.dom}</p>
                             </div>
-                            <button className="det-button" onClick={() => {setNotifConf(element);handleDetailsClick(element.type); handleSeen(element._id,"conflit");setNotif(element) }}>
+                            <button className="det-button" onClick={() => {setNotifConf(element);handleDetailsClick(element.type); setNotif(element) }}>
                                 Détails
                             </button>
                             </div>
@@ -302,7 +315,7 @@ const [poop5,setPoop5] = useState(false)
                         </div>
                         )):<p className="pt-2 main-text mt-3" >Aucune notification.</p>)}
                         {<ConflitRes popUp={poop} close={close} notif={notifConf}/>}
-                        {<ConflitSignal popUp={poop1} close={close1} notif={notifConf}/>}
+                        {<ConflitSignal popUp={poop1} close={close1} notif={notifConf} handleSeen={handleSeen}/>}
                         {<ConflitChat popUp={poop2} close={close2} notif={notifConf}/>}
                         {col &&  (notificationsCol.length>0 ? notificationsCol.map(element => (
                             <div key={element._id} className="note" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
@@ -310,7 +323,7 @@ const [poop5,setPoop5] = useState(false)
                             <img className="notif-icon" src={element.imge}  alt="Notification Icon" />
                             <p className="notif-message"><span
                                                         onClick={()=>{navigate(`/afficher-expert/${element.senderId}`)}}                               
-                                                        className="font-semibold cursor-pointer hover:underline">{element.name}</span> {element.message}</p>
+                                                        className="font-semibold cursor-pointer underline ">{element.name}</span> {element.message}</p>
                             </div>
                             <div className="notwtabwdom">
                             <span className="notif-time">{getTime(element.time)}</span>

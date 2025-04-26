@@ -36,7 +36,11 @@ function Validation2 ({popUp,close,notif}) {
                 </div>
                 <img className="close-btn2" src={i} alt="fd" onClick={close} />
                 <div className="ktibaa">
-                <p><span className="gris">Utilisateur: </span>{notif.sendeId.nom } {notif.sendeId.prenom}  <br />
+                <p><span className="gris">Utilisateur: </span>
+                <span 
+                            onClick={()=>{navigate(`/desactiver-expert/${notif.sendeId._id}`)}}                               
+                            className=" underline cursor-pointer">{notif.sendeId.nom } {notif.sendeId.prenom}
+                            </span>   <br />
                 <span className="gris">Type de compte: </span> 
                 expert</p>
                 </div>

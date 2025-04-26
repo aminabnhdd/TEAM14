@@ -9,14 +9,17 @@ html, body {
   }
   
 .hero-section{
-  padding: 20px 0; /* Adjust padding for top and bottom */
+  
+ /* Adjust padding for top and bottom */
     margin-bottom: 0;max-height: 1020px;
-}
+    height: 100vh;
+  }
   .app-container {
     position: relative;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    
 
     
   }

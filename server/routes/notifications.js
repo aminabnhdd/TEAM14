@@ -128,13 +128,13 @@ router.get("/", validateToken, async (req, res) => {
         const projet = await projetModel.findById(notif.projetId);
         const conflit = await conflitModel.findById(notif.conflitId).populate("sectionId");
         const section = await sectionModel.findById(notif.sectionId);
-        
         return {
-          ...notif.toObject(), 
-          sender: user?.nom || "" + " " + user?.prenom || "",
-          recepient: rec?.nom || "" + " " + rec?.prenom || "",
+          ...notif.toObject(),
+          senderId: user?._id, 
+          sender: (user?.nom || "") + " " + (user?.prenom || ""),
+          recepient: (rec?.nom || "") + " " + (rec?.prenom || ""),
           projet: projet?.titre || "",
-          dom: conflit ? conflit.sectionId.type : section ? section.type : "",
+          dom: conflit ? conflit.sectionId.type :( section ? section.type : ""),
         };
         
         

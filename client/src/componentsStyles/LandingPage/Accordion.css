@@ -9,7 +9,7 @@
     justify-content: space-between;
     width: 100%;
     align-items: center;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 500;
     color: #2D2D2D;
     background: none;
@@ -36,7 +36,7 @@
 
   .accordion-border {
     border-top: 2px solid  #A0A5A6;
-    margin-top: 8px;
+    margin-top: 6px;
     border-radius: 10px;
     transition: border-color 0.2s ease-in-out;
   }
@@ -62,7 +62,7 @@
   .accordion-text {
     overflow: hidden;
     padding-top: 10px;
-    font-size: 16px;
+    font-size: 17px;
     text-align: justify;
     font-weight: 400;
     color: #2d2d2d;

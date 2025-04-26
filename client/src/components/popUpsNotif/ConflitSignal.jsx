@@ -2,10 +2,11 @@ import "../../ComponentsStyles/popUpsNotif styles/ConflitSignal.css"
 import i from "../../assets/x.png"
 import axios from "axios"
 import  AuthContext from "../../helpers/AuthContext"
-import {useContext} from "react"
+import {useContext, useState} from "react"
 import { useNavigate } from "react-router-dom"
+import MeetTime from "./MeetTime"
 
-function ConflitSignal ({popUp,close,notif}) {
+function ConflitSignal ({popUp,close,notif,handleSeen}) {
     const navigate = useNavigate()
     const {authState} = useContext(AuthContext);
     const validate = (action) => {
@@ -18,8 +19,13 @@ function ConflitSignal ({popUp,close,notif}) {
             console.log(notif)
         })
     }
+
+    const [popTime,setPopTime] = useState(false);
+    const closeTime = () => setPopTime(false);
  return(
-    popUp &&
+    <>
+    <MeetTime popUp={popTime} close={closeTime} notif={notif} handleSeen={handleSeen}/>
+    {popUp &&
     (<div className="main-bac-notif">
         <div className="notif-pop">
 
@@ -36,11 +42,12 @@ function ConflitSignal ({popUp,close,notif}) {
     Cette demande a déjà été traitée.
   </p>:
             <div className="batens">
-                <button className="baten1" onClick={()=>{validate("accept");close()}}>Accepter</button>
-                <button className="baten2" onClick={()=>{validate("refuse");close()}}>Refuser</button>
+                <button className="baten1" onClick={()=>{close();setPopTime(true)}}>Accepter</button>
+                <button className="baten2" onClick={()=>{close();validate("refuse");handleSeen(notif._id,"conflit")}}>Refuser</button>
             </div>}
         </div>
-    </div>)  
+    </div>) }
+    </>
  )
 }
 

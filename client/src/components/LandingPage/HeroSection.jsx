@@ -4,12 +4,7 @@ import "../../componentsStyles/LandingPage/HeroSection.css";
 const HeroSection = ({ openPopUp }) => {  // Accept openPopUp function as a prop
   return (
     <section id="acceuil" className="hero-section">
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+   
       <div className="hero-content">
         <h1>Explorez et immortalisez le patrimoine algérien</h1>
         <p>
@@ -27,6 +22,8 @@ const HeroSection = ({ openPopUp }) => {  // Accept openPopUp function as a prop
           <div className="placeholder img4 bg4"></div>
           <div className="placeholder img5 bg5"></div>
         </div>
+        <div className="cover"></div>
+
         <div className="outside-second">
           <div id="second" className="image-gallery">
             <div className="placeholder img1 bg6"></div>

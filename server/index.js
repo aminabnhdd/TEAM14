@@ -18,7 +18,7 @@ const uploadRouter = require('./routes/upload');
 const editeurRouter = require('./routes/editeur');
 const notificationsRouter = require('./routes/notifications');
 const refreshRouter = require('./routes/refresh');
-
+const visualisationRouter = require('./routes/visualisation');
 
 const corsOptions = {
     origin: ['http://localhost:5173'],
@@ -54,6 +54,7 @@ app.use('/images', uploadRouter);
 app.use('/editeur',editeurRouter);
 app.use('/notifications',notificationsRouter);
 app.use('/refresh',refreshRouter);
+app.use('/visualisation', visualisationRouter);
 
 // declaring our own modules :
 

@@ -31,6 +31,7 @@ import ChangerMotDePasse from "./pages/Profilpages/ChangerMotdePasse.jsx";
 import ProjetsExpert2 from "./pages/Profilpages/ProjetsExpert2.jsx";
 import Decouvrir from "./pages/Decouvrir";
 import Favoris from "./pages/Favoris";
+import ChatBot from './components/ChatBot/ChatBot';
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -60,6 +61,8 @@ function App() {
           {/* Route for annotatins */}
           <Route path="/editeur/annoter/:sectionId" element={<EditorNonEditable />} />
           <Route path="/visualisation/:projetId" element={<Visualisation />} />
+            {/*<Route path="chat" element={<ChatBot />}/>*/}
+     
           <Route path="/projets" element={<LsProjets />} />
           <Route path="/notifications-admin" element={<NotifAdmin />} />
           <Route path="/list-utilisateurs" element={<ListUtil />} />

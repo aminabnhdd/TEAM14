@@ -144,7 +144,7 @@ function Decouvrir() {
   }
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`/modifier-${authState.role === "Expert" ? "expert" : "visiteur"}`); // Change this to your desired route
+    navigate(`/modifier-${authState.role === "Expert" ? "expert" : "visiteur"}`);
     };
     const imgUrl = user.pfp ;
   return (

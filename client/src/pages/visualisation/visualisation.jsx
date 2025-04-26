@@ -13,6 +13,10 @@ import RefreshService from "../../services/RefreshService";
 import { useParams } from "react-router-dom";
 import SearchBar from "../../components/SearchBar.jsx";
 import PopAjouterCollaborateur from "../../components/visualisation/popupAjouterCollaborateur.jsx"
+import { MdSmartToy } from 'react-icons/md';
+import ChatBot from "../../components/ChatBot/ChatBot";
+
+
 export default function Visualisation(){
     const { projetId } = useParams();
     const [isExpert, setIsExpert] = useState(null);
@@ -27,13 +31,32 @@ export default function Visualisation(){
     const [collaborateurs,setCollaborateurs] =useState(null);
     const {authState,setAuthState} = useContext(AuthContext);
     const [showPopup, setShowPopup] = useState(false);
+    
+  
 
     useEffect(() => {
         const fetchProjet = async () => {
           try {
+            //amina's code
             const response= await  RefreshService.Refresh();
             setAuthState({email:response.email,role:response.role,accessToken:response.accessToken});
             const projetData = await VisuService.getProjet(projetId, response.accessToken);
+
+            //my code
+            /*axios.get("http://localhost:3001/refresh",{withCredentials:true})
+                  .then((response) => {
+                      if (response.data.error) return navigate('/connexion');
+                      console.log(response.data);
+                      setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
+                  })
+                  .catch((error)=>{
+                    console.log(error);
+                    navigate('/connexion')
+                  })
+            
+            const projetData = await VisuService.getProjet(projetId, response.accessToken);*/
+
+            
             setProjet(projetData.projet);
             setUser(projetData.user);
             setChef(projetData.chef);
@@ -66,7 +89,11 @@ export default function Visualisation(){
       
 
 
+    /*const handleVisibility = ()=>{
+      setIsVisible()
+    }*/
 
+      
 
        return (
 
@@ -117,13 +144,15 @@ export default function Visualisation(){
             <DemandeCollaboration projet={projet} user={user} isExpert={isExpert} isCollaborateur={isCollaborateur} collaborateurs={collaborateurs}  />
           
             
-             </div> <Footer/>
+             </div> 
+             <ChatBot projetId={projetId} />
+             <Footer/>
              {showPopup && (
         <PopAjouterCollaborateur onClose={() => setShowPopup(false)} projet={projet} setProjet={setProjet} collaborateurs={collaborateurs} setCollaborateurs={setCollaborateurs} />
       )}
              </>)}
-             
-
+           
+      
         </>
       );
     }

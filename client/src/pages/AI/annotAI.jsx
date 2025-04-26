@@ -5,12 +5,16 @@ import axios from "axios";
 import { Icon } from "@iconify/react";
 import SideNav from "../../components/SideNav";
 import SearchBar from "../../components/SearchBar";
-import casbah from "./casbah.jpg";
 import { useContext } from "react"
 import AuthContext from '../../helpers/AuthContext'
 import RefreshService from "../../services/RefreshService";
+import { useLocation } from 'react-router-dom';
+
 const AnnotationTool = () => {
     const {authState,setAuthState} = useContext(AuthContext);
+    const location = useLocation();
+    const { src: photourl } = location.state || {};  
+    const [annotations, setAnnotations] = useState([]);
     useEffect(() => {
         const fetch = async () => {
           try {
@@ -20,13 +24,25 @@ const AnnotationTool = () => {
               role: response.role,
               accessToken: response.accessToken,
             });
+            const response2 = await axios.get(
+              "http://localhost:3001/ai/get-annotations",
+              {
+                params: { photourl },
+                headers: { 
+                  Authorization: `Bearer ${response.accessToken}`,
+                  "Content-Type": "application/json"
+                }
+              }
+            
+            );
+            setAnnotations(response2.data);
           } catch (err) {
             console.log("Failed to refresh");
           }
         };
       
-        fetch(); // <-- Call the function here
-      }, []);
+        fetch(); 
+      }, [photourl, setAuthState]);
 
   const [crop, setCrop] = useState({
     unit: "%",
@@ -36,7 +52,6 @@ const AnnotationTool = () => {
     height: 50,
   });
   const [completedCrop, setCompletedCrop] = useState(null);
-  const [annotations, setAnnotations] = useState([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const imgRef = useRef(null);
@@ -93,7 +108,7 @@ const AnnotationTool = () => {
       const formData = new FormData();
       formData.append("image", blob, "architecture.jpg");
       formData.append("prompt", DEFAULT_PROMPT);
-
+      formData.append("photourl", photourl);
       const response = await axios.post(
         "http://localhost:3001/ai/api/analyze/gemini",
         formData,
@@ -108,6 +123,7 @@ const AnnotationTool = () => {
           _id: response.data._id,
           content: response.data.content,
           imageUrl: response.data.imageUrl,
+          public: false
         },
       ]);
       setActiveTab(annotations.length);
@@ -177,13 +193,14 @@ const AnnotationTool = () => {
     >
       <img
         ref={imgRef}
-        src={casbah}
-        alt="Casbah column"
+        src={photourl}
+        alt="the picture you are gonna annotate"
         className="w-full h-auto object-contain"
         style={{
           display: "block",
           borderRadius: "12px",
         }}
+        crossOrigin="anonymous" 
       />
     </ReactCrop>
   </div>
@@ -287,7 +304,7 @@ const AnnotationTool = () => {
                               className="w-full max-h-[200px] object-contain"
                             />
                           )}
-                          {ann.public = false && 
+                          {ann.public ===  false && 
                           <div className="flex justify-center">
                             <button onClick={() => approveAnnotation(ann._id)} className="buttons border-2 text-black border-dune flex gap-2 py-2 px-4 rounded-[36px] items-center justify-center hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer w-auto">
                               <Icon

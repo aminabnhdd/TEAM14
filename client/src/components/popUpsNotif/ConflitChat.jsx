@@ -19,8 +19,8 @@ function ConflitChat ({popUp,close,notif}) {
                 {notif.content}</p>
                 </div>
                 
-                <button className="batens2">
-                    <p className="baten5">Lien vers chat</p>
+                <button className="batens2"  onClick={() => window.open(notif.chat, "_blank")}>
+                    <p className="baten5">Lien vers meet</p>
                     <img className="linkimg" src={link} alt="walter white" />
                     
                 </button>

@@ -11,7 +11,7 @@ const annotationAIModel = require('../model/AnnotationAI');
 const cloudinary = require('../config/cloudinary');
 const validateToken = require("../middlewares/authMiddleware");
 
-// Initialize AI models
+
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const visionClient = new ImageAnnotatorClient();
 
@@ -49,12 +49,13 @@ async function analyzeWithGemini(imageBuffer, prompt) {
   }
 }
 
-// API Endpoints
+
 router.post('/api/analyze/gemini', upload.single('image'), async (req, res) => {
   try {
+    const { photourl } = req.body; 
     console.log('Received request with file:', req.file);
     if (!req.file) return res.status(400).json({ error: "No image provided" });
-    
+   
     const { prompt } = req.body;
     const result = await analyzeWithGemini(req.file.buffer, prompt);
     console.log(result)
@@ -65,8 +66,7 @@ router.post('/api/analyze/gemini', upload.single('image'), async (req, res) => {
       imageUrl = resultUpload.secure_url;
       
     }
-  const annotation = await annotationAIModel.create({imageUrl ,content: result.text   });
-  await annotation.save();
+  const annotation = await annotationAIModel.create({imageUrl ,content: result.text, bigPhoto: photourl  });
     res.json(annotation);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -91,6 +91,26 @@ router.post('/approve-annotation', validateToken, async (req, res) => {
     return res.status(500).json({ message: "Erreur serveur" });
   }
 });
+
+
+router.get('/get-annotations', validateToken, async (req, res) => {
+  try {
+    const { photourl } = req.query; 
+
+    if (!photourl) {
+      return res.status(400).json({ message: 'Photo URL is required' });
+    }
+
+    const annotations = await annotationAIModel.find({ bigPhoto: photourl });
+
+    res.json(annotations);
+  } catch (error) {
+    console.error('Error fetching annotations:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 /*
 // Cloud Vision Analysis
 async function analyzeWithCloudVision(imageBuffer) {

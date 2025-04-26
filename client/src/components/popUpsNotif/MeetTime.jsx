@@ -11,7 +11,7 @@ function MeetTime({ popUp, close, notif,handleSeen }) {
       
         const validate = (action) => {
           console.log("Selected Date:", date);
-          console.log("Selected Time:", time);        axios.put(`http://localhost:3001/notifications/valider/${notif.conflitId}`,{decision:action,notifId:notif._id,projetId:notif.projetId},{headers:{Authorization:`Bearer ${authState.accessToken}`}})    
+          console.log("Selected Time:", time);        axios.put(`http://localhost:3001/notifications/valider/${notif.conflitId}`,{decision:action,notifId:notif._id,projetId:notif.projetId, date, time},{headers:{Authorization:`Bearer ${authState.accessToken}`}})    
         .then((response)=>{
             console.log(response.data)
         })

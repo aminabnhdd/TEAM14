@@ -16,6 +16,30 @@
   transition: transform 0.3s ease;
 }
 
+.annotate-icon-button {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background-color: #e8c07d;
+  color: #2d2d2d;
+  border: none;
+  padding: 0.3rem;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.annotate-icon-button:hover {
+  filter: brightness(1.1); 
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
 .gallerie-image:hover {
   transform: scale(1.02);
   filter: brightness(0.9); 

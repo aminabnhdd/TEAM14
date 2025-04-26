@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 
 
 const annotationAISchema = new mongoose.Schema({
+    bigPhoto: {
+        type: String,
+    },
     imageUrl: {
         type: String,
     },

@@ -39,7 +39,6 @@ const SectionService = {
           }
       }else {
         try {
-        
           formData.append("images", image.src); 
           console.log(`Added Existing Image: ${image.src}`);
         } catch (error) {

@@ -19,7 +19,6 @@ const uploadRouter = require('./routes/upload');
 const editeurRouter = require('./routes/editeur');
 const notificationsRouter = require('./routes/notifications');
 const refreshRouter = require('./routes/refresh');
-const calendarRoutes = require('./routes/calendar');
 
 const corsOptions = {
     origin: ['http://localhost:5173'],
@@ -47,7 +46,7 @@ const {validateRole} = require('./middlewares/roleMiddleware');
 
 //using routes : 
 
-app.use('/calendar', calendarRoutes);
+
 app.use('/auth', authRouter);
 app.use('/projects', projectRouter);
 app.use('/admin',validateToken,adminRouter);

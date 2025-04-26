@@ -10,6 +10,9 @@ const adminRole = process.env.ADMIN_ROLE;
 const notificationModel = require("../model/Notification");
 const cloudinary = require('../config/cloudinary');
 const { upload } = require('../middlewares/multerMiddleware');
+const fs = require('fs');
+const path = require('path');
+const referenceModel = require("../model/Reference");
 
 
 
@@ -797,6 +800,104 @@ router.get('/favourite/', validateToken, async (req, res) => {
         res.sendStatus(500); 
     }
 });
+
+
+router.get('/export-projet/:id', validateToken,validateRole(expertRole),async (req, res) => {
+    try {
+        const projet = await projectModel.findById(req.params.id)
+            .populate('sections')
+            .lean();
+
+        if (!projet) {
+            return res.status(404).json({ message: 'Projet non trouvé' });
+        }
+
+        // Nettoyage éventuel
+        delete projet.__v;
+
+        const jsonData = JSON.stringify(projet, null, 2);
+        const fileName = `ATHAR - ${projet.titre}.json`;
+
+
+        const tmpDir = path.join(__dirname, '..', 'tmp');
+        const filePath = path.join(tmpDir, fileName);
+
+        if (!fs.existsSync(tmpDir)) {
+            fs.mkdirSync(tmpDir);
+        }
+
+        fs.writeFileSync(filePath, jsonData);
+
+        res.download(filePath, fileName, (err) => {
+            if (err) {
+                console.error(err);
+            }
+            fs.unlinkSync(filePath);
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Erreur serveur' });
+    }
+});
+router.post('/import-projet', validateToken, validateRole(expertRole), async (req, res) => {
+    try {
+      const projetData = req.body;
+  
+      if (!projetData.titre || !projetData.type) {
+        return res.status(400).json({ message: 'Titre et type sont requis.' });
+      }
+  
+      const existingProjet = await projectModel.findById(projetData._id);
+      if (existingProjet && existingProjet.archive == false) {
+        return res.status(200).json({ message: 'Ce projet existe déjà et n\'a pas besoin d\'être restauré.' });
+      }
+      const existingTitle = await projectModel.findOne({ titre: projetData.titre });
+      if (existingTitle) {
+        return res.status(200).json({ message: 'Un projet avec ce titre existe déja' });
+
+      }
+  
+      delete projetData._id;
+      delete projetData.createdAt;
+      delete projetData.updatedAt;
+      delete projetData.__v;
+  
+
+      const nouveauProjet = await projectModel.create(projetData);
+  
+
+      const chef = await expertModel.findById(projetData.chef);
+      if (chef) {
+        chef.projets.push(nouveauProjet._id);
+        await chef.save();
+      }
+  
+      const sections = await sectionModel.find({ _id: { $in: projetData.sections || [] } });
+      await Promise.all(sections.map(section => {
+        section.projetId = nouveauProjet._id;
+        return section.save();
+      }));
+  
+      const collaborateurs = await expertModel.find({ _id: { $in: projetData.collaborateurs || [] } });
+      await Promise.all(collaborateurs.map(collab => {
+        collab.projets.push(nouveauProjet._id);
+        return collab.save();
+      }));
+  
+      const references = await referenceModel.find({ _id: { $in: projetData.references || [] } });
+      await Promise.all(references.map(ref => {
+        ref.projetId = nouveauProjet._id;
+        return ref.save();
+      }));
+  
+      res.status(201).json({ message: 'Projet restauré avec succès.' });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erreur lors de la restauration du projet.' });
+    }
+  });
+  
+  
 
 
 module.exports = router;

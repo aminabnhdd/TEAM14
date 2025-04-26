@@ -53,7 +53,6 @@ function Connect({   mdpPopUp,fun }) {
                 navigate('/discover'); 
             })
             .catch((err) => {
-                console.log(err.response.data.error);
                 newErrors = err.response.data;
                 setErrors(newErrors);
             });

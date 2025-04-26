@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/poppins": "^5.2.5",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
@@ -41,16 +42,16 @@
     "lodash": "^4.17.21",
     "lucide-react": "^0.479.0",
     "prosemirror-utils": "^1.2.2",
-    "@fontsource/poppins": "^5.2.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.4.0",
     "react-scroll": "^1.9.3",
-    "styled-components": "^6.1.15",
-    "yet-another-react-lightbox": "^3.21.8",
     "react-select": "^5.10.1",
-    "tailwindcss": "^4.0.11"
+    "react-spinners": "^0.17.0",
+    "styled-components": "^6.1.15",
+    "tailwindcss": "^4.0.11",
+    "yet-another-react-lightbox": "^3.21.8"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

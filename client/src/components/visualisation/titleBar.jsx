@@ -11,7 +11,7 @@ export default function TitleBar (props){
         {props.isExpert && 
             <div className=" flex align-items items-center gap-2">
             <Tooltip element={<SaveExtern/>} text='Sauvegarder en externe' />
-            <Tooltip element={<SaveIntern/>} text='Sauvegarder en interne' />
+            <Tooltip element={<SaveIntern projet={props.projet}/>} text='Sauvegarder en interne' />
             <Tooltip element={<PrintWeb/>} text='Imprimer Web' />
             <Tooltip element={<PrintPDF/>} text='Imprimer PDF' />
         </div>}

@@ -5,6 +5,7 @@ import Notif from "./pages/notifications/Notif";
 import Con from "./pages/page connexion/PageConnexion";
 import AuthContext from "./helpers/AuthContext";
 import { useState } from "react";
+import {PuffLoader} from 'react-spinners';
 import ReiniMotdps from "./pages/page connexion/PageReinit";
 import { BrowserRouter as  Router,Route,Routes } from "react-router-dom";
 import LsProjets from "./pages/page admin/ListProjets";

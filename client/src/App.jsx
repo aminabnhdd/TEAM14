@@ -30,9 +30,9 @@ import DesactiverVisiteur from "./pages/Profilpages/DesactiverVisiteur.jsx";
 import SaveVisiteur from "./pages/Profilpages/SaveVisiteur.jsx";
 import ChangerMotDePasse from "./pages/Profilpages/ChangerMotdePasse.jsx";
 import ProjetsExpert2 from "./pages/Profilpages/ProjetsExpert2.jsx";
+import AnnotationTool from "./pages/AI/annotAI.jsx"
 import Decouvrir from "./pages/Decouvrir";
 import Favoris from "./pages/Favoris";
-
 function App() {
   const [authState, setAuthState] = useState({
     email: "",
@@ -45,6 +45,7 @@ function App() {
     <div className="contianer-app">
         <Router>
         <Routes>
+          <Route path="/ai" element = {<AnnotationTool />}/>
           <Route path="/ihateracism" element={<h1>I hate racisme</h1>}/>
           <Route path="/" element={<LandingPage />} />
           <Route path="/connexion" element={<Con />} />

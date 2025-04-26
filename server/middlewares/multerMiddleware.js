@@ -14,11 +14,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-
 const handleImages = async (req, res, next) => {
   console.log("Files received:", req.files);
-  console.log("Raw req.body:", req.body);
-  console.log("Raw req.body:", req.body.images);
+  console.log("Raw req.body.images:", req.body.images);
 
   try {
     const uploadedImages = [];
@@ -29,18 +27,29 @@ const handleImages = async (req, res, next) => {
       return res.status(404).json({ message: "Section not found" });
     }
 
-    // Delete all existing images from Cloudinary
-    for (const image of section.images) {
+    const clientImages = Array.isArray(req.body.images) 
+      ? req.body.images 
+      : req.body.images ? [req.body.images] : [];
+
+    console.log("Client Images:", clientImages);
+
+    // Find which old images must be deleted
+    const imagesToDelete = section.images.filter(img => !clientImages.includes(img));
+    console.log("Images to delete:", imagesToDelete);
+
+    for (const image of imagesToDelete) {
       try {
-        await cloudinary.uploader.destroy(image);
+        const publicId = image.split('/').pop().split('.')[0]; 
+        await cloudinary.uploader.destroy(`uploads/${publicId}`);
+        console.log(`Deleted from Cloudinary: ${publicId}`);
       } catch (error) {
-        console.error(`Error deleting image: ${image}`, error);
+        console.error(`Error deleting image ${image}:`, error);
       }
     }
 
-  
+    // Upload new images
     for (const file of req.files) {
-      const fileBuffer = await fs.readFile(file.path); // Read file into buffer
+      const fileBuffer = await fs.readFile(file.path);
 
       const result = await new Promise((resolve, reject) => {
         cloudinary.uploader.upload_stream(
@@ -55,12 +64,10 @@ const handleImages = async (req, res, next) => {
       uploadedImages.push(result.secure_url);
     }
 
-  req.uploadedImages =  uploadedImages;
+    req.uploadedImages = [...clientImages, ...uploadedImages];
 
+    console.log("New Images list:", req.uploadedImages);
 
-    console.log("in back end here are images ",uploadedImages);
-
-    
     next();
   } catch (error) {
     console.error("Image Handling Error:", error);

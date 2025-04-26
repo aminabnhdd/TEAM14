@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const sectionModel = require("../model/section");
+const {userModel,expertModel} = require('../model/user');
 const projetModel = require("../model/Projet");
 const notificationModel = require("../model/Notification");
 const conflitModel = require("../model/conflit");
@@ -14,8 +15,6 @@ const adminRole = process.env.ADMIN_ROLE;
 const { handleImages } = require('../middlewares/multerMiddleware');
 const { upload } = require('../middlewares/multerMiddleware');
 const { route } = require("./auth");
-const {userModel,expertModel} = require('../model/user');
-
 // Sauvegarder section
 router.put("/editable/:sectionId", upload.array("images"), validateToken, handleImages, async (req, res) => {
     try {

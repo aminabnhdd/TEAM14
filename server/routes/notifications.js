@@ -1,68 +1,112 @@
 const express = require("express");
+require("dotenv").config();
 const router = express.Router();
-const  sectionModel  = require("../model/section");
-const  projetModel  = require("../model/Projet");
-const  notificationModel = require("../model/Notification");
-const conflitModel  = require("../model/conflit");
+const sectionModel = require("../model/section");
+const projetModel = require("../model/Projet");
+const notificationModel = require("../model/Notification");
+const conflitModel = require("../model/conflit");
 const validateToken = require("../middlewares/authMiddleware");
-const {validateRole,validateProjectOwner} = require("../middlewares/roleMiddleware");
-const isCollaborator = require("../middlewares/collaborationMiddleware");
-const expertRole = process.env.EXPERT_ROLE;
-const adminRole = process.env.ADMIN_ROLE;
-const nodemailer = require ('nodemailer');
-const {expertModel,userModel} = require('../model/user');
+const { expertModel, userModel } = require("../model/user");
+const { google } = require("googleapis");
 
+const oauth2Client = new google.auth.OAuth2(
+  process.env.CLIENT_ID,
+  process.env.CLIENT_SECRET,
+  "http://localhost:3001/oauth2callback"
+);
 
+oauth2Client.setCredentials({
+  refresh_token: process.env.REFRESH_TOKEN,
+});
 
-router.put("/valider/:conflitId",validateToken, async (req, res) => {
-    try {
-      const { conflitId } = req.params;
-      const { decision,notifId } = req.body;
-      const conflit = await conflitModel.findById(conflitId);
-      const notif = await notificationModel.findById(notifId);
-      if (!conflit) {
-        return res.status(404).json({ message: "Conflit non trouvé" });
-      }
-      if (notif.type !== "conflitSignale") {
-        return res.status(400).json({ message: "invalid notification type",type:notif.type });
-      }
+const calendar = google.calendar({ version: "v3", auth: oauth2Client });
 
-      if (decision == "refuse") {
-        await notificationModel.findByIdAndDelete(notifId);
-        await conflitModel.findByIdAndDelete(conflitId);
-        return res.status(200).json({ message: "Conflit supprimé avec succès." });
-      } 
-      else if (decision == "accept") {
-        conflit.valide = true;
-        conflit.lien = "lien vers chat";
-        await conflit.save();
-        const projet = await projetModel
-        .findById(conflit.projetId)
-        .populate("collaborateurs");
+router.put("/valider/:conflitId", validateToken, async (req, res) => {
+  try {
+    const { conflitId } = req.params;
+    const { decision, notifId, time, date } = req.body;
+    const conflit = await conflitModel.findById(conflitId);
+    const notif = await notificationModel.findById(notifId);
+    if (!conflit) {
+      return res.status(404).json({ message: "Conflit non trouvé" });
+    }
+    if (notif.type !== "conflitSignale") {
+      return res
+        .status(400)
+        .json({ message: "invalid notification type", type: notif.type });
+    }
 
+    if (decision == "refuse") {
+      await notificationModel.findByIdAndDelete(notifId);
+      await conflitModel.findByIdAndDelete(conflitId);
+      return res.status(200).json({ message: "Conflit supprimé avec succès." });
+    } else if (decision == "accept") {
       const section = await sectionModel.findById(conflit.sectionId);
+      const signaleur = await expertModel.findById(conflit.signaleur);
+      const projet = await projetModel
+      .findById(conflit.projetId)
+      .populate("collaborateurs"); 
 
-      const expert = projet.collaborateurs.find(
+      let expert = projet.collaborateurs.find(
         (collab) =>
           collab.discipline &&
           collab.discipline.toLowerCase() == section.type.toLowerCase()
       );
-      console.log(section)
-      const index = section.conflits.findIndex(id => id.toString() === conflit._id.toString());
+      if (section.type == 'autre' || section.type =='description'){
+        expert =  await expertModel.findById(projet.chef);
+      }
 
-if (index !== -1) {
-  // Replace existing entry
-  section.conflits[index] = conflit._id;
-} else {
-  // Add new entry if not found
-  section.conflits.push(conflit._id);
-}
+      const startDateTime = new Date(`${date}T${time}:00`);
+      const endDateTime = new Date(startDateTime.getTime() + 60 * 60000);
+      const event = {
+        summary: "Conflit Consultation",
+        description: `Meeting programmé par le chef du projet. Le sujet du conflit est: ${conflit.content}`,
+        start: {
+          dateTime: startDateTime.toISOString(),
+          timeZone: "Africa/Algiers",
+        },
+        end: {
+          dateTime: endDateTime.toISOString(),
+          timeZone: "Africa/Algiers",
+        },
+        attendees: [{ email: signaleur.email }, { email: expert.email }],
+        conferenceData: {
+          createRequest: {
+            requestId: `meeting-${Date.now()}`,
+            conferenceSolutionKey: { type: "hangoutsMeet" },
+          },
+        },
+      };
 
-await section.save();
+      const response = await calendar.events.insert({
+        calendarId: "primary",
+        resource: event,
+        conferenceDataVersion: 1,
+        sendUpdates: "all",
+      });
+
+      conflit.valide = true;
+      conflit.lien = response.data.hangoutLink;
+      await conflit.save();
+
+      console.log(section);
+      const index = section.conflits.findIndex(
+        (id) => id.toString() === conflit._id.toString()
+      );
+
+      if (index !== -1) {
+        // Replace existing entry
+        section.conflits[index] = conflit._id;
+      } else {
+        // Add new entry if not found
+        section.conflits.push(conflit._id);
+      }
 
       await section.save();
 
-      const people = [...new Set([projet.chef, conflit.signaleur, expert].filter(Boolean))];
+      const people = [
+        ...new Set([projet.chef, conflit.signaleur, expert].filter(Boolean)),
+      ];
 
       const notifications = people.map((person) => ({
         type: "conflitValide",
@@ -77,19 +121,17 @@ await section.save();
       }));
       await notificationModel.insertMany(notifications);
       await notificationModel.findByIdAndDelete(notifId);
-      // redirect to chat but whereee
-      } 
-      return res.status(200).json({
-        message: `Conflit ${
-          decision === "accept" ? "validé" : "rejeté"
-        } avec succès.`,
-      });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Erreur serveur" });
     }
+    return res.status(200).json({
+      message: `Conflit ${
+        decision === "accept" ? "validé" : "rejeté"
+      } avec succès.`,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Erreur serveur" });
   }
-);
+});
 
 router.get("/:notifId", validateToken, async (req, res) => {
   try {
@@ -123,22 +165,22 @@ router.get("/", validateToken, async (req, res) => {
 
     const updatedNotifications = await Promise.all(
       notifications.map(async (notif) => {
-        const user = await userModel.findById(notif.sendeId); 
+        const user = await userModel.findById(notif.sendeId);
         const rec = await userModel.findById(notif.recepientId);
         const projet = await projetModel.findById(notif.projetId);
-        const conflit = await conflitModel.findById(notif.conflitId).populate("sectionId");
+        const conflit = await conflitModel
+          .findById(notif.conflitId)
+          .populate("sectionId");
         const section = await sectionModel.findById(notif.sectionId);
         return {
           ...notif.toObject(),
-          senderId: user?._id, 
+          senderId: user?._id,
           sender: (user?.nom || "") + " " + (user?.prenom || ""),
           recepient: (rec?.nom || "") + " " + (rec?.prenom || ""),
           projet: projet?.titre || "",
-          dom: conflit ? conflit.sectionId.type :( section ? section.type : ""),
+          chat: conflit?.lien || "",
+          dom: conflit ? conflit.sectionId.type : section ? section.type : "",
         };
-        
-        
-        
       })
     );
 
@@ -149,51 +191,55 @@ router.get("/", validateToken, async (req, res) => {
   }
 });
 
-
-
-router.put("/collaboration/valider/:notifId", validateToken, async (req, res) => {
-  try {
-    const notif = await notificationModel.findById(req.params.notifId);
-  const {decision}  = req.body;
-  if (notif.type !== "demandeCollaboration") {
-    return res.status(400).json({ message: "Invalid notification type" });
+router.put(
+  "/collaboration/valider/:notifId",
+  validateToken,
+  async (req, res) => {
+    try {
+      const notif = await notificationModel.findById(req.params.notifId);
+      const { decision } = req.body;
+      if (notif.type !== "demandeCollaboration") {
+        return res.status(400).json({ message: "Invalid notification type" });
+      }
+      if (decision !== "accept" && decision !== "refuse") {
+        return res.status(400).json({ message: "Invalid decision" });
+      }
+      if (decision === "accept") {
+        const projet = await projetModel.findById(notif.projetId);
+        projet.collaborateurs.push(notif.sendeId);
+        await projet.save();
+        const acceptNotif = await notificationModel.create({
+          type: "demandeAccepte",
+          projetId: notif.projetId,
+          sendeId: req.user.id,
+          recepientId: notif.sendeId,
+          sectionId: notif.sectionId,
+          content: "Votre demande de collaboration a été acceptée.",
+          time: new Date(),
+          read: false,
+        });
+      } else {
+        const refuseNotif = await notificationModel.create({
+          type: "demandeRefuse",
+          projetId: notif.projetId,
+          sendeId: req.user.id,
+          recepientId: notif.sendeId,
+          sectionId: notif.sectionId,
+          content: "Votre demande de collaboration a été refusée.",
+          time: new Date(),
+          read: false,
+        });
+      }
+      await notificationModel.findByIdAndDelete(req.params.notifId);
+      return res
+        .status(200)
+        .json({ message: "Decision recorded successfully" });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Erreur serveur" });
+    }
   }
-  if (decision !== "accept" && decision !== "refuse") {
-    return res.status(400).json({ message: "Invalid decision" });
-  }
-  if (decision === "accept") {
-    const projet = await projetModel.findById(notif.projetId);
-    projet.collaborateurs.push(notif.sendeId);
-    await projet.save();
-    const acceptNotif = await notificationModel.create({
-      type: "demandeAccepte",
-      projetId: notif.projetId,
-      sendeId: req.user.id,
-      recepientId: notif.sendeId,
-      sectionId: notif.sectionId,
-      content: "Votre demande de collaboration a été acceptée.",
-      time: new Date(),
-      read: false,
-    });
-  } else {
-    const refuseNotif = await notificationModel.create({
-      type: "demandeRefuse",
-      projetId: notif.projetId,
-      sendeId: req.user.id,
-      recepientId: notif.sendeId,
-      sectionId:notif.sectionId,
-      content: "Votre demande de collaboration a été refusée.",
-      time: new Date(),
-      read: false,
-    });
-  }
-  await notificationModel.findByIdAndDelete(req.params.notifId);
-  return res.status(200).json({ message: "Decision recorded successfully" });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Erreur serveur" });
-  }
-});
+);
 router.put("/read/:notifId", validateToken, async (req, res) => {
   try {
     const { notifId } = req.params;
@@ -208,7 +254,5 @@ router.put("/read/:notifId", validateToken, async (req, res) => {
     console.error(error);
     return res.status(500).json({ message: "Erreur serveur" });
   }
-}
-);
+});
 module.exports = router;
-

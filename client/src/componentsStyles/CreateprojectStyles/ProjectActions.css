@@ -1,9 +1,10 @@
-.project-actions {
+.createP{.project-actions {
   display: flex;
   justify-content: flex-end;
   gap: 3%;
   padding: 1% 0%;
   margin-right: 0%;
+ 
 }
 
 .cancel {
@@ -40,4 +41,5 @@
 .create:hover {
   background: #d9a85f;
   transform: scale(1.05);
+}
 }

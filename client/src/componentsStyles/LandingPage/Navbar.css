@@ -39,6 +39,7 @@
 
 .logo-container img {
   height: 7vh;
+  max-height: 45px;
   border-radius: 12px;
 }
 
@@ -112,6 +113,8 @@
   min-width: 130px;
   width: 45%;
   height: 7.5vh;
+  max-height: 45px;
+
   border-radius: 35px;
   background: var(--white, #FEFEFE);
   border: 2px solid var(--brown, #C57642);

@@ -1,10 +1,13 @@
 /* Formulaire */
-.project-form {
+.createP{.project-form {
   display: flex;
   flex-direction: column;
   gap: 0.75vh;
   width: 55%;
   margin-left: auto;
+  height: 100%;
+  overflow-y: auto;
+  
 }
 
 
@@ -135,14 +138,18 @@
 /* Styles pour les champs en erreur */
 .error .label-text {
   color: red;
+  
 }
 
 .error-input {
   border: 1px solid red;
   background-color: #ffe6e6; 
+  
 }
 
 /* Ajustement pour le placeholder en rouge */
 .error-input::placeholder {
   color: red;
+  
+}
 }

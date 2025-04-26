@@ -62,7 +62,7 @@ const ModifyProject = () => {
       <SearchBar />
     </div>
     <SideNav />
-    <div className="root1">
+    <div className="root1 modifyP">
       <ModifProjectHeader />
       <div className="create-project-content">
         <ModifProjectImageUploader  onImageChange={handleImageChange} projetId={projetId} />

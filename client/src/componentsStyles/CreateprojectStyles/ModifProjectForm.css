@@ -1,5 +1,4 @@
-/* Formulaire */
-.project-form {
+.modifyP{.project-form {
   display: flex;
   flex-direction: column;
   gap: 0.75vh;
@@ -7,7 +6,6 @@
   margin-left: auto;
 }
 
-/* Labels */
 .project-form label {
   display: flex;
   flex-direction: column;
@@ -25,7 +23,6 @@
   margin-left: 5px;
 }
 
-/* Inputs */
 .project-form input {
   width: 100%;
   padding: 8px 24px;
@@ -38,19 +35,16 @@
   background-color: white;
 }
 
-/* Placeholder */
 .project-form input::placeholder {
   color: #A0A5A6;
 }
 
-/* Conteneur du sélecteur personnalisé */
 .custom-select-container {
   display: flex;
   align-items: center;
   position: relative;
 }
 
-/* Champ de saisie du type */
 .custom-input {
   flex: 1;
   width: 100%;
@@ -65,12 +59,10 @@
   cursor: pointer;
 }
 
-/* Si l'input est en mode saisie libre */
 .custom-input[readonly] {
   cursor: pointer;
 }
 
-/* Conteneur de l'icône du sélecteur */
 .dropdown-icon-container {
   position: absolute;
   right: 4%; 
@@ -79,12 +71,10 @@
   align-items: center;
 }
 
-/* Icône de la flèche */
 .dropdown-icon {
   color: #5A5E60;
 }
 
-/* Menu déroulant */
 .dropdown-menu {
   top: 42%;
   position: absolute;
@@ -106,14 +96,12 @@
   background: #f0f0f0;
 }
 
-/* Bloc des coordonnées (Latitude/Longitude) */
 .coordinates {
   display: flex;
   gap: 1vw;
   width: 100%;
 }
 
-/* Labels des coordonnées */
 .coordinates label {
   flex: 1;
   text-align: left;
@@ -123,15 +111,12 @@
 }
 
 
-/* Inputs des coordonnées */
 .coordinates input {
   flex: 1;
   text-align: left; 
   padding: 8px 24px; 
 }
-/***********************************************/
 
-/* Styles pour les champs en erreur */
 .error .label-text {
   color: red;
 }
@@ -141,7 +126,7 @@
   background-color: #ffe6e6; 
 }
 
-/* Ajustement pour le placeholder en rouge */
 .error-input::placeholder {
   color: red;
+}
 }

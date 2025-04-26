@@ -16,6 +16,7 @@ import SearchBar from "../../components/SearchBar.jsx";
 //lina you need to add ta3 useeffect with local storage or else whenever he will refresh he will get new data 
 const CreateProject = () => {
   const [error, setError] = useState(false);
+  const [errorTitle, setErrorTitle] = useState(false);
   const navigate = useNavigate();
 
   const {authState,setAuthState} = useContext(AuthContext);
@@ -50,6 +51,7 @@ const CreateProject = () => {
   const handleCreateProject = async () => {
     if (!newProject.titre || !newProject.type) {
         setError(true);
+        setErrorTitle(true);
         return;
     }
 
@@ -83,13 +85,15 @@ const CreateProject = () => {
       <SearchBar />
     </div>
     <SideNav />
-    <div className="root1">
+    <div className="root1 createP">
       <ProjectHeader />
       <div className="create-project-content">
         <ProjectImageUploader onImageChange={handleImageChange} />
         <ProjectForm error={error} onDataChange={handleDataChange} />
       </div>
       {error && <div className="error-messagec"><MdErrorOutline className="error-iconc" /> Les champs en rouge doivent être remplis</div>}
+      {errorTitle && <div className="error-messagec"><MdErrorOutline className="error-iconc" /> Un projet avec le même titre existe </div>}
+
       <ProjectActions onCreate={handleCreateProject} />
       </div>
     </>

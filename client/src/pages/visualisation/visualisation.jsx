@@ -37,24 +37,12 @@ export default function Visualisation(){
     useEffect(() => {
         const fetchProjet = async () => {
           try {
-            //amina's code
+            
             const response= await  RefreshService.Refresh();
             setAuthState({email:response.email,role:response.role,accessToken:response.accessToken});
             const projetData = await VisuService.getProjet(projetId, response.accessToken);
 
-            //my code
-            /*axios.get("http://localhost:3001/refresh",{withCredentials:true})
-                  .then((response) => {
-                      if (response.data.error) return navigate('/connexion');
-                      console.log(response.data);
-                      setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
-                  })
-                  .catch((error)=>{
-                    console.log(error);
-                    navigate('/connexion')
-                  })
-            
-            const projetData = await VisuService.getProjet(projetId, response.accessToken);*/
+           
 
             
             setProjet(projetData.projet);

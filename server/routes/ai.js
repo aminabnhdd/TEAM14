@@ -10,6 +10,7 @@ const { ImageAnnotatorClient } = require('@google-cloud/vision');
 const annotationAIModel = require('../model/AnnotationAI');
 const cloudinary = require('../config/cloudinary');
 const validateToken = require("../middlewares/authMiddleware");
+const sectionModel = require("../model/section");
 
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -45,6 +46,13 @@ async function analyzeWithGemini(imageBuffer, prompt) {
     };
   } catch (error) {
     console.error("Gemini error:", error);
+    // Catch 429 Rate Limit
+    if (error.status === 429) {
+      console.warn('Rate limit reached! Slow down your requests.');
+
+      throw new Error('Rate limit exceeded. Please try again later.');
+    }
+
     throw new Error("AI analysis failed");
   }
 }
@@ -102,8 +110,16 @@ router.get('/get-annotations', validateToken, async (req, res) => {
     }
 
     const annotations = await annotationAIModel.find({ bigPhoto: photourl });
+    const section = await sectionModel.findOne({ images: photourl }).populate('projetId');
+    if (!section) {
+      return res.status(404).json({ message: 'Section not found' });
+    }
 
-    res.json(annotations);
+    const isChef = section.projetId.chef.toString() === req.user.id;
+
+    res.json({ annotations, isChef });
+
+    // res.json(annotations);
   } catch (error) {
     console.error('Error fetching annotations:', error);
     res.status(500).json({ message: 'Internal server error' });

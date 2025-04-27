@@ -5,44 +5,48 @@ import axios from "axios";
 import { Icon } from "@iconify/react";
 import SideNav from "../../components/SideNav";
 import SearchBar from "../../components/SearchBar";
-import { useContext } from "react"
-import AuthContext from '../../helpers/AuthContext'
+import { useContext } from "react";
+import AuthContext from "../../helpers/AuthContext";
 import RefreshService from "../../services/RefreshService";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 const AnnotationTool = () => {
-    const {authState,setAuthState} = useContext(AuthContext);
-    const location = useLocation();
-    const { src: photourl } = location.state || {};  
-    const [annotations, setAnnotations] = useState([]);
-    useEffect(() => {
-        const fetch = async () => {
-          try {
-            const response = await RefreshService.Refresh();
-            setAuthState({
-              email: response.email,
-              role: response.role,
-              accessToken: response.accessToken,
-            });
-            const response2 = await axios.get(
-              "http://localhost:3001/ai/get-annotations",
-              {
-                params: { photourl },
-                headers: { 
-                  Authorization: `Bearer ${response.accessToken}`,
-                  "Content-Type": "application/json"
-                }
-              }
-            
-            );
-            setAnnotations(response2.data);
-          } catch (err) {
-            console.log("Failed to refresh");
+  const { authState, setAuthState } = useContext(AuthContext);
+  const location = useLocation();
+  const { src: photourl } = location.state || {};
+  const [requestCount, setRequestCount] = useState(0);
+  const [isChef, setIsChef] = useState(null);
+  const [annotations, setAnnotations] = useState([]);
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const response = await RefreshService.Refresh();
+        setAuthState({
+          email: response.email,
+          role: response.role,
+          accessToken: response.accessToken,
+        });
+        const response2 = await axios.get(
+          "http://localhost:3001/ai/get-annotations",
+          {
+            params: { photourl },
+            headers: {
+              Authorization: `Bearer ${response.accessToken}`,
+              "Content-Type": "application/json",
+            },
           }
-        };
-      
-        fetch(); 
-      }, [photourl, setAuthState]);
+        );
+        console.log(response2.data);
+        setAnnotations(response2.data.annotations);
+        setIsChef(response2.data.isChef);
+      } catch (err) {
+        console.log("Failed to refresh");
+      }
+    };
+
+    fetch();
+  }, [photourl, setAuthState]);
 
   const [crop, setCrop] = useState({
     unit: "%",
@@ -57,6 +61,16 @@ const AnnotationTool = () => {
   const imgRef = useRef(null);
   const sliderRef = useRef(null);
 
+  useEffect(() => {
+    const storedCount = localStorage.getItem("requestCount");
+    if (storedCount) {
+      setRequestCount(parseInt(storedCount, 10));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("requestCount", requestCount.toString());
+  }, [requestCount]);
   const DEFAULT_PROMPT = `Tu es un expert en architecture et tu t'exprimes uniquement en français, avec un ton professionnel, fluide et naturel, comme un architecte humain le ferait.
   
   À partir de l'image fournie, rédige une analyse complète de l'élément architectural représenté. Le texte doit être structuré sous forme de paragraphes clairs, sans énumérations ni puces. Utilise des titres en gras pour chaque partie (ex : **1. Nom et Type**, etc.).
@@ -101,7 +115,10 @@ const AnnotationTool = () => {
 
   const analyzeSelection = async () => {
     if (!completedCrop) return;
-
+    if (requestCount >= 10) {
+      alert("Trop de requêtes. Veuillez patienter avant de continuer.");
+      return;
+    }
     setIsAnalyzing(true);
     try {
       const blob = await getCroppedImgBlob();
@@ -123,10 +140,11 @@ const AnnotationTool = () => {
           _id: response.data._id,
           content: response.data.content,
           imageUrl: response.data.imageUrl,
-          public: false
+          public: false,
         },
       ]);
       setActiveTab(annotations.length);
+      setRequestCount((prev) => prev + 1);
     } catch (error) {
       console.error("Analysis error:", error);
       alert(`Analysis failed: ${error.response?.data?.error || error.message}`);
@@ -141,16 +159,14 @@ const AnnotationTool = () => {
         "http://localhost:3001/ai/approve-annotation",
         { id },
         {
-          headers: { 
+          headers: {
             Authorization: `Bearer ${authState.accessToken}`,
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "application/json",
+          },
         }
       );
       setAnnotations((prev) =>
-        prev.map((ann) =>
-          ann._id === id ? { ...ann, approved: true } : ann
-        )
+        prev.map((ann) => (ann._id === id ? { ...ann, approved: true } : ann))
       );
     } catch (error) {
       console.error("Approval failed:", error);
@@ -169,42 +185,52 @@ const AnnotationTool = () => {
   };
 
   return (
-    <div className="flex relative h-screen w-full overflow-hidden">
+    <div className="flex relative h-screen w-full">
       <SideNav className="" />
       <div className="flex-1 w-full bg-white main-content">
         <SearchBar />
         <main>
-        <div className="mt-5 bg w-[86%] mx-auto mb-10">
-            <h1 className="titles text-black">Annoter Illustration avec IA</h1>
+          <div className="mt-5 bg w-[86%] mx-auto mb-10">
+            <div className="flex items-center justify-between w-full mb-4">
+              {/* Heading */}
+              <h1 className="titles text-black">
+                Annoter Illustration avec IA
+              </h1>
 
+              {/* Limit Message */}
+              <div className="px-4 w-auto border rounded-[12px] text-center py-2 bg-red-100 text-red-600 font-semibold">
+                Cet outil est limité en requêtes, veuillez ne pas abuser de son
+                utilisation.
+              </div>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
               {/* Left side: Image and Crop */}
               <div className="border p-4 rounded-[12px] flex flex-col items-center border-neutral-300 h-[78vh]">
-              <div className="flex-1 w-full flex items-center justify-center rounded-[12px] overflow-hidden">
-  <div className="relative w-full h-full">
-    <ReactCrop
-      crop={crop}
-      onChange={setCrop}
-      onComplete={setCompletedCrop}
-      minWidth={100}
-      minHeight={100}
-      className="w-full h-auto"
-      style={{ maxWidth: "100%", height: "auto" }}
-    >
-      <img
-        ref={imgRef}
-        src={photourl}
-        alt="the picture you are gonna annotate"
-        className="w-full h-auto object-contain"
-        style={{
-          display: "block",
-          borderRadius: "12px",
-        }}
-        crossOrigin="anonymous" 
-      />
-    </ReactCrop>
-  </div>
-</div>
+                <div className="flex-1 w-full flex items-center justify-center rounded-[12px] overflow-hidden">
+                  <div className="relative w-full h-full">
+                    <ReactCrop
+                      crop={crop}
+                      onChange={setCrop}
+                      onComplete={setCompletedCrop}
+                      minWidth={100}
+                      minHeight={100}
+                      className="w-full h-auto"
+                      style={{ maxWidth: "100%", height: "auto" }}
+                    >
+                      <img
+                        ref={imgRef}
+                        src={photourl}
+                        alt="the picture you are gonna annotate"
+                        className="w-full h-auto object-contain"
+                        style={{
+                          display: "block",
+                          borderRadius: "12px",
+                        }}
+                        crossOrigin="anonymous"
+                      />
+                    </ReactCrop>
+                  </div>
+                </div>
 
                 <div className="flex justify-end w-full">
                   <button
@@ -212,7 +238,6 @@ const AnnotationTool = () => {
                     disabled={!completedCrop || isAnalyzing}
                     className="buttons text-black bg-dune flex gap-2 py-3 px-5 mt-4 rounded-[36px] items-center justify-center hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                   
                     {isAnalyzing ? (
                       <>
                         <svg
@@ -238,9 +263,13 @@ const AnnotationTool = () => {
                         Analyse...
                       </>
                     ) : (
-                    <>
-                        <Icon icon="mingcute:pic-ai-line" width="24" height="24" />
-                      Analyser avec IA
+                      <>
+                        <Icon
+                          icon="mingcute:pic-ai-line"
+                          width="24"
+                          height="24"
+                        />
+                        Analyser avec IA
                       </>
                     )}
                   </button>
@@ -271,7 +300,7 @@ const AnnotationTool = () => {
                           className="text-black"
                         />
                       </button>
-                      <span className="buttons">
+                      <span className="bolder-text">
                         Annotation {activeTab + 1} / {annotations.length}
                       </span>
                       <button
@@ -304,17 +333,26 @@ const AnnotationTool = () => {
                               className="w-full max-h-[200px] object-contain"
                             />
                           )}
-                          {ann.public ===  false && 
-                          <div className="flex justify-center">
-                            <button onClick={() => approveAnnotation(ann._id)} className="buttons border-2 text-black border-dune flex gap-2 py-2 px-4 rounded-[36px] items-center justify-center hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer w-auto">
-                              <Icon
-                                icon="akar-icons:chat-approve"
-                                width="20"
-                                height="20"
-                              />
-                              Approuver Annotation
-                            </button>
-                          </div>}
+                          {ann.public === false && isChef ? (
+                            <div className="flex justify-center">
+                              <button
+                                onClick={() => approveAnnotation(ann._id)}
+                                className="buttons border-2 text-black border-dune flex gap-2 py-2 px-4 rounded-[36px] items-center justify-center hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer w-auto"
+                              >
+                                <Icon
+                                  icon="akar-icons:chat-approve"
+                                  width="20"
+                                  height="20"
+                                />
+                                Approuver Annotation
+                              </button>
+                            </div>
+                          ) : (
+                            <p className="bolder-text text-center text-red-600 ">
+                              Cette annotation n'a pas été approuvé par un
+                              expert.
+                            </p>
+                          )}
                           <div className="overflow-auto flex-1 pr-2 scrollbar-hide">
                             <p className="main-text whitespace-pre-wrap text-justify">
                               {ann.content}

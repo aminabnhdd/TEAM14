@@ -83,6 +83,7 @@ function ChatBot({projetId}) {
     <>
     {isVisible &&
     <div className="chat-container">
+      {/*<p className="intro-bot">Hello There, <br/>I am Athar's Virtual Assistant How Can I Help You ?</p> */}
       <div className="prompt-bar">
         <input
           type="text"

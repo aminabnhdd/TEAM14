@@ -7,6 +7,8 @@ const {validateRole} = require('../middlewares/roleMiddleware');
 const bcrypt = require("bcrypt");
 const expertRole = process.env.EXPERT_ROLE;
 const adminRole = process.env.ADMIN_ROLE;
+const cloudinary = require('../config/cloudinary');
+const { upload } = require('../middlewares/multerMiddleware');
 
 router.get("/mon-compte", validateToken, async (req, res) => {
   try {
@@ -56,10 +58,14 @@ router.put("/mon-compte/modifier", validateToken, async (req, res) => {
         .json({ message: "Invalid phone number format. Use +213XXXXXXXXX." });
     }
 
-    // Update user
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path);
+      updates.pfp = result.secure_url;
+    }
+    
     const user = await userModel
       .findByIdAndUpdate(userId, updates, { new: true, runValidators: true })
-      .select("-password -refreshToken -accessToken");
+      .select("-password -refreshToken -accessToken -otl");
 
     if (!user) {
       return res.status(404).json({ message: "Utilisateur introuvable." });
@@ -70,7 +76,7 @@ router.put("/mon-compte/modifier", validateToken, async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 });
-router.put("/mon-compte/modifier/expert", validateToken, async (req, res) => {
+router.put("/mon-compte/modifier/expert", validateToken,upload.single("image"), async (req, res) => {
   try {
     const userId = req.user.id;
     const updates = req.body;
@@ -99,10 +105,15 @@ router.put("/mon-compte/modifier/expert", validateToken, async (req, res) => {
         .status(400)
         .json({ message: "Invalid phone number format. Use +213XXXXXXXXX." });
     }
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path);
+      updates.pfp = result.secure_url;
+    }
+    
 
     const user = await expertModel
       .findByIdAndUpdate(userId, updates, { new: true, runValidators: true })
-      .select("-password -refreshToken -accessToken");
+      .select("-password -refreshToken -accessToken -otl");
 
     if (!user) {
       return res.status(404).json({ message: "Utilisateur introuvable." });
@@ -110,6 +121,7 @@ router.put("/mon-compte/modifier/expert", validateToken, async (req, res) => {
 
     res.json({ message: "Profile mis à jour.", user });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 });

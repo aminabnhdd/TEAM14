@@ -12,6 +12,7 @@ import SearchBar from "../../components/SearchBar.jsx";
 
 const SaveVisiteur = () => {
   const [usersData,setUsersData] = useState([]);
+  const [image,setImage] = useState(null);
   useEffect(() => {
     axios.get("http://localhost:3001/refresh",{withCredentials:true})
         .then((response) => {
@@ -40,8 +41,8 @@ const SaveVisiteur = () => {
     <SideNav />
      <div className="root1">
      <InfoHeader/>
-     <ProfilInfosave usersData={usersData} />
-     <FormVisiteur/>
+     <ProfilInfosave usersData={usersData} setImage={setImage}/>
+     <FormVisiteur image ={image}/>
      </div>
    
     </>

@@ -3,11 +3,25 @@ import "../../componentsStyles/ProfilStyles/FormVisiteur.css";
 import { FiSave } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useContext } from "react";
+import AuthContext from "../../helpers/AuthContext";
 import { useParams } from "react-router-dom";
 
-const FormVisiteur = () => {
+const FormVisiteur = ({image}) => {
   // État initial pour stocker les valeurs saisies
   const [user, setUser] = useState({});
+
+  const allowedFields = [
+    "nom",
+    "prenom",
+    "email",
+    "etablissement",
+    "labo",
+    "telephone",
+    "niveau",
+    "discipline",
+    "image"
+  ];
 
   // Mettre à jour l'état lorsqu'un champ est modifié
   const handleChange = (e) => {
@@ -16,11 +30,11 @@ const FormVisiteur = () => {
 
 
   const navigate = useNavigate(); 
-  const [authState, setAuthState] = useState({email:"",role:"",accessToken:""});
+  const {authState, setAuthState} = useContext(AuthContext);
   useEffect(() => {
     axios.get("http://localhost:3001/refresh",{withCredentials:true})
         .then((response) => {
-            // if (response.data.error) return navigate('/')
+            if (response.data.error) return navigate('/connexion')
             setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
             axios.get(`http://localhost:3001/profil/mon-compte`,{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
             .then((response) => {
@@ -44,13 +58,23 @@ const FormVisiteur = () => {
       <div className="frmv-header">
         <h2>Informations Personnelles</h2>
         <button className="frmv-save-button" onClick={() =>{
-          axios.put("http://localhost:3001/profil/mon-compte/modifier",user,{headers:{Authorization:`Bearer ${authState.accessToken}`}})
+          user.image = image;
+          console.log(user);
+          const data = new FormData();
+          for (const key of allowedFields) {
+            if (user[key] !== null && user[key] !== undefined) {
+              data.append(key, user[key]);
+            }
+          }
+          axios.put("http://localhost:3001/profil/mon-compte/modifier",data,{headers:{Authorization:`Bearer ${authState.accessToken}`,"Content-Type":"multipart/form-data"}})
           .then((response) => {
+            console.log(response.data);
             navigate(`/modifier-visiteur`)
           })
           .catch((error) => {
             console.log(error);
-          });}}>
+          });
+        }}>
           Sauvegarder <FiSave size={16} />
         </button>
       </div>

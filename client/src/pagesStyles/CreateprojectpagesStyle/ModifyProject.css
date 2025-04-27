@@ -4,37 +4,44 @@
   top: 2%;
   left: 10%;
 }
+.createP{
 .create-project-content {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  height: 100%;
+  height: 516px; 
   gap: 2%;
-  padding: 2% 0;
+  padding-top: 2% ;
 }
 
-
-.error-message {
+.error-messagec {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  margin-top: 1%;
-  margin-right: 100%;
+  
+  margin-left: 45%;
+
   gap: 2%; 
   color: red;
   font-size: 1.25vw;
+  
   font-weight: 500;
   border-radius: 2%;
-  width: 100%; 
+
   margin-bottom: 0.5%;
 }
-
-.error-icon {
+.error-iconc {
   font-size: 120%;
 }
 
-.modifprojetsearchbar{
+
+
+
+
+
+
+
+}.createprojetsearchbar{
   width: 91%; 
   margin-left: 6%;
 }

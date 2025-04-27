@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { ChevronDown } from "lucide-react"; 
+import { ChevronDown } from "lucide-react";
 import "../../componentsStyles/CreateProjectStyles/ProjectForm.css";
 
-const ALLOWED_SECTION_TYPES = ["Kasbahs", "Palais", "Mosquées", "Temples","Autre"];
+const ALLOWED_SECTION_TYPES = ["Kasbahs", "Palais", "Mosquées", "Temples", "Autre"];
 
 const ProjectForm = ({ error, onDataChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedType, setSelectedType] = useState("");
   const [customType, setCustomType] = useState("");
+  const [newKeyword, setNewKeyword] = useState("");
 
   const [formData, setFormData] = useState({
     titre: "",
@@ -16,12 +17,13 @@ const ProjectForm = ({ error, onDataChange }) => {
     dateConstruction: "",
     localisation: "",
     latitude: "",
-    longitude: ""
+    longitude: "",
+    keywords: []
   });
 
   useEffect(() => {
     onDataChange(formData);
-  }, [formData, onDataChange]); 
+  }, [formData, onDataChange]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,17 +44,35 @@ const ProjectForm = ({ error, onDataChange }) => {
     }
   };
 
+  const addKeyword = () => {
+    if (newKeyword.trim() ) {
+      if (!formData.keywords.includes(newKeyword.trim())){
+      setFormData({
+        ...formData,
+        keywords: [...formData.keywords, newKeyword.trim()]
+      });}
+      setNewKeyword("");
+    }
+  };
+
+  const removeKeyword = (index) => {
+    setFormData({
+      ...formData,
+      keywords: formData.keywords.filter((_, i) => i !== index)
+    });
+  };
+
   return (
     <div className="project-form">
       <label className={`required ${error ? "error" : ""}`}>
         <span className="label-text">Titre du projet</span>
-        <input 
+        <input
           name="titre"
-          type="text" 
-          placeholder="Ajoutez un titre" 
+          type="text"
+          placeholder="Ajoutez un titre"
           value={formData.titre}
           onChange={handleChange}
-          className={error ? "error-input" : ""} 
+          className={error ? "error-input" : ""}
         />
       </label>
 
@@ -79,7 +99,7 @@ const ProjectForm = ({ error, onDataChange }) => {
           <ul className="dropdown-menu">
             {ALLOWED_SECTION_TYPES.map((type, index) => (
               <li key={index} onClick={() => handleSelect(type)}>{type}</li>
-            ))}   
+            ))}
           </ul>
         )}
       </label>
@@ -105,11 +125,62 @@ const ProjectForm = ({ error, onDataChange }) => {
           <input name="longitude" type="text" placeholder="Entrez la longitude" value={formData.longitude} onChange={handleChange} />
         </label>
       </div>
-    </div>
-  );
-};
 
-export default ProjectForm;
+
+
+      <div className="">
+        <label className="font-medium ">Mots-clés</label>
+
+        {/* Keywords list */}
+        <div className="flex flex-wrap gap-2 mb-2">
+          {formData.keywords.map((keyword, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-2 px-3 py-1 bg-neutral-200 rounded-full text-sm"
+            >
+              <span>{keyword}</span>
+              <button
+                type="button"
+                className="text-brown font-bold cursor-pointer hover:text-warning"
+                onClick={() => removeKeyword(index)}
+              >
+                ×
+              </button>
+            </div>
+          ))}
+        </div>
+
+        {/* Input + Add button */}
+        <div className="flex gap-2 mb-2">
+          <input
+            type="text"
+            value={newKeyword}
+            onChange={(e) => setNewKeyword(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                addKeyword();
+              }
+            }}
+            placeholder="Ajoutez un mot-clé"
+          />
+          <button
+            type="button"
+            onClick={addKeyword}
+            className="px-4 py-2 mr-1 bg-brown text-white rounded-2xl hover:scale-102 cursor-pointer hover:darken-102"
+          >
+            +
+          </button>
+        </div>
+      </div>
+    </div>
+    
+  
+ );}
+
+
+
+      export default ProjectForm;
 
 /*
 LOGIQUE DU COMPOSANT :

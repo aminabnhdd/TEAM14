@@ -4,9 +4,22 @@ import { FiSave } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../../helpers/AuthContext";
 
-const FormExpert = () => {
+const FormExpert = ({image}) => {
   // État initial vide pour stocker les valeurs saisies par l'utilisateur
+  const allowedFields = [
+    "nom",
+    "prenom",
+    "email",
+    "etablissement",
+    "labo",
+    "telephone",
+    "niveau",
+    "discipline",
+    "image"
+  ];
   const [user, setUser] = useState({
     nom: "",
     prenom: "",
@@ -15,9 +28,10 @@ const FormExpert = () => {
     labo: "",
     telephone: "",
     niveau: "",
-    discipline: ""
+    discipline: "",
+    image: image
   });
-  const [authState, setAuthState] = useState({email:"",role:"",accessToken:""});
+  const {authState, setAuthState} = useContext(AuthContext);
   useEffect(() => {
     axios.get("http://localhost:3001/refresh",{withCredentials:true})
         .then((response) => {
@@ -25,8 +39,8 @@ const FormExpert = () => {
             setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
             axios.get(`http://localhost:3001/profil/mon-compte`,{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
             .then((response) => {
-          
-              setUser(response.data);
+              
+              setUser({...user,...response.data});
             }
             )
             .catch((error) => {
@@ -54,9 +68,17 @@ const FormExpert = () => {
       <div className="form-header">
         <h2>Informations Personnelles & Professionnelles</h2>
         <button className="save-button" onClick={() =>{
-          axios.put("http://localhost:3001/profil/mon-compte/modifier/expert",user,{headers:{Authorization:`Bearer ${authState.accessToken}`}})
+          user.image = image;
+          const data = new FormData();
+          for (const key of allowedFields) {
+            if (user[key] !== null && user[key] !== undefined) {
+              data.append(key, user[key]);
+            }
+          }
+          axios.put("http://localhost:3001/profil/mon-compte/modifier/expert",data,{headers:{Authorization:`Bearer ${authState.accessToken}`,"Content-Type":"multipart/form-data"}})
           .then((response) => {
-          navigate(`/modifier-expert`)
+            // console.log(response.data);
+            navigate(`/modifier-expert`)
           })
           .catch((error) => {
             console.log(error);

@@ -6,12 +6,13 @@ import { X } from "lucide-react";
 
 const DEFAULT_IMAGE_URL = "https://img.freepik.com/vecteurs-premium/icone-profil-utilisateur-dans-style-plat-illustration-vectorielle-avatar-membre-fond-isole-concept-entreprise-signe-autorisation-humaine_157943-15752.jpg?semt=ais_hybrid";
 
-const ProfilInfosave = ({ usersData }) => {
+const ProfilInfosave = ({ usersData,setImage }) => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
+      setImage(file);
       const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
     }
@@ -47,7 +48,7 @@ const ProfilInfosave = ({ usersData }) => {
           <span className="user-job-title">{user.role || "Non renseigné"}</span>
         </div>
       </div>
-      <a href="#" className="user-password-link" onClick={() => navigate("/changer-mdp", { state: { oldPassword: user.password } })}>
+      <a className="user-password-link" onClick={() => navigate("/changer-mdp", { state: { oldPassword: user.password } })}>
         Modifier mon mot de passe</a>
     </div>
   ));

@@ -10,40 +10,63 @@ export default function PrintPDF( props ) {
     const {authState} = useContext(AuthContext);
 
     const [isLoading, setIsLoading] = useState(false);
-
     const generatePDF = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.post('http://localhost:3001/pdf/generate', {projet: props.projet}, {
-
-                headers: {
-                    Authorization: `Bearer ${authState.accessToken}`,
-                    "Content-Type":"application/json"
+            const response = await axios.post(
+                'http://localhost:3001/pdf/generate', 
+                { projet: props.projet },
+                {
+                    responseType: 'blob',
+                    headers: {
+                        Authorization: `Bearer ${authState.accessToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    timeout: 60000
                 }
-            });
+            );
+    
+            // Verify content type
+            const contentType = response.headers['content-type'];
+            if (!contentType.includes('application/pdf')) {
+                // Try to read error message if server sent JSON
+                const errorText = await new Response(response.data).text();
+                throw new Error(errorText || 'Server returned invalid content type');
+            }
+    
+            // Create Blob with explicit type
+            const blob = new Blob([response.data], { type: 'application/pdf' });
             
+            // Verify blob size
+            if (blob.size === 0) {
+                throw new Error('Received empty PDF file');
+            }
+    
             // Create download link
-            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const url = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', `${props.projet.titre}-details.pdf`.replace(/[^a-z0-9-]/gi, '_'));
+            link.setAttribute(
+                'download', 
+                `${props.projet.titre}-details.pdf`.replace(/[^a-z0-9-]/gi, '_')
+            );
+            
             document.body.appendChild(link);
             link.click();
             
-            // Clean up
+            // Cleanup
             setTimeout(() => {
                 document.body.removeChild(link);
                 window.URL.revokeObjectURL(url);
             }, 100);
-            
+    
         } catch (error) {
-            console.error('PDF Generation Error:', error);
-            alert(error.response?.data?.error || 'Failed to generate PDF');
+            console.error('PDF download failed:', error);
+            alert(`PDF generation failed: ${error.message}`);
         } finally {
             setIsLoading(false);
         }
     };
-
     return (
         <button 
             onClick={generatePDF}

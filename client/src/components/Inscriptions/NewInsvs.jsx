@@ -3,6 +3,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import axios from "axios";
 import "../../ComponentsStyles/Insctiptions styles/NewInsVs.css"
 import { useNavigate } from "react-router-dom";
+import Demande from "../popUps/Demande";
 
 
 
@@ -15,6 +16,8 @@ function NewInsvs () {
   }
   
     const [visible, setVisible] = useState(false);
+        const [popDem, setPopDem] = useState(false);
+    const[emailExist,setEmailExist] = useState(false);
   const [typo, setTypo] = useState("password");
   const [formData, setFormData] = useState({
     nom: "",
@@ -54,8 +57,13 @@ function NewInsvs () {
     if (validateForm()) {
       axios.post("http://localhost:3001/auth/signup/visitor", formData)
         .then((res) => {
-          // redirect to home page (we'll do it later)
+          
           console.log(res.data);
+          if (!(res.data.error == 'email already taken')){
+            setEmailExist(false);
+          setPopDem(true);}else{
+            setEmailExist(true)
+          }
         })
         .catch((err) => {
           console.error(err);
@@ -64,7 +72,7 @@ function NewInsvs () {
     }
   };
 
-    return(
+    return(<>
      <div className="inscription-form-one">
               <div className="texts-one">
                 <p className="bien-one">Bienvenue sur </p>
@@ -79,7 +87,8 @@ function NewInsvs () {
                   <div key={id} className="form-group-one">
                     <label className="label-one" htmlFor={id}>{id.charAt(0).toUpperCase() + id.slice(1)}{id!=="telephone" && <span className="redstar"> *</span>}</label>
                     <input
-                      className={`input-one ${errors[id] ? "input-error" : ""}`}
+                      className={`input-one ${(errors[id] || emailExist && (id == 'email'
+                      )) ? "input-error" : ""}`}
                       type={id === "email" ? "email" : "text"}
                       id={id}
                       placeholder={id}
@@ -95,6 +104,8 @@ function NewInsvs () {
                       }}          
                     />
                     {errors[id] && <p className="err_message">{errors[id]}</p>}
+                    { (emailExist && (id == 'email'
+                      ) )&& <p className="err_message">Cet email est déja pris</p>}
                   </div>
                 ))}
 
@@ -121,9 +132,13 @@ function NewInsvs () {
                   </div>
                 </div>
               </form>
+              
 
               <button className="btn1-one" onClick={handleSubmit}>S'inscrire</button>
+                         
+              
             </div>
+             {<Demande popUp={popDem} foncone={() => setPopDem(false)} />}</>
     )
 }
 

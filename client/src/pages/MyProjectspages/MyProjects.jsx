@@ -9,7 +9,7 @@ const MyProjects = () => {
   return(
     <>
        <div className="myprojectssearchbar">
-        <SearchBar title="Rechercher un projet..." />
+        <SearchBar title="Rechercher un projet dans le site..." />
        </div>
       <SideNav />
       <div className="root1">

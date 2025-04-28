@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-function Connect({   mdpPopUp,fun }) {
+function Connect({   mdpPopUp }) {
 
     const navigate = useNavigate();
 
@@ -57,7 +57,7 @@ function Connect({   mdpPopUp,fun }) {
                 setErrors(newErrors);
             });
             
-            fun()
+            
         }
 
     };

@@ -44,13 +44,11 @@ function Validation ({popUp,close,notif}) {
                 <span className="gris">Type de compte: </span> 
                 Visiteur</p>
                 </div>
-                {notif.read ? <p className="text-center font-semibold text-success">
-    Cette demande a déjà été traitée.
-  </p>:
+               
                 <div className="batens">
                     <button className="baten3" onClick={()=>{handleValidation("validate");close()}}>Accepter</button>
                     <button className="baten4" onClick={()=>{handleValidation("reject");close()} }>Refuser</button>
-                </div>}
+                </div>
             </div>
         </div>  )
      

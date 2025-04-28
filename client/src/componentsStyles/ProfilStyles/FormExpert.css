@@ -85,7 +85,18 @@
   font-size: 1vw;
 }
 
-.form-group input {
+.form-group input{
+  color: var(--black-text, #2D2D2D);
+  display: block;
+  padding: 5px 5px;
+  font-size: 1vw;
+  font-weight: 500;
+  margin-bottom: 2%;
+  border-radius: 12px;
+  border: 1px solid var(--NEUTRAL-500, #707778);
+  padding-left: 2%;
+}
+.select-input {
   color: var(--black-text, #2D2D2D);
   display: block;
   padding: 5px 5px;

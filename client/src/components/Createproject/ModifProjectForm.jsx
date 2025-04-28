@@ -13,6 +13,7 @@ const ModifProjectForm = ({ error, onDataChange,projetId }) => {
   const {authState,setAuthState} = useContext(AuthContext);
   const [selectedType, setSelectedType] = useState("");
   const [customType, setCustomType] = useState("");
+ const [newKeyword, setNewKeyword] = useState("");
 
   const [formData, setFormData] = useState({
     titre: "",
@@ -22,6 +23,7 @@ const ModifProjectForm = ({ error, onDataChange,projetId }) => {
     localisation: "",
     latitude: "",
     longitude: "",
+    keywords: [],
   });
 
   useEffect(() => {
@@ -33,7 +35,16 @@ console.log("the token: ",response1.accessToken)
 console.log("here does ths work");
 
          const data = await FetchProjectData(projetId,response1.accessToken);
-        if (data) {
+         if (data) {
+          // Check if keywords is an array with a single concatenated string
+          let keywords = [];
+          if (Array.isArray(data.keywords) && data.keywords.length === 1) {
+            // Split the string into an array of keywords
+            keywords = data.keywords[0].split(',').map(keyword => keyword.trim());
+          } else {
+            keywords = data.keywords; // Already an array of keywords
+          }
+  
           setFormData({
             titre: data.titre || "",
             type: data.type || "",
@@ -42,6 +53,7 @@ console.log("here does ths work");
             localisation: data.localisation || "",
             latitude: data.latitude || "",
             longitude: data.longitude || "",
+            keywords: keywords || [],
           });
           setSelectedType(data.type || "");
         }
@@ -96,6 +108,27 @@ console.log("here does ths work");
       setFormData((prev) => ({ ...prev, type }));
     }
   };
+
+  
+
+  const addKeyword = () => {
+    if (newKeyword.trim() ) {
+      if (!formData.keywords.includes(newKeyword.trim())){
+      setFormData({
+        ...formData,
+        keywords: [...formData.keywords, newKeyword.trim()]
+      });}
+      setNewKeyword("");
+    }
+  };
+
+  const removeKeyword = (index) => {
+    setFormData({
+      ...formData,
+      keywords: formData.keywords.filter((_, i) => i !== index)
+    });
+  };
+
 
   return (
     <div className="project-form">
@@ -197,6 +230,54 @@ console.log("here does ths work");
           />
         </label>
       </div>
+      
+      <div className="">
+        <label className="font-medium ">Mots-clés</label>
+
+        {/* Keywords list */}
+        <div className="flex flex-wrap gap-2 mb-2">
+          {formData.keywords.map((keyword, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-2 px-3 py-1 bg-neutral-200 rounded-full text-sm"
+            >
+              <span>{keyword}</span>
+              <button
+                type="button"
+                className="text-brown font-bold cursor-pointer hover:text-warning"
+                onClick={() => removeKeyword(index)}
+              >
+                ×
+              </button>
+            </div>
+          ))}
+        </div>
+
+        {/* Input + Add button */}
+        <div className="flex gap-2 mb-2">
+          <input
+            type="text"
+            value={newKeyword}
+            onChange={(e) => setNewKeyword(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                addKeyword();
+              }
+            }}
+            placeholder="Ajoutez un mot-clé"
+          />
+          <button
+            type="button"
+            onClick={addKeyword}
+            className="px-4 py-2 mr-1 bg-brown text-white rounded-2xl hover:scale-102 cursor-pointer hover:darken-102"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+    
     </div>
   );
 };

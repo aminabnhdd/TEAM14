@@ -9,6 +9,7 @@ function NewInsEx({  fn, swipeDirection }) {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [typo, setTypo] = useState("password");
+  const [emailExist,setEmailExist] = useState(false);
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
@@ -32,6 +33,7 @@ navigate("/connexion");
   };
 
   const validateForm = () => {
+    
     let newErrors = {};
     if (!formData.nom.trim()) newErrors.nom = "Nom est requis";
     if (!formData.prenom.trim()) newErrors.prenom = "Prénom est requis";
@@ -42,6 +44,7 @@ navigate("/connexion");
       newErrors.password = "Mot de passe doit contenir 6 caractères";
     }
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
@@ -86,7 +89,8 @@ navigate("/connexion");
               {label} {id !== "telephone" && <span className="redstar">*</span>}
             </label>
             <input
-              className={`input-two ${errors[id] ? "input-error" : ""}`}
+              className={`input-two ${(errors[id]||(emailExist && (id == 'email'
+              ) )) ? "input-error" : ""}`}
               type={type}
               id={id}
               placeholder={label.toLowerCase()}
@@ -102,6 +106,8 @@ navigate("/connexion");
               }}
             />
             {errors[id] && <p className="err_message">{errors[id]}</p>}
+            { (emailExist && (id == 'email'
+                      ) )&& <p className="err_message">Cet email est déja pris</p>}
           </div>
         ))}
 

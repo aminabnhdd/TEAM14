@@ -1,14 +1,13 @@
 import "./PinterestLayout.css";
 import Card from "../Card/Card";
-import { useState } from "react";
 
 
 
-function PinterestLayout({projects,fav}){
+
+function PinterestLayout({projects,fav =[],pageFav = false}){
 
 
 
-const [isFavorite,setIsFavorite] = useState(false);
     return(
         
 
@@ -16,7 +15,7 @@ const [isFavorite,setIsFavorite] = useState(false);
     
         <div className="layoutDiv">
         {projects.map((project, index) => {
-          setIsFavorite ( false)
+const isFavorite = pageFav || (Array.isArray(fav) && fav.includes(project._id));
           return (
             <Card 
               key={index} 

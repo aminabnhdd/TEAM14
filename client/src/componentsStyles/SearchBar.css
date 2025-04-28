@@ -6,7 +6,7 @@
   padding-left: 45px;
   display: flex;
   border: 2px solid transparent;
-  border-radius: 10.5px;
+  border-radius: 14px;
   font-size: 13px;
   outline: none;
   background-color: #F3F4F5;
@@ -34,7 +34,7 @@
   align-items: center;
   width: 87%;
   
-  border-radius: 9px;
+  border-radius: 14px;
   background: var(--Neutral-100, #F3F4F5);
   font-size: 14px;
   position: relative;

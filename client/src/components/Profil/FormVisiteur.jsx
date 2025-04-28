@@ -88,6 +88,7 @@ const FormVisiteur = ({image}) => {
             name="nom"
             value={user.nom}
             onChange={handleChange}
+            readOnly
           />
         </div>
         <div className="frmv-group">
@@ -97,6 +98,7 @@ const FormVisiteur = ({image}) => {
             name="prenom"
             value={user.prenom}
             onChange={handleChange}
+            readOnly
           />
         </div>
         <div className="frmv-group">

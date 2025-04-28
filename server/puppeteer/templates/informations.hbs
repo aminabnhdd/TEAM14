@@ -1,0 +1,274 @@
+<style type="text/css">
+@import "tailwindcss";
+
+html {
+  font-size: 14px;
+}
+
+* {
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-black: #2d2d2d;
+  --color-white: #fefefe;
+  --color-brown: #c57642;
+  --color-dune: #e8c07d;
+  --color-warning: #ef4444;
+  --color-success: #22c55e;
+  --color-neutral-500: #707778;
+  --color-neutral-400: #a0a5a6;
+  --color-neutral-300: #d1d4d5;
+}
+
+/* Layout */
+.container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.content {
+  width: 60%;
+  border: 1px solid var(--color-neutral-400);
+  border-radius: 10px;
+  padding: 28px;
+}
+
+/* Sections */
+.section {
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-neutral-300);
+}
+
+.section-title {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--color-black);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+
+
+
+.section-body p {
+  margin-top: 8px;
+}
+
+/* Highlight */
+.highlight {
+  background-color: #FFD1DC;
+  cursor: pointer;
+}
+
+
+/* Sidebar */
+.sidebar {
+  width: 36%;
+  border: 1px solid var(--color-neutral-400);
+  border-radius: 10px;
+  padding: 28px;
+  position: sticky;
+  top: 0;
+}
+
+.presentation {
+  margin-bottom: 28px;
+}
+
+.presentation-img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 16px;
+}
+
+.presentation-label {
+  background-color: var(--color-dune);
+  color: var(--color-black);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.presentation-list {
+  list-style: none;
+  padding: 0;
+}
+
+.presentation-list li {
+  margin-top: 16px;
+  font-weight: bold;
+  color: var(--color-black);
+}
+
+.presentation-list span {
+  font-weight: normal;
+  color: var(--color-black);
+}
+
+/* Authors */
+.authors {
+  margin-top: 32px;
+}
+
+.authors-label {
+  background-color: var(--color-dune);
+  color: var(--color-black);
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+
+.author-info {
+  max-width: 100%;
+}
+
+.author-name {
+  font-weight: bold;
+}
+
+.author-role {
+  font-size: 0.85rem;
+  color: var(--color-neutral-500);
+}
+
+/* Add Collaborator */
+.add-collaborator-button {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-neutral-300);
+  border-radius: 30px;
+  padding: 12px 20px;
+  font-weight: bold;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.add-collaborator-button:hover {
+  filter: brightness(1.05);
+  transform: scale(1.02);
+}
+
+
+
+</style>
+
+<html lang="en">
+<body>
+
+<div class="container">
+  <div class="content">
+    <!-- Section 1 -->
+    <div class="section">
+      <div class="section-header">
+        <button class="section-title">Description</button>
+      </div>
+      <div class="section-body">
+        <p>well hello this is <span class="highlight" onclick="window.scrollToAnnotation('6805d29e280a58a2b47c3b4f')">not the best b</span>ut hope it worksoo e</p>
+      </div>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="section">
+      <div class="section-header">
+        <button class="section-title">Architecture</button>
+      
+      </div>
+      <div class="section-body">
+        <p></p>
+      </div>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="section">
+      <div class="section-header">
+        <button class="section-title">Histoire</button>
+        
+      </div>
+      <div class="section-body">
+        <p>bonsoir</p>
+      </div>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="section">
+      <div class="section-header">
+        <button class="section-title">Autre</button>
+        
+      </div>
+      <div class="section-body">
+        <p>Cette section n’est pas encore renseignée.</p>
+      </div>
+    </div>
+
+ 
+   
+  </div>
+
+  <div class="sidebar">
+    <div class="presentation">
+      <img class="presentation-img" src="{{photoUrl}}" alt="Image">
+      <div class="presentation-label">Présentation</div>
+      <ul class="presentation-list">
+        <li><span>Type de ressource:</span>{{type}}</li>
+        <li><span>Style architectural:</span>{{style}}</li>
+        <li><span>Date de construction:</span>{{dateConstruction}}</li>
+        <li><span>Localisation:</span>{{Localisation}}</li>
+        <li><span>Coordonnées:</span>{{latitude}},{{longitude}}</li>
+      </ul>
+     
+    </div>
+
+    <div class="authors">
+      <div class="authors-label">Auteurs</div>
+      <ul>
+        <li>Chef du projet</li>
+      </ul>
+      <div class="author">
+        <div class="author-info">
+          <p class="author-name">Ryadh Rachem</p>
+          <p class="author-role">Expert en architecture</p>
+        </div>
+      </div>
+      <ul>
+        <li>Collaborateurs</li>
+      </ul>
+      <div class="author">
+        <div class="author-info">
+          <p class="author-name">test1 test1</p>
+          <p class="author-role">Expert en histoire</p>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

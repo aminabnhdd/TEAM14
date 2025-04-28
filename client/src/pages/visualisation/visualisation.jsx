@@ -56,7 +56,7 @@ export default function Visualisation(){
 
      const sections = ['description','architecture','histoire','archeologie','autre'];
 
- 
+ console.log('projet',projet)
 
      const sectionsExistantes = projet && projet.sections && Array.isArray(projet.sections)
      ? sections.filter(section => 
@@ -82,7 +82,11 @@ export default function Visualisation(){
                 <SearchBar/>
                <main className="">
                 <div className="mt-5 bg w-[86%] mx-auto mb-10">
-                  <TitleBar isExpert={isExpert} projet={projet} />
+                  <TitleBar isExpert={isExpert} 
+                       projet={projet}
+                      chef={chef}
+                      collaborateurs={collaborateurs}/>
+                      
                   <div className="flex align-items justify-between mt-[30px]">
                     <LeftSection
                       projet={projet}

@@ -20,6 +20,11 @@ const editeurRouter = require('./routes/editeur');
 const notificationsRouter = require('./routes/notifications');
 const refreshRouter = require('./routes/refresh');
 
+const pdfRouter = require('./routes/pdf');
+
+
+
+
 const corsOptions = {
     origin: ['http://localhost:5173'],
     credentials: true, 
@@ -56,6 +61,7 @@ app.use('/images', uploadRouter);
 app.use('/editeur',editeurRouter);
 app.use('/notifications',notificationsRouter);
 app.use('/refresh',refreshRouter);
+app.use('/pdf', pdfRouter);
 
 // declaring our own modules :
 
@@ -83,3 +89,8 @@ mongoose.connection.once('open', () => {
         console.log('server running on port :', PORT);
     })
 });
+
+
+
+
+

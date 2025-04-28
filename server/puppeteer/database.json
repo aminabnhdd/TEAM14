@@ -1,0 +1,1594 @@
+{
+    "_id": "67fddbe8767b9308c31e318f",
+    "titre": "Mausolée royal numide de Medracen (ou Imedghassen)",
+    "type": "Mausolée",
+    "latitude": "35.707275",
+    "longitude": "6.434523",
+    "localisation": "Batna",
+    "style": "Architecture funéraire numide",
+    "photoUrl": "https://res.cloudinary.com/dzb8iwiiu/image/upload/v1744690153/ynj9mku78uuh9263klgh.jpg",
+    "dateConstruction": "300-200 av.J.C",
+    "chef": "67fd6eb823cf654272958ff0",
+    "collaborateurs": [
+        "67fd6eb823cf654272958ff0",
+        "67fd8f310c4f0a9ac664dcbe",
+        "67fb90e8c5ae5674f7bcde75",
+        "67fb90e8c5ae5674f7bcde75"
+    ],
+    "references": [
+        {
+            "_id": "67fddcbc767b9308c31e31c2",
+            "projetId": "67fddbe8767b9308c31e318f",
+            "text": "«Les Mausolées Royaux de Numidie, de la Maurétanie et les monuments funéraires pré-islamiques [archive] », sur whc.unesco.org ,  8 décembre 2017",
+            "number": 1,
+            "__v": 0
+        },
+        {
+            "_id": "67fddd04767b9308c31e31c7",
+            "projetId": "67fddbe8767b9308c31e318f",
+            "text": "Al Bakri, traduit par Mac Guckin de Slane, Description de l'Afrique septentrional, xie siècle",
+            "number": 2,
+            "__v": 0
+        },
+        {
+            "_id": "67fde83ead869bf334ebb302",
+            "projetId": "67fddbe8767b9308c31e318f",
+            "text": "auteur outou chotm ce m",
+            "number": 3,
+            "__v": 0
+        },
+        {
+            "_id": "67fde852ad869bf334ebb309",
+            "projetId": "67fddbe8767b9308c31e318f",
+            "text": "tbocm.cmk cho tmic mc.m toh mtum tmo",
+            "number": 4,
+            "__v": 0
+        },
+        {
+            "_id": "67fde90cad869bf334ebb310",
+            "projetId": "67fddbe8767b9308c31e318f",
+            "text": "thom cho hec mo cuc mtmo tmet mo tme thotm tmo",
+            "number": 5,
+            "__v": 0
+        }
+    ],
+    "sections": [
+        {
+            "_id": "67fddc0d767b9308c31e319d",
+            "projetId": "67fddbe8767b9308c31e318f",
+            "type": "description",
+            "contenu": {
+                "type": "doc",
+                "content": [
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": "justify"
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Le "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "bold"
+                                    }
+                                ],
+                                "text": "Medracen"
+                            },
+                            {
+                                "type": "text",
+                                "text": " (en "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Langues_berb%C3%A8res",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "berbère"
+                            },
+                            {
+                                "type": "text",
+                                "text": " : ⵉⵎⴷⵖⴰⵙⵏ, "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "italic"
+                                    }
+                                ],
+                                "text": "imedɣasen"
+                            },
+                            {
+                                "type": "text",
+                                "text": ") est un "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Mausol%C3%A9e",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "mausolée"
+                            },
+                            {
+                                "type": "text",
+                                "text": " "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Royaume_de_Numidie",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "numide"
+                            },
+                            {
+                                "type": "text",
+                                "text": " datant du IIIe siècle av. J.-C., situé en "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Alg%C3%A9rie",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "Algérie"
+                            },
+                            {
+                                "type": "text",
+                                "text": " dans les "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Aur%C3%A8s",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "Aurès"
+                            },
+                            {
+                                "type": "text",
+                                "text": ", sur le territoire de la "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Commune_(Alg%C3%A9rie)",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "commune"
+                            },
+                            {
+                                "type": "text",
+                                "text": " de "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Boumia_(Batna)",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "Boumia"
+                            },
+                            {
+                                "type": "text",
+                                "text": ", dans la "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Wilaya_de_Batna",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "wilaya de Batna"
+                            },
+                            {
+                                "type": "text",
+                                "text": "."
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": "justify"
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Le Madracen est un "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Tumulus",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "tumulus"
+                            },
+                            {
+                                "type": "text",
+                                "text": " de pierre, de 58,9 mètres de diamètre et 18,5 m de hauteur. Il comporte une partie cylindrique ornée sur son périmètre, de 60 demi-colonnes doriques et trois fausses portes."
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": "justify"
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Il est le plus ancien mausolée royal antique conservé d'"
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Afrique_du_Nord",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "Afrique du Nord"
+                            },
+                            {
+                                "type": "text",
+                                "text": ". D'après des historiens médiévaux, il tirerait son nom d'un roi de "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Royaume_de_Numidie",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "Numidie"
+                            },
+                            {
+                                "type": "text",
+                                "text": ", Madghis. Il a été soumis pour figurer dans la liste du "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Patrimoine_mondial",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "patrimoine mondial"
+                            },
+                            {
+                                "type": "text",
+                                "text": " par les autorités algériennes en 2002"
+                            },
+                            {
+                                "type": "reference",
+                                "attrs": {
+                                    "id": "67fddcbc767b9308c31e31c2",
+                                    "number": 1
+                                },
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "text": "[1]"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "text",
+                                "text": ". Il est classé parmi les 100 monuments les plus en danger sur la Planète."
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": "justify"
+                        }
+                    },
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": "justify"
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "De l'extérieur, le Medracen se présente sous la forme"
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "annotation",
+                                        "attrs": {
+                                            "id": "680be7ba53a484a1e8c86ff9",
+                                            "color": null
+                                        }
+                                    }
+                                ],
+                                "text": " d'un socle cylindrique, s"
+                            },
+                            {
+                                "type": "text",
+                                "text": "ouvent vu comme typiquement "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Berb%C3%A8res",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "berbère"
+                            },
+                            {
+                                "type": "text",
+                                "text": " et interprété comme un "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Bazina",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "bazina"
+                            },
+                            {
+                                "type": "text",
+                                "text": " à degrés, c'est-à-dire une construction de forme cylindrique surmontée d'un cône formé de gradins, mais à la fois plus grande que les bazinas courants. D'un diamètre de 59 mètres et 18,50 mètres de haut, le tout en pierres de taille rendues solidaires par des crampons en bois de cèdre enrobé de plomb. Au "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/XIe_si%C3%A8cle",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "XIe siècle"
+                            },
+                            {
+                                "type": "text",
+                                "text": ", le géographe "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Al-Andalus",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "andalou"
+                            },
+                            {
+                                "type": "text",
+                                "text": " "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Al-Bakri",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "Al Bakri"
+                            },
+                            {
+                                "type": "text",
+                                "text": " fait cette description du Medracen :"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "blockquote",
+                        "content": [
+                            {
+                                "type": "paragraph",
+                                "attrs": {
+                                    "textAlign": null
+                                },
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "text": "(...) mausolée qui ressemble à une grosse colline et qui est construit avec des briques très minces et cuites au feu. Il est bâti en forme de niches peu grandes et [le tout est] scellé avec du plomb. On voit sur cet édifice des figures représentant des hommes et d'autres espèces d'animaux. De tous côtés le [toit] est disposé en gradin."
+                                    },
+                                    {
+                                        "type": "reference",
+                                        "attrs": {
+                                            "id": "67fddd04767b9308c31e31c7",
+                                            "number": 2
+                                        },
+                                        "content": [
+                                            {
+                                                "type": "text",
+                                                "text": "[2]"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": null
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Habillé d'un décor sobre emprunté à la "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/%C3%89poque_hell%C3%A9nistique",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "civilisation hellénistique"
+                            },
+                            {
+                                "type": "text",
+                                "text": " peut-être à partir d'intermédiaires "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Civilisation_carthaginoise",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "puniques"
+                            },
+                            {
+                                "type": "text",
+                                "text": ", 60 colonnes doriques surmontées d'une corniche dont la gorge égyptienne réparties entre de fausses portes, sculptées en trois points équidistants. Une plateforme au sommet supportait peut être une sculpture : lions, chariots, statues ailées ou autre sujet."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "annotations": [
+                "680be7ba53a484a1e8c86ff9"
+            ],
+            "conflits": null,
+            "images": [
+                {
+                    "src": "https://res.cloudinary.com/dzb8iwiiu/image/upload/v1744690529/uploads/axio6a8qk8pviuaafqav.jpg"
+                },
+                {
+                    "src": "https://res.cloudinary.com/dzb8iwiiu/image/upload/v1744690530/uploads/esubdmubfih35ax1pcmu.jpg"
+                },
+                {
+                    "src": "https://res.cloudinary.com/dzb8iwiiu/image/upload/v1744690531/uploads/emeyne6dfcneojqxrls5.jpg"
+                },
+                {
+                    "src": "https://res.cloudinary.com/dzb8iwiiu/image/upload/v1744690532/uploads/sdwz3yvnw5vj4yrckgqs.jpg"
+                }
+            ],
+            "__v": 2
+        },
+        {
+            "_id": "67fddd6e767b9308c31e31dc",
+            "projetId": "67fddbe8767b9308c31e318f",
+            "type": "archeologie",
+            "contenu": {
+                "type": "doc",
+                "content": [
+                    {
+                        "type": "heading",
+                        "attrs": {
+                            "textAlign": null,
+                            "level": 2
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Interprétation archéologique"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": null
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Pour "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Gabriel_Camps",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "Gabriel Camps"
+                            },
+                            {
+                                "type": "text",
+                                "text": ", les grands monuments funéraires berbères comme le Medracen, le "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Mausol%C3%A9e_Royal_de_Maur%C3%A9tanie",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": "mw-redirect"
+                                        }
+                                    }
+                                ],
+                                "text": "Mausolée Royal de Maurétanie"
+                            },
+                            {
+                                "type": "text",
+                                "text": ", dit aussi tombeau de la chrétienne, et les "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Djeddar",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "Djeddars"
+                            },
+                            {
+                                "type": "text",
+                                "text": " de "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Frenda",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "Frenda"
+                            },
+                            {
+                                "type": "text",
+                                "text": " à "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Tiaret",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "Tiaret"
+                            },
+                            {
+                                "type": "text",
+                                "text": " relèvent d'une même tradition architecturale autochtone"
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Medracen#cite_note-19",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "["
+                            },
+                            {
+                                "type": "text",
+                                "text": ". Ils constitueraient une forme magnifiée des sépultures plurimillénaires dites "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Bazinas",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": "mw-redirect"
+                                        }
+                                    }
+                                ],
+                                "text": "Bazinas"
+                            },
+                            {
+                                "type": "text",
+                                "text": " attestées en "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Afrique",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "Afrique"
+                            },
+                            {
+                                "type": "text",
+                                "text": " du Nord."
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": null
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Pour d'autres au contraire - "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Yvon_Th%C3%A9bert",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "Yvon Thébert"
+                            },
+                            {
+                                "type": "text",
+                                "text": " et "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Filippo_Coarelli",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "Filippo Coarelli"
+                            },
+                            {
+                                "type": "text",
+                                "text": " notamment -, le Medracen doit être compris comme le signe d'une nouveauté historique et culturelle : la vision de Camps est critiquée et considérée comme enfermant les peuples du nord de l'Afrique dans une immobilité culturelle et un isolement. Argüant du fait que le Medracen doit être daté de la fin du IIIe siècle av. J.-C. ou de la première moitié du IIe siècle av. J.-C.,ces deux "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Arch%C3%A9ologue",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": "mw-redirect"
+                                        }
+                                    }
+                                ],
+                                "text": "archéologues"
+                            },
+                            {
+                                "type": "text",
+                                "text": " et "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Historien",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "historiens"
+                            },
+                            {
+                                "type": "text",
+                                "text": " considèrent que le Medracen, comme les autres grands mausolées numides, ne doit pas être interprété comme la manifestation de la continuité culturelle locale, par comparaison avec les bazinas, mais par comparaison avec les mausolées hellénistiques comme le signe d'une rupture dans la société numide : les souverains numides adoptent le vocabulaire architectural et funéraire des grands royaumes hellénistiques et manifestent ainsi leur insertion dans le monde "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/M%C3%A9diterran%C3%A9e",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": "mw-redirect"
+                                        }
+                                    }
+                                ],
+                                "text": "méditerranéen"
+                            },
+                            {
+                                "type": "text",
+                                "text": " et leurs ambitions : « par son tombeau, la nouvelle dynastie proclame que les temps ont changé ». Le Medracen appartiendrait donc à la grande archéologie méditerranéenne de l'époque hellénistique manifestant un goût archaïsant mais aussi une très bonne connaissance du vocabulaire architectural le plus récent comme en témoigne la présence d'une gorge égyptienne. Le Medracen témoignerait donc pleinement de l'hellénisation choisie et active d'une aristocratie numide et de son insertion dans les puissances politiques méditerranéennes, hellénisation attestée aussi par les sources "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Numismatique",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "numismatiques"
+                            },
+                            {
+                                "type": "text",
+                                "text": " et "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/%C3%89pigraphie",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "épigraphiques"
+                            },
+                            {
+                                "type": "text",
+                                "text": "."
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": null
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Le "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Mausol%C3%A9e_Royal_de_Maur%C3%A9tanie",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": "mw-redirect"
+                                        }
+                                    }
+                                ],
+                                "text": "Mausolée Royal de Maurétanie"
+                            },
+                            {
+                                "type": "text",
+                                "text": ", souvent dénommé Tombeau de la Chrétienne, est un monument similaire mais un peu plus tardif. Quant aux "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Djeddar",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "Djeddars"
+                            },
+                            {
+                                "type": "text",
+                                "text": ", ils seraient plus proches des "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "link",
+                                        "attrs": {
+                                            "href": "https://fr.wikipedia.org/wiki/Tumulus",
+                                            "target": "_blank",
+                                            "rel": "noopener noreferrer nofollow",
+                                            "class": null
+                                        }
+                                    }
+                                ],
+                                "text": "tumulus"
+                            },
+                            {
+                                "type": "text",
+                                "text": "."
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": null
+                        }
+                    },
+                    {
+                        "type": "heading",
+                        "attrs": {
+                            "textAlign": null,
+                            "level": 2
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "État de dégradation avancée"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": null
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Le Medracen est en effet à ce jour en état de dégradation inquiétante. L'infiltration de l'eau dans cette région très pluvieuse d'Algérie ainsi que l'usure liée au temps a une incidence grave. Le Medracen attend que l’on panse ses blessures causées par les affres des intempéries ou les mains des pilleurs. Les quelques pierres de taille n’ont pas encore été remises à leur place au niveau des gradins. Les brèches sont béantes et les quelques feuilles de zinc, qui les couvrent, semblent insuffisantes pour les protéger contre les ruissellements des eaux de pluie qui risquent, avec le temps, de s’infiltrer entre les pierres de taille et pourrir les troncs d’arbres qui continuent solidement à prêter “leurs dos” à la charge de ces montagnes de pierres de taille."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "annotations": [],
+            "conflits": null,
+            "images": [],
+            "__v": 0
+        },
+        {
+            "_id": "67fde6b7ad869bf334ebb288",
+            "projetId": "67fddbe8767b9308c31e318f",
+            "type": "histoire",
+            "contenu": {
+                "type": "doc",
+                "content": [
+                    {
+                        "type": "heading",
+                        "attrs": {
+                            "textAlign": null,
+                            "level": 2
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": " Contexte historique"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": null
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "À cette époque, l’Afrique du Nord est un carrefour de civilisations. Les "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "bold"
+                                    }
+                                ],
+                                "text": "Phéniciens"
+                            },
+                            {
+                                "type": "text",
+                                "text": ", puis les "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "bold"
+                                    }
+                                ],
+                                "text": "Carthaginois"
+                            },
+                            {
+                                "type": "text",
+                                "text": ", exercent une influence maritime sur les côtes, tandis que les "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "bold"
+                                    }
+                                ],
+                                "text": "royaumes numides"
+                            },
+                            {
+                                "type": "text",
+                                "text": " dominent les terres intérieures. Le Medracen, par son emplacement stratégique sur les hauteurs, semble affirmer cette souveraineté sur le territoire, autant pour le vivant que pour le monde des morts"
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "bold"
+                                    },
+                                    {
+                                        "type": "italic"
+                                    }
+                                ],
+                                "text": "Le Medracen témoigne de plusieurs éléments clés de la civilisation numide :"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "bulletList",
+                        "content": [
+                            {
+                                "type": "listItem",
+                                "content": [
+                                    {
+                                        "type": "paragraph",
+                                        "attrs": {
+                                            "textAlign": null
+                                        },
+                                        "content": [
+                                            {
+                                                "type": "text",
+                                                "text": "Une hiérarchie royale bien établie"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "listItem",
+                                "content": [
+                                    {
+                                        "type": "paragraph",
+                                        "attrs": {
+                                            "textAlign": null
+                                        },
+                                        "content": [
+                                            {
+                                                "type": "text",
+                                                "text": "Un sens développé de l’architecture monumentale"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "listItem",
+                                "content": [
+                                    {
+                                        "type": "paragraph",
+                                        "attrs": {
+                                            "textAlign": null
+                                        },
+                                        "content": [
+                                            {
+                                                "type": "text",
+                                                "text": "Une forte influence des cultures méditerranéennes"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "listItem",
+                                "content": [
+                                    {
+                                        "type": "paragraph",
+                                        "attrs": {
+                                            "textAlign": null
+                                        },
+                                        "content": [
+                                            {
+                                                "type": "text",
+                                                "text": "Un culte important autour des ancêtres et de la mort"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "figure",
+                                        "attrs": {
+                                            "align": "center"
+                                        },
+                                        "content": [
+                                            {
+                                                "type": "image",
+                                                "attrs": {
+                                                    "src": "data:image/jpeg;base64,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",
+                                                    "alt": null,
+                                                    "title": null
+                                                }
+                                            },
+                                            {
+                                                "type": "figcaption",
+                                                "content": [
+                                                    {
+                                                        "type": "text",
+                                                        "text": "Illustration 1"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "heading",
+                        "attrs": {
+                            "textAlign": null,
+                            "level": 2
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Un monument témoin des temps anciens"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": null
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Le Medracen a résisté à l’épreuve du temps, non sans difficultés. Délaissé pendant des siècles, il a suscité l’intérêt des "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "bold"
+                                    }
+                                ],
+                                "text": "archéologues français"
+                            },
+                            {
+                                "type": "text",
+                                "text": " à partir du XIXᵉ siècle. Certaines pierres ont été enlevées, et il a été partiellement endommagé. Cependant, il reste debout aujourd’hui, silencieux mais imposant, comme un "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "bold"
+                                    }
+                                ],
+                                "text": "gardien de l’histoire pre-islamique"
+                            },
+                            {
+                                "type": "text",
+                                "text": " de l’Algérie."
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": null
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Ce mausolée est un symbole de "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "bold"
+                                    }
+                                ],
+                                "text": "résistance culturelle"
+                            },
+                            {
+                                "type": "text",
+                                "text": ", rappelant que l’histoire de l’Algérie ne commence ni avec Rome, ni avec l’Islam, mais bien avant, dans les montagnes où les Numides honoraient leurs rois par des monuments de pierre éternels."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "annotations": [
+                "67fdeaaaad869bf334ebb405",
+                "67fdeae7ad869bf334ebb417"
+            ],
+            "conflits": null,
+            "images": [],
+            "__v": 2
+        },
+        {
+            "_id": "67fde708ad869bf334ebb28d",
+            "projetId": "67fddbe8767b9308c31e318f",
+            "type": "histoire",
+            "contenu": {
+                "type": "doc",
+                "content": [
+                    {
+                        "type": "heading",
+                        "attrs": {
+                            "textAlign": null,
+                            "level": 2
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Contexte historique"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": null
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "À cette époque, l’Afrique du Nord est un carrefour de civilisations. Les "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "bold"
+                                    }
+                                ],
+                                "text": "Phéniciens"
+                            },
+                            {
+                                "type": "text",
+                                "text": ", puis les "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "bold"
+                                    }
+                                ],
+                                "text": "Carthaginois"
+                            },
+                            {
+                                "type": "text",
+                                "text": ", exercent une influence maritime sur les côtes, tandis que les "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "bold"
+                                    }
+                                ],
+                                "text": "royaumes numides"
+                            },
+                            {
+                                "type": "text",
+                                "text": " dominent les terres intérieures. Le Medracen, par son emplacement stratégique sur les hauteurs, semble affirmer cette souveraineté sur le territoire, autant pour le vivant que pour le monde des morts."
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "italic"
+                                    }
+                                ],
+                                "text": " "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "bold"
+                                    },
+                                    {
+                                        "type": "italic"
+                                    }
+                                ],
+                                "text": "Le Medracen témoigne de plusieurs éléments clés de la civilisation numide :"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "bulletList",
+                        "content": [
+                            {
+                                "type": "listItem",
+                                "content": [
+                                    {
+                                        "type": "paragraph",
+                                        "attrs": {
+                                            "textAlign": null
+                                        },
+                                        "content": [
+                                            {
+                                                "type": "text",
+                                                "text": "Une hiérarchie royale bien établie"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "listItem",
+                                "content": [
+                                    {
+                                        "type": "paragraph",
+                                        "attrs": {
+                                            "textAlign": null
+                                        },
+                                        "content": [
+                                            {
+                                                "type": "text",
+                                                "text": "Un sens développé de l’architecture monumentale"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "listItem",
+                                "content": [
+                                    {
+                                        "type": "paragraph",
+                                        "attrs": {
+                                            "textAlign": null
+                                        },
+                                        "content": [
+                                            {
+                                                "type": "text",
+                                                "text": "Une forte influence des cultures méditerranéennes"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "listItem",
+                                "content": [
+                                    {
+                                        "type": "paragraph",
+                                        "attrs": {
+                                            "textAlign": null
+                                        },
+                                        "content": [
+                                            {
+                                                "type": "text",
+                                                "text": "Un culte important autour des ancêtres et de la mort"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "heading",
+                        "attrs": {
+                            "textAlign": null,
+                            "level": 3
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Un monument témoin des temps anciens"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": null
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Le Medracen a résisté à l’épreuve du temps, non sans difficultés. Délaissé pendant des siècles, il a suscité l’intérêt des "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "bold"
+                                    }
+                                ],
+                                "text": "archéologues français"
+                            },
+                            {
+                                "type": "text",
+                                "text": " à partir du XIXᵉ siècle. Certaines pierres ont été enlevées, et il a été partiellement endommagé. Cependant, il reste debout aujourd’hui, silencieux mais imposant, comme un "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "bold"
+                                    }
+                                ],
+                                "text": "gardien de l’histoire pré-islamique"
+                            },
+                            {
+                                "type": "text",
+                                "text": " de l’Algérie."
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "attrs": {
+                            "textAlign": null
+                        },
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Ce mausolée est un symbole de "
+                            },
+                            {
+                                "type": "text",
+                                "marks": [
+                                    {
+                                        "type": "bold"
+                                    }
+                                ],
+                                "text": "résistance culturelle"
+                            },
+                            {
+                                "type": "text",
+                                "text": ", rappelant que l’histoire de l’Algérie ne commence ni avec Rome, ni avec l’Islam, mais bien avant, dans les montagnes où les Numides honoraient leurs rois par des monuments de pierre éternels."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "annotations": [],
+            "conflits": null,
+            "images": [],
+            "__v": 0
+        },
+        {
+            "_id": "680bb9e224897d48da15d18f",
+            "projetId": "67fddbe8767b9308c31e318f",
+            "type": "architecture",
+            "contenu": "",
+            "annotations": [],
+            "conflits": null,
+            "images": [],
+            "__v": 0
+        }
+    ],
+    "archivePar": null,
+    "archive": false,
+    "keywords": [
+        "hi,this,is,test"
+    ],
+    "demandes": [
+        {
+            "expert": "67fd8f310c4f0a9ac664dcbe",
+            "status": "pending",
+            "_id": "67fde576ad869bf334ebb152"
+        },
+        {
+            "expert": "67fb90e8c5ae5674f7bcde75",
+            "status": "pending",
+            "_id": "680777f3b433fd7057e80f03"
+        },
+        {
+            "expert": "67fb90e8c5ae5674f7bcde75",
+            "status": "pending",
+            "_id": "680777f5b433fd7057e80f05"
+        },
+        {
+            "expert": "67fb90e8c5ae5674f7bcde75",
+            "status": "pending",
+            "_id": "680777f5b433fd7057e80f07"
+        }
+    ],
+    "createdAt": "2025-04-15T04:09:12.311Z",
+    "updatedAt": "2025-04-27T20:01:53.474Z",
+    "__v": 17
+}

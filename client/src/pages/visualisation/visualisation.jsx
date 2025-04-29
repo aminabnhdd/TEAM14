@@ -2,7 +2,7 @@ import SideNav from "../../components/SideNav"
 import TitleBar from "../../components/visualisation/titleBar"
 import LeftSection from "../../components/visualisation/leftSection"
 import RightSection from "../../components/visualisation/rightSection"
-import { useState, useEffect} from "react"
+import { useState, useEffect, useRef} from "react"
 import ListSections from "../../components/visualisation/listSections"
 import DemandeCollaboration from "../../components/visualisation/demandeCollaboration"
 import Footer from "../../components/Footer"
@@ -31,8 +31,10 @@ export default function Visualisation(){
     const [collaborateurs,setCollaborateurs] =useState(null);
     const {authState,setAuthState} = useContext(AuthContext);
     const [showPopup, setShowPopup] = useState(false);
+    const [isFixed, setIsFixed] = useState(true);
     
-  
+    const footerRef = useRef();
+
 
     useEffect(() => {
         const fetchProjet = async () => {
@@ -76,10 +78,24 @@ export default function Visualisation(){
      : [];
       
 
-
-    /*const handleVisibility = ()=>{
-      setIsVisible()
-    }*/
+    useEffect(() => {
+        const handleScroll = () => {
+          if (!footerRef.current) return;
+    
+          const footerTop = footerRef.current.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+    
+          if (footerTop <= windowHeight - 100) { // 100px BEFORE footer enters
+            setIsFixed(false);
+          } else {
+            setIsFixed(true);
+          }
+          console.log("position is : ", isFixed);
+        };
+    
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
 
       
 
@@ -133,8 +149,8 @@ export default function Visualisation(){
           
             
              </div> 
-             <ChatBot projetId={projetId} />
-             <Footer/>
+             <ChatBot projetId={projetId} isFixed={isFixed} />
+             <Footer ref={footerRef}/>
              {showPopup && (
         <PopAjouterCollaborateur onClose={() => setShowPopup(false)} projet={projet} setProjet={setProjet} collaborateurs={collaborateurs} setCollaborateurs={setCollaborateurs} />
       )}

@@ -8,15 +8,38 @@ import { MdSmartToy } from 'react-icons/md';
 import './ChatBot.css';
 
 
-function ChatBot({projetId}) {
+function ChatBot({projetId, isFixed}) {
   const [query, setQuery] = useState('');
   const [sessionId, setSessionId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  
+
   const messagesEndRef = useRef(null);
+  const wrapperRef = useRef();
+  
+
+   
+  useEffect(()=>{
+    function handleClickOutside(event){
+        if(wrapperRef.current && !wrapperRef.current.contains(event.target)){
+            setIsVisible(false);
+        }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return()=>{
+        document.removeEventListener('mousedown', handleClickOutside);
+    }
+  },[])
 
 
+
+  
+
+ 
 
  
 
@@ -81,15 +104,16 @@ function ChatBot({projetId}) {
 
   return (
     <>
+    <div ref={wrapperRef}>
     {isVisible &&
-    <div className="chat-container">
+    <div className="chat-container" > 
       {/*<p className="intro-bot">Hello There, <br/>I am Athar's Virtual Assistant How Can I Help You ?</p> */}
       <div className="prompt-bar">
         <input
           type="text"
           value={query}
           onChange={handleChange}
-          placeholder="Ask something..."
+          placeholder="Posez une question..."
           className="prompt-input"
         />
         <FiSend className="send-icon" onClick={handleClick} />
@@ -114,7 +138,10 @@ function ChatBot({projetId}) {
         <div ref={messagesEndRef} />
       </div>
     </div>}
+    <div className="bot-div" style={{position: isFixed ? 'fixed' : 'absolute'}}> 
     <MdSmartToy className="bot-icon" onClick={toggleVisiblity} />
+    </div> 
+    </div>
     </>
   );
 }

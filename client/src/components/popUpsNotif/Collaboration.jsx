@@ -36,13 +36,11 @@ function Collaboration ({popUp,close,notif}) {
             <span className="gris">Projet:</span> 
             {notif.projet}</p>
             </div>
-            {notif.read ? <p className="text-center font-semibold text-success">
-    Cette demande a déjà été traitée.
-  </p>:
+            
             <div className="batens">
                 <button className="baten3" onClick={()=>{colab("accept"); close()}}>Accepter</button>
                 <button className="baten4" onClick={()=>{colab("refuse");close()}}>Refuser</button>
-            </div>}
+            </div>
         </div>
     </div>  )
  )

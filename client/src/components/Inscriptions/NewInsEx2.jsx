@@ -76,8 +76,34 @@ function NewInsEx2({ prevPopUp, fn,swipeDirection}) {
         : field.charAt(0).toUpperCase() + field.slice(1)}
       {field !== "laboratoire" && <span className="redstar"> *</span>}
     </label>
+    {(field == "expertise") ? 
+      <div className="select-wrapper">
+    <select
+      className={`input-three-select ${errors[field] ? "input-error" : ""}`}
+
+      id={field}
+      placeholder={field === "expertise" ? "niveau d'expertise" : field}
+      value={formData[field]}
+      required
+      onChange={handleChange}
+      onFocus={(e) => {
+        e.target.style.border = "1px solid #E8C07D";
+        e.target.style.outline = "0.5px solid #E8C07D";
+      }}
+      onBlur={(e) => {
+        e.target.style.border = errors[field] ? "" : "1px solid #A0A5A6";
+        e.target.style.outline = "none";
+      }}>
+      <option className="opt" value="">Sélectionnez votre niveau d'expertise</option> {/* Default empty option */}
+      <option className="opt" value="Docteur">Docteur</option>
+      <option className="opt" value="Maître de conférences A">Maître de conférences A</option>
+      <option className="opt" value="Maître de conférences B">Maître de conférences B</option>
+      <option className="opt" value="Professeur">Professeur</option>
+    </select>
+    <i className="fa-solid fa-chevron-down dropdown-icon-container"></i></div>
+    :
     <input
-      className={`input-three ${errors[field] ? "input-error" : ""}`}
+      className={`input-three ${errors[field] ? "input-error-select" : ""}`}
       type="text"
       id={field}
       placeholder={field === "expertise" ? "niveau d'expertise" : field}
@@ -91,7 +117,7 @@ function NewInsEx2({ prevPopUp, fn,swipeDirection}) {
         e.target.style.border = errors[field] ? "" : "1px solid #A0A5A6";
         e.target.style.outline = "none";
       }}
-    />
+    />}
     {errors[field] && <p className="err_message">{errors[field]}</p>}
   </div>
 ))}

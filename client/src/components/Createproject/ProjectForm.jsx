@@ -53,6 +53,8 @@ const ProjectForm = ({ error, onDataChange }) => {
       });}
       setNewKeyword("");
     }
+    console.log(formData.keywords,'/-///-/-/---------////////////////');
+
   };
 
   const removeKeyword = (index) => {

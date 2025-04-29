@@ -261,7 +261,7 @@ const [poop5,setPoop5] = useState(false)
         <div className="secondary-notif">
 
         <div className="teqsam">
-        <SearchBar  title="Rechercher un projet"/>
+        <SearchBar  title="Rechercher un projet dans le site"/>
             <div className=" textos">
                 <h1 className="hnotif">Notifications</h1>
                 {conflit &&

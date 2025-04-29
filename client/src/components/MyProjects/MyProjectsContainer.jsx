@@ -5,7 +5,7 @@ import mesProjets  from "../../services/mesProjets.js";
 import AuthContext from '../../helpers/AuthContext'
 import RefreshService from "../../services/RefreshService";
 
-const DEFAULT_IMAGE_URL = "https://previews.123rf.com/images/yupiramos/yupiramos1504/yupiramos150407528/39021519-conception-de-l-informatique-en-nuage-illustration-vectorielle-illustration.jpg"; 
+import DEFAULT_IMAGE_URL from "../../assets/cover.png"; 
  
 const MyProjectsContainer = () => {
   const navigate = useNavigate();

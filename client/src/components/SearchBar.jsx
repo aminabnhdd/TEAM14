@@ -1,45 +1,77 @@
-import imj from "../assets/material-symbols_search.svg"
+import img from "../assets/material-symbols_search.svg";
 import "../ComponentsStyles/SearchBar.css";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import AuthContext from '../helpers/AuthContext';
 import { useNavigate } from "react-router-dom";
-import { FaUser } from 'react-icons/fa';
 import Pfp from "./pfp";
 
-
-function SearchBar({ onSearch,title ,fixed=false,admin=false }) {
+function SearchBar({ onSearch, title, fixed = false, admin = false }) {
     const navigate = useNavigate(); 
-
-    const { setAuthState } = useContext(AuthContext);
-
-    const [user,setUser]=useState(null);
-          //const imgUrl = user.pfp ;
-        
-          //temporary
-          const imgUrl = "";
-
+    const { authState } = useContext(AuthContext);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [user, setUser] = useState(null);
     
-          const handleClick = () => {
-            navigate(`/modifier-${authState.role === "Expert" ? "expert" : "visiteur"}`); // Change this to your desired route
-          };
-    const title2=title || "Rechercher un projet...";
-
-  return (
-    <div className="rsearch-div sticky top-0 right-0 ">
-      <div className="rsearch-bar" >
-       <input
-      type="text"
-      placeholder={title2}
-      onChange={(e) => onSearch(e.target.value)}
-      className="rsearch-input"
-    />
-    <img src={imj} alt="j" className="rsearch-icon" />
-    </div>
-   <Pfp fixed={fixed} admin={admin}/>
-    </div>
+    // Consolidated search handler
+    const handleSearch = () => {
+        if (searchQuery.trim()) {
+            const handler = onSearch || defaultSearch;
+            handler(searchQuery);
+        }
+    };
     
-   
-  );
+    // Default search handler
+    const defaultSearch = (query) => {
+        navigate(`/discover?query=${encodeURIComponent(query)}`);
+    };
+    
+    // Handle Enter key
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    };
+    
+    const handleChange = (e) => {
+        setSearchQuery(e.target.value);
+        if (onSearch && typeof onSearch === 'function') {
+            onSearch(e.target.value);
+        }
+    };
+
+    const handleClick = () => {
+        navigate(`/modifier-${authState.role === "Expert" ? "expert" : "visiteur"}`);
+    };
+    
+    // Handle search icon click
+    const handleSearchIconClick = (e) => {
+        e.stopPropagation(); // Prevent event bubbling to parent div
+        handleSearch();
+    };
+    
+    const title2 = title || "Rechercher un projet dans le site...";
+
+    return (
+        <div className="rsearch-div sticky top-0 right-0">
+            <div className="rsearch-bar">
+                <input
+                    type="text"
+                    placeholder={title2}
+                    value={searchQuery}
+                    onChange={handleChange}
+                    onKeyDown={handleKeyDown}
+                    className="rsearch-input"
+                />
+                <img 
+                    src={img} 
+                    alt="search" 
+                    className="rsearch-icon" 
+                    onClick={handleSearchIconClick}
+                    style={{ cursor: 'pointer' }} // Add pointer cursor
+                />
+            </div>
+            <Pfp fixed={fixed} admin={admin} onClick={handleClick} />
+        </div>
+    );
 }
 
 export default SearchBar;

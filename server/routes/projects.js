@@ -97,11 +97,13 @@ router.get("/modifier/:id",  validateToken, validateRole(expertRole, adminRole),
             style: project.style,
             dateConstruction: project.dateConstruction,
             photoUrl: project.photoUrl,
+            keywords: project.keywords
         });
 
     } catch (error) {
         res.status(500).json({ message: "Server error", error });
     }
+    
 });
 
 

@@ -134,7 +134,7 @@ function ChatBot({projetId, isFixed}) {
             <p><em>Bot is typing...</em></p>
           </div>
         )}
-
+        <div className="whiteSpace"></div>
         <div ref={messagesEndRef} />
       </div>
     </div>}

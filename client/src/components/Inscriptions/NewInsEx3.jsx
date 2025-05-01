@@ -162,6 +162,7 @@ function NewInsEx3({ prevPopUp2,swipeDirection }) {
                 <input
                     type="file"
                     multiple
+                    accept=".jpg,.jpeg,.png,.pdf"
                     ref={fileInputRef}
                     style={{ display: "none" }}
                     onChange={handleFileChange}

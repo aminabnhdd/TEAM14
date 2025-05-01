@@ -204,7 +204,7 @@ const [poop3,setPoop3] = useState(false)
                             <img className="notif-icon-notifAd" src={element.imge} alt="Notification Icon" />
                             <p className="notif-message-notifAd"><span 
                             onClick={()=>{navigate(`/desactiver-expert/${element.sendeId._id}`)}}                               
-                            className="userName underline cursor-pointer">{element.sendeId.nom } {element.sendeId.prenom}</span> souhaite créer un compte {element.genre}</p>
+                            className="userName underline cursor-pointer">{element.sendeId?.nom || "" } {element.sendeId?.prenom || ""}</span> souhaite créer un compte {element.genre}</p>
                             </div>
                             <div className="notwtabwdom-notifAd">
                             <span className="notif-time-notifAd">{getTime(element.time)}</span>
@@ -224,7 +224,7 @@ const [poop3,setPoop3] = useState(false)
                             <p className="notif-message-notifAd">
                             <span 
                             onClick={()=>{navigate(`/desactiver-visiteur/${element.sendeId._id}`)}}                               
-                            className="userName underline cursor-pointer">{element.sendeId.nom } {element.sendeId.prenom}</span> souhaite créer un compte {element.genre} </p>
+                            className="userName underline cursor-pointer">{element.sendeId.nom || "" } {element.sendeId.prenom || ""}</span> souhaite créer un compte {element.genre} </p>
                             </div>
                             <div className="notwtabwdom-notifAd">
                             <span className="notif-time-notifAd">{getTime(element.time)}</span>

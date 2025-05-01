@@ -35,6 +35,8 @@ import Decouvrir from "./pages/Decouvrir";
 import Favoris from "./pages/Favoris";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ChatBot from './components/ChatBot/ChatBot';
+import NotFound from "./pages/ErrorPages/NotFound.jsx";
+import Forbidden from "./pages/ErrorPages/Forbidden.jsx";
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -83,8 +85,8 @@ function App() {
           <Route path="/discover" element={<Decouvrir />} />
           <Route path="/favoris" element={<Favoris />} />
           <Route path="/mot-de-passe-oublie/:otl" element={<ReiniMotdps />} />
-          <Route path="/forbidden" element={<h1>403 Forbidden</h1>} />
-          <Route path="*" element={<h1>404 Not Found</h1>} />
+          <Route path="/forbidden" element={<Forbidden></Forbidden>} />
+          <Route path="*" element={<NotFound></NotFound>} />
         </Routes>
       </Router>
       

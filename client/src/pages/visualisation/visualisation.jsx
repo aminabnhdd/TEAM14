@@ -15,6 +15,7 @@ import SearchBar from "../../components/SearchBar.jsx";
 import PopAjouterCollaborateur from "../../components/visualisation/popupAjouterCollaborateur.jsx"
 import { MdSmartToy } from 'react-icons/md';
 import ChatBot from "../../components/ChatBot/ChatBot";
+import PuffLoader from "react-spinners/PuffLoader";
 
 
 export default function Visualisation(){
@@ -96,16 +97,29 @@ export default function Visualisation(){
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
       }, []);
+      const override = {
+        display: "block",
+        position:"absolute",
+        top:"50%",
+        left:"50%",
+        transform:"translate(-50%,-50%)"
+        };
 
       
 
        return (
+        
 
         <>
          {loading ? (
-   <div className="flex justify-center items-center h-screen">
-     <p>Loading section...</p>
-   </div>
+   <PuffLoader
+   color="#e8c07d"
+   loading={loading}
+   cssOverride={override}
+   size={70}
+   aria-label="Loading Spinner"
+   data-testid="loader"
+/>
  ) : (<>
           <div className="flex relative max-w-full ">
             <SideNav className="" />

@@ -50,7 +50,12 @@ function Connect({   mdpPopUp }) {
             axios.post("http://localhost:3001/auth/login", formData,{withCredentials:true})
             .then((res) => {
                 console.log(res.data);
-                navigate('/discover'); 
+                if (res.data.role === "Admin") {
+                    navigate("/notifications-admin");
+                } else {
+                    navigate('/discover'); 
+                }
+                
             })
             .catch((err) => {
                 newErrors = err.response.data;

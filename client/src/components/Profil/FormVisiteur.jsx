@@ -15,11 +15,7 @@ const FormVisiteur = ({image}) => {
     "nom",
     "prenom",
     "email",
-    "etablissement",
-    "labo",
     "telephone",
-    "niveau",
-    "discipline",
     "image"
   ];
 
@@ -58,6 +54,7 @@ const FormVisiteur = ({image}) => {
       <div className="frmv-header">
         <h2>Informations Personnelles</h2>
         <button className="frmv-save-button" onClick={() =>{
+          console.log(image);
           user.image = image;
           console.log(user);
           const data = new FormData();

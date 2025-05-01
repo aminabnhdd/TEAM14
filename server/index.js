@@ -50,7 +50,7 @@ const {validateRole} = require('./middlewares/roleMiddleware');
 
 app.use('/auth', authRouter);
 app.use('/projects', projectRouter);
-app.use('/admin',validateToken,adminRouter);
+app.use('/admin',validateToken,validateRole([adminRole]),adminRouter);
 app.use('/profil', profilRouter);
 app.use('/ai',AIRouter);
 app.use('/images', uploadRouter);

@@ -28,7 +28,7 @@ router.get("/mon-compte", validateToken, async (req, res) => {
 });
 
 
-router.put("/mon-compte/modifier", validateToken, async (req, res) => {
+router.put("/mon-compte/modifier", validateToken,upload.single("image"), async (req, res) => {
   try {
     const userId = req.user.id;
     const updates = req.body;

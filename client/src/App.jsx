@@ -33,6 +33,9 @@ import ProjetsExpert2 from "./pages/Profilpages/ProjetsExpert2.jsx";
 import AnnotationTool from "./pages/AI/annotAI.jsx"
 import Decouvrir from "./pages/Decouvrir";
 import Favoris from "./pages/Favoris";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+
+
 function App() {
   const [authState, setAuthState] = useState({
     email: "",
@@ -62,9 +65,9 @@ function App() {
           {/* Route for annotatins */}
           <Route path="/editeur/annoter/:sectionId" element={<EditorNonEditable />} />
           <Route path="/visualisation/:projetId" element={<Visualisation />} />
-          <Route path="/projets" element={<LsProjets />} />
-          <Route path="/notifications-admin" element={<NotifAdmin />} />
-          <Route path="/list-utilisateurs" element={<ListUtil />} />
+          <Route path="/projets" element={<ProtectedRoute allowedRoles={"Admin"}><LsProjets /></ProtectedRoute>} />
+          <Route path="/notifications-admin" element={ <ProtectedRoute allowedRoles={"Admin"}><NotifAdmin /></ProtectedRoute> } />
+          <Route path="/list-utilisateurs" element={<ProtectedRoute allowedRoles={"Admin"}><ListUtil /></ProtectedRoute>} />
           {/*Profil routes*/ }
           <Route path="/afficher-expert/:id" element={<AfficherExpert />} />
           <Route path="/modifier-expert" element={<ModifierExpert />} />
@@ -79,6 +82,7 @@ function App() {
           <Route path="/discover" element={<Decouvrir />} />
           <Route path="/favoris" element={<Favoris />} />
           <Route path="/mot-de-passe-oublie/:otl" element={<ReiniMotdps />} />
+          <Route path="/forbidden" element={<h1>403 Forbidden</h1>} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </Router>

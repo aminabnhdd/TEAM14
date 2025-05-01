@@ -147,15 +147,7 @@ module.exports = {
         content: "video figcaption", // Optional video+figcaption
         
         renderHTML({ node }) {
-            return [
-              "span",
-              {},
-              "*Vidéo avec captions: ",
-              ["figcaption", { class: "video-figcaption" ,
-                 style: "color: red; font-style: normal;" 
-              }, 0] ,
-              "*"// Renders the figcaption content
-            ];
+            return ['span']
           }
         })
 };

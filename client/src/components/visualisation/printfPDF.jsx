@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import AuthContext from "../../helpers/AuthContext"
 import { useContext } from "react"
-
+import '../../ComponentsStyles/visualisation/titleBar.css'
 
 export default function PrintPDF( props ) {
     const {authState} = useContext(AuthContext);
@@ -66,7 +66,7 @@ export default function PrintPDF( props ) {
         } finally {
             setIsLoading(false);
         }
-    };
+    };    
     return (
         <button 
             onClick={generatePDF}
@@ -74,12 +74,18 @@ export default function PrintPDF( props ) {
             className={`px-2 cursor-pointer ${isLoading ? 'opacity-50' : ''}`}
             title="Download PDF Report"
         >
-            <FontAwesomeIcon 
-                icon={faFilePdf} 
-                className="w-5 h-5" 
-                spin={isLoading} 
-            />
-            {isLoading && <span className="ml-2">Generating...</span>}
+            <FontAwesomeIcon
+                icon={faFilePdf}
+                className="w-5 h-5"
+                style={
+                    isLoading
+                    ? {
+                        animation: 'zoomInOut 1s ease-in-out infinite',
+                        }
+                    : {}
+                }
+                />
+
         </button>
     );
 }

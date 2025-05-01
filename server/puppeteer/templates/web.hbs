@@ -77,7 +77,6 @@ body{
   color: var(--color-black);
   display: flex;
   align-items: center;
-  cursor: pointer;
 }
 
 .section-actions {
@@ -94,8 +93,7 @@ body{
 
 /* Highlight */
 .highlight {
-  background-color: #FFD1DC;
-  cursor: pointer;
+  background-color: transparent;
 }
 
 
@@ -165,7 +163,6 @@ font-weight: bold;
   gap: 12px;
   padding: 4px;
   border-radius: 12px;
-  cursor: pointer;
 }
 
 
@@ -274,7 +271,6 @@ font-weight: bold;
 .tiptap a {
   color: #c57642;
   text-decoration: underline;
-  cursor: pointer;
 
   &:hover {
     color:  #2d2d2d;
@@ -358,7 +354,6 @@ font-weight: bold;
 
 /* Apply resize cursor when hovering over the resize handle */
 .resize-cursor {
-  cursor: col-resize;
 }
 /* Placeholder (at the top) */
 p.is-editor-empty:first-child::before {
@@ -378,7 +373,6 @@ background-color: #f3f4f5; /* Light background color */
 margin: 0.5rem 1.5rem; /* Add some margin */
 display: inline-block; /* Make the card only as wide as its content */
 overflow: hidden; /* Ensure the image doesn't overflow the card */
-cursor: grab; /* Change cursor to indicate draggability */
 }
 
 .rendered .image-card{
@@ -455,7 +449,6 @@ margin: 0.5rem 1.5rem;
 display: inline-block;
 overflow: hidden;
 max-width: 36%;
-cursor: grab;
 }
 
 .video-card.align-left {
@@ -545,7 +538,6 @@ padding: 1px;
 border-radius: 3px;
 margin: 0 0.2em;
 transition: color 0.2s;
-cursor:pointer;
 }
 
 .reference:hover {
@@ -593,6 +585,7 @@ color:#2d2d2d
 
     {{#each projet.sections}}
     <!-- Section 1 -->
+    {{#if (or this.contenu this.images)}}
     <div class="section">
       <div class="section-header">
         <button class="section-title">{{capitalizeFirst this.type}}</button>
@@ -612,7 +605,7 @@ color:#2d2d2d
       </div>
        {{/if}}
     </div>
-   
+   {{/if}}
    {{/each}}
 
 {{#if references}}

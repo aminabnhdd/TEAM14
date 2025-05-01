@@ -55,7 +55,8 @@ router.post('/generate', validateToken, async (req, res) => {
         await page.emulateMediaType('screen');
 
         // Generate PDF with additional options
-        const pdfBuffer = await page.pdf({
+        await page.pdf({
+            path:pdfFilePath,
             format: 'A4',
             printBackground: true,
             margin: {
@@ -66,21 +67,10 @@ router.post('/generate', validateToken, async (req, res) => {
             },
         });
 
-        // Verify PDF buffer
-        if (!pdfBuffer || !pdfBuffer.length) {
-            throw new Error('Generated empty PDF buffer');
-        }
+        const open = await import('open');
+        await open.default(pdfFilePath);
+        
 
-        // Set proper headers
-        res.set({
-            'Content-Type': 'application/pdf',
-            'Content-Disposition': `attachment; filename="${projet.titre.replace(/[^a-z0-9]/gi, '_')}-details.pdf"`,
-            'Content-Length': pdfBuffer.length,
-            'Cache-Control': 'no-store'
-        });
-
-        // Send raw buffer
-        res.send(pdfBuffer);
 
     } catch (error) {
         console.error('PDF generation failed:', error);

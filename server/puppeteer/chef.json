@@ -1,0 +1,37 @@
+{
+    "otl": "[object Object]",
+    "_id": "67fd6eb823cf654272958ff0",
+    "nom": "Benhaddad",
+    "prenom": "Amina",
+    "email": "aminaa@gmail.com",
+    "password": "$2b$10$IJgtiHvaUjuEWkeED4ZgRejiz4L4Gd2BVXyATeRxZWYBlIep3NBwq",
+    "role": "b8e99507641126d441ed5acb4ad9222c7fedf241726954fd7403273526f66560beecd8378444d4cdb52ebfe9e388f21343538a68cd25eb602ad83f4de47cee53",
+    "userValide": true,
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub20iOiJCZW5oYWRkYWQiLCJwcmVub20iOiJBbWluYSIsImlkIjoiNjdmZDZlYjgyM2NmNjU0MjcyOTU4ZmYwIiwiZW1haWwiOiJhbWluYWFAZ21haWwuY29tIiwicm9sZSI6ImI4ZTk5NTA3NjQxMTI2ZDQ0MWVkNWFjYjRhZDkyMjJjN2ZlZGYyNDE3MjY5NTRmZDc0MDMyNzM1MjZmNjY1NjBiZWVjZDgzNzg0NDRkNGNkYjUyZWJmZTllMzg4ZjIxMzQzNTM4YTY4Y2QyNWViNjAyYWQ4M2Y0ZGU0N2NlZTUzIiwiaWF0IjoxNzQ1ODcwOTkwLCJleHAiOjE3NDU5NTczOTB9.cGIIUxjRRQK-LoF8VXYMBGy0EUYggDWCUOHCQ7nhmZU",
+    "pfp": "https://res.cloudinary.com/dzb8iwiiu/image/upload/v1745783683/bja3uequdotyu9psjfsd.jpg",
+    "favorites": [
+        "67cf546107254a7e4e2502ef",
+        "67c1e1094a724d6b8fa2bd40",
+        "67c2410c63fef2bcb1a72010",
+        "67d36e2f9b6afdccf84c01bf",
+        "67d36bd7f950962c7f8df40f",
+        "67dc906cd7706af2ea8b8d0c"
+    ],
+    "telephone": "",
+    "__t": "Expert",
+    "discipline": "archeologie",
+    "labo": "",
+    "etablissement": "esi",
+    "niveau": "avanced",
+    "projets": [
+        "67fd7c1a23cf65427295903d",
+        "67fddbe8767b9308c31e318f",
+        "67fde93c06be88635c13fc6a",
+        "67fe28ecbd2b55ada6c02b4a",
+        "680e6f9d4548a8655a6eda2c"
+    ],
+    "fileUrl": "https://res.cloudinary.com/dzb8iwiiu/image/upload/v1744662200/ejry1lezmhqh2phh0cqh.jpg",
+    "createdAt": "2025-04-14T20:23:20.618Z",
+    "updatedAt": "2025-04-28T20:09:50.973Z",
+    "__v": 19
+}

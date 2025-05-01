@@ -8,6 +8,10 @@ const cors = require('cors');
 const cookieParser = require( 'cookie-parser');
 
 
+app.use(express.json({ limit: '200mb' }));
+app.use(express.urlencoded({ limit: '200mb', extended: true }));
+
+
 //defining endpoints : 
 
 const adminRouter = require('./routes/admin');
@@ -21,6 +25,7 @@ const notificationsRouter = require('./routes/notifications');
 const refreshRouter = require('./routes/refresh');
 
 const pdfRouter = require('./routes/pdf');
+const impressionRouter = require('./routes/impression');
 
 
 
@@ -62,6 +67,7 @@ app.use('/editeur',editeurRouter);
 app.use('/notifications',notificationsRouter);
 app.use('/refresh',refreshRouter);
 app.use('/pdf', pdfRouter);
+app.use('/impression', impressionRouter);
 
 // declaring our own modules :
 

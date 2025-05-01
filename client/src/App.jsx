@@ -33,6 +33,8 @@ import ProjetsExpert2 from "./pages/Profilpages/ProjetsExpert2.jsx";
 import AnnotationTool from "./pages/AI/annotAI.jsx"
 import Decouvrir from "./pages/Decouvrir";
 import Favoris from "./pages/Favoris";
+import ImpressionWeb from "./pages/visualisation/ImpressionWeb.jsx";
+
 function App() {
   const [authState, setAuthState] = useState({
     email: "",
@@ -59,6 +61,7 @@ function App() {
           <Route path="/restoreprojects" element={<RestoreProjects />} />
           <Route path="/editeur/editable/:sectionId" element={<EditorEditable  />} />
           <Route path="/gallerie" element={<Gallerie/>}/>
+          <Route path="/impression-web" element={<ImpressionWeb/>}/>
           {/* Route for annotatins */}
           <Route path="/editeur/annoter/:sectionId" element={<EditorNonEditable />} />
           <Route path="/visualisation/:projetId" element={<Visualisation />} />

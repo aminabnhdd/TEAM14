@@ -13,11 +13,17 @@ export default function TitleBar (props){
             <div className=" flex align-items items-center gap-2">
             <Tooltip element={<SaveExtern/>} text='Sauvegarder en externe' />
             <Tooltip element={<SaveIntern projet={props.projet}/>} text='Sauvegarder en interne' />
-            <Tooltip element={<PrintWeb/>} text='Imprimer Web' />
+            <Tooltip element={<PrintWeb
+            projet={props.projet}
+            chef={props.chef}
+            collaborateurs={props.collaborateurs}
+            references={props.references}
+            />} text='Imprimer Web' />
             <Tooltip element={<PrintPDF
              projet={props.projet}
              chef={props.chef}
              collaborateurs={props.collaborateurs}
+             references={props.references}
              />} text='Imprimer PDF' />
         </div>}
         

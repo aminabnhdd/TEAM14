@@ -179,7 +179,7 @@ router.get("/", validateToken, async (req, res) => {
           recepient: (rec?.nom || "") + " " + (rec?.prenom || ""),
           projet: projet?.titre || "",
           chat: conflit?.lien || "",
-          dom: conflit ? conflit.sectionId.type : section ? section.type : "",
+          dom: conflit ? conflit.sectionId.type : section ? section.type : user.discipline,
         };
       })
     );

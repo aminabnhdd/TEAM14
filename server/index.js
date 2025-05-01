@@ -20,6 +20,7 @@ const editeurRouter = require('./routes/editeur');
 const notificationsRouter = require('./routes/notifications');
 const refreshRouter = require('./routes/refresh');
 const oauthRouter = require('./routes/oauth');
+const chatbotRouter = require('./routes/aiChatbot');
 
 const corsOptions = {
     origin: ['http://localhost:5173'],
@@ -58,6 +59,7 @@ app.use('/editeur',editeurRouter);
 app.use('/notifications',notificationsRouter);
 app.use('/refresh',refreshRouter);
 app.use('/oauth',oauthRouter);
+app.use('/chatbot', chatbotRouter);
 
 // declaring our own modules :
 

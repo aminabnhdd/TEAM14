@@ -2,7 +2,7 @@ import SideNav from "../../components/SideNav"
 import TitleBar from "../../components/visualisation/titleBar"
 import LeftSection from "../../components/visualisation/leftSection"
 import RightSection from "../../components/visualisation/rightSection"
-import { useState, useEffect} from "react"
+import { useState, useEffect, useRef} from "react"
 import ListSections from "../../components/visualisation/listSections"
 import DemandeCollaboration from "../../components/visualisation/demandeCollaboration"
 import Footer from "../../components/Footer"
@@ -13,6 +13,10 @@ import RefreshService from "../../services/RefreshService";
 import { useParams } from "react-router-dom";
 import SearchBar from "../../components/SearchBar.jsx";
 import PopAjouterCollaborateur from "../../components/visualisation/popupAjouterCollaborateur.jsx"
+import { MdSmartToy } from 'react-icons/md';
+import ChatBot from "../../components/ChatBot/ChatBot";
+
+
 export default function Visualisation(){
     const { projetId } = useParams();
     const [isExpert, setIsExpert] = useState(null);
@@ -27,13 +31,22 @@ export default function Visualisation(){
     const [collaborateurs,setCollaborateurs] =useState(null);
     const {authState,setAuthState} = useContext(AuthContext);
     const [showPopup, setShowPopup] = useState(false);
+    const [isFixed, setIsFixed] = useState(true);
+    
+    const footerRef = useRef();
+
 
     useEffect(() => {
         const fetchProjet = async () => {
           try {
+            
             const response= await  RefreshService.Refresh();
             setAuthState({email:response.email,role:response.role,accessToken:response.accessToken});
             const projetData = await VisuService.getProjet(projetId, response.accessToken);
+
+           
+
+            
             setProjet(projetData.projet);
             setUser(projetData.user);
             setChef(projetData.chef);
@@ -65,8 +78,26 @@ export default function Visualisation(){
      : [];
       
 
+    useEffect(() => {
+        const handleScroll = () => {
+          if (!footerRef.current) return;
+    
+          const footerTop = footerRef.current.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+    
+          if (footerTop <= windowHeight - 100) { // 100px BEFORE footer enters
+            setIsFixed(false);
+          } else {
+            setIsFixed(true);
+          }
+          console.log("position is : ", isFixed);
+        };
+    
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
 
-
+      
 
        return (
 
@@ -117,13 +148,15 @@ export default function Visualisation(){
             <DemandeCollaboration projet={projet} user={user} isExpert={isExpert} isCollaborateur={isCollaborateur} collaborateurs={collaborateurs}  />
           
             
-             </div> <Footer/>
+             </div> 
+             <ChatBot projetId={projetId} isFixed={isFixed} />
+             <Footer ref={footerRef}/>
              {showPopup && (
         <PopAjouterCollaborateur onClose={() => setShowPopup(false)} projet={projet} setProjet={setProjet} collaborateurs={collaborateurs} setCollaborateurs={setCollaborateurs} />
       )}
              </>)}
-             
-
+           
+      
         </>
       );
     }

@@ -34,7 +34,7 @@ import AnnotationTool from "./pages/AI/annotAI.jsx"
 import Decouvrir from "./pages/Decouvrir";
 import Favoris from "./pages/Favoris";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
-
+import ChatBot from './components/ChatBot/ChatBot';
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -68,6 +68,7 @@ function App() {
           <Route path="/projets" element={<ProtectedRoute allowedRoles={"Admin"}><LsProjets /></ProtectedRoute>} />
           <Route path="/notifications-admin" element={ <ProtectedRoute allowedRoles={"Admin"}><NotifAdmin /></ProtectedRoute> } />
           <Route path="/list-utilisateurs" element={<ProtectedRoute allowedRoles={"Admin"}><ListUtil /></ProtectedRoute>} />
+          {/*<Route path="chat" element={<ChatBot />}/>*/}
           {/*Profil routes*/ }
           <Route path="/afficher-expert/:id" element={<AfficherExpert />} />
           <Route path="/modifier-expert" element={<ModifierExpert />} />

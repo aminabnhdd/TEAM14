@@ -54,7 +54,7 @@ function ChatBot({projetId, isFixed}) {
       try {
         console.log("befaore /new-session request");
       
-        const response = await axios.get(`http://localhost:3001/visualisation/${projetId}/new-session`);
+        const response = await axios.get(`http://localhost:3001/chatbot/${projetId}/new-session`);
         console.log("after /new-sessin request");
         setSessionId(response.data.sessionId);
         console.log("session id is: ", response.data.sessionId);
@@ -85,7 +85,7 @@ function ChatBot({projetId, isFixed}) {
     try {
       setMessages((prev) => [...prev, { role: 'user', text: query }]);
       setLoading(true); // Show "Bot is typing..."
-      const res = await axios.post(`http://localhost:3001/visualisation/${projetId}/chat`, {
+      const res = await axios.post(`http://localhost:3001/chatbot/${projetId}/chat`, {
         query,
         sessionId,
       });

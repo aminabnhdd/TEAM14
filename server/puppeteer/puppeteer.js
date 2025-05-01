@@ -36,7 +36,7 @@ projet.sections.sort((a, b) => {
 const compile = async function(templateName,data){
 
 
-    const filePath = path.join(process.cwd(), 'puppeteer','templates', 'informations.hbs');
+    const filePath = path.join(process.cwd(), 'puppeteer','templates', 'web.hbs');
     const html = await fs.readFile(filePath, 'utf-8');
     const compiledContent = hbs.compile(html)(data);
 
@@ -54,7 +54,7 @@ const compile = async function(templateName,data){
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
 
-        const content = await compile('informations', { projet, collaborateurs,chef,references });
+        const content = await compile('web', { projet, collaborateurs,chef,references });
 
         await page.setContent(content);
         await page.emulateMediaType('screen');

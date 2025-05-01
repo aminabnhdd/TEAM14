@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import AuthContext from "../../helpers/AuthContext";
 import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPrint} from "@fortawesome/free-solid-svg-icons";
-
+import { faPrint, faRotateBack} from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from 'react-router-dom';
 export default function ImpressionWeb() {
   const location = useLocation();
   const { authState } = useContext(AuthContext);
@@ -18,7 +18,7 @@ export default function ImpressionWeb() {
 
   // Extract data from location state
   const { projet, references, collaborateurs, chef } = location.state || {};
-
+  const navigate = useNavigate();
   useEffect(() => {
     const generateHTML = async () => {
       try {
@@ -61,7 +61,9 @@ export default function ImpressionWeb() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return  <div className="flex items-center justify-center h-screen w-full">
+    <p>Loading...</p>
+  </div>;
   }
 
   if (error) {
@@ -71,14 +73,23 @@ export default function ImpressionWeb() {
   return (
     <>
     <div dangerouslySetInnerHTML={{ __html: HTML }} />
-    {!loading && 
-      <button  onClick={() => window.print()}
-             className="print:hidden absolute top-10 right-10 text-white bg-neutral-500/80
+    {!loading && <>
+    <div className="absolute right-10 top-10 flex gap-5">
+      <button  onClick={() => navigate(`/visualisation/${projet._id}`)}
+      className="print:hidden text-white bg-neutral-500/80
+     rounded-[30px] py-3 flex align-items items-center gap-3 bolder-text px-5
+     hover:brightness-105  hover:scale-102 transition-all duration-300 cursor-pointer">
+         <FontAwesomeIcon icon={faRotateBack} className=" w-5 h-5" />
+        Revenir au projet
+     </button>  
+        <button  onClick={() => window.print()}
+             className="print:hidden text-white bg-neutral-500/80
             rounded-[30px] py-3 flex align-items items-center gap-3 bolder-text px-5
             hover:brightness-105  hover:scale-102 transition-all duration-300 cursor-pointer">
                 <FontAwesomeIcon icon={faPrint} className=" w-5 h-5" />
                 Imprimer
-            </button>  }
+            </button>  </div>
+            </>}
     </>
   );
 }

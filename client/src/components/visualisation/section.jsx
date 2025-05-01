@@ -33,7 +33,8 @@ function annoterSection(){
             <div className=" text-black flex align-items items-center justify-between border-b border-neutral-300">
                   <button onClick={toggleOpen} className="secondary-titles cursor-pointer" >
                   <FontAwesomeIcon icon={sectionOpen ? faCaretUp : faCaretDown} className="mr-4 w-5 h-5" />
-                  {props.section.type.charAt(0).toUpperCase() + props.section.type.slice(1)}
+                  {(props.section.type == 'archeologie') ? "Archéologie" :
+                  props.section.type.charAt(0).toUpperCase() + props.section.type.slice(1)}
                   </button >
                     {props.isCollaborateur && 
                         <div >

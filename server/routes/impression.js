@@ -18,6 +18,10 @@ hbs.registerHelper('ne', (a, b) => String(a).trim() !== String(b).trim());
 
 hbs.registerHelper('or', (a, b) => String(a).trim() || String(b).trim());
 
+hbs.registerHelper('hasMultiple', (array) => {
+ return Array.isArray(array) && array.length > 1;
+ 
+});
 
 hbs.registerHelper('capitalizeFirst', (text) => {
     if (typeof text !== 'string') return '';

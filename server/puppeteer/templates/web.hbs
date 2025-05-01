@@ -1,13 +1,32 @@
 <style type="text/css">
-@import "tailwindcss";
+ 
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important; /* Safari/Chrome */
+    print-color-adjust: exact !important;         /* Firefox/Edge */
+  }
+  body{
+    width: 100% !important;
+  }
+   .content , .sidebar {
+    border: 0.75pt solid#d1d4d5 !important; /* instead of 1px */
+  }
+}
+ 
+ 
+ 
+ 
 
 html {
-  font-size: 14px;
+  font-size: 8pt;
   
 }
 
 body{
-  margin: 1.2cm;
+  width: 92%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
 }
 
 * {
@@ -15,27 +34,16 @@ body{
   box-sizing: border-box;
 }
 
-:root {
-  --color-black: #2d2d2d;
-  --color-white: #fefefe;
-  --color-brown: #c57642;
-  --color-dune: #e8c07d;
-  --color-warning: #ef4444;
-  --color-success: #22c55e;
-  --color-neutral-500: #707778;
-  --color-neutral-400: #a0a5a6;
-  --color-neutral-300: #d1d4d5;
-}
+
 
 .title {
-  background-color:var(--color-dune); 
-  color: var(--color-black);
+  background-color: #e8c07d; 
+  color: #2d2d2d;
   border-radius: 8px;
-   padding: 1px 8px;
-   
-
-  font-size: 16pt;
+  padding: 10px 20px;
+  font-size: 1.75rem;
   font-weight: 500;
+
  
 
 }
@@ -43,15 +51,21 @@ body{
 /* Layout */
 .container {
   display: flex;
+  gap: 16px;
+  width: 100%;
+    align-items: flex-start; /* Aligns content and sidebar to the top */
+  max-width: 100%;
+  min-width:100%;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 30px;
+  padding-bottom: 30px;
 }
 
 .content {
-  width: 59%;
-  {{!-- border: 1px solid var(--color-neutral-400);
-  border-radius: 10px; --}}
-  padding: 28px 0;
+  flex: 2;
+  border: 1px solid #a0a5a6;
+  border-radius: 10px; 
+  padding: 28px ;
 }
 
 /* Sections */
@@ -63,49 +77,42 @@ body{
 }
 
 .section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--color-neutral-300);
+  
+  border-bottom: 1px solid #2d2d2d;
 }
 
 .section-title {
-  background: none;
-  border: none;
-  font-size: 14pt;
-  font-weight: bold;
-  color: var(--color-black);
-  display: flex;
-  align-items: center;
-}
+ 
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #2d2d2d;
 
-.section-actions {
-  display: flex;
 }
 
 
-
-
-.section-body p {
-  font-size: 12pt;
-  margin: 8px;
-}
-
-/* Highlight */
-.highlight {
-  background-color: transparent;
-}
-
-
-/* Sidebar */
 .sidebar {
-  width: 39%;
-  {{!-- border: 1px solid var(--color-neutral-400);
-  border-radius: 10px; --}}
-  padding: 28px 0;
-  position: sticky;
-  top: 0;
+  flex: 1;
+  border: 1px solid #a0a5a6;
+  
+  border-radius: 10px; 
+  padding: 28px ;
+  
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .presentation {
   margin-bottom: 28px;
@@ -114,14 +121,18 @@ body{
 .presentation-img {
   width: 100%;
   height: auto;
-  margin-bottom: 16px;
+  margin-bottom: 28px;
 }
 
 .presentation-label {
-  background-color: var(--color-dune);
-  color: var(--color-black);
+   background-color: #e8c07d; /* dune */
+  color: #2d2d2d; /* black */
+  font-size: 1.25rem;
+  font-weight: 500;
   padding: 4px 10px;
   border-radius: 4px;
+  margin-bottom: 10px;
+  overflow: hidden;
 }
 
 .presentation-list {
@@ -130,61 +141,82 @@ body{
 }
 
 .presentation-list li {
-  margin-top: 16px;
-  font-weight: bold;
-  color: var(--color-black);
+  margin-top: 8px;
+  font-weight: 600;
+  font-size:1.125rem;
+  
 }
 
 .presentation-list span {
   font-weight: normal;
-  color: var(--color-black);
+  font-size: 1.125rem;
 }
-
-.type-collab{
-
-font-weight: bold;
-}
-/* Authors */
 .authors {
-  margin-top: 32px;
+  margin-top: 8px;
 }
 
+/* "Auteurs" label */
 .authors-label {
-  background-color: var(--color-dune);
-  color: var(--color-black);
+  background-color: #e8c07d; /* dune */
+  color: #2d2d2d; /* black */
+  font-size: 1.25rem;
+  font-weight: 500;
   padding: 4px 10px;
   border-radius: 4px;
   margin-bottom: 16px;
+  overflow: hidden;
 }
 
+/* "Chef du projet" and "Collaborateurs" labels */
+.type-collab {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  color: #2d2d2d; /* black */
+  font-size: 1.125rem;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+/* Author block */
 .author {
   display: flex;
-  align-items: center;
+  position: relative;
   gap: 12px;
-  padding: 4px;
-  border-radius: 12px;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 32px;
+  word-break: break-word;
+  transition: background-color 0.2s ease-in-out;
 }
 
 
 
+/* Profile picture */
 .author-img {
   width: 32px;
   height: 32px;
-  border-radius: 50%;
+  margin-right: 8px;
+  background-color: #fefefe; /* white */
+  border-radius: 9999px;
   object-fit: cover;
 }
 
+/* Name and role */
 .author-info {
   max-width: 100%;
 }
 
 .author-name {
-  font-weight: bold;
+  font-size: 1.125rem;
+  font-weight: 400;
+  margin-bottom: 2px;
+  color: #2d2d2d; /* black */
 }
 
 .author-role {
-  font-size: 11pt;
-  color: var(--color-neutral-500);
+  font-size: 1.125rem;
+  font-weight: 300;
+  color: #707778; /* neutral-500 */
 }
 
 .gallerie-wrapper {
@@ -220,6 +252,7 @@ font-weight: bold;
   border-radius: 8px;
   overflow: hidden;
   flex-shrink: 0;
+  cursor: default;
 }
 
 .tiptap ul, ol {
@@ -305,7 +338,7 @@ font-weight: bold;
     position: relative;
     vertical-align: top;
 
-    > * {
+    * {
       margin-bottom: 0;
     }
   }
@@ -339,22 +372,14 @@ font-weight: bold;
     transition: opacity 0.2s ease; /* Smooth transition */
   }
 
-  /* Show the resize handle on hover */
-  th:hover .column-resize-handle,
-  td:hover .column-resize-handle {
-    opacity: 1;
-    pointer-events: auto; /* Enable pointer events on hover */
-  }
+   
 }
 
 .tableWrapper {
   margin: 1.5rem 0;
   overflow-x: auto;
 }
-
-/* Apply resize cursor when hovering over the resize handle */
-.resize-cursor {
-}
+ 
 /* Placeholder (at the top) */
 p.is-editor-empty:first-child::before {
 color:  #707778;
@@ -540,9 +565,7 @@ margin: 0 0.2em;
 transition: color 0.2s;
 }
 
-.reference:hover {
-color:#2d2d2d
-}
+ 
 
 #section-references {
   margin-bottom: 1rem;
@@ -560,10 +583,7 @@ color:#2d2d2d
   transition: color 0.2s ease;
 }
 
-.reference-item:hover {
-  color: darkred;
-}
-
+ 
 
 
 
@@ -588,7 +608,13 @@ color:#2d2d2d
     {{#if (or this.contenu this.images)}}
     <div class="section">
       <div class="section-header">
-        <button class="section-title">{{capitalizeFirst this.type}}</button>
+        <button class="section-title">
+          {{#if (eq "archeologie" this.type)}}
+          Archéologie
+          {{else}}
+          {{capitalizeFirst this.type}}
+          {{/if}}
+          </button>
       </div>
       <div class="section-body tiptap rendered">
         {{renderTiptap this.contenu}}
@@ -699,7 +725,7 @@ color:#2d2d2d
         </div>
       </div>
  
- {{#if collaborateurs}}
+ {{#if (hasMultiple collaborateurs)}}
     
 
     

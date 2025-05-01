@@ -4,8 +4,9 @@ import { useState } from 'react';
 import axios from 'axios';
 import AuthContext from "../../helpers/AuthContext";
 import{useContext} from 'react';
+import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-
+import coverImg from '../../assets/cover.png'
 function Card({ size = "medium", data,fav}) {
   const [isFavorited, setIsFavorited] = useState(fav);
   const { setAuthState} = useContext(AuthContext);
@@ -89,9 +90,13 @@ function Card({ size = "medium", data,fav}) {
     </div>
   );*/
 
+  useEffect(() => {
+    setIsFavorited(fav); // Sync the state with the fav prop if it changes
+  }, [fav]);
+
   return (
     <div className={`card ${size}`}  onClick={clickCard} >
-      <img src={data.photoUrl} alt="project"/>
+      <img src={data.photoUrl ||coverImg} alt="project"/>
       <div className="text-div">
       <p className="text buttons">{data.titre}</p>
       </div>

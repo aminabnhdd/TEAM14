@@ -99,11 +99,13 @@ router.get("/modifier/:id",  validateToken, validateRole(expertRole, adminRole),
             style: project.style,
             dateConstruction: project.dateConstruction,
             photoUrl: project.photoUrl,
+            keywords: project.keywords
         });
 
     } catch (error) {
         res.status(500).json({ message: "Server error", error });
     }
+    
 });
 
 // archiver projet
@@ -814,7 +816,6 @@ router.get('/export-projet/:id', validateToken,validateRole(expertRole),async (r
             return res.status(404).json({ message: 'Projet non trouvé' });
         }
 
-        // Nettoyage éventuel
         delete projet.__v;
 
         const jsonData = JSON.stringify(projet, null, 2);
@@ -841,8 +842,7 @@ router.get('/export-projet/:id', validateToken,validateRole(expertRole),async (r
         res.status(500).json({ message: 'Erreur serveur' });
     }
 });
-
-router.post('/import-projet', validateToken, validateRole(expertRole), async (req, res) => {
+router.post('/import-projet', async (req, res) => {
     try {
       const projetData = req.body;
   

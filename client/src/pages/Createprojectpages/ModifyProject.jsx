@@ -58,11 +58,11 @@ const ModifyProject = () => {
 
   return (
     <>
-    <div className="modifprojetsearchbar">
+    <div className="createprojetsearchbar">
       <SearchBar />
     </div>
     <SideNav />
-    <div className="root1 modifyP">
+    <div className="root1 createP">
       <ModifProjectHeader />
       <div className="create-project-content">
         <ModifProjectImageUploader  onImageChange={handleImageChange} projetId={projetId} />

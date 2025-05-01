@@ -51,10 +51,12 @@ function SideNav(){
     return(
         <div className="parent-sideNav">
         <div className="side-nav">
-                    <div className="upperIcons1">
-        
-                    <img src={img} alt="hh"  className="ico1" onClick={goToDecouvrir} />
-                    
+                    <div className="upperIcons1  ">
+                      <div className='flex justify-center '> 
+                      <img src={img} alt="hh"  className="ico1" onClick={goToDecouvrir} />
+
+                      </div>
+                        
                     
                     
                     <div className="icons1">

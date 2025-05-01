@@ -1,34 +1,46 @@
-import { useState } from "react";
-import {FaSearch} from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { FaSearch } from "react-icons/fa";
+import { useSearchParams } from "react-router-dom";
 import "./SearchBar.css";
 
 function SearchBar({ onSearch }) {
-  const [query, setQuery] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialQuery = searchParams.get('query') || "";
+  const [query, setQuery] = useState(initialQuery);
+
+  // Update URL when query changes (with debounce to avoid too many updates)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (query.trim()) {
+        setSearchParams({ query: query.trim() });
+      } else {
+        setSearchParams({});
+      }
+    }, 500); // 500ms debounce delay
+
+    return () => clearTimeout(timer);
+  }, [query, setSearchParams]);
 
   const handleChange = (e) => {
-    setQuery(e.target.value);
-    onSearch(e.target.value); // Pass search query to parent component
+    const newQuery = e.target.value;
+    setQuery(newQuery);
+    onSearch(newQuery); // Pass search query to parent component
   };
 
   return (
-    <>
-  
-     <div className="search-div">
-          <div className="search-bar" >
-          <input
+    <div className="search-div">
+      <div className="search-bar">
+        <input
           type="text"
-      placeholder="Rechercher par mots-clés..."
-      value={query}
-      onChange={handleChange}
+          placeholder="Rechercher par mots-clés..."
+          value={query}
+          onChange={handleChange}
           className="search-input"
         />
         <div></div>
-    <FaSearch className="search-icon " /> 
+        <FaSearch className="search-icon" /> 
+      </div>
     </div>
-        </div>
-       
-   </> 
-   
   );
 }
 

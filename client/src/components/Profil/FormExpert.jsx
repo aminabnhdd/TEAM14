@@ -100,6 +100,7 @@ const FormExpert = ({image}) => {
                 name="nom"
                 value={user.nom}
                 onChange={handleChange}
+                readOnly
               />
             </div>
             <div className="form-group">
@@ -109,6 +110,7 @@ const FormExpert = ({image}) => {
                 name="prenom"
                 value={user.prenom}
                 onChange={handleChange}
+                readOnly
               />
             </div>
           </div>
@@ -154,12 +156,21 @@ const FormExpert = ({image}) => {
           </div>
           <div className="form-group">
             <label>Niveau d'expertise</label>
-            <input
-              type="text"
+            <select
+              
               name="niveau"
+              required
+              className="select-input"
               value={user.niveau}
               onChange={handleChange}
-            />
+            >
+             <option className="" value="">Sélectionnez votre niveau d'expertise</option> 
+             <option className="" value="Docteur">Docteur</option>
+             <option className="" value="Maître de conférences A">Maître de conférences A</option>
+             <option className="" value="Maître de conférences B">Maître de conférences B</option>
+             <option className="" value="Professeur">Professeur</option>
+           </select>
+
           </div>
           <div className="form-group">
             <label>Discipline</label>
@@ -168,6 +179,7 @@ const FormExpert = ({image}) => {
               name="discipline"
               value={user.discipline}
               onChange={handleChange}
+              readOnly
             />
           </div>
         </div>

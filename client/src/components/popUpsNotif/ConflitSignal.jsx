@@ -38,13 +38,11 @@ function ConflitSignal ({popUp,close,notif,handleSeen}) {
             <span className="gris">Sujet:</span> 
               {notif.content}</p>
             </div>
-            {notif.read ? <p className="text-center font-semibold text-success">
-    Cette demande a déjà été traitée.
-  </p>:
+         
             <div className="batens">
                 <button className="baten1" onClick={()=>{close();setPopTime(true)}}>Accepter</button>
                 <button className="baten2" onClick={()=>{close();validate("refuse");handleSeen(notif._id,"conflit")}}>Refuser</button>
-            </div>}
+            </div>
         </div>
     </div>) }
     </>

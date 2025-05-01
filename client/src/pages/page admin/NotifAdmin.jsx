@@ -155,7 +155,7 @@ const [poop3,setPoop3] = useState(false)
 
 
         <div className="teqsam">
-        <SearchBar  title="Rechercher un projet" />
+        <SearchBar  title="Rechercher un projet dans le site" />
 
                 <div className=" textos-notifAd">
                     <h1 className="hnotif">Notifications</h1>

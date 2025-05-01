@@ -108,6 +108,7 @@ function ChatBot({projetId, isFixed}) {
     {isVisible &&
     <div className="chat-container" > 
       {/*<p className="intro-bot">Hello There, <br/>I am Athar's Virtual Assistant How Can I Help You ?</p> */}
+      
       <div className="prompt-bar">
         <input
           type="text"
@@ -118,6 +119,8 @@ function ChatBot({projetId, isFixed}) {
         />
         <FiSend className="send-icon" onClick={handleClick} />
       </div>
+
+      
 
       <div className="messages-container">
         {messages.map((msg, index) => (
@@ -135,11 +138,15 @@ function ChatBot({projetId, isFixed}) {
           </div>
         )}
         <div className="whiteSpace"></div>
+        
         <div ref={messagesEndRef} />
       </div>
     </div>}
-    <div className="bot-div" style={{position: isFixed ? 'fixed' : 'absolute'}}> 
-    <MdSmartToy className="bot-icon" onClick={toggleVisiblity} />
+    <div className="bot-wrapper">
+      <div className="bot-div" style={{position: isFixed ? 'fixed' : 'absolute'}}>
+      <span className="tooltip-bot">Chat-Bot</span> 
+      <MdSmartToy className="bot-icon" onClick={toggleVisiblity} />
+      </div>
     </div> 
     </div>
     </>
@@ -148,3 +155,4 @@ function ChatBot({projetId, isFixed}) {
 
 export default ChatBot;
 
+                           

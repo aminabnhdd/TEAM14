@@ -11,10 +11,12 @@ import SideNav from "../../components/SideNav";
 import SearchBar from "../../components/SearchBar.jsx";
 import { useContext } from "react";
 import AuthContext from "../../helpers/AuthContext.jsx";
+import { PuffLoader } from "react-spinners";
 
 const ModifierExpert = () => {
   const [usersData,setUsersData] = useState([]);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const {authState,setAuthState} = useContext(AuthContext);
 
   useEffect(() => {
@@ -41,6 +43,9 @@ const ModifierExpert = () => {
             )
             .catch((error) => {
                 console.log(error);
+            })
+            .finally(()=>{
+              setLoading(false);
             });
         })
         .catch((error) => {
@@ -48,19 +53,48 @@ const ModifierExpert = () => {
         });
               
   }, []);
+  const override = {
+    display: "block",
+    position:"absolute",
+    top:"50%",
+    left:"50%",
+    transform:"translate(-50%,-50%)"
+};
+
   return (
+
     <>
+        {
+          loading ? (
+            <PuffLoader
+                        color="#e8c07d"
+                        loading={loading}
+                        cssOverride={override}
+                        size={70}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                    />
+          ) : 
+          
+          (
+            <>
       <div className="modfexpertsearchbar">
         <SearchBar />
        </div>
       <SideNav />
       <div className="root1">
       <InfoHeaderBtn />
-      <ProfilInfolink usersData={usersData} />
+      <ProfilInfolink usersData={usersData}/>
       
       <ModifExpertCard usersData={usersData}/>
       </div>
     </>
+          )
+        }
+        
+        
+        </>
+    
   );
 };
 

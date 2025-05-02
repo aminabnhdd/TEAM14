@@ -48,7 +48,7 @@ const ProfilInfosave = ({ usersData,setImage }) => {
           <span className="user-job-title">{user.role || "Non renseigné"}</span>
         </div>
       </div>
-      <a className="user-password-link" onClick={() => navigate("/changer-mdp", { state: { oldPassword: user.password } })}>
+      <a className="user-password-link cursor-pointer" onClick={() => navigate("/changer-mdp", { state: { oldPassword: user.password } })}>
         Modifier mon mot de passe</a>
     </div>
   ));

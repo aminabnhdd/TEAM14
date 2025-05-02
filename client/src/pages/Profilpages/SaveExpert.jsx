@@ -11,6 +11,7 @@ import SideNav from "../../components/SideNav";
 import SearchBar from "../../components/SearchBar.jsx";
 import AuthContext from "../../helpers/AuthContext";
 import { useContext } from "react";
+import { PuffLoader } from "react-spinners";
 
 
 const SaveExpert = () => {
@@ -18,6 +19,7 @@ const SaveExpert = () => {
   const [usersData,setUsersData] = useState([]);
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     axios.get("http://localhost:3001/refresh",{withCredentials:true})
         .then((response) => {
@@ -42,6 +44,9 @@ const SaveExpert = () => {
             )
             .catch((error) => {
                 console.log(error);
+            })
+            .finally(()=>{
+              setLoading(false);
             });
         })
         .catch((error) => {
@@ -49,8 +54,29 @@ const SaveExpert = () => {
         });
               
   }, []);
+  const override = {
+    display: "block",
+    position:"absolute",
+    top:"50%",
+    left:"50%",
+    transform:"translate(-50%,-50%)"
+};
   return (
     <>
+    {
+      loading ? (
+        <PuffLoader
+                    color="#e8c07d"
+                    loading={loading}
+                    cssOverride={override}
+                    size={70}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+        />
+      ) : 
+      
+      (
+        <>
     <div className="savexpertsearchbar">
         <SearchBar />
     </div>
@@ -61,6 +87,12 @@ const SaveExpert = () => {
      <FormExpert image={image}/>
      </div>
     </>
+      )
+    }
+    
+    
+    </>
+    
 
   );
 }

@@ -18,7 +18,7 @@ const ProfilInfolink = ({ usersData }) => {
         </div>
       </div>
 
-      <a href="" className="edit-link"  onClick={() => navigate("/changer-mdp", { state: { oldPassword: user.password } })}>
+      <a className="edit-link cursor-pointer"  onClick={() => navigate("/changer-mdp", { state: { oldPassword: user.password } })}>
         Modifier mon mot de passe
       </a>
     </div>

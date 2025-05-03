@@ -1,91 +1,92 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
-import axios from 'axios';
-import { useState } from 'react';
-import AuthContext from "../../helpers/AuthContext"
-import { useContext } from "react"
-import '../../ComponentsStyles/visualisation/titleBar.css'
+import { useState, useContext } from 'react';
+import AuthContext from "../../helpers/AuthContext";
 
-export default function PrintPDF( props ) {
-    const {authState} = useContext(AuthContext);
+export default function PrintPDF({ projet, references, chef, collaborateurs }) {
+  const { authState } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
 
-    const [isLoading, setIsLoading] = useState(false);
-    const generatePDF = async () => {
-        setIsLoading(true);
-        try {
-            const response = await axios.post(
-                'http://localhost:3001/pdf/generate', 
-                { projet: props.projet },
-                {
-                    responseType: 'blob',
-                    headers: {
-                        Authorization: `Bearer ${authState.accessToken}`,
-                        'Content-Type': 'application/json'
-                    },
-                    timeout: 60000
-                }
-            );
-    
-            // Verify content type
-            const contentType = response.headers['content-type'];
-            if (!contentType.includes('application/pdf')) {
-                // Try to read error message if server sent JSON
-                const errorText = await new Response(response.data).text();
-                throw new Error(errorText || 'Server returned invalid content type');
+  const downloadPDF = async () => {
+    setIsLoading(true);
+    try {
+      // Create clean data payload
+      const pdfData = {
+        projet,
+        references,
+        chef,
+        collaborateurs
+
+      };
+
+      const response = await fetch('http://localhost:3001/impression/generatePDF', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${authState.token}`
+        },
+        body: JSON.stringify({ data: pdfData }),
+        credentials: 'include'
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
+      }
+
+      // Handle as array buffer first
+      const arrayBuffer = await response.arrayBuffer();
+      
+      // Create blob with explicit PDF type
+      const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
+
+      // Verify blob
+      if (blob.size === 0) {
+        throw new Error('Received empty PDF file');
+      }
+
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${projet.titre.replace(/[^a-z0-9]/gi, '_')}_details.pdf`;
+      link.style.display = 'none';
+      
+      document.body.appendChild(link);
+      link.click();
+
+      // Cleanup
+      setTimeout(() => {
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      }, 100);
+
+    } catch (error) {
+      console.error('PDF download failed:', error);
+      alert(`PDF download failed: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <button 
+      onClick={downloadPDF}
+      disabled={isLoading}
+      className={`px-2 cursor-pointer ${isLoading ? 'opacity-50' : ''}`}
+      title="Generate PDF"
+    >
+      <FontAwesomeIcon
+        icon={faFilePdf}
+        className="w-5 h-5"
+        style={
+          isLoading
+          ? {
+              animation: 'zoomInOut 1s ease-in-out infinite',
             }
-    
-            // Create Blob with explicit type
-            const blob = new Blob([response.data], { type: 'application/pdf' });
-            
-            // Verify blob size
-            if (blob.size === 0) {
-                throw new Error('Received empty PDF file');
-            }
-    
-            // Create download link
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute(
-                'download', 
-                `${props.projet.titre}-details.pdf`.replace(/[^a-z0-9-]/gi, '_')
-            );
-            
-            document.body.appendChild(link);
-            link.click();
-            
-            // Cleanup
-            setTimeout(() => {
-                document.body.removeChild(link);
-                window.URL.revokeObjectURL(url);
-            }, 100);
-    
-        } catch (error) {
-            console.error('PDF download failed:', error);
-            alert(`PDF generation failed: ${error.message}`);
-        } finally {
-            setIsLoading(false);
+          : {}
         }
-    };    
-    return (
-        <button 
-            onClick={generatePDF}
-            disabled={isLoading}
-            className={`px-2 cursor-pointer ${isLoading ? 'opacity-50' : ''}`}
-            title="Download PDF Report"
-        >
-            <FontAwesomeIcon
-                icon={faFilePdf}
-                className="w-5 h-5"
-                style={
-                    isLoading
-                    ? {
-                        animation: 'zoomInOut 1s ease-in-out infinite',
-                        }
-                    : {}
-                }
-                />
-
-        </button>
-    );
+      />
+ 
+    </button>
+  );
 }

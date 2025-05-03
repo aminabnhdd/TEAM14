@@ -48,7 +48,6 @@ function App() {
         <Router>
         <Routes>
           <Route path="/ai" element = {<AnnotationTool />}/>
-          <Route path="/ihateracism" element={<h1>I hate racisme</h1>}/>
           <Route path="/" element={<LandingPage />} />
           <Route path="/connexion" element={<Con />} />
           <Route path="/notifications" element={<Notif/>} />

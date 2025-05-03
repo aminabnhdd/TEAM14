@@ -24,9 +24,7 @@ const editeurRouter = require('./routes/editeur');
 const notificationsRouter = require('./routes/notifications');
 const refreshRouter = require('./routes/refresh');
 
-const pdfRouter = require('./routes/pdf');
 const impressionRouter = require('./routes/impression');
-
 
 
 
@@ -66,7 +64,6 @@ app.use('/images', uploadRouter);
 app.use('/editeur',editeurRouter);
 app.use('/notifications',notificationsRouter);
 app.use('/refresh',refreshRouter);
-app.use('/pdf', pdfRouter);
 app.use('/impression', impressionRouter);
 
 // declaring our own modules :

@@ -4,10 +4,6 @@ const puppeteer = require('puppeteer');
 const fs = require('fs-extra');
 const hbs = require('handlebars');
 const path = require('path');
-const projet = require('../puppeteer/projet.json');
-const chef = require('../puppeteer/chef.json')
-const collaborateurs = require('../puppeteer/collaborateurs.json');
-const references = require('../puppeteer/references.json');
 const {renderTiptap} = require('../puppeteer/tiptapRenderer');
 const validateToken = require("../middlewares/authMiddleware");
 
@@ -39,7 +35,7 @@ hbs.registerHelper('capitalizeFirst', (text) => {
 const compile = async function(templateName,data){
 
 
-    const filePath = path.join(process.cwd(), 'puppeteer','templates', 'web.hbs');
+    const filePath = path.join(process.cwd(), 'puppeteer','templates', `${templateName}.hbs`);
     const html = await fs.readFile(filePath, 'utf-8');
     const compiledContent = hbs.compile(html)(data);
 
@@ -66,7 +62,7 @@ router.post('/generateHTML',async(req,res) =>{
           return aIndex - bIndex;
         });
         
-        const content = await compile('informations', data);
+        const content = await compile('web', data);
         //const content = await compile('informations', { projet, collaborateurs,chef,references });
         
         res.send(content);}
@@ -81,33 +77,58 @@ router.post('/generateHTML',async(req,res) =>{
 
 
 })
+
+router.post('/generatePDF', async (req, res) => {
+  try {
+    const { data } = req.body;
+    
+    if (!data) {
+      return res.status(400).json({ error: 'No project data provided' });
+    }
+
+    // Sort sections
+    const preferredOrder = ["description", "architecture", "histoire", "archeologie", "autre"];
+    data.projet.sections.sort((a, b) => {
+      const aIndex = preferredOrder.indexOf(a.type);
+      const bIndex = preferredOrder.indexOf(b.type);
+      return aIndex - bIndex;
+    });
+    
+    const content = await compile('pdf', data);
+
+    const browser = await puppeteer.launch({
+      headless: "new",
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+    
+    const page = await browser.newPage();
+    await page.setContent(content, { waitUntil: 'networkidle0' });
+    
+    const pdfBuffer = await page.pdf({
+      format: 'A4',
+      printBackground: true,
+      margin: { top: '10mm', right: '7mm', bottom: '10mm', left: '7mm' },
+      preferCSSPageSize: true
+    });
+
+    await browser.close();
+
+    // Set proper headers
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': `attachment; filename="${encodeURIComponent(data.projet.titre)}.pdf"`,
+      'Content-Length': pdfBuffer.length
+    });
+
+    res.end(pdfBuffer);
+
+  } catch (error) {
+    console.error('PDF generation failed:', error);
+    res.status(500).json({ 
+      error: 'PDF generation failed',
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+});
 module.exports = router;
-
-
-
-// (async function(){
-//     try{
-
-//         const browser = await puppeteer.launch();
-//         const page = await browser.newPage();
-
-//         const content = await compile('informations', { projet, collaborateurs,chef,references });
-
-//         await page.setContent(content);
-//         await page.emulateMediaType('screen');
-
-//         await page.pdf({
-//             path: 'mypdf.pdf',
-//             format:'A4',
-//             printBackground: true
-//         });
-
-//         console.log('done');
-//         await browser.close();
-//         process.exit();
-//     } catch (e) {
-//         console.log('our error',e);
-//     }
-// })();
-
 

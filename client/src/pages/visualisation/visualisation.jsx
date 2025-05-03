@@ -15,6 +15,7 @@ import SearchBar from "../../components/SearchBar.jsx";
 import PopAjouterCollaborateur from "../../components/visualisation/popupAjouterCollaborateur.jsx"
 import { MdSmartToy } from 'react-icons/md';
 import ChatBot from "../../components/chatBot/ChatBot.jsx"
+import PuffLoader from "react-spinners/PuffLoader";
 
 export default function Visualisation() {
   const { projetId } = useParams();
@@ -121,51 +122,56 @@ document.addEventListener('DOMContentLoaded', adjustBotDivPosition);
 
 
   return (
+        
 
-    <>
-      {loading ? (
-        <div className="flex justify-center items-center h-screen">
-          <p>Loading section...</p>
-        </div>
-      ) : (<>
-<div className="min-h-screen relative flex flex-col ">
-        <div className="flex flex-1  relative max-w-full ">
-          <SideNav className="" />
-          <div className="flex-1 w-full bg-white main-content">
-            <SearchBar />
-            <main className="">
-              <div className="mt-5 bg w-[86%] mx-auto mb-10">
-                <TitleBar isExpert={isExpert} projet={projet} />
-                <div className="flex align-items justify-between mt-[30px]">
-                  <LeftSection
-                    projet={projet}
-                    setProjet={setProjet}
-                    isAdmin={isAdmin}
-                    isChef={isChef}
-                    isExpert={isExpert}
-                    isCollaborateur={isCollaborateur}
-                    user={user}
-                    collaborateurs={collaborateurs}
-                    sectionsExistantes={sectionsExistantes}
-                  />
-                  <RightSection
-                    projet={projet}
-                    isAdmin={isAdmin}
-                    isExpert={isExpert}
-                    isChef={isChef}
-                    setProjet={setProjet}
-                    utilisateur={user}
-                    chef={chef}
-                    collaborateurs={collaborateurs}
-                    setCollaborateurs={setCollaborateurs}
-                    showPopup={showPopup}
-                    setShowPopup={setShowPopup}
-                  />
+        <>
+         {loading ? (
+   <PuffLoader
+   color="#e8c07d"
+   loading={loading}
+   cssOverride={override}
+   size={70}
+   aria-label="Loading Spinner"
+   data-testid="loader"
+/>
+ ) : (<>
+          <div className="flex relative max-w-full ">
+            <SideNav className="" />
+            <div className="flex-1 w-full bg-white main-content">
+                <SearchBar/>
+               <main className="">
+                <div className="mt-5 bg w-[86%] mx-auto mb-10">
+                  <TitleBar isExpert={isExpert} projet={projet} />
+                  <div className="flex align-items justify-between mt-[30px]">
+                    <LeftSection
+                      projet={projet}
+                      setProjet={setProjet}
+                      isAdmin={isAdmin}
+                      isChef={isChef}
+                      isExpert={isExpert}
+                      isCollaborateur={isCollaborateur}
+                      user={user}
+                      collaborateurs={collaborateurs}
+                      sectionsExistantes={sectionsExistantes}
+                    />
+                    <RightSection
+                      projet={projet}
+                      isAdmin={isAdmin}
+                      isExpert={isExpert}
+                      isChef={isChef}
+                      setProjet={setProjet}
+                      utilisateur={user}
+                      chef={chef}
+                      collaborateurs={collaborateurs}
+                      setCollaborateurs={setCollaborateurs}
+                      showPopup={showPopup}
+                      setShowPopup={setShowPopup}
+                    />
+                  </div>
                 </div>
-              </div>
-            </main>
-          </div>
-          <ListSections sectionsExistantes={sectionsExistantes}
+              </main>
+            </div>
+            <ListSections sectionsExistantes={sectionsExistantes} 
             projet={projet} />
           <DemandeCollaboration projet={projet} user={user} isExpert={isExpert} isCollaborateur={isCollaborateur} collaborateurs={collaborateurs} />
 

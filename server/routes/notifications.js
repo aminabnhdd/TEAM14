@@ -104,9 +104,13 @@ router.put("/valider/:conflitId", validateToken, async (req, res) => {
 
       await section.save();
 
-      const people = [
-        ...new Set([projet.chef, conflit.signaleur, expert].filter(Boolean)),
-      ];
+      // let people = [
+      //   ...new Set([projet.chef, conflit.signaleur, expert].filter(Boolean)),
+      // ];
+      let people = [];
+      people.push(projet.chef);
+      if (!people.includes(conflit.signaleur)) people.push(conflit.signaleur);
+      if (!people.includes(expert._id)) people.push(expert._id);
 
       const notifications = people.map((person) => ({
         type: "conflitValide",

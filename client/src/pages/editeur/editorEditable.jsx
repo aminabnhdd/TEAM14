@@ -13,6 +13,7 @@ import RefreshService from "../../services/RefreshService";
 import { useParams } from "react-router-dom";
 import SideNav from "../../components/SideNav";
 import SearchBar from "../../components/SearchBar";
+import PuffLoader from "react-spinners/PuffLoader";
 
 export default function EditorEditable() {
   const { sectionId } = useParams();
@@ -42,6 +43,13 @@ export default function EditorEditable() {
   useEffect(() => {
     localStorage.setItem("hasLoadedBefore", true);
   }, []);
+  const override = {
+    display: "block",
+    position:"absolute",
+    top:"50%",
+    left:"50%",
+    transform:"translate(-50%,-50%)"
+    };
 
   useEffect(() => {
     const fetchSection = async () => {
@@ -195,8 +203,22 @@ setAuthState({email:response.email,role:response.role,accessToken:response.acces
   /////////////////
 
   return (
+    
     <>
-   <div className="flex relative max-w-full ">
+    {
+      loading ? (
+        <PuffLoader
+                    color="#e8c07d"
+                    loading={loading}
+                    cssOverride={override}
+                    size={70}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+      ) : 
+      
+      (
+        <div className="flex relative max-w-full ">
             <SideNav className="" />
             <div className="flex-1 w-full bg-white main-content">
                 <SearchBar/>
@@ -298,6 +320,12 @@ setAuthState({email:response.email,role:response.role,accessToken:response.acces
           </main>
         </div>
       </div>
+      )
+    }
+    
+    
     </>
+   
+    
   );
 }

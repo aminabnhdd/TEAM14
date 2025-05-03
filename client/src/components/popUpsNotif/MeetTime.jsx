@@ -101,7 +101,7 @@ function MeetTime({ popUp, close, notif, handleSeen }) {
                         />
 
                         <div className="text-[13px] font-medium text-justify z-[1100]">
-                            <p>Veuillez choisir la date et le temps pour la séance de chat</p>
+                       <p> Veuillez choisir la date et l’heure de la réunion entre experts pour résoudre le conflit signalé. Un lien Google Meet sera automatiquement ajouté aux agendas des participants.</p>
                         </div>
 
                         <div className="flex flex-col gap-4">

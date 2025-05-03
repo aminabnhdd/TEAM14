@@ -4,8 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const DEFAULT_IMAGE_URL = "https://previews.123rf.com/images/yupiramos/yupiramos1504/yupiramos150407528/39021519-conception-de-l-informatique-en-nuage-illustration-vectorielle-illustration.jpg";
-
+import DEFAULT_IMAGE_URL from '../../assets/cover.png'
 
 const ProjectsContainer = ({ projets = [] }) => { 
   console.log("Received projets:", projets);

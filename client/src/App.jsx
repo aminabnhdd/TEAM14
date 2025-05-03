@@ -34,7 +34,7 @@ import AnnotationTool from "./pages/AI/annotAI.jsx"
 import Decouvrir from "./pages/Decouvrir";
 import Favoris from "./pages/Favoris";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
-import ChatBot from './components/ChatBot/ChatBot';
+import ChatBot from "./components/chatBot/ChatBot.jsx";
 
 function App() {
   const [authState, setAuthState] = useState({

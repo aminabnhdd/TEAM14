@@ -51,7 +51,7 @@ function Favoris() {
     const [user, setUser] = useState({});
     const { authState,setAuthState } = useContext(AuthContext);
     const [loading, setLoading] = useState(true);
-
+    const [projects,setProjects] = useState([]);
 
     const override = {
     display: "block",
@@ -61,6 +61,42 @@ function Favoris() {
     transform:"translate(-50%,-50%)"
 };
 
+
+const handleSearch = async (query) => {
+
+    if (!query.trim()) {
+
+        setProjects(favoriteProjects); 
+        return;
+      }
+
+    try {
+      const res = await axios.get(`http://localhost:3001/projects/search?keyword=${query}`);
+      const data = res.data;
+
+      console.log("Ids of searched projects are", res.data);
+      console.log('Ids of favorite project IDs:', favoriteProjects.map(p => p._id));
+
+      // Get IDs of favorite projects
+      const favoriteIds = new Set(favoriteProjects.map(project => project._id));
+
+      // Filter only those projects that are in the user's favorites
+      const filteredResults = data.filter(project => favoriteIds.has(project._id));
+
+      // Format the result (e.g. adding 'size')
+      const projects = filteredResults.map(project => ({
+        ...project,
+        size: 'medium',
+      }));
+
+      console.log("searched projects that are favourite also are:", projects);
+
+      setProjects(projects);
+    } catch (err) {
+      console.error("Search error:", err);
+    }
+  };
+ 
       
 
     useEffect(() => {
@@ -147,8 +183,8 @@ function Favoris() {
          <main className="text-black">
       
            <HeaderFavourites />
-           <SearchBar />
-           {favoriteProjects.length === 0 ? <p className='pl-20 main-text text-black text-center my-10'>Aucun projet trouvé.</p> : <PinterestLayout projects={favoriteProjects} pageFav={true}/>} 
+           <SearchBar  onSearch={handleSearch} />
+           {favoriteProjects.length === 0 ? <p className='pl-20 main-text text-black text-center my-10'>Aucun projet trouvé.</p> :<PinterestLayout projects={ projects} fav={true} />}
 
           
           </main>

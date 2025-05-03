@@ -155,7 +155,7 @@ function Decouvrir() {
           </main>
         </div>
       </div>
-      <Footer/>
+      <Footer/> 
     </div>
       )
     }

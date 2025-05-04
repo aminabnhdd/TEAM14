@@ -1,4 +1,4 @@
-.footer {
+.main-footer {.footer {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -9,8 +9,8 @@
     padding: 0 24px;
 }
 
-.footer-logo {
-    width: 50px;
+.footer-logo { 
+    width: auto;
     height: 50px;
     border-radius: 16px;
     margin-right: 16px;
@@ -24,4 +24,5 @@
 
 .footer-brand {
     color: #c57642; /* brown */
+}
 }

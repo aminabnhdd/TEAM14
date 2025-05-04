@@ -19,9 +19,13 @@ function SideNav(){
 
 
     const goToDecouvrir = () => {
+        if(isAdmin){
+            navigate("/notifications-admin")
+
+        }else{
         navigate("/discover") // hna tdir la page li rak hab troh liha
         }
-
+    }
     const goToFavoris = () => {
         navigate("/favoris") // hna tdir la page li rak hab troh liha
         }

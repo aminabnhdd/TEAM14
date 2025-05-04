@@ -260,7 +260,7 @@ export default function EditorNonEditable() {
                     <p className="buttons text-black mt-4 mb-1">Références</p>
                   )}
                   {filteredReferences.length > 0 && refElement}
-                  <p className="buttons text-black mt-4 mb-4">Gallerie</p>
+                  <p className="buttons text-black mt-4 mb-4">Galerie</p>
                   <div className="border border-neutral-400 rounded-[12px] p-4 text-neutral-500">
                     <Gallerie slides={images} />
                   </div>

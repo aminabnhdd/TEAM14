@@ -1,13 +1,13 @@
 import "../../PagesStyles/Pages Admin Styles/ListUtil.css"
 import {useState,useEffect, useContext} from "react"
 import SearchBar from "../../components/SearchBar"
-import SideNavAdmin from "../../components/SideNav/SideNavAdmin"
+import SideNav from "../../components/SideNav"
 import PuffLoader from "react-spinners/PuffLoader"
 import imjjjjjj from "../../assets/person.png"
 import axios from "axios"
 import AuthContext from '../../helpers/AuthContext'
 import { useNavigate } from "react-router-dom"
-
+import Footer from "../../components/Footer"
 
 function ListUtil() {
 
@@ -121,9 +121,10 @@ const [col,setCol] = useState(false)
       (
         <div className="main-notif">
         <div className="navigation-bar-LsUtil">
-                <SideNavAdmin />
+                <SideNav  />
             </div>
-            <div className="secondary-notif-LsUtil">
+            
+            <div className="secondary-notif-LsUtil ">
                     <div className="teqsam1">
                     <div className=" textos-LsUtil">
                         <h1 className="hnotif">Listes des utilisateurs</h1>

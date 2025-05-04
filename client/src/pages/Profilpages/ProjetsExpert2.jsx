@@ -11,6 +11,7 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import SideNav from "../../components/SideNav";
 import SearchBar from "../../components/SearchBar.jsx";
+import { PuffLoader } from "react-spinners";
 
 
 const ProjetsExpert2 =() => {
@@ -44,33 +45,59 @@ const ProjetsExpert2 =() => {
                 axios.get(`http://localhost:3001/profil/expert/${updatedUsers[0]._id}/projets`, { headers: { Authorization: `Bearer ${accessToken}` } })
               .then((response) => {
                 setProjects(response.data.projects);
-                setLoading(false);
               })
               .catch((error) => {
                 console.log(error);
+              })
+              .finally(()=>{
+                setLoading(false);
               });
               })
-              .catch((error) => {
-                  console.log(error);
-              });
           })
           .catch((error) => {
               console.log(error);
           });
                 
     }, []);
+    const override = {
+      display: "block",
+      position:"absolute",
+      top:"50%",
+      left:"50%",
+      transform:"translate(-50%,-50%)"
+  };
   return(
     <>
-      <div className="projetexpert2searchbar">
-        <SearchBar />
-       </div>
-      <SideNav />
-      <div className="root1">
-      <ProjetsInfos2  id = {id}/>
-      <ProfilInfowithoutlink usersData={usersData} />
-      <ProjectsContainer projets={projects}/>
-      </div>
+    {
+      loading ? (
+        <PuffLoader
+                    color="#e8c07d"
+                    loading={loading}
+                    cssOverride={override}
+                    size={70}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+      ) : 
+      
+      (
+        <>
+        <div className="projetexpert2searchbar">
+          <SearchBar />
+         </div>
+        <SideNav />
+        <div className="root1">
+        <ProjetsInfos2  id = {id}/>
+        <ProfilInfowithoutlink usersData={usersData} />
+        <ProjectsContainer projets={projects}/>
+        </div>
+      </>
+      )
+    }
+    
+    
     </>
+    
   );
 }
 export default ProjetsExpert2;

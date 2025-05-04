@@ -12,6 +12,7 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import SideNav from "../../components/SideNav";
 import SearchBar from "../../components/SearchBar.jsx";
+import { PuffLoader } from "react-spinners";
 
 
 const DesactiverExpert = () => {
@@ -20,6 +21,14 @@ const DesactiverExpert = () => {
   const {authState,setAuthState} = useContext(AuthContext);
   const { id } = useParams(); 
     const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const override = {
+    display: "block",
+    position:"absolute",
+    top:"50%",
+    left:"50%",
+    transform:"translate(-50%,-50%)"
+};
     useEffect(() => {
       axios.get("http://localhost:3001/refresh",{withCredentials:true})
           .then((response) => {
@@ -44,6 +53,9 @@ const DesactiverExpert = () => {
               )
               .catch((error) => {
                   console.log(error);
+              })
+              .finally(()=>{
+                setLoading(false);
               });
           })
           .catch((error) => {
@@ -53,7 +65,21 @@ const DesactiverExpert = () => {
     }, []);
 
   return (
-     <>
+    <>
+    {
+      loading ? (
+        <PuffLoader
+                    color="#e8c07d"
+                    loading={loading}
+                    cssOverride={override}
+                    size={70}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+      ) : 
+      
+      (
+        <>
 
       <div className="desactxpertsearchbar">
         <SearchBar />
@@ -71,6 +97,12 @@ const DesactiverExpert = () => {
       {showPopup && <PopDesactiver usersData={usersData} onClose={() => setShowPopup(false)} />}
         </div>
      </>
+      )
+    }
+    
+    
+    </>
+     
  
   );
 };

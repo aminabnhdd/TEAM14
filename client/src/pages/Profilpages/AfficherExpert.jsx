@@ -9,16 +9,21 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import SideNav from "../../components/SideNav";
 import SearchBar from "../../components/SearchBar.jsx";
+import { PuffLoader } from "react-spinners";
+import { useContext } from "react";
+import AuthContext from "../../helpers/AuthContext.jsx";
 
 const AfficherExpert  = () => {
   const [usersData,setUsersData] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams(); 
+  const [loading, setLoading] = useState(true);
+  const { authState,setAuthState } = useContext(AuthContext);
   useEffect(() => {
     axios.get("http://localhost:3001/refresh",{withCredentials:true})
         .then((response) => {
             if (response.data.error) return navigate('/connexion')
-            // setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
+            setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
             axios.get(`http://localhost:3001/profil/expert/${id}`,{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
             .then((response) => {
               const updatedUsers = [...usersData, response.data].map((user) => ({
@@ -38,6 +43,9 @@ const AfficherExpert  = () => {
             )
             .catch((error) => {
                 console.log(error);
+            })
+            .finally(()=>{
+              setLoading(false);
             });
         })
         .catch((error) => {
@@ -45,8 +53,29 @@ const AfficherExpert  = () => {
         });
               
   }, []);
+  const override = {
+    display: "block",
+    position:"absolute",
+    top:"50%",
+    left:"50%",
+    transform:"translate(-50%,-50%)"
+};
   return(
     <>
+    {
+      loading ? (
+        <PuffLoader
+                    color="#e8c07d"
+                    loading={loading}
+                    cssOverride={override}
+                    size={70}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+      ) : 
+      
+      (
+        <>
     <div className="affexpertsearchbar">
         <SearchBar />
        </div>
@@ -57,6 +86,12 @@ const AfficherExpert  = () => {
     <AffichCardExpert usersData={usersData} />
     </div>
     </>
+      )
+    }
+    
+    
+    </>
+    
   );
 }
 export default AfficherExpert ;

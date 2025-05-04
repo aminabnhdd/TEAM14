@@ -32,7 +32,7 @@ const SectionService = {
             const response = await fetch(image.src);
             const blob = await response.blob();
             const file = new File([blob], `uploaded_image_${index}.png`, { type: blob.type });
-      
+
             formData.append("images", file);
             console.log(`Added File: ${file.name}, Type: ${file.type}, Size: ${file.size}`);
           } catch (error) {
@@ -44,9 +44,11 @@ const SectionService = {
             console.log(`Added Existing Image: ${image.src}`);
           } catch (error) {
             console.error("Error handling old image:", error);
-          }
-        }
+          }
+        }
       }
+
+      // await Promise.all(filePromises);
   
       // Debugging: Log formData entries
       for (let pair of formData.entries()) {

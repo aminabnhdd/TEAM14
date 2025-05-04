@@ -33,6 +33,7 @@ import ProjetsExpert2 from "./pages/Profilpages/ProjetsExpert2.jsx";
 import AnnotationTool from "./pages/AI/annotAI.jsx"
 import Decouvrir from "./pages/Decouvrir";
 import Favoris from "./pages/Favoris";
+import ImpressionWeb from "./pages/visualisation/ImpressionWeb.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ChatBot from './components/ChatBot/ChatBot';
 import NotFound from "./pages/ErrorPages/NotFound.jsx";
@@ -51,7 +52,6 @@ function App() {
         <Router>
         <Routes>
           <Route path="/ai" element = {<AnnotationTool />}/>
-          <Route path="/ihateracism" element={<h1>I hate racisme</h1>}/>
           <Route path="/" element={<LandingPage />} />
           <Route path="/connexion" element={<Con />} />
           <Route path="/notifications" element={<Notif/>} />
@@ -64,6 +64,7 @@ function App() {
           <Route path="/restoreprojects" element={<RestoreProjects />} />
           <Route path="/editeur/editable/:sectionId" element={<EditorEditable  />} />
           <Route path="/gallerie" element={<Gallerie/>}/>
+          <Route path="/impression-web" element={<ImpressionWeb/>}/>
           {/* Route for annotatins */}
           <Route path="/editeur/annoter/:sectionId" element={<EditorNonEditable />} />
           <Route path="/visualisation/:projetId" element={<Visualisation />} />

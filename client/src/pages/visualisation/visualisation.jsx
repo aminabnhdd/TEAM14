@@ -32,6 +32,9 @@ export default function Visualisation(){
     const [collaborateurs,setCollaborateurs] =useState(null);
     const {authState,setAuthState} = useContext(AuthContext);
     const [showPopup, setShowPopup] = useState(false);
+  
+    const [actualReferences,setActualReferences] = useState(null);
+
     const [isFixed, setIsFixed] = useState(true);
     
     const footerRef = useRef();
@@ -70,7 +73,7 @@ export default function Visualisation(){
 
      const sections = ['description','architecture','histoire','archeologie','autre'];
 
- 
+ console.log('projet==============================',actualReferences);
 
      const sectionsExistantes = projet && projet.sections && Array.isArray(projet.sections)
      ? sections.filter(section => 
@@ -127,7 +130,12 @@ export default function Visualisation(){
                 <SearchBar/>
                <main className="">
                 <div className="mt-5 bg w-[86%] mx-auto mb-10">
-                  <TitleBar isExpert={isExpert} projet={projet} />
+                  <TitleBar isExpert={isExpert} 
+                       projet={projet}
+                      chef={chef}
+                      collaborateurs={collaborateurs}
+                      references={actualReferences}/>
+
                   <div className="flex align-items justify-between mt-[30px]">
                     <LeftSection
                       projet={projet}
@@ -139,6 +147,7 @@ export default function Visualisation(){
                       user={user}
                       collaborateurs={collaborateurs}
                       sectionsExistantes={sectionsExistantes}
+                      setActualReferences={setActualReferences}
                     />
                     <RightSection
                       projet={projet}

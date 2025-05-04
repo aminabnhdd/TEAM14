@@ -16,6 +16,7 @@ export default function ReferencesSection(props){
     }));
     
     setReferences(filteredReferences);
+    props.setActualReferences(filteredReferences);
   }, [props.projet.references]);
 
 

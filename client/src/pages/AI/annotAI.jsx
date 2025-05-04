@@ -349,7 +349,7 @@ const AnnotationTool = () => {
                             </div>
                           ) : (
                             <p className="bolder-text text-center text-red-600 ">
-                              Cette annotation n'a pas été approuvé par un
+                              Cette annotation n'a pas été approuvée par un
                               expert.
                             </p>
                           )}

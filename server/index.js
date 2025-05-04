@@ -23,6 +23,8 @@ const uploadRouter = require('./routes/upload');
 const editeurRouter = require('./routes/editeur');
 const notificationsRouter = require('./routes/notifications');
 const refreshRouter = require('./routes/refresh');
+const oauthRouter = require('./routes/oauth');
+const chatbotRouter = require('./routes/aiChatbot');
 
 const impressionRouter = require('./routes/impression');
 
@@ -57,7 +59,7 @@ const {validateRole} = require('./middlewares/roleMiddleware');
 
 app.use('/auth', authRouter);
 app.use('/projects', projectRouter);
-app.use('/admin',validateToken,adminRouter);
+app.use('/admin',validateToken,validateRole([adminRole]),adminRouter);
 app.use('/profil', profilRouter);
 app.use('/ai',AIRouter);
 app.use('/images', uploadRouter);
@@ -65,6 +67,8 @@ app.use('/editeur',editeurRouter);
 app.use('/notifications',notificationsRouter);
 app.use('/refresh',refreshRouter);
 app.use('/impression', impressionRouter);
+app.use('/oauth',oauthRouter);
+app.use('/chatbot', chatbotRouter);
 
 // declaring our own modules :
 

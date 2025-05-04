@@ -25,15 +25,14 @@ const SectionService = {
       console.log("contenu not stringified",contenu)
       console.log("contenu stringified:", JSON.stringify(contenu));
   
-
       for (const [index, image] of imageChanges.entries()) {
         if (image.src.startsWith("blob:")) {
           try {
             
             const response = await fetch(image.src);
             const blob = await response.blob();
-            const file = new File([blob], `uploaded_image_${index}.png `, { type: blob.type });
-            
+            const file = new File([blob], `uploaded_image_${index}.png`, { type: blob.type });
+
             formData.append("images", file);
             console.log(`Added File: ${file.name}, Type: ${file.type}, Size: ${file.size}`);
           } catch (error) {

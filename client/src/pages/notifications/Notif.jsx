@@ -8,7 +8,7 @@ import Refus from "../../components/popUpsNotif/Refus"
 import Acceptation from "../../components/popUpsNotif/Acceptation"
 import SideNav from "../../components/SideNav"
 import SearchBar from "../../components/SearchBar"
-
+import PuffLoader from 'react-spinners/PuffLoader'
 import imjj from "../../assets/Alert triangle (1).png"
 import imjjj from "../../assets/Alert triangle.png"
 import imjjjj from "../../assets/ix_success.png"
@@ -34,6 +34,18 @@ function Notif() {
     const [notifDem,setNotifDem] = useState({});
     const [notif,setNotif] = useState({});
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+
+
+  const override = {
+    display: "block",
+    position:"absolute",
+    top:"50%",
+    left:"50%",
+    transform:"translate(-50%,-50%)"
+    };
+
+
     useEffect(() => {
         // Make "Conflits" active at the beginning
         document.querySelectorAll(".transptext").forEach(el => {
@@ -82,6 +94,7 @@ function Notif() {
                 setNotificationsConflit(confNotifs);
                 setNotificationsCol(colNotifs);
                 setNotificationsDem(demNotifs);
+                setLoading(false);
             }
             )
             .catch((error) => {
@@ -253,8 +266,21 @@ const [poop5,setPoop5] = useState(false)
     
 
  return(
-
-    <div className="main-notif">
+    <>
+    {
+      loading ? (
+        <PuffLoader
+                    color="#e8c07d"
+                    loading={loading}
+                    cssOverride={override}
+                    size={70}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+      ) : 
+      
+      (
+        <div className="main-notif">
         <div className="navigation-bar">
             <SideNav/>
         </div>
@@ -365,6 +391,13 @@ const [poop5,setPoop5] = useState(false)
             </div>
         </div>
     </div>
+      )
+    }
+    
+    
+    </>
+
+    
  )
 }
 

@@ -15,6 +15,7 @@ const adminRole = process.env.ADMIN_ROLE;
 const { handleImages } = require('../middlewares/multerMiddleware');
 const { upload } = require('../middlewares/multerMiddleware');
 const { route } = require("./auth");
+
 // Sauvegarder section
 router.put("/editable/:sectionId", upload.array("images"), validateToken, handleImages, async (req, res) => {
     try {
@@ -44,7 +45,7 @@ router.put("/editable/:sectionId", upload.array("images"), validateToken, handle
         return res.status(500).json({ message: "Erreur serveur" });
     }
 });
-
+// get section 
     router.get("/editable/:sectionId", validateToken, async (req, res) => {
     try {
         const sectionId = req.params.sectionId;

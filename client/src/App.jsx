@@ -34,6 +34,10 @@ import AnnotationTool from "./pages/AI/annotAI.jsx"
 import Decouvrir from "./pages/Decouvrir";
 import Favoris from "./pages/Favoris";
 import ImpressionWeb from "./pages/visualisation/ImpressionWeb.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import ChatBot from './components/ChatBot/ChatBot';
+import NotFound from "./pages/ErrorPages/NotFound.jsx";
+import Forbidden from "./pages/ErrorPages/Forbidden.jsx";
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -64,9 +68,10 @@ function App() {
           {/* Route for annotatins */}
           <Route path="/editeur/annoter/:sectionId" element={<EditorNonEditable />} />
           <Route path="/visualisation/:projetId" element={<Visualisation />} />
-          <Route path="/projets" element={<LsProjets />} />
-          <Route path="/notifications-admin" element={<NotifAdmin />} />
-          <Route path="/list-utilisateurs" element={<ListUtil />} />
+          <Route path="/projets" element={<ProtectedRoute allowedRoles={"Admin"}><LsProjets /></ProtectedRoute>} />
+          <Route path="/notifications-admin" element={ <ProtectedRoute allowedRoles={"Admin"}><NotifAdmin /></ProtectedRoute> } />
+          <Route path="/list-utilisateurs" element={<ProtectedRoute allowedRoles={"Admin"}><ListUtil /></ProtectedRoute>} />
+          {/*<Route path="chat" element={<ChatBot />}/>*/}
           {/*Profil routes*/ }
           <Route path="/afficher-expert/:id" element={<AfficherExpert />} />
           <Route path="/modifier-expert" element={<ModifierExpert />} />
@@ -81,7 +86,8 @@ function App() {
           <Route path="/discover" element={<Decouvrir />} />
           <Route path="/favoris" element={<Favoris />} />
           <Route path="/mot-de-passe-oublie/:otl" element={<ReiniMotdps />} />
-          <Route path="*" element={<h1>404 Not Found</h1>} />
+          <Route path="/forbidden" element={<Forbidden></Forbidden>} />
+          <Route path="*" element={<NotFound></NotFound>} />
         </Routes>
       </Router>
       

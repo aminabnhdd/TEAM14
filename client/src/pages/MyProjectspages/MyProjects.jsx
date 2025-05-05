@@ -44,7 +44,21 @@ const MyProjects = () => {
 };
   
   return(
-    <div style={{ minHeight: 'full', display: 'flex', flexDirection: 'column' }}>
+    <>
+    {
+      loading ? (
+        <PuffLoader
+                    color="#e8c07d"
+                    loading={loading}
+                    cssOverride={override}
+                    size={70}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+      ) : 
+      
+      (
+        <div style={{ minHeight: 'full', display: 'flex', flexDirection: 'column' }}>
   {/* Top Part */}
   <div style={{ flex: 1 }}>
     <div className="myprojectssearchbar">
@@ -59,6 +73,12 @@ const MyProjects = () => {
 
   {/* Footer stays at the bottom when content is short */}
 </div>
+      )
+    }
+    
+    
+    </>
+    
 
   );
 }

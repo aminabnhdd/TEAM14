@@ -226,7 +226,7 @@ function NotifAdmin() {
                                                             <p className="notif-message-notifAd">
                                                                 <span
                                                                     onClick={() => { navigate(`/desactiver-visiteur/${element.sendeId?._id}`) }}
-                                                                    className="userName underline cursor-pointer">{element.sendeId??.nom|| "" } {element.sendeId??.prenom || ""}</span> souhaite créer un compte {element.genre} </p>
+                                                                    className="userName underline cursor-pointer">{element.sendeId?.nom|| "" } {element.sendeId?.prenom || ""}</span> souhaite créer un compte {element.genre} </p>
                                                         </div>
                                                         <div className="notwtabwdom-notifAd">
                                                             <span className="notif-time-notifAd">{getTime(element.time)}</span>

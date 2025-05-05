@@ -12,6 +12,7 @@ function toggleOpen(){
 }
 
 const canEdit = () => {
+    if (props.isChef) return true;
     if (props.section.type === 'description') return props.isChef;
     if (props.section.type === 'autre') return true;
     if (props.section.type === 'histoire') return props.user.discipline === 'histoire';
@@ -49,7 +50,7 @@ function annoterSection(){
                 { sectionOpen &&
                 <>
                 <TiptapRenderer  content={props.section.contenu} />
-                {props.section.images.length>0 && <Gallerie slides={props.section.images} />}
+                {props.section.images.length>0 && <Gallerie slides={props.section.images} isExpert={props.isExpert} />}
                 </>
                 }
 

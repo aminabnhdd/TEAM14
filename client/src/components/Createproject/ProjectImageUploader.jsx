@@ -4,10 +4,12 @@ import "../../componentsStyles/CreateProjectStyles/ProjectImageUploader.css";
 
 const ProjectImageUploader = ({ onImageChange }) => {
   
-  const handleRemoveImage = () => {
+  const handleRemoveImage = (event) => {
+    event.preventDefault(); // Add this
+    event.stopPropagation(); // This prevents the event from bubbling up
     setImage(null);
+    setFile(null); // Also clear the file state
     onImageChange(null);
-
   };
 
   const [image, setImage] = useState(null);

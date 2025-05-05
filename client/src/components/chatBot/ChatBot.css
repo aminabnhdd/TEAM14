@@ -41,6 +41,7 @@
 
 
 .prompt-input{
+
     background-color: #e8c07d;
     position: inherit;
     width: 100%;
@@ -55,6 +56,7 @@
 }
 
 .prompt-input:focus{
+    
     border-color: #C57642 !important; 
     outline: none;
     padding: 20px;
@@ -62,19 +64,20 @@
 }
 
 
-.send-icon{
-    position: relative;
-    left:90%;
-    top: 25% !important;
-    transform: translateY(-50%) !important;
+.send-icon {
+    position: absolute; /* not relative */
+    top: 50%;
+    left: 90%;
+    transform: translateY(-50%);
     font-size: 1.5rem;
     color: black;
     cursor: pointer;
     z-index: 2;
-    
-}
+  }
+  
 
 .messages-container{
+
     flex: 1;
     overflow-y: auto;
     position: relative;
@@ -129,13 +132,11 @@
 }
 
 .bot-div{
-    /*position: fixed;*/
-    /*position: relative;*/
+    position:fixe;
     left: 95vw;
-    top: 92vh;
+    bottom: 3vh;
     z-index: 3;
-    width:3%;
-    height:5%;
+    
     border: solid 2px #C57642;
     background-color: #e8c07d;
     border-radius: 12px 12px 0 12px;

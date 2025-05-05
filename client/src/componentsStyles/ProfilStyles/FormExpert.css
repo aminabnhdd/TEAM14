@@ -95,16 +95,34 @@
   border-radius: 12px;
   border: 1px solid var(--NEUTRAL-500, #707778);
   padding-left: 2%;
+
+
 }
+
 .select-input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
   color: var(--black-text, #2D2D2D);
-  display: block;
-  padding: 5px 5px;
+  background-color: white;
+  padding: 0.5em 1em;
   font-size: 1vw;
   font-weight: 500;
   margin-bottom: 2%;
   border-radius: 12px;
   border: 1px solid var(--NEUTRAL-500, #707778);
-  padding-left: 2%;
+  width: 100%; /* Optional: make it responsive */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='gray' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1em center;
+  background-size: 1em;
 }
 
+.error input, .error .select-input {
+  border-color: red !important;
+}
+
+.error label{
+  color: red;
+}

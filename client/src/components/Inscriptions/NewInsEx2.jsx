@@ -9,9 +9,9 @@ import { useNavigate } from "react-router-dom";
 function NewInsEx2({ prevPopUp, fn,swipeDirection}) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    expertise: "",
-    etablissement: "",
-    discipline: "",
+    expertise: JSON.parse(localStorage.getItem("formData2"))?.expertise || "" ,
+    etablissement:JSON.parse(localStorage.getItem("formData2"))?.etablissement || "",
+    discipline:JSON.parse(localStorage.getItem("formData2"))?.discipline || "",
   });
   const [errors, setErrors] = useState({});
 
@@ -94,12 +94,13 @@ function NewInsEx2({ prevPopUp, fn,swipeDirection}) {
         e.target.style.border = errors[field] ? "" : "1px solid #A0A5A6";
         e.target.style.outline = "none";
       }}>
-      <option className="opt" value="">Sélectionnez votre niveau d'expertise</option> {/* Default empty option */}
-      <option className="opt" value="Docteur">Docteur</option>
-      <option className="opt" value="Maître de conférences A">Maître de conférences A</option>
-      <option className="opt" value="Maître de conférences B">Maître de conférences B</option>
-      <option className="opt" value="Professeur">Professeur</option>
-    </select>
+    <option className="opt"  value="">Sélectionnez votre niveau d'expertise</option>
+    <option value="Niveau initial">Niveau initial</option>
+    <option className="opt" value="Niveau intermédiaire">Niveau intermédiaire</option>
+    <option className="opt" value="Niveau avancé">Niveau avancé</option>
+    <option className="opt" value="Niveau expert">Niveau expert</option>
+
+        </select>
     <i className="fa-solid fa-chevron-down dropdown-icon-container"></i></div>
     :
     <input

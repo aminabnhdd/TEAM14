@@ -2,7 +2,7 @@ import SideNav from "../../components/SideNav"
 import TitleBar from "../../components/visualisation/titleBar"
 import LeftSection from "../../components/visualisation/leftSection"
 import RightSection from "../../components/visualisation/rightSection"
-import { useState, useEffect, useRef} from "react"
+import { useState, useEffect, useRef } from "react"
 import ListSections from "../../components/visualisation/listSections"
 import DemandeCollaboration from "../../components/visualisation/demandeCollaboration"
 import Footer from "../../components/Footer"
@@ -17,125 +17,134 @@ import { MdSmartToy } from 'react-icons/md';
 import ChatBot from "../../components/ChatBot/ChatBot";
 import PuffLoader from "react-spinners/PuffLoader";
 
-
-export default function Visualisation(){
-    const { projetId } = useParams();
-    const [isExpert, setIsExpert] = useState(null);
-    const [isAdmin, setIsAdmin] = useState(null);
-    const [isCollaborateur, setIsCollaborateur] = useState(null);
-    const [isChef, setIsChef] = useState(null);
-    const [discipline,setDiscipline]=useState(null);
-    const [projet,setProjet] = useState(null);
-    const [user,setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [chef,setChef] = useState(null);
-    const [collaborateurs,setCollaborateurs] =useState(null);
-    const {authState,setAuthState} = useContext(AuthContext);
-    const [showPopup, setShowPopup] = useState(false);
+export default function Visualisation() {
+  const { projetId } = useParams();
+  const [isExpert, setIsExpert] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(null);
+  const [isCollaborateur, setIsCollaborateur] = useState(null);
+  const [isChef, setIsChef] = useState(null);
+  const [discipline, setDiscipline] = useState(null);
+  const [projet, setProjet] = useState(null);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [chef, setChef] = useState(null);
+  const [collaborateurs, setCollaborateurs] = useState(null);
+  const { authState, setAuthState } = useContext(AuthContext);
+  const [showPopup, setShowPopup] = useState(false);
   
     const [actualReferences,setActualReferences] = useState(null);
 
-    const [isFixed, setIsFixed] = useState(true);
-    
-    const footerRef = useRef();
+  const [isFixed, setIsFixed] = useState(true);
+
+  const footerRef = useRef();
 
 
-    useEffect(() => {
-        const fetchProjet = async () => {
-          try {
-            
-            const response= await  RefreshService.Refresh();
-            setAuthState({email:response.email,role:response.role,accessToken:response.accessToken});
-            const projetData = await VisuService.getProjet(projetId, response.accessToken);
+  useEffect(() => {
+    const fetchProjet = async () => {
+      try {
 
-           
+        const response = await RefreshService.Refresh();
+        setAuthState({ email: response.email, role: response.role, accessToken: response.accessToken });
+        const projetData = await VisuService.getProjet(projetId, response.accessToken);
 
-            
-            setProjet(projetData.projet);
-            setUser(projetData.user);
-            setChef(projetData.chef);
-            setCollaborateurs(projetData.collaborateurs);
 
-            setIsExpert(projetData.isExpert);
-            setIsAdmin(projetData.isAdmin);
-            setIsChef(projetData.isChef);
-            setIsCollaborateur(projetData.isCollaborateur);
-            setDiscipline(projetData.discipline);
-    
-          } catch (err) {
-            console.log("Failed to load projet");
-          } finally {
-            setLoading(false);
-          }
-        };
-        fetchProjet();
-      }, []);
 
-     const sections = ['description','architecture','histoire','archeologie','autre'];
 
- console.log('projet==============================',actualReferences);
+        setProjet(projetData.projet);
+        setUser(projetData.user);
+        setChef(projetData.chef);
+        setCollaborateurs(projetData.collaborateurs);
 
-     const sectionsExistantes = projet && projet.sections && Array.isArray(projet.sections)
-     ? sections.filter(section => 
-         projet.sections.some(sec => sec.type === section)
-       )
-     : [];
-      
+        setIsExpert(projetData.isExpert);
+        setIsAdmin(projetData.isAdmin);
+        setIsChef(projetData.isChef);
+        setIsCollaborateur(projetData.isCollaborateur);
+        setDiscipline(projetData.discipline);
 
-    useEffect(() => {
-        const handleScroll = () => {
-          if (!footerRef.current) return;
-    
-          const footerTop = footerRef.current.getBoundingClientRect().top;
-          const windowHeight = window.innerHeight;
-    
-          if (footerTop <= windowHeight - 100) { // 100px BEFORE footer enters
-            setIsFixed(false);
-          } else {
-            setIsFixed(true);
-          }
-          console.log("position is : ", isFixed);
-        };
-    
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-      }, []);
-      const override = {
-        display: "block",
-        position:"absolute",
-        top:"50%",
-        left:"50%",
-        transform:"translate(-50%,-50%)"
-        };
+      } catch (err) {
+        console.log("Failed to load projet");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProjet();
+  }, []);
 
-      
+  const sections = ['description', 'architecture', 'histoire', 'archeologie', 'autre'];
+
+ 
+
+  const sectionsExistantes = projet && projet.sections && Array.isArray(projet.sections)
+    ? sections.filter(section =>
+      projet.sections.some(sec => sec.type === section)
+    )
+    : [];
+
+
+  // useEffect(() => {
+  //     const handleScroll = () => {
+  //       if (!footerRef.current) return;
+
+  //       const footerTop = footerRef.current.getBoundingClientRect().top;
+  //       const windowHeight = window.innerHeight;
+
+  //       if (footerTop <= windowHeight - 100) { // 100px BEFORE footer enters
+  //         setIsFixed(false);
+  //       } else {
+  //         setIsFixed(true);
+  //       }
+  //       console.log("position is : ", isFixed);
+  //     };
+
+  //     window.addEventListener('scroll', handleScroll);
+  //     return () => window.removeEventListener('scroll', handleScroll);
+  //   }, []);
+
+
+
+  const botDiv = document.querySelector('.bot-div');
+const footer = document.querySelector('.footer');
+
+function adjustBotDivPosition() {
+    const footerRect = footer.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    if (footerRect.top < windowHeight) {
+        // Footer is visible -> move bot-div up
+        const overlap = windowHeight - footerRect.top;
+        botDiv.style.bottom = `${overlap + 20}px`; // Add 20px gap
+    } else {
+        botDiv.style.bottom = '20px';
+    }
+}
+
+window.addEventListener('scroll', adjustBotDivPosition);
+window.addEventListener('resize', adjustBotDivPosition);
+document.addEventListener('DOMContentLoaded', adjustBotDivPosition);
+
+
 
        return (
-        
 
         <>
          {loading ? (
-   <PuffLoader
-   color="#e8c07d"
-   loading={loading}
-   cssOverride={override}
-   size={70}
-   aria-label="Loading Spinner"
-   data-testid="loader"
+  <PuffLoader
+  color="#e8c07d"
+  loading={loading}
+  cssOverride={override}
+  size={70}
+  aria-label="Loading Spinner"
+  data-testid="loader"
 />
  ) : (<>
-          <div className="flex relative max-w-full ">
+  <div className="min-h-screen relative flex flex-col ">
+          <div className="flex flex-1  relative max-w-full ">
             <SideNav className="" />
             <div className="flex-1 w-full bg-white main-content">
-                <SearchBar/>
-               <main className="">
+              <SearchBar />
+              <main className="">
                 <div className="mt-5 bg w-[86%] mx-auto mb-10">
-                  <TitleBar isExpert={isExpert} 
-                       projet={projet}
-                      chef={chef}
-                      collaborateurs={collaborateurs}
-                      references={actualReferences}/>
-
+                  <TitleBar isExpert={isExpert} projet={projet} />
                   <div className="flex align-items justify-between mt-[30px]">
                     <LeftSection
                       projet={projet}
@@ -147,7 +156,6 @@ export default function Visualisation(){
                       user={user}
                       collaborateurs={collaborateurs}
                       sectionsExistantes={sectionsExistantes}
-                      setActualReferences={setActualReferences}
                     />
                     <RightSection
                       projet={projet}
@@ -166,20 +174,23 @@ export default function Visualisation(){
                 </div>
               </main>
             </div>
-            <ListSections sectionsExistantes={sectionsExistantes} 
-            projet={projet} />
-            <DemandeCollaboration projet={projet} user={user} isExpert={isExpert} isCollaborateur={isCollaborateur} collaborateurs={collaborateurs}  />
-          
-            
-             </div> 
-             <ChatBot projetId={projetId} isFixed={isFixed} />
-             <Footer ref={footerRef}/>
-             {showPopup && (
-        <PopAjouterCollaborateur onClose={() => setShowPopup(false)} projet={projet} setProjet={setProjet} collaborateurs={collaborateurs} setCollaborateurs={setCollaborateurs} />
-      )}
-             </>)}
-           
-      
-        </>
-      );
-    }
+            <ListSections sectionsExistantes={sectionsExistantes}
+              projet={projet} />
+            <DemandeCollaboration projet={projet} user={user} isExpert={isExpert} isCollaborateur={isCollaborateur} collaborateurs={collaborateurs} />
+  
+  
+          </div>
+          {isExpert &&
+          <ChatBot projetId={projetId} isFixed={isFixed} />}
+          <Footer
+          //  ref={footerRef}
+          /> </div>
+          {showPopup && (
+            <PopAjouterCollaborateur onClose={() => setShowPopup(false)} projet={projet} setProjet={setProjet} collaborateurs={collaborateurs} setCollaborateurs={setCollaborateurs} />
+          )}
+        </>)}
+  
+  
+      </>
+  );
+}

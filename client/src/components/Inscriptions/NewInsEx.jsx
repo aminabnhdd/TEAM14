@@ -11,11 +11,11 @@ function NewInsEx({  fn, swipeDirection }) {
   const [typo, setTypo] = useState("password");
   const [emailExist,setEmailExist] = useState(false);
   const [formData, setFormData] = useState({
-    nom: "",
-    prenom: "",
-    email: "",
-    telephone: "",
-    password: "",
+    nom: JSON.parse(localStorage.getItem("formData1"))?.nom || "",
+    prenom:JSON.parse(localStorage.getItem("formData1"))?.prenom || "",
+    email:JSON.parse(localStorage.getItem("formData1"))?.email || "",
+    telephone:JSON.parse(localStorage.getItem("formData1"))?.telephone || "",
+    password:JSON.parse(localStorage.getItem("formData1"))?.password || "",
   });
   const [errors, setErrors] = useState({});
 

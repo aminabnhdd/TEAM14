@@ -1,4 +1,3 @@
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";

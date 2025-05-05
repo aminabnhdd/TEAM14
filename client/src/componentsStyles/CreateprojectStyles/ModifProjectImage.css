@@ -1,4 +1,5 @@
-.modifyP{.project-image-uploader {
+
+.project-image-uploader {
   width: 38%;
   height: 65.25%;
   border: 2px dashed #d3d3d3;
@@ -81,4 +82,4 @@
 .remove-buttonMd:hover {
   background-color: rgba(255, 0, 0, 0.85);
   color: white;
-}}
+}

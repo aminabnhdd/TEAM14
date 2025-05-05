@@ -35,7 +35,7 @@ import Decouvrir from "./pages/Decouvrir";
 import Favoris from "./pages/Favoris";
 import ImpressionWeb from "./pages/visualisation/ImpressionWeb.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
-import ChatBot from './components/ChatBot/ChatBot';
+import ChatBot from "./components/ChatBot/ChatBot.jsx";
 import NotFound from "./pages/ErrorPages/NotFound.jsx";
 import Forbidden from "./pages/ErrorPages/Forbidden.jsx";
 

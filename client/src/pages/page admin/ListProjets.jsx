@@ -1,7 +1,7 @@
     import "../../PagesStyles/Pages Admin Styles/ListProjets.css"
     import {useState,useEffect} from "react"
     import SearchBar from "../../components/SearchBar"
-    import SideNavAdmin from "../../components/SideNav/SideNavAdmin"
+    import SideNav from "../../components/SideNav"
     import PuffLoader from "react-spinners/PuffLoader"
     import imjjjjjj from "../../assets/person.png"
     import imjjjjjjjjj from "../../assets/mingcute_file-line.svg"
@@ -77,7 +77,7 @@
       (
         <div className="main-notif-lsPrjct">
             <div className="navigation-bar-lsPrjct">
-                <SideNavAdmin />
+                <SideNav />
             </div>
             <div className="secondary-notif-lsPrjct">
                     <div className="teqsam1">

@@ -1,100 +1,131 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "../../componentsStyles/ProfilStyles/FormExpert.css";
 import { FiSave } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { useContext } from "react";
 import AuthContext from "../../helpers/AuthContext";
 
-const FormExpert = ({image}) => {
-  // État initial vide pour stocker les valeurs saisies par l'utilisateur
+const FormExpert = ({ image }) => {
   const allowedFields = [
-    "nom",
-    "prenom",
-    "email",
-    "etablissement",
-    "labo",
-    "telephone",
-    "niveau",
-    "discipline",
-    "image"
+    "nom", "prenom", "email", "etablissement", "labo", "telephone", "niveau", "discipline", "image"
   ];
+
   const [user, setUser] = useState({
-    nom: "",
-    prenom: "",
-    email: "",
-    etablissement: "",
-    labo: "",
-    telephone: "",
-    niveau: "",
-    discipline: "",
-    image: image
+    nom: "", prenom: "", email: "", etablissement: "", labo: "",
+    telephone: "", niveau: "", discipline: "", image: image
   });
-  const {authState, setAuthState} = useContext(AuthContext);
+
+  const [errors, setErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  const [formError, setFormError] = useState("");
+
+  const { authState, setAuthState } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   useEffect(() => {
-    axios.get("http://localhost:3001/refresh",{withCredentials:true})
-        .then((response) => {
-            // if (response.data.error) return navigate('/')
-            setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
-            axios.get(`http://localhost:3001/profil/mon-compte`,{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
-            .then((response) => {
-              
-              setUser({...user,...response.data});
-            }
-            )
-            .catch((error) => {
-                console.log(error);
-            });
-        })
-        .catch((error) => {
-            console.log(error);
+    axios.get("http://localhost:3001/refresh", { withCredentials: true })
+      .then((response) => {
+        setAuthState({
+          email: response.data.email,
+          role: response.data.role,
+          accessToken: response.data.accessToken,
         });
-              
+
+        return axios.get("http://localhost:3001/profil/mon-compte", {
+          headers: { Authorization: `Bearer ${response.data.accessToken}` }
+        });
+      })
+      .then((response) => {
+        setUser(prev => ({ ...prev, ...response.data }));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
-  //  mettre à jour l'état lorsqu'un champ est modifié
   const handleChange = (e) => {
-    setUser({ ...user, [e.target.name] : e.target.value });
-    console.log(user);
+    const { name, value } = e.target;
+  
+    setUser((prevUser) => ({
+      ...prevUser,
+      [name]: value,
+    }));
+  
+    // Clear specific field error if corrected
+    if (errors[name]) {
+      setErrors((prevErrors) => {
+        const newErrors = { ...prevErrors };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  
+    // Reset formError when modifying the email
+    if (name === "email" && formError) {
+      setFormError("");
+    }
+  };
+  
+
+  const validate = () => {
+    const requiredFields = ["email", "etablissement", "niveau"];
+    const newErrors = {};
+    requiredFields.forEach(field => {
+      if (!user[field] || user[field].trim() === "") {
+        newErrors[field] = true;
+      }
+    });
+    return newErrors;
   };
 
+  const handleSubmit = () => {
+    setSubmitted(true);
+    const validationErrors = validate();
+    setErrors(validationErrors);
 
-  const navigate = useNavigate(); 
+
+    const data = new FormData();
+    user.image = image;
+    for (const key of allowedFields) {
+      if (user[key] !== null && user[key] !== undefined) {
+        data.append(key, user[key]);
+      }
+    }
+
+    axios.put("http://localhost:3001/profil/mon-compte/modifier/expert", data, {
+      headers: {
+        Authorization: `Bearer ${authState.accessToken}`,
+        "Content-Type": "multipart/form-data"
+      }
+    })
+    .then(() => {
+      navigate(`/modifier-expert`);
+    })
+    .catch((error) => {
+      if (error.response && error.response.data && error.response.data.message === "Email déja utilisé") {
+        setFormError("Cette adresse email est déjà utilisée");
+      } 
+      if (error.response && error.response.data && error.response.data.message === "Email format invalide.") {
+        setFormError("Email format invalide");
+      }
+      console.error(error);
+    });
+  };
 
   return (
     <div className="form-expert-container">
-      {/* En-tête */}
       <div className="form-header">
         <h2>Informations Personnelles & Professionnelles</h2>
-        <button className="save-button" onClick={() =>{
-          user.image = image;
-          const data = new FormData();
-          for (const key of allowedFields) {
-            if (user[key] !== null && user[key] !== undefined) {
-              data.append(key, user[key]);
-            }
-          }
-          axios.put("http://localhost:3001/profil/mon-compte/modifier/expert",data,{headers:{Authorization:`Bearer ${authState.accessToken}`,"Content-Type":"multipart/form-data"}})
-          .then((response) => {
-            // console.log(response.data);
-            navigate(`/modifier-expert`)
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-        }}>
+        <button className="save-button" onClick={handleSubmit}>
           Sauvegarder <FiSave size={16} />
         </button>
       </div>
 
-      {/* Contenu */}
       <div className="form-content">
-        {/* Partie gauche */}
         <div className="form-left">
           <div className="form-name-container">
             <div className="form-group">
-              <label>Nom</label>
+              <label>Nom <span className="required-star">*</span></label>
               <input
                 type="text"
                 name="nom"
@@ -104,7 +135,7 @@ const FormExpert = ({image}) => {
               />
             </div>
             <div className="form-group">
-              <label>Prénom</label>
+              <label>Prénom <span className="required-star">*</span></label>
               <input
                 type="text"
                 name="prenom"
@@ -114,8 +145,8 @@ const FormExpert = ({image}) => {
               />
             </div>
           </div>
-          <div className="form-group">
-            <label>Adresse email</label>
+          <div className={`form-group ${(errors.email ||formError) ? "error" : ""}`}>
+            <label>Adresse email <span className="required-star">*</span></label>
             <input
               type="email"
               name="email"
@@ -123,8 +154,8 @@ const FormExpert = ({image}) => {
               onChange={handleChange}
             />
           </div>
-          <div className="form-group">
-            <label>Établissement</label>
+          <div className={`form-group ${errors.etablissement  ? "error" : ""}`}>
+            <label>Établissement <span className="required-star">*</span></label>
             <input
               type="text"
               name="etablissement"
@@ -143,7 +174,6 @@ const FormExpert = ({image}) => {
           </div>
         </div>
 
-        {/* Partie droite */}
         <div className="form-right">
           <div className="form-group">
             <label>Numéro de téléphone</label>
@@ -154,39 +184,43 @@ const FormExpert = ({image}) => {
               onChange={handleChange}
             />
           </div>
-          <div className="form-group">
-            <label>Niveau d'expertise</label>
+          <div className={`form-group ${errors.niveau ? "error" : ""}`}>
+            <label>Niveau d'expertise <span className="required-star">*</span></label>
             <select
-              
               name="niveau"
-              required
               className="select-input"
               value={user.niveau}
               onChange={handleChange}
             >
-             <option className="" value="">Sélectionnez votre niveau d'expertise</option> 
-             <option className="" value="Docteur">Docteur</option>
-             <option className="" value="Maître de conférences A">Maître de conférences A</option>
-             <option className="" value="Maître de conférences B">Maître de conférences B</option>
-             <option className="" value="Professeur">Professeur</option>
-           </select>
+              <option value="">Sélectionnez votre niveau d'expertise</option>
+              <option value="Niveau initial">Niveau initial</option>
+              <option value="Niveau intermédiaire">Niveau intermédiaire</option>
+              <option value="Niveau avancé">Niveau avancé</option>
+              <option value="Niveau expert">Niveau expert</option>
 
+            </select>
           </div>
-          <div className="form-group">
-            <label>Discipline</label>
+          <div className="form-group capitalize">
+            <label>Discipline *</label>
             <input
+              className="capitalize"
               type="text"
               name="discipline"
-              value={user.discipline}
+              value={user.discipline === "archeologie" ? "archéologie" : user.discipline}
               onChange={handleChange}
               readOnly
             />
           </div>
         </div>
       </div>
+
+      {(submitted && Object.keys(errors).length > 0 || formError) && (
+        <p className="error-message text-right">
+          {formError || "Veuillez remplir tous les champs nécessaires."}
+        </p>
+      )}
     </div>
   );
 };
 
 export default FormExpert;
-

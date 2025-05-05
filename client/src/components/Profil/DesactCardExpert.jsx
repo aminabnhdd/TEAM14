@@ -2,6 +2,26 @@ import React from "react";
 import "../../componentsStyles/ProfilStyles/DesactCardExpert.css";
 
 const DesactivExpert = ({ usersData }) => {
+
+  
+
+  const openFile = (user) => {
+    
+    
+    const blobURL = user.fileUrl;
+
+    const link = document.createElement('a');
+    link.href = blobURL;
+    link.download = `Document_attestation_d'expertise_${user.nom}_${user.prenom}`; // keeps the original filename
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Optional: revoke the blob URL to free memory
+    URL.revokeObjectURL(blobURL);
+    }
+
+
   return usersData.map((user) => (
     <div key={user.id} className="affich-expert-card">
       {/* Titre */}
@@ -49,13 +69,14 @@ const DesactivExpert = ({ usersData }) => {
           </div>
           <div>
             <span className="info-label">Discipline</span>
-            <span className="info-value">{user.discipline || "Non renseigné"}</span>
+            <span className="info-value capitalize">{((user.discipline=='archeologie') ? 'archéologie' : user.discipline) || "Non renseigné"}</span>
           </div>
           <div>
             <span className="info-label">Dossier</span>
-            <span className="info-value">{
+            <span className="info-value" onClick={()=>openFile(user)}>{
               user.fileUrl ? (
-                <a href={`${user.fileUrl}`} target="_blank">Document attestant l'expertise</a>
+              <div className="cursor-pointer border border-neutral-400 p-1 rounded-[8px] break-words whitespace-normal">
+                 { `Document_attestation_d'expertise_${user.nom}_${user.prenom}`} </div>
               ) :
                 "Non renseigné"
               }</span>

@@ -1,65 +1,43 @@
-import React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { FiSend } from "react-icons/fi";
-import { MdSmartToy } from 'react-icons/md';
-
-
-import './ChatBot.css';
-
-
-function ChatBot({projetId, isFixed}) {
+import { MdSmartToy, MdClose } from 'react-icons/md';
+import "./ChatBot.css"
+function ChatBot({ projetId, isFixed }) {
   const [query, setQuery] = useState('');
   const [sessionId, setSessionId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  
 
   const messagesEndRef = useRef(null);
   const wrapperRef = useRef();
-  
 
-   
-  useEffect(()=>{
-    function handleClickOutside(event){
-        if(wrapperRef.current && !wrapperRef.current.contains(event.target)){
-            setIsVisible(false);
-        }
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setIsVisible(false);
+      }
     }
 
     document.addEventListener('mousedown', handleClickOutside);
-
-    return()=>{
-        document.removeEventListener('mousedown', handleClickOutside);
-    }
-  },[])
-
-
-
-  
-
- 
-
- 
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  
   useEffect(() => {
     if (!projetId) return;
     const fetchSession = async () => {
       try {
-        console.log("befaore /new-session request");
-      
         const response = await axios.get(`http://localhost:3001/chatbot/${projetId}/new-session`);
-        console.log("after /new-sessin request");
         setSessionId(response.data.sessionId);
-        console.log("session id is: ", response.data.sessionId);
       } catch (error) {
-        console.error('Failed to fetch session ID:', error);
+        console.error('Échec de la récupération de l\'ID de session:', error);
       }
     };
     fetchSession();
@@ -73,86 +51,139 @@ function ChatBot({projetId, isFixed}) {
     setQuery(e.target.value);
   };
 
-  
-  const toggleVisiblity = async()=>{
+  const toggleVisiblity = async () => {
     setIsVisible(prev => !prev);
-  }
+  };
 
-  
   const handleClick = async (e) => {
     e.preventDefault();
-
     try {
       setMessages((prev) => [...prev, { role: 'user', text: query }]);
-      setLoading(true); // Show "Bot is typing..."
+      setLoading(true);
       const res = await axios.post(`http://localhost:3001/chatbot/${projetId}/chat`, {
         query,
         sessionId,
       });
 
-      console.log("query is : ");
-
       setMessages((prev) => [...prev, { role: 'ai', text: res.data.text }]);
       setQuery('');
     } catch (error) {
-      console.error('Error fetching AI response:', error);
-      setMessages((prev) => [...prev, { role: 'ai', text: 'Something went wrong' }]);
+      console.error('Erreur lors de la récupération de la réponse:', error);
+      setMessages((prev) => [...prev, { role: 'ai', text: 'Désolé, une erreur s\'est produite. Veuillez réessayer.' }]);
     } finally {
-      setLoading(false); // Hide "Bot is typing..."
+      setLoading(false);
     }
   };
 
   return (
-    <>
-    <div ref={wrapperRef}>
-    {isVisible &&
-    <div className="chat-container" > 
-      {/*<p className="intro-bot">Hello There, <br/>I am Athar's Virtual Assistant How Can I Help You ?</p> */}
-      
-      <div className="prompt-bar">
-        <input
-          type="text"
-          value={query}
-          onChange={handleChange}
-          placeholder="Posez une question..."
-          className="prompt-input"
-        />
-        <FiSend className="send-icon" onClick={handleClick} />
-      </div>
+    <div ref={wrapperRef} className="fixed bottom-4 right-4 z-50">
+      <style>{`
+        .tooltip-bot {
+          position: absolute;
+          z-index: 999999;
+          right: 95%;
+          background-color: rgba(0, 0, 0, 0.8);
+          color: white;
+          padding: 6px 10px;
+          border-radius: 5px;
+          font-size: 14px;
+          white-space: nowrap;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.3s ease, transform 0.3s ease;
+          transform: translateX(-10px);
+        }
 
-      
+        .bot-div:hover .tooltip-bot {
+          opacity: 1;
+          visibility: visible;
+          transform: translateX(0);
+        }
+      `}</style>
 
-      <div className="messages-container">
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={msg.role === 'user' ? 'query-container' : 'answer-container'}
+      {isVisible && (
+        <div className="relative w-[520px] h-[600px] bg-[color:var(--color-neutral-100)] rounded-[var(--border-radius-8)] flex flex-col overflow-hidden shadow-xl">
+          <button
+            onClick={toggleVisiblity}
+            className="absolute top-3 right-3 w-10 h-10 bg-[color:var(--color-dune)] text-[color:var(--color-black)] rounded-full flex items-center justify-center hover:bg-[color:var(--color-brown)] transition-colors z-10"
+            title="Fermer le chat"
           >
-            <p>{msg.text}</p>
-          </div>
-        ))}
+            <MdClose className="text-[1.25rem]" />
+          </button>
 
-        {loading && (
-          <div className="answer-container">
-            <p><em>Bot is typing...</em></p>
+          <div className="bg-[color:var(--color-dune)] text-[color:var(--color-black)] p-4 pl-5 flex items-center gap-3">
+            <MdSmartToy className="text-[1.5rem]" />
+            <h2 className="font-[600] text-[1.125rem]">Assistant Virtuel d'Athar</h2>
           </div>
-        )}
-        <div className="whiteSpace"></div>
+
+          <div className="flex-1 overflow-y-auto p-4 bg-[color:var(--color-neutral-100)] flex flex-col gap-3">
+            {messages.length === 0 && (
+              <div className="text-center text-[color:var(--color-neutral-500)] my-auto p-4">
+                <MdSmartToy className="text-[2.25rem] mx-auto mb-3 text-[color:var(--color-neutral-400)]" />
+                <p className="font-[600] text-[1.125rem]">Bonjour ! Comment puis-je vous aider aujourd'hui ?</p>
+                <p className="text-[0.875rem] mt-2 font-[300]">Posez-moi vos questions sur le projet.</p>
+              </div>
+            )}
+
+            {messages.map((msg, index) => (
+              <div
+                key={index}
+                className={`max-w-[80%] p-3 rounded-[var(--border-radius-8)] text-justify font-[400] text-[1.125rem] ${
+                  msg.role === 'user'
+                    ? 'ml-auto bg-[color:var(--color-dune)] text-[color:var(--color-black)] rounded-br-[var(--border-radius-0)]'
+                    : 'mr-auto bg-[color:var(--color-white)] rounded-bl-[var(--border-radius-0)] shadow-sm border border-[color:var(--color-neutral-300)]'
+                }`}
+              >
+                <p>{msg.text}</p>
+              </div>
+            ))}
+
+            {loading && (
+              <div className="mr-auto bg-[color:var(--color-white)] p-3 rounded-[var(--border-radius-4)] rounded-bl-[var(--border-radius-0)] shadow-sm w-fit border border-[color:var(--color-neutral-300)]">
+                <div className="flex space-x-1">
+                  <div className="w-2 h-2 bg-[color:var(--color-dune)] rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                  <div className="w-2 h-2 bg-[color:var(--color-dune)] rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                  <div className="w-2 h-2 bg-[color:var(--color-dune)] rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                </div>
+              </div>
+            )}
+
+            <div ref={messagesEndRef} />
+          </div>
+
+          <div className="p-3 border-t border-[color:var(--color-neutral-300)] bg-[color:var(--color-white)]">
+            <div className="relative">
+              <input
+                type="text"
+                value={query}
+                onChange={handleChange}
+                placeholder="Écrivez votre message ici..."
+                className="w-full p-3 pr-12 rounded-[var(--border-radius-15)] border border-[color:var(--color-neutral-300)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-dune)] focus:border-transparent font-[400] text-[1.125rem]"
+                onKeyPress={(e) => e.key === 'Enter' && handleClick(e)}
+              />
+              <button
+                onClick={handleClick}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[color:var(--color-dune)] hover:text-[color:var(--color-brown)]"
+                disabled={loading}
+              >
+                <FiSend className="text-[1.5rem]" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {!isVisible && ( <div className="bot-wrapper">
+  <div className="bot-div" style={{position: isFixed ? 'fixed' : 'absolute'}}>
+  <span className="tooltip-bot">Chat-Bot</span> 
+  <MdSmartToy className="bot-icon" onClick={toggleVisiblity} />
+  </div>
+</div> 
         
-        <div ref={messagesEndRef} />
-      </div>
-    </div>}
-    <div className="bot-wrapper">
-      <div className="bot-div" style={{position: isFixed ? 'fixed' : 'absolute'}}>
-      <span className="tooltip-bot">Chat-Bot</span> 
-      <MdSmartToy className="bot-icon" onClick={toggleVisiblity} />
-      </div>
-    </div> 
+      )}
     </div>
-    </>
   );
 }
 
 export default ChatBot;
 
-                           

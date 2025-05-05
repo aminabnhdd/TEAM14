@@ -38,11 +38,13 @@ const ModifProjectImageUploader = ({ photoUrl, onImageChange ,projetId}) => {
     };
   }, [file]);
 
-  const handleRemoveImage = () => {
+  const handleRemoveImage = (event) => {
+    event.preventDefault(); // Add this
+    event.stopPropagation(); // This prevents the event from bubbling up
     setImage(null);
+    setFile(null); // Also clear the file state
     onImageChange(null);
   };
-  
   const handleImageUpload = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
@@ -72,7 +74,7 @@ const ModifProjectImageUploader = ({ photoUrl, onImageChange ,projetId}) => {
     <button type="button" className="remove-buttonMd" onClick={handleRemoveImage}>
       <X size={20} />
     </button>
-  </>
+  </> 
 ) : (
           <>
             <div className="upload-icon-container">

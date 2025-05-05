@@ -9,9 +9,9 @@ import { useNavigate } from "react-router-dom";
 function NewInsEx2({ prevPopUp, fn,swipeDirection}) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    expertise: "",
-    etablissement: "",
-    discipline: "",
+    expertise: JSON.parse(localStorage.getItem("formData2"))?.expertise || "" ,
+    etablissement:JSON.parse(localStorage.getItem("formData2"))?.etablissement || "",
+    discipline:JSON.parse(localStorage.getItem("formData2"))?.discipline || "",
   });
   const [errors, setErrors] = useState({});
 

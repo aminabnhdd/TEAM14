@@ -7,7 +7,7 @@
     import imjjjjjjjjj from "../../assets/mingcute_file-line.svg"
     import axios from 'axios'
     import { useNavigate } from "react-router-dom"
-    import AuthContext from '../../helpers/AuthContext'
+    import AuthContext from '../../helpers/AuthContext' 
     import { useContext } from "react"
     import Footer from "../../components/Footer"
 
@@ -79,8 +79,8 @@
             <div className="navigation-bar-lsPrjct">
                 <SideNav />
             </div>
-            <div className="secondary-notif-lsPrjct ">
-                    <div className="teqsam1">
+            <div className="secondary-notif-lsPrjct flex-1 flex col-flex min-h-full  ">
+                    <div className="teqsam1 flex-1">
                     <div className=" textos-lsPrjct">
                         <h1 className="hnotif">Listes des projets</h1>
                         <div>
@@ -117,6 +117,7 @@
                     </div>
                     </div>
                 </div>
+                <Footer/>
             </div>
         </div>
       )

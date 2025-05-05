@@ -18,7 +18,7 @@ const RestoreProjectsContainer = () => {
     const getArchived = async () => {
       try {
         const response1= await  RefreshService.Refresh();
-        console.log("here is the response from refresh: ",response1);
+       console.log("here is the response from refresh: ",response1);
         setAuthState({email:response1.email,role:response1.role,accessToken:response1.accessToken})
         console.log("the token: ",response1.accessToken);
         const projects = await mesProjets.Archived(response1.accessToken);

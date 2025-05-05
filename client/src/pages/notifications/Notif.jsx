@@ -1,5 +1,5 @@
 import "../../PagesStyles/notifications styles/Notif.css"
-import {useState,useEffect} from "react"
+import { useState, useEffect } from "react"
 import ConflitSignal from "../../components/popUpsNotif/ConflitSignal"
 import Collaboration from "../../components/popUpsNotif/Collaboration"
 import ConflitRes from "../../components/popUpsNotif/ConflitRes"
@@ -17,32 +17,33 @@ import imjjjjjj from "../../assets/person.png"
 import imjjjjjjj from "../../assets/Vector.png"
 import imjjjjjjjj from "../../assets/utilisateur-verifie 1.png"
 import axios from "axios"
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import AuthContext from '../../helpers/AuthContext'
+import Footer from "../../components/Footer"
 
 function Notif() {
-  
-    const [notificationsConflit,setNotificationsConflit] =useState([]);  
-    const [notifConf,setNotifConf] = useState({});  
-    const {authState,setAuthState} = useContext(AuthContext);
-    
-    const [notificationsCol,setNotificationsCol] = useState([]);
-    const [notifCol,setNotifCol] = useState({});
 
-    const [notificationsDem,setNotificationsDem] = useState([]);
-    const [notifDem,setNotifDem] = useState({});
-    const [notif,setNotif] = useState({});
+    const [notificationsConflit, setNotificationsConflit] = useState([]);
+    const [notifConf, setNotifConf] = useState({});
+    const { authState, setAuthState } = useContext(AuthContext);
+
+    const [notificationsCol, setNotificationsCol] = useState([]);
+    const [notifCol, setNotifCol] = useState({});
+
+    const [notificationsDem, setNotificationsDem] = useState([]);
+    const [notifDem, setNotifDem] = useState({});
+    const [notif, setNotif] = useState({});
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
 
 
-  const override = {
-    display: "block",
-    position:"absolute",
-    top:"50%",
-    left:"50%",
-    transform:"translate(-50%,-50%)"
+    const override = {
+        display: "block",
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%,-50%)"
     };
 
 
@@ -52,59 +53,59 @@ function Notif() {
             el.classList.remove("active");
         });
         document.querySelector(".transptext:first-child")?.classList.add("active");
-        axios.get("http://localhost:3001/refresh",{withCredentials:true})
-        .then((response) => {
-            if (response.data.error) return navigate('/connexion')
-            console.log(response.data)
-            setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
-            axios.get("http://localhost:3001/notifications",{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
+        axios.get("http://localhost:3001/refresh", { withCredentials: true })
             .then((response) => {
-                console.log(response.data);
-                const confNotifs = response.data.notifications
-                .filter((notif) => ["conflitResolu", "conflitSignale", "conflitValide"].includes(notif.type))
-                .map((notif) => {
-                    if (notif.type === "conflitResolu") {
-                        return { ...notif, imge: imjjjj, tab: imjjjjj, message: "Un conflit a été résolu !" };
-                    } else if (notif.type === "conflitValide") {
-                        return { ...notif, imge: imjj, tab: imjjjjj,message: "Un conflit a été signalé dans l’un de vos projets !"  };
-                    } else if (notif.type === "conflitSignale") {
-                        return { ...notif, imge: imjjj, tab: imjjjjj,  message: "Un conflit a été signalé !"};
-  
-                    }
-                });
-                const colNotifs = response.data.notifications
-                .filter((notif) => notif.type === "demandeCollaboration")
-                .map((notif) => {
-                    
-                    return { ...notif, imge: imjjjjjj, tab: imjjjjj,senderId:`${notif.senderId}`, name:`${notif.sender}` ,message: `souhaite collaborer dans votre projet` ,dom:`${notif.dom}`};
-                    
-                });
-                const demNotifs = response.data.notifications
-                .filter((notif) => ["demandeRefuse", "demandeAccepte"].includes(notif.type))
-                .map((notif) => {
-                    if (notif.type === "demandeRefuse") {
-                        return({ ...notif, imge: imjjjjjjj, tab: imjjjjj, message: "Votre demande de collaboration a été refusée." });
-                    } else if (notif.type === "demandeAccepte") {
-                        return({ ...notif, imge: imjjjjjjjj, tab: imjjjjj, message: "Votre demande de collaboration a été acceptée !" });
-                    }
-                });
-                
+                if (response.data.error) return navigate('/connexion')
+                console.log(response.data)
+                setAuthState({ email: response.data.email, role: response.data.role, accessToken: response.data.accessToken });
+                axios.get("http://localhost:3001/notifications", { headers: { Authorization: `Bearer ${response.data.accessToken}` } })
+                    .then((response) => {
+                        console.log(response.data);
+                        const confNotifs = response.data.notifications
+                            .filter((notif) => ["conflitResolu", "conflitSignale", "conflitValide"].includes(notif.type))
+                            .map((notif) => {
+                                if (notif.type === "conflitResolu") {
+                                    return { ...notif, imge: imjjjj, tab: imjjjjj, message: "Un conflit a été résolu !" };
+                                } else if (notif.type === "conflitValide") {
+                                    return { ...notif, imge: imjj, tab: imjjjjj, message: "Un conflit a été signalé dans l’un de vos projets !" };
+                                } else if (notif.type === "conflitSignale") {
+                                    return { ...notif, imge: imjjj, tab: imjjjjj, message: "Un conflit a été signalé !" };
 
-              
-                setNotificationsConflit(confNotifs);
-                setNotificationsCol(colNotifs);
-                setNotificationsDem(demNotifs);
-                setLoading(false);
-            }
-            )
+                                }
+                            });
+                        const colNotifs = response.data.notifications
+                            .filter((notif) => notif.type === "demandeCollaboration")
+                            .map((notif) => {
+
+                                return { ...notif, imge: imjjjjjj, tab: imjjjjj, senderId: `${notif.senderId}`, name: `${notif.sender}`, message: `souhaite collaborer dans votre projet`, dom: `${notif.dom}` };
+
+                            });
+                        const demNotifs = response.data.notifications
+                            .filter((notif) => ["demandeRefuse", "demandeAccepte"].includes(notif.type))
+                            .map((notif) => {
+                                if (notif.type === "demandeRefuse") {
+                                    return ({ ...notif, imge: imjjjjjjj, tab: imjjjjj, message: "Votre demande de collaboration a été refusée." });
+                                } else if (notif.type === "demandeAccepte") {
+                                    return ({ ...notif, imge: imjjjjjjjj, tab: imjjjjj, message: "Votre demande de collaboration a été acceptée !" });
+                                }
+                            });
+
+
+
+                        setNotificationsConflit(confNotifs);
+                        setNotificationsCol(colNotifs);
+                        setNotificationsDem(demNotifs);
+                        setLoading(false);
+                    }
+                    )
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            })
             .catch((error) => {
                 console.log(error);
             });
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-        
+
     }, []);
 
     const getTime = (time) => {
@@ -125,7 +126,7 @@ function Notif() {
         if (minutes > 0) return `${minutes} min`;
         return `${seconds} sec`;
     }
-    
+
 
 
     const click1 = (e) => {
@@ -157,9 +158,9 @@ function Notif() {
             setPoop(true);
         }
 
-         else if (type === "conflitSignale") {
+        else if (type === "conflitSignale") {
             setPoop1(true);
-            
+
         }
         else if (type === "conflitValide") {
             setPoop2(true);
@@ -173,7 +174,7 @@ function Notif() {
         if (type === "demandeRefuse") setPoop4(true)
         if (type === "demandeAccepte") setPoop5(true)
     }
-    
+
     const handleSeen = (id, type) => {
         if (type === "conflit") {
             const updatedNotifications = notificationsConflit.map(notification =>
@@ -192,213 +193,214 @@ function Notif() {
             setNotificationsDem(updatedNotifications);
         }
     };
-const close = () => {
-    setPoop(false);
-    axios.put(`http://localhost:3001/notifications/read/${notif._id}`,{},{headers:{Authorization:`Bearer ${authState.accessToken}`}})
-    .then((response) => {
-        console.log(response.data);
-    })
-    .catch((error) => {
-        console.log(error);
-    });
-}
-const close1 =  () => {
-    setPoop1(false);
-    axios.put(`http://localhost:3001/notifications/read/${notif._id}`,{},{headers:{Authorization:`Bearer ${authState.accessToken}`}})
-    .then((response) => {
-        console.log(response.data);
-    })
-    .catch((error) => {
-        console.log(error);
-    });
-}
-const close2 = () => {
-    setPoop2(false);
-    axios.put(`http://localhost:3001/notifications/read/${notif._id}`,{},{headers:{Authorization:`Bearer ${authState.accessToken}`}})
-    .then((response) => {
-        console.log(response.data);
-    })
-    .catch((error) => {
-        console.log(error);
-    });
-}
-const close3 = () => {
-    setPoop3(false);
-    axios.put(`http://localhost:3001/notifications/read/${notif._id}`,{},{headers:{Authorization:`Bearer ${authState.accessToken}`}})
-    .then((response) => {
-        console.log(response.data);
-    })
-    .catch((error) => {
-        console.log(error);
-    });
-}
-const close4 = () => {
-    setPoop4(false);
-    axios.put(`http://localhost:3001/notifications/read/${notif._id}`,{},{headers:{Authorization:`Bearer ${authState.accessToken}`}})
-    .then((response) => {
-        console.log(response.data);
-    })
-    .catch((error) => {
-        console.log(error);
-    });
-}
-const close5 = () => {
-    setPoop5(false);
-    axios.put(`http://localhost:3001/notifications/read/${notif._id}`,{},{headers:{Authorization:`Bearer ${authState.accessToken}`}})
-    .then((response) => {
-        console.log(response.data);
-    })
-    .catch((error) => {
-        console.log(error);
-    });
-}
-
-const [conflit,setConflit] = useState(true)
-const [col,setCol] = useState(false)
-const [dem,setDem] = useState(false)
-const [poop,setPoop] = useState(false) 
-const [poop1,setPoop1] = useState(false) 
-const [poop2,setPoop2] = useState(false) 
-const [poop3,setPoop3] = useState(false) 
-const [poop4,setPoop4] = useState(false) 
-const [poop5,setPoop5] = useState(false) 
-
-    
-
- return(
-    <>
-    {
-      loading ? (
-        <PuffLoader
-                    color="#e8c07d"
-                    loading={loading}
-                    cssOverride={override}
-                    size={70}
-                    aria-label="Loading Spinner"
-                    data-testid="loader"
-                />
-      ) : 
-      
-      (
-        <div className="main-notif">
-        <div className="navigation-bar">
-            <SideNav/>
-        </div>
-        <div className="secondary-notif">
-
-        <div className="teqsam">
-        <SearchBar  title="Rechercher un projet dans le site"/>
-            <div className=" textos">
-                <h1 className="hnotif">Notifications</h1>
-                {conflit &&
-                <div>
-                <p className="pnotif">Un conflit a été détecté ? Retrouvez ici toutes les notifications concernant les divergences dans les contributions et prenez les décisions appropriées.</p>
-                </div>}
-
-                {col &&
-                <div>
-                <p className="pnotif">Gérez les demandes de collaboration. Examinez chaque proposition et choisissez de l’accepter ou de la 
-                refuser en fonction des besoins du projet.</p>
-                </div>}
-
-                {dem &&
-                <div>
-                <p className="pnotif">Retrouvez ici le statut de vos demandes de collaboration. Consultez les réponses pour savoir si elles ont
-                été acceptées ou refusées et accédez aux détails de chaque décision.</p>
-                </div>}
-
-            </div>
-
-            <div className="second-div">
-                <div className="final-div">
-                    <div className="transport">
-                        <p onClick={click1} className="transptext active" >Conflits</p>
-                        <p onClick={click2} className="transptext">Demandes de collaboration</p>
-                        <p onClick={click3} className="transptext">Mes demandes</p>
-                    </div>
-                    <div className="line-riadh  "></div>
-                    <div className="notifications">
-                        
-                        {conflit && (notificationsConflit.length>0 ? notificationsConflit.map(element => (
-                            <div key={element._id} className="note" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
-                            <div className="iconwmessage">
-                            <img className="notif-icon" src={element.imge} alt="Notification Icon" />
-                            <p className="notif-message">{element.message}</p>
-                            </div>
-                            <div className="notwtabwdom">
-                            <span className="notif-time">{getTime(element.time)}</span>
-                            <div className="tabwdom">
-                            <img className="tab" src={element.tab}></img>
-                            <p className="dom">{element.dom}</p>
-                            </div>
-                            <button className="det-button" onClick={() => {setNotifConf(element);handleDetailsClick(element.type); setNotif(element) }}>
-                                Détails
-                            </button>
-                            </div>
-                            
-
-                            
-                        </div>
-                        )):<p className="pt-2 main-text mt-3" >Aucune notification.</p>)}
-                        {<ConflitRes popUp={poop} close={close} notif={notifConf}/>}
-                        {<ConflitSignal popUp={poop1} close={close1} notif={notifConf} handleSeen={handleSeen}/>}
-                        {<ConflitChat popUp={poop2} close={close2} notif={notifConf}/>}
-                        {col &&  (notificationsCol.length>0 ? notificationsCol.map(element => (
-                            <div key={element._id} className="note" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
-                            <div className="iconwmessage">
-                            <img className="notif-icon" src={element.imge}  alt="Notification Icon" />
-                            <p className="notif-message"><span
-                                                        onClick={()=>{navigate(`/afficher-expert/${element.senderId}`)}}                               
-                                                        className="font-semibold cursor-pointer underline ">{element.name}</span> {element.message}</p>
-                            </div>
-                            <div className="notwtabwdom">
-                            <span className="notif-time">{getTime(element.time)}</span>
-                            <div className="tabwdom">
-                            <img className="tab" src={element.tab}></img>
-                            <p className="dom">{element.dom}</p>
-                            </div>
-                            <button className="det-button" onClick={()=>{setNotifCol(element);handleSeen(element._id,"col"); handleDetailsClick2(element.type);setNotif(element)}}>Détails</button>
-                            </div>
-                            
-                        </div>
-                        
-                        )):<p className="pt-2 main-text mt-3" >Aucune notification.</p>)}
-                        {<Collaboration popUp={poop3} close={close3} notif={notifCol}/>}
-
-                        {dem &&  (notificationsDem.length>0 ? notificationsDem.map(element => (
-                            <div key={element._id} className="note" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
-                            <div className="iconwmessage">
-                            <img className={element.type === "demandeRefuse" ? "refusIcon" : "notif-icon"} src={element.imge} alt="Notification Icon" />
-                            <p className="notif-message">{element.message}</p>
-                            </div>
-                            <div className="notwtabwdom">
-                            <span className="notif-time">{getTime(element.time)}</span>
-                            <div className="tabwdom">
-                            <img className="tab" src={element.tab}></img>
-                            <p className="dom">{element.dom}</p>
-                            </div>
-                            <button className="det-button" onClick={()=>{setNotifDem(element); handleDetailsClick3(element.type);handleSeen(element._id,"dem");setNotif(element)}}>Détails</button>
-                            </div>
-                            
-                        </div>
-                        )):<p className="pt-2 main-text mt-3" >Aucune notification.</p>)}
-                        {<Refus  popUp={poop4} close={close4} notif={notifDem}/>}
-                        {<Acceptation  popUp={poop5} close={close5} notif={notifDem}/>}
-                        
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div>
-    </div>
-      )
+    const close = () => {
+        setPoop(false);
+        axios.put(`http://localhost:3001/notifications/read/${notif._id}`, {}, { headers: { Authorization: `Bearer ${authState.accessToken}` } })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
-    
-    
-    </>
+    const close1 = () => {
+        setPoop1(false);
+        axios.put(`http://localhost:3001/notifications/read/${notif._id}`, {}, { headers: { Authorization: `Bearer ${authState.accessToken}` } })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+    const close2 = () => {
+        setPoop2(false);
+        axios.put(`http://localhost:3001/notifications/read/${notif._id}`, {}, { headers: { Authorization: `Bearer ${authState.accessToken}` } })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+    const close3 = () => {
+        setPoop3(false);
+        axios.put(`http://localhost:3001/notifications/read/${notif._id}`, {}, { headers: { Authorization: `Bearer ${authState.accessToken}` } })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+    const close4 = () => {
+        setPoop4(false);
+        axios.put(`http://localhost:3001/notifications/read/${notif._id}`, {}, { headers: { Authorization: `Bearer ${authState.accessToken}` } })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+    const close5 = () => {
+        setPoop5(false);
+        axios.put(`http://localhost:3001/notifications/read/${notif._id}`, {}, { headers: { Authorization: `Bearer ${authState.accessToken}` } })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
-    
- )
+    const [conflit, setConflit] = useState(true)
+    const [col, setCol] = useState(false)
+    const [dem, setDem] = useState(false)
+    const [poop, setPoop] = useState(false)
+    const [poop1, setPoop1] = useState(false)
+    const [poop2, setPoop2] = useState(false)
+    const [poop3, setPoop3] = useState(false)
+    const [poop4, setPoop4] = useState(false)
+    const [poop5, setPoop5] = useState(false)
+
+
+
+    return (
+        <>
+            {
+                loading ? (
+                    <PuffLoader
+                        color="#e8c07d"
+                        loading={loading}
+                        cssOverride={override}
+                        size={70}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                    />
+                ) :
+
+                    (
+                        <div className="main-notif">
+                            <div className="navigation-bar">
+                                <SideNav />
+                            </div>
+                            <div className="secondary-notif flex col-flex min-h-full">
+
+                                <div className="teqsam flex-1">
+                                    <SearchBar title="Rechercher un projet dans le site" />
+                                    <div className=" textos">
+                                        <h1 className="hnotif">Notifications</h1>
+                                        {conflit &&
+                                            <div>
+                                                <p className="pnotif">Un conflit a été détecté ? Retrouvez ici toutes les notifications concernant les divergences dans les contributions et prenez les décisions appropriées.</p>
+                                            </div>}
+
+                                        {col &&
+                                            <div>
+                                                <p className="pnotif">Gérez les demandes de collaboration. Examinez chaque proposition et choisissez de l’accepter ou de la
+                                                    refuser en fonction des besoins du projet.</p>
+                                            </div>}
+
+                                        {dem &&
+                                            <div>
+                                                <p className="pnotif">Retrouvez ici le statut de vos demandes de collaboration. Consultez les réponses pour savoir si elles ont
+                                                    été acceptées ou refusées et accédez aux détails de chaque décision.</p>
+                                            </div>}
+
+                                    </div>
+
+                                    <div className="second-div">
+                                        <div className="final-div">
+                                            <div className="transport">
+                                                <p onClick={click1} className="transptext active" >Conflits</p>
+                                                <p onClick={click2} className="transptext">Demandes de collaboration</p>
+                                                <p onClick={click3} className="transptext">Mes demandes</p>
+                                            </div>
+                                            <div className="line-riadh  "></div>
+                                            <div className="notifications">
+
+                                                {conflit && (notificationsConflit.length > 0 ? notificationsConflit.map(element => (
+                                                    <div key={element._id} className="note" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
+                                                        <div className="iconwmessage">
+                                                            <img className="notif-icon" src={element.imge} alt="Notification Icon" />
+                                                            <p className="notif-message">{element.message}</p>
+                                                        </div>
+                                                        <div className="notwtabwdom">
+                                                            <span className="notif-time">{getTime(element.time)}</span>
+                                                            <div className="tabwdom">
+                                                                <img className="tab" src={element.tab}></img>
+                                                                <p className="dom">{element.dom}</p>
+                                                            </div>
+                                                            <button className="det-button" onClick={() => { setNotifConf(element); handleDetailsClick(element.type); setNotif(element) }}>
+                                                                Détails
+                                                            </button>
+                                                        </div>
+
+
+
+                                                    </div>
+                                                )) : <p className="pt-2 main-text mt-3" >Aucune notification.</p>)}
+                                                {<ConflitRes popUp={poop} close={close} notif={notifConf} />}
+                                                {<ConflitSignal popUp={poop1} close={close1} notif={notifConf} handleSeen={handleSeen} />}
+                                                {<ConflitChat popUp={poop2} close={close2} notif={notifConf} />}
+                                                {col && (notificationsCol.length > 0 ? notificationsCol.map(element => (
+                                                    <div key={element._id} className="note" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
+                                                        <div className="iconwmessage">
+                                                            <img className="notif-icon" src={element.imge} alt="Notification Icon" />
+                                                            <p className="notif-message"><span
+                                                                onClick={() => { navigate(`/afficher-expert/${element.senderId}`) }}
+                                                                className="font-semibold cursor-pointer underline ">{element.name}</span> {element.message}</p>
+                                                        </div>
+                                                        <div className="notwtabwdom">
+                                                            <span className="notif-time">{getTime(element.time)}</span>
+                                                            <div className="tabwdom">
+                                                                <img className="tab" src={element.tab}></img>
+                                                                <p className="dom">{element.dom}</p>
+                                                            </div>
+                                                            <button className="det-button" onClick={() => { setNotifCol(element); handleSeen(element._id, "col"); handleDetailsClick2(element.type); setNotif(element) }}>Détails</button>
+                                                        </div>
+
+                                                    </div>
+
+                                                )) : <p className="pt-2 main-text mt-3" >Aucune notification.</p>)}
+                                                {<Collaboration popUp={poop3} close={close3} notif={notifCol} />}
+
+                                                {dem && (notificationsDem.length > 0 ? notificationsDem.map(element => (
+                                                    <div key={element._id} className="note" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
+                                                        <div className="iconwmessage">
+                                                            <img className={element.type === "demandeRefuse" ? "refusIcon" : "notif-icon"} src={element.imge} alt="Notification Icon" />
+                                                            <p className="notif-message">{element.message}</p>
+                                                        </div>
+                                                        <div className="notwtabwdom">
+                                                            <span className="notif-time">{getTime(element.time)}</span>
+                                                            <div className="tabwdom">
+                                                                <img className="tab" src={element.tab}></img>
+                                                                <p className="dom">{element.dom}</p>
+                                                            </div>
+                                                            <button className="det-button" onClick={() => { setNotifDem(element); handleDetailsClick3(element.type); handleSeen(element._id, "dem"); setNotif(element) }}>Détails</button>
+                                                        </div>
+
+                                                    </div>
+                                                )) : <p className="pt-2 main-text mt-3" >Aucune notification.</p>)}
+                                                {<Refus popUp={poop4} close={close4} notif={notifDem} />}
+                                                {<Acceptation popUp={poop5} close={close5} notif={notifDem} />}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <Footer/>
+                            </div>
+                        </div>
+                    )
+            }
+
+
+        </>
+
+
+    )
 }
 
 export default Notif

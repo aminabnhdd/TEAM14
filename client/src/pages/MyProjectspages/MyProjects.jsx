@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import mesProjets  from "../../services/mesProjets.js"; 
 import AuthContext from '../../helpers/AuthContext'
 import RefreshService from "../../services/RefreshService";
-
+import Footer from "../../components/Footer.jsx";
 const MyProjects = () => {
   const [myProjects, setMyProjects] = useState([]);
   const {authState,setAuthState} = useContext(AuthContext);
@@ -44,36 +44,22 @@ const MyProjects = () => {
 };
   
   return(
-    <>
-    {
-      loading ? (
-        <PuffLoader
-                    color="#e8c07d"
-                    loading={loading}
-                    cssOverride={override}
-                    size={70}
-                    aria-label="Loading Spinner"
-                    data-testid="loader"
-                />
-      ) : 
-      
-      (
-        <>
-       <div className="myprojectssearchbar">
-        <SearchBar title="Rechercher un projet dans le site..." />
-       </div>
-      <SideNav />
-      <div className="root1">
-     <MyProjectsHeader/>
-     <MyProjectsContainer myProjects={myProjects} />
-      </div>
-    </>
-      )
-    }
-    
-    
-    </>
-    
+    <div style={{ minHeight: 'full', display: 'flex', flexDirection: 'column' }}>
+  {/* Top Part */}
+  <div style={{ flex: 1 }}>
+    <div className="myprojectssearchbar">
+      <SearchBar title="Rechercher un projet dans le site..." />
+    </div>
+    <SideNav />
+    <div className="root1">
+      <MyProjectsHeader />
+      <MyProjectsContainer myProjects={myProjects} />
+    </div>
+  </div>
+
+  {/* Footer stays at the bottom when content is short */}
+</div>
+
   );
 }
 export default MyProjects;

@@ -66,6 +66,11 @@ const SectionService = {
       return response.data;
     } catch (error) {
       console.error("Error updating section:", error.response?.data || error.message);
+       // Check for Multer field size error
+    if (error.response?.data?.includes('MulterError: Field value too long') || 
+    error.message?.includes('MulterError: Field value too long')) {
+  alert("Erreur: La taille du contenu de votre section est trop grande. Veuillez réduire la quantité de médias, vidéos ou illustrations, puis réessayer.");
+} 
       throw error;
     }
   },

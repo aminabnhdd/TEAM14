@@ -1,7 +1,7 @@
 import React , {useContext , useState,useEffect } from "react";
 import "../../componentsStyles/MyProjectsStyles/MyProjectsContainer.css";
 import { useNavigate } from "react-router-dom";
-
+import Footer from "../Footer";
 import DEFAULT_IMAGE_URL from "../../assets/cover.png"; 
  
 const MyProjectsContainer = ({myProjects}) => {
@@ -21,7 +21,7 @@ const MyProjectsContainer = ({myProjects}) => {
 
   return (<>
      <div className="projects-grid">
-      
+       
       <div className="add-project"  onClick={handleAddProjectClick}>
         <span className="plus-icon">+</span>
         <p>Créer un nouveau projet</p>
@@ -35,9 +35,12 @@ const MyProjectsContainer = ({myProjects}) => {
               <span className="project-title">{project.titre}</span>
             </div>
           </div>
+         
         </div>
       ))}
+      
     </div>
+ 
     
     </>
   );

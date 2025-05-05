@@ -15,7 +15,8 @@ import SearchBar from "../../components/SearchBar.jsx";
 import PopAjouterCollaborateur from "../../components/visualisation/popupAjouterCollaborateur.jsx"
 import { MdSmartToy } from 'react-icons/md';
 import ChatBot from "../../components/ChatBot/ChatBot";
-import PuffLoader from "react-spinners/PuffLoader";
+import { PuffLoader } from 'react-spinners';
+
 
 export default function Visualisation() {
   const { projetId } = useParams();
@@ -122,6 +123,13 @@ window.addEventListener('scroll', adjustBotDivPosition);
 window.addEventListener('resize', adjustBotDivPosition);
 document.addEventListener('DOMContentLoaded', adjustBotDivPosition);
 
+const override = {
+  display: "block",
+  position:"absolute",
+  top:"50%",
+  left:"50%",
+  transform:"translate(-50%,-50%)"
+};
 
 
        return (
@@ -144,7 +152,7 @@ document.addEventListener('DOMContentLoaded', adjustBotDivPosition);
               <SearchBar />
               <main className="">
                 <div className="mt-5 bg w-[86%] mx-auto mb-10">
-                  <TitleBar isExpert={isExpert} projet={projet} />
+                  <TitleBar isExpert={isExpert} projet={projet} references={actualReferences}/>
                   <div className="flex align-items justify-between mt-[30px]">
                     <LeftSection
                       projet={projet}
@@ -156,6 +164,7 @@ document.addEventListener('DOMContentLoaded', adjustBotDivPosition);
                       user={user}
                       collaborateurs={collaborateurs}
                       sectionsExistantes={sectionsExistantes}
+                      setActualReferences={setActualReferences}
                     />
                     <RightSection
                       projet={projet}
@@ -181,9 +190,9 @@ document.addEventListener('DOMContentLoaded', adjustBotDivPosition);
   
           </div>
           {isExpert &&
-          <ChatBot projetId={projetId} isFixed={isFixed} />}
+          <ChatBot className="bot-div" projetId={projetId} isFixed={isFixed} />}
           <Footer
-          //  ref={footerRef}
+          ref={footerRef}
           /> </div>
           {showPopup && (
             <PopAjouterCollaborateur onClose={() => setShowPopup(false)} projet={projet} setProjet={setProjet} collaborateurs={collaborateurs} setCollaborateurs={setCollaborateurs} />

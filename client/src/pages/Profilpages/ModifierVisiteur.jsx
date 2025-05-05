@@ -24,7 +24,7 @@ const ModifierVisiteur = () => {
             if (response.data.error) return navigate('/connexion')
             setAuthState({email:response.data.email,role:response.data.role,accessToken:response.data.accessToken});
             axios.get(`http://localhost:3001/profil/mon-compte`,{headers:{Authorization:`Bearer ${response.data.accessToken}`}})
-            .then((response) => {
+            .then((response) => { 
           
               setUsersData([{...response.data,role:"Visiteur"}]);
             }

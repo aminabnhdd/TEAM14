@@ -19,7 +19,7 @@ function Filters({fetchFilteredProjects}) {
       <a onClick={() => HandleFilterClick("Tout")} className={activeFilter === "Tout" ? "active" : ""}>Tout</a>
       <a onClick={() => HandleFilterClick("histoire")} className={activeFilter === "histoire" ? "active" : ""}>Histoire</a>
       <a onClick={() => HandleFilterClick("architecture")} className={activeFilter === "architecture" ? "active" : ""}>Architecture</a>
-      <a onClick={() => HandleFilterClick("archeologie")} className={activeFilter === "archeologie" ? "active" : ""}>Archeologie</a>
+      <a onClick={() => HandleFilterClick("archeologie")} className={activeFilter === "archeologie" ? "active" : ""}>Archéologie</a>
       <a onClick={() => HandleFilterClick("autre")} className={activeFilter === "autre" ? "active" : ""}>Autre</a>
       {/* Underline animation */}
       

@@ -56,7 +56,7 @@ export default function DemandeCollaboration(props) {
   );
 
   const showButton = props.isExpert && !props.isCollaborateur && !disciplineExiste;
-
+  props.setCanAsk (showButton)
   const handleRequestClick = () => {
     setShowConfirmPopup(true);
   };

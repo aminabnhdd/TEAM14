@@ -153,8 +153,8 @@ const handleSearch = async (query) => {
       
            <HeaderFavourites />
            <SearchBar  onSearch={handleSearch} />
-           {favoriteProjects.length === 0 ? <p className='pl-20 main-text text-black text-center my-10'>Aucun projet trouvé.</p> :<PinterestLayout projects={ projects} fav={true} />}
-
+           {favoriteProjects.length === 0 ? <p className='pl-20 main-text text-black text-center my-10'>Aucun projet trouvé.</p> :<PinterestLayout projects={ projects}  pageFav={true}/>}
+ 
           
           </main>
          

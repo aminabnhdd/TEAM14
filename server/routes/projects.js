@@ -788,7 +788,7 @@ router.put('/favourite/remove', validateToken, async(req, res) =>{
 })
 
 // wth is this 
-router.get('/favourite/', validateToken, async (req, res) => {
+router.get('/favourite', validateToken, async (req, res) => {
     const userId = req.user.id;
 
     try {

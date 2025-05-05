@@ -3,15 +3,17 @@ import axios from 'axios';
 import { FiSend } from "react-icons/fi";
 import { MdSmartToy, MdClose } from 'react-icons/md';
 import "./ChatBot.css"
+
 function ChatBot({ projetId, isFixed }) {
   const [query, setQuery] = useState('');
   const [sessionId, setSessionId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-
+  const [isSticky,setIsSticky] = useState(false)
   const messagesEndRef = useRef(null);
   const wrapperRef = useRef();
+     
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -51,7 +53,7 @@ function ChatBot({ projetId, isFixed }) {
     setQuery(e.target.value);
   };
 
-  const toggleVisiblity = async () => {
+  const toggleVisiblity = () => {
     setIsVisible(prev => !prev);
   };
 
@@ -76,33 +78,9 @@ function ChatBot({ projetId, isFixed }) {
   };
 
   return (
-    <div ref={wrapperRef} className="fixed bottom-4 right-4 z-50">
-      <style>{`
-        .tooltip-bot {
-          position: absolute;
-          z-index: 999999;
-          right: 95%;
-          background-color: rgba(0, 0, 0, 0.8);
-          color: white;
-          padding: 6px 10px;
-          border-radius: 5px;
-          font-size: 14px;
-          white-space: nowrap;
-          opacity: 0;
-          visibility: hidden;
-          transition: opacity 0.3s ease, transform 0.3s ease;
-          transform: translateX(-10px);
-        }
-
-        .bot-div:hover .tooltip-bot {
-          opacity: 1;
-          visibility: visible;
-          transform: translateX(0);
-        }
-      `}</style>
-
+    <div ref={wrapperRef} className={`fixed right-4 bottom-4 transition-all duration-300 z-10000`}>
       {isVisible && (
-        <div className="relative w-[520px] h-[600px] bg-[color:var(--color-neutral-100)] rounded-[var(--border-radius-8)] flex flex-col overflow-hidden shadow-xl">
+        <div className="relative w-[40vw] h-[90vh] bg-[color:var(--color-neutral-100)] rounded-[var(--border-radius-8)] flex flex-col overflow-hidden shadow-xl">
           <button
             onClick={toggleVisiblity}
             className="absolute top-3 right-3 w-10 h-10 bg-[color:var(--color-dune)] text-[color:var(--color-black)] rounded-full flex items-center justify-center hover:bg-[color:var(--color-brown)] transition-colors z-10"
@@ -173,17 +151,16 @@ function ChatBot({ projetId, isFixed }) {
         </div>
       )}
 
-      {!isVisible && ( <div className="bot-wrapper">
-  <div className="bot-div" style={{position: isFixed ? 'fixed' : 'absolute'}}>
-  <span className="tooltip-bot">Chat-Bot</span> 
-  <MdSmartToy className="bot-icon" onClick={toggleVisiblity} />
-  </div>
-</div> 
-        
+      {!isVisible && (
+        <button 
+          onClick={toggleVisiblity}
+          className="border border-neutral-400 bg-white rounded-full w-14 h-14 cursor-pointer flex justify-center items-center hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300"
+        >
+          <MdSmartToy className="text-[1.5rem] text-[#2d2d2d]" />
+        </button>
       )}
     </div>
   );
 }
 
 export default ChatBot;
-

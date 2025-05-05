@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom";
 import SearchBar from "../../components/SearchBar.jsx";
 import PopAjouterCollaborateur from "../../components/visualisation/popupAjouterCollaborateur.jsx"
 import { MdSmartToy } from 'react-icons/md';
-import ChatBot from "../../components/ChatBot/ChatBot";
+import ChatBot from "../../components/chatBot/ChatBot.jsx"
 import { PuffLoader } from 'react-spinners';
 
 
@@ -32,7 +32,7 @@ export default function Visualisation() {
   const [collaborateurs, setCollaborateurs] = useState(null);
   const { authState, setAuthState } = useContext(AuthContext);
   const [showPopup, setShowPopup] = useState(false);
-  
+  const [canAsk,setCanAsk] = useState(false);
     const [actualReferences,setActualReferences] = useState(null);
 
   const [isFixed, setIsFixed] = useState(true);
@@ -82,24 +82,24 @@ export default function Visualisation() {
     : [];
 
 
-  // useEffect(() => {
-  //     const handleScroll = () => {
-  //       if (!footerRef.current) return;
+  useEffect(() => {
+      const handleScroll = () => {
+        if (!footerRef.current) return;
 
-  //       const footerTop = footerRef.current.getBoundingClientRect().top;
-  //       const windowHeight = window.innerHeight;
+        const footerTop = footerRef.current.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
 
-  //       if (footerTop <= windowHeight - 100) { // 100px BEFORE footer enters
-  //         setIsFixed(false);
-  //       } else {
-  //         setIsFixed(true);
-  //       }
-  //       console.log("position is : ", isFixed);
-  //     };
+        if (footerTop <= windowHeight - 100) { // 100px BEFORE footer enters
+          setIsFixed(false);
+        } else {
+          setIsFixed(true);
+        }
+        console.log("position is : ", isFixed);
+      };
 
-  //     window.addEventListener('scroll', handleScroll);
-  //     return () => window.removeEventListener('scroll', handleScroll);
-  //   }, []);
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
 
   useEffect(() => {
@@ -167,7 +167,7 @@ const override = {
               <SearchBar />
               <main className="">
                 <div className="mt-5 bg w-[86%] mx-auto mb-10">
-                  <TitleBar isExpert={isExpert} projet={projet} references={actualReferences}/>
+                  <TitleBar isExpert={isExpert} projet={projet} references={actualReferences} chef={chef} collaborateurs={collaborateurs}/>
                   <div className="flex align-items justify-between mt-[30px]">
                     <LeftSection
                       projet={projet}
@@ -200,12 +200,12 @@ const override = {
             </div>
             <ListSections sectionsExistantes={sectionsExistantes}
               projet={projet} />
-            <DemandeCollaboration projet={projet} user={user} isExpert={isExpert} isCollaborateur={isCollaborateur} collaborateurs={collaborateurs} />
-  
+            <DemandeCollaboration projet={projet} user={user} setCanAsk={setCanAsk} isExpert={isExpert} isCollaborateur={isCollaborateur} collaborateurs={collaborateurs} />
+            {isExpert &&
+          <ChatBot className="bot-div" projetId={projetId} canAsk={canAsk} isFixed={isFixed} />}
   
           </div>
-          {isExpert &&
-          <ChatBot className="bot-div" projetId={projetId} isFixed={isFixed} />}
+          
           <Footer className="footer"
           ref={footerRef}
           /> </div>

@@ -2,10 +2,12 @@ import React from "react";
 import "../../componentsStyles/ProfilStyles/ProfilInfolink.css";
 import { useNavigate } from "react-router-dom";
 
-
 const DEFAULT_IMAGE_URL = "https://img.freepik.com/vecteurs-premium/icone-profil-utilisateur-dans-style-plat-illustration-vectorielle-avatar-membre-fond-isole-concept-entreprise-signe-autorisation-humaine_157943-15752.jpg?semt=ais_hybrid"
 
 const ProfilInfolink = ({ usersData }) => {
+
+  console.log(usersData)
+
   const navigate = useNavigate();
   return usersData.map((user) => (
     <div key={user._id} className="profil-card">

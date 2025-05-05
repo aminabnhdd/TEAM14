@@ -2,12 +2,10 @@ import { useState } from "react";
 import closeButton from "../../assets/x.png";
 import "../../ComponentsStyles/popUps styles/MdpOublie.css";
 import axios from "axios";
-import AttendreMDP from "./AttendreMDP";
 
 function MdpOublie({ carti, fun, fun2 }) {
     const [formData, setFormData] = useState({ email: "" });
     const [errors, setErrors] = useState({});
-    const [popup,setPopup] = useState(false);
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
     };
@@ -26,7 +24,7 @@ function MdpOublie({ carti, fun, fun2 }) {
             axios.post("http://localhost:3001/auth/pwd-forgotten/send-link", { email: formData.email })
             .then((response) => {
                 fun2();
-                setPopup(true);
+                //setPopup(true);
             })
             .catch((error) => {
                 if(error.status === 404) return setErrors({email:"il n'y a pas d'utilisateur avec cet email"});
@@ -67,7 +65,7 @@ function MdpOublie({ carti, fun, fun2 }) {
                 </form>
                 <button className="popUp4-btn1" onClick={handleSubmit}>Envoyer le lien</button>
             </div>
-                {/* {<AttendreMDP popUp={popup} foncone={() => setPopup(false)} />} */}
+            
             </>
         )
     );

@@ -8,12 +8,12 @@ import MdpOublie from "../components/popUps/MdpOublie";
 import InsChoice from "../components/popUps/InsChoice";
 import Demande from "../components/popUps/Demande";
 import LienEnv from "../components/popUps/LienEnv";
-
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function Pages() {
     
-
+const navigate = useNavigate();
     const [popUp, setPopUp] = useState(true);
     const [popIns, setPopIns] = useState(true);
     const [popInsVs, setPopInsVs] = useState(false);
@@ -113,7 +113,10 @@ function closeCngrPop () {
 const lienEnv = () => {
     setLien(true)
 }
+
+
 const closeLienEnv = () => {
+    navigate('/');
     setLien(false)
 }
 

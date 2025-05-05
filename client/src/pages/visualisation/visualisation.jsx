@@ -102,26 +102,41 @@ export default function Visualisation() {
   //   }, []);
 
 
-
-  const botDiv = document.querySelector('.bot-div');
-const footer = document.querySelector('.footer');
-
-function adjustBotDivPosition() {
-    const footerRect = footer.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-
-    if (footerRect.top < windowHeight) {
-        // Footer is visible -> move bot-div up
-        const overlap = windowHeight - footerRect.top;
-        botDiv.style.bottom = `${overlap + 20}px`; // Add 20px gap
-    } else {
-        botDiv.style.bottom = '20px';
+  useEffect(() => {
+    function adjustBotDivPosition() {
+      try {
+        const botDiv = document.querySelector('.bot-div');
+        const footer = document.querySelector('.footer');
+  
+        if (!botDiv || !footer) return;
+  
+        const footerRect = footer.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+  
+        if (footerRect.top < windowHeight) {
+          const overlap = windowHeight - footerRect.top;
+          botDiv.style.bottom = `${overlap + 20}px`;
+        } else {
+          botDiv.style.bottom = '20px';
+        }
+      } catch (e) {}
     }
-}
+  
+    window.addEventListener('scroll', adjustBotDivPosition);
+    window.addEventListener('resize', adjustBotDivPosition);
+  
+    // delay to ensure DOM is rendered
+    setTimeout(adjustBotDivPosition, 100);
+  
+    return () => {
+      window.removeEventListener('scroll', adjustBotDivPosition);
+      window.removeEventListener('resize', adjustBotDivPosition);
+    };
+  }, []);
+  
 
-window.addEventListener('scroll', adjustBotDivPosition);
-window.addEventListener('resize', adjustBotDivPosition);
-document.addEventListener('DOMContentLoaded', adjustBotDivPosition);
+
+  
 
 const override = {
   display: "block",
@@ -191,7 +206,7 @@ const override = {
           </div>
           {isExpert &&
           <ChatBot className="bot-div" projetId={projetId} isFixed={isFixed} />}
-          <Footer
+          <Footer className="footer"
           ref={footerRef}
           /> </div>
           {showPopup && (

@@ -1,9 +1,10 @@
 import "../../ComponentsStyles/popUps styles/LienEnv.css";
 import imj from "../../assets/x.png";
+import { useNavigate } from "react-router-dom";
 
 function LienEnv({popUp,foncone}) {
     
-
+const navigate = useNavigate();
     return (
         popUp && (
          <div className="main-background">
@@ -15,7 +16,7 @@ function LienEnv({popUp,foncone}) {
                         <p className="popUp2-paragraph">boîte de réception et suivre les instructions pour réinitialiser votre mot de passe.</p>
                     </p>
                 </div>
-                <img className="popUp2-close-button" src={imj} alt="xx" onClick={foncone} />
+                <img className="popUp2-close-button" src={imj} alt="xx" onClick={() => {foncone() ; navigate('/');}} />
             </div>
             </div>   
         )

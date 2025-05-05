@@ -110,7 +110,7 @@ function NewInsEx3({ prevPopUp2,swipeDirection }) {
             for (const key in formData) {
                 if (formData[key] !== null) {
                     data.append(key, formData[key]);
-                }
+                } 
             }
             axios
             .post("http://localhost:3001/auth/signup/expert", data,{headers:{"Content-Type":"multipart/form-data"}})

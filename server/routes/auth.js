@@ -134,10 +134,11 @@ router.post('/pwd-forgotten/send-link',async (req,res)=>{
         user.otl.used = false;
         await user.save();
         await sendPasswordForgotten({to:req.body.email,otl:user.otl.link});
-        res.status(200).json('success');
+        res.status(200).json('success')
     } catch (error) {
         console.log(error);
         res.sendStatus(500);
+
         
     }
 

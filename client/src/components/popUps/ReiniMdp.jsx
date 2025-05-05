@@ -3,9 +3,11 @@ import "../../ComponentsStyles/popUps styles/ReiniMdp.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import AttendreMDP from "./AttendreMDP";
 
 function ReiniMdp({otl}) {
     const [visible, setVisible] = useState(false);
+    const [popup,setPopup] = useState(false);
     const [typo, setTypo] = useState("password");
     const [visible2, setVisible2] = useState(false);
     const [typo2, setTypo2] = useState("password");
@@ -51,7 +53,7 @@ function ReiniMdp({otl}) {
         if (validateForm()) {
             axios.post(`http://localhost:3001/auth/pwd-forgotten/change-pwd/${otl}`, { password: formData.password })
             .then((response) => {
-                alert('success');
+                setPopup(true);
             })
             .catch((error) => {
                 console.log(error);
@@ -61,6 +63,7 @@ function ReiniMdp({otl}) {
     };
 
     return (
+        <>
         <div className="popUp5-inscription-form">
             <div className="popUp5-texts">
                 <p className="popUp5-bien">Réinitialisez votre mot de passe</p>
@@ -118,6 +121,7 @@ function ReiniMdp({otl}) {
             </form>
             <button className="popUp5-btn1" onClick={handleSubmit}>Réinitialiser</button>
         </div>
+             { popup && <AttendreMDP popUp={popup} foncone={() => {setPopup(false); navigate('/connexion'); }}/>} </>
     );
 }
 

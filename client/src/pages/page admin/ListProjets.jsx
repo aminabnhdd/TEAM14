@@ -9,7 +9,7 @@
     import { useNavigate } from "react-router-dom"
     import AuthContext from '../../helpers/AuthContext'
     import { useContext } from "react"
-
+    import Footer from "../../components/Footer"
 
     function LsProjets() {
 
@@ -79,7 +79,7 @@
             <div className="navigation-bar-lsPrjct">
                 <SideNav />
             </div>
-            <div className="secondary-notif-lsPrjct">
+            <div className="secondary-notif-lsPrjct ">
                     <div className="teqsam1">
                     <div className=" textos-lsPrjct">
                         <h1 className="hnotif">Listes des projets</h1>

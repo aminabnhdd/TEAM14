@@ -237,6 +237,8 @@ console.log("here does ths work");
         {/* Keywords list */}
         <div className="flex flex-wrap gap-2 mb-2">
           {formData.keywords.map((keyword, index) => (
+            
+            keyword && 
             <div
               key={index}
               className="flex items-center gap-2 px-3 py-1 bg-neutral-200 rounded-full text-sm"

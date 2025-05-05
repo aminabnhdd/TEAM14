@@ -61,7 +61,16 @@ router.post('/generateHTML',async(req,res) =>{
           const bIndex = preferredOrder.indexOf(b.type);
           return aIndex - bIndex;
         });
-        
+
+        const keywords = (data.projet.keywords && data.projet.keywords.length > 0)
+        ? data.projet.keywords
+            .flatMap(keyword => keyword.split(',').map(k => k.trim())) // Split by commas and trim spaces
+            .filter(k => k !== '') // Skip empty strings
+            .join(', ') // Combine into a single string separated by commas and spaces
+        : "/"; // Fallback to "/" if no keywords available
+      
+        data.projet.keywords = keywords;
+
         const content = await compile('web', data);
         //const content = await compile('informations', { projet, collaborateurs,chef,references });
         
@@ -94,6 +103,16 @@ router.post('/generatePDF', async (req, res) => {
       return aIndex - bIndex;
     });
     
+ 
+    const keywords = (data.projet.keywords && data.projet.keywords.length > 0)
+    ? data.projet.keywords
+        .flatMap(keyword => keyword.split(',').map(k => k.trim())) // Split by commas and trim spaces
+        .filter(k => k !== '') // Skip empty strings
+        .join(', ') // Combine into a single string separated by commas and spaces
+    : "/"; // Fallback to "/" if no keywords available
+  
+    data.projet.keywords = keywords;
+
     const content = await compile('pdf', data);
 
     const browser = await puppeteer.launch({

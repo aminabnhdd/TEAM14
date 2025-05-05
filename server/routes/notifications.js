@@ -8,7 +8,7 @@ const conflitModel = require("../model/conflit");
 const validateToken = require("../middlewares/authMiddleware");
 const { expertModel, userModel } = require("../model/user");
 const { google } = require("googleapis");
-
+const mongoose = require('mongoose');
 const oauth2Client = new google.auth.OAuth2(
   process.env.CLIENT_ID,
   process.env.CLIENT_SECRET,
@@ -104,14 +104,14 @@ router.put("/valider/:conflitId", validateToken, async (req, res) => {
 
       await section.save();
 
-      // let people = [
-      //   ...new Set([projet.chef, conflit.signaleur, expert].filter(Boolean)),
-      // ];
-      let people = [];
-      people.push(projet.chef);
-      if (!people.includes(conflit.signaleur)) people.push(conflit.signaleur);
-      if (!people.includes(expert._id)) people.push(expert._id);
-
+      const people = Array.from(
+        new Set(
+          [projet.chef, conflit.signaleur, expert]
+            .filter(Boolean)
+            .map(p => (typeof p === 'object' && p._id ? p._id.toString() : p.toString()))
+        )
+      ).map(id => new mongoose.Types.ObjectId(id));
+      
       const notifications = people.map((person) => ({
         type: "conflitValide",
         projetId: conflit.projetId,

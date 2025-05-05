@@ -86,3 +86,11 @@
   width: 100%; 
   padding-left: 2%;
 }
+
+.error input, .error .select-input {
+  border-color: red !important;
+}
+
+.error label{
+  color: red;
+}

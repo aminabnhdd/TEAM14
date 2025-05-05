@@ -49,7 +49,7 @@ const DesactivExpert = ({ usersData }) => {
           </div>
           <div>
             <span className="info-label">Discipline</span>
-            <span className="info-value">{user.discipline || "Non renseigné"}</span>
+            <span className="info-value capitalize">{((user.discipline=='archeologie') ? 'archéologie' : user.discipline) || "Non renseigné"}</span>
           </div>
           <div>
             <span className="info-label">Dossier</span>

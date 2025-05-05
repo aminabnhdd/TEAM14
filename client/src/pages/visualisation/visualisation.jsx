@@ -171,7 +171,8 @@ document.addEventListener('DOMContentLoaded', adjustBotDivPosition);
 
 
         </div>
-        <ChatBot projetId={projetId} isFixed={isFixed} />
+        {isExpert &&
+        <ChatBot projetId={projetId} isFixed={isFixed} />}
         <Footer
         //  ref={footerRef}
         /> </div>

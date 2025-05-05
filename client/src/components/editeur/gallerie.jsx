@@ -15,7 +15,7 @@ import { Icon } from "@iconify/react";
 
 import { useNavigate } from "react-router-dom";
 
-const Gallerie = ({ slides }) => {
+const Gallerie = ({ slides,isExpert =true }) => {
   const [index, setIndex] = useState(-1);
   const navigate = useNavigate();
   return (
@@ -26,7 +26,7 @@ const Gallerie = ({ slides }) => {
             key={`img-${i}`}
             className="gallerie-image"
             onClick={() => setIndex(i)}
-          >
+          > {isExpert &&
             <button
               className="annotate-icon-button"
               onClick={(e) => {
@@ -36,7 +36,7 @@ const Gallerie = ({ slides }) => {
               }}
             >
               <Icon icon="mingcute:pic-ai-line" width="24" height="24" />
-            </button>
+            </button>}
             <img
               src={slide.src}
               alt={`Image ${i + 1}`}

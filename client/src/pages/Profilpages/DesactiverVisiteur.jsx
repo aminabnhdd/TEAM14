@@ -75,9 +75,12 @@ const DesactiverVisiteur = () => {
         <HeaderSection />
         <ProfilInfowithoutlink usersData={usersData} />
         <AfficherCardVisiteur usersData={usersData} />
-        <button className="desactiver-btn" onClick={() => setShowPopup(true)}>
-          Désactiver le compte
-        </button>
+        {/* Bouton Désactiver */}
+        {usersData.userValide ?
+
+      <button className="desactiver-btn" onClick={() =>setShowPopup(true)}>
+        Désactiver le compte
+      </button> : <br/> }
         {showPopup && <PopDesactiver onClose={() => setShowPopup(false)} usersData={usersData} />}
         </div>
        </>

@@ -167,7 +167,7 @@ const override = {
               <SearchBar />
               <main className="">
                 <div className="mt-5 bg w-[86%] mx-auto mb-10">
-                  <TitleBar isExpert={isExpert} projet={projet} references={actualReferences} chef={chef} collaborateurs={collaborateurs}/>
+                  <TitleBar isExpert={isExpert} isChef={isChef} projet={projet} references={actualReferences} chef={chef} collaborateurs={collaborateurs}/>
                   <div className="flex align-items justify-between mt-[30px]">
                     <LeftSection
                       projet={projet}

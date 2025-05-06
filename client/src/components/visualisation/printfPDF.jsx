@@ -73,7 +73,7 @@ export default function PrintPDF({ projet, references, chef, collaborateurs }) {
       onClick={downloadPDF}
       disabled={isLoading}
       className={`px-2 cursor-pointer ${isLoading ? 'opacity-50' : ''}`}
-      title="Generate PDF"
+   
     >
       <FontAwesomeIcon
         icon={faFilePdf}

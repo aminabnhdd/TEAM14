@@ -15,7 +15,7 @@ export default function PopConflit2({ onClose }) {
 
         {/* Popup Title */}
         <h2 className="buttons text-black mb-5">Signaler un conflit</h2>
-        <p className="main-text text-black mb-5">Le conflit sera validé par le chef du projet avant d'être affiché</p>
+        <p className="main-text text-black mb-5">Le conflit doit être validé par le chef du projet avant d'être affiché</p>
        
 
       </div>

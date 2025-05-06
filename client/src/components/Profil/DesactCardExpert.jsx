@@ -23,7 +23,7 @@ const DesactivExpert = ({ usersData }) => {
 
 
   return usersData.map((user) => (
-    <div key={user.id} className="affich-expert-card">
+    <div key={user._id} className="affich-expert-card">
       {/* Titre */}
       <div className="card-header">
         <h2>Informations Personnelles & Professionnelles</h2>

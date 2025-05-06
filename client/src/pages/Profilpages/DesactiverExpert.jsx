@@ -63,7 +63,7 @@ const DesactiverExpert = () => {
           });
                 
     }, []);
-
+console.log(usersData)
   return (
     <>
     {
@@ -91,9 +91,11 @@ const DesactiverExpert = () => {
       <DesactCardExpert usersData={usersData} />
 
       {/* Bouton Désactiver */}
-      <button className="desactiver-btn" onClick={() =>setShowPopup(true)}>
-        Désactiver le compte
-      </button>
+      {usersData.userValide ?
+
+<button className="desactiver-btn" onClick={() =>setShowPopup(true)}>
+  Désactiver le compte
+</button> : <br/> }
       {showPopup && <PopDesactiver usersData={usersData} onClose={() => setShowPopup(false)} />}
         </div>
      </>

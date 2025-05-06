@@ -19,13 +19,13 @@ export default function Auteurs(props){
 
         <Auteur user={props.chef} utilisateur={props.utilisateur} isAdmin={props.isAdmin} />
 
-        {props.projet.collaborateurs.length>0 &&
+        {props.projet.collaborateurs.length>1 &&
         <ul>
             <li className="mb-2 mt-4 bolder-text  break-words text-black">
                 Collaborateurs
             </li>
         </ul>}
-        {props.collaborateurs.length>0 &&   props.collaborateurs.map ((collaborateur)=>{
+        {props.collaborateurs.length>1 &&   props.collaborateurs.map ((collaborateur)=>{
             if (props.chef._id !== collaborateur._id)
             return(
             <Auteur key={collaborateur._id} user={collaborateur} utilisateur={props.utilisateur}  isChef={props.isChef} projet={props.projet} setProjet={props.setProjet} collaborateurs={props.collaborateurs} setCollaborateurs={props.setCollaborateurs} isAdmin={props.isAdmin} />

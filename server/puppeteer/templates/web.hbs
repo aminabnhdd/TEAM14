@@ -1,0 +1,757 @@
+<style type="text/css">
+ 
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important; /* Safari/Chrome */
+    print-color-adjust: exact !important;         /* Firefox/Edge */
+  }
+  body{
+    width: 100% !important;
+  }
+   .content , .sidebar {
+    border: 0.75pt solid#d1d4d5 !important; /* instead of 1px */
+  }
+}
+ 
+ 
+ 
+ 
+
+html {
+  font-size: 8pt;
+  
+}
+
+body{
+  width: 92%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
+}
+
+* {
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+
+
+.title {
+  background-color: #e8c07d; 
+  color: #2d2d2d;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1.75rem;
+  font-weight: 500;
+
+ 
+
+}
+
+/* Layout */
+.container {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+    align-items: flex-start; /* Aligns content and sidebar to the top */
+  max-width: 100%;
+  min-width:100%;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding-bottom: 30px;
+}
+
+.content {
+  flex: 2;
+  border: 1px solid #a0a5a6;
+  border-radius: 10px; 
+  padding: 28px ;
+}
+
+/* Sections */
+.section {
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section-header {
+  
+  border-bottom: 1px solid #2d2d2d;
+}
+
+.section-title {
+ 
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #2d2d2d;
+
+}
+
+
+.sidebar {
+  flex: 1;
+  border: 1px solid #a0a5a6;
+  
+  border-radius: 10px; 
+  padding: 28px ;
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.presentation {
+  margin-bottom: 28px;
+}
+
+.presentation-img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 28px;
+}
+
+.presentation-label {
+   background-color: #e8c07d; /* dune */
+  color: #2d2d2d; /* black */
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.presentation-list {
+  list-style: none;
+  padding: 0;
+}
+
+.presentation-list li {
+  margin-top: 8px;
+  font-weight: 600;
+  font-size:1.125rem;
+  
+}
+
+.presentation-list span {
+  font-weight: normal;
+  font-size: 1.125rem;
+}
+.authors {
+  margin-top: 8px;
+}
+
+/* "Auteurs" label */
+.authors-label {
+  background-color: #e8c07d; /* dune */
+  color: #2d2d2d; /* black */
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+/* "Chef du projet" and "Collaborateurs" labels */
+.type-collab {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  color: #2d2d2d; /* black */
+  font-size: 1.125rem;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+/* Author block */
+.author {
+  display: flex;
+  position: relative;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 32px;
+  word-break: break-word;
+  transition: background-color 0.2s ease-in-out;
+}
+
+
+
+/* Profile picture */
+.author-img {
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  background-color: #fefefe; /* white */
+  border-radius: 9999px;
+  object-fit: cover;
+}
+
+/* Name and role */
+.author-info {
+  max-width: 100%;
+}
+
+.author-name {
+  font-size: 1.125rem;
+  font-weight: 400;
+  margin-bottom: 2px;
+  color: #2d2d2d; /* black */
+}
+
+.author-role {
+  font-size: 1.125rem;
+  font-weight: 300;
+  color: #707778; /* neutral-500 */
+}
+
+.gallerie-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden; /* Contain everything */
+}
+
+/* Default: Single row with auto-expanding columns */
+.gallerie-container {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fill, 10rem);
+  grid-auto-columns: 10rem; /* Fixed column width */
+  grid-template-rows: 10rem; /* Default to a single row */
+  gap: 1rem;
+  padding: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin; /* For Firefox */
+}
+
+.gallerie-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallerie-image {
+  width: 10rem;
+  height: 10rem;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  cursor: default;
+}
+
+.tiptap ul, ol {
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.tiptap p {
+  font-size: 1.125em;
+}
+
+.tiptap ul {
+  list-style-type: disc;
+}
+
+.tiptap ol {
+  list-style-type: decimal;
+}
+
+.tiptap h1 {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.tiptap h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.tiptap h3 {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.ProseMirror {
+  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
+  white-space: pre-wrap !important;
+  hyphens: auto;
+}
+
+.ProseMirror:focus {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  
+}
+
+.tiptap a {
+  color: #c57642;
+  text-decoration: underline;
+
+  &:hover {
+    color:  #2d2d2d;
+  }
+}
+
+.tiptap blockquote {
+  border-left: 2px solid #e8c07d;
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+}
+
+
+
+.tiptap table {
+  border-collapse: collapse;
+  margin: 0;
+  overflow: hidden;
+  table-layout: fixed;
+  width: 100% ;
+  margin-left: auto;
+  margin-right: auto; 
+  
+
+  td,
+  th {
+    border: 1px solid #d1d4d5;
+    box-sizing: border-box;
+    height: 2.5em;
+    min-width: 1em;
+    padding: 6px 8px;
+    position: relative;
+    vertical-align: top;
+
+    * {
+      margin-bottom: 0;
+    }
+  }
+
+  th {
+    background-color: #e2e5e6;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .selectedCell:after {
+    background: #d1d4d5;
+    content: "";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+  }
+
+  .column-resize-handle {
+    background-color: #d1d4d5;
+    bottom: -2px;
+    position: absolute;
+    right: -2px;
+    top: 0;
+    width: 4px;
+    opacity: 0; /* Hide by default */
+    transition: opacity 0.2s ease; /* Smooth transition */
+  }
+
+   
+}
+
+.tableWrapper {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+ 
+/* Placeholder (at the top) */
+p.is-editor-empty:first-child::before {
+color:  #707778;
+content: attr(data-placeholder);
+float: left;
+height: 0;
+pointer-events: none;
+}
+
+
+.image-card {
+max-width: 36%;
+border: 1px solid #e2e5e6; /* Add a border */
+border-radius: 8px; /* Rounded corners */
+background-color: #f3f4f5; /* Light background color */
+margin: 0.5rem 1.5rem; /* Add some margin */
+display: inline-block; /* Make the card only as wide as its content */
+overflow: hidden; /* Ensure the image doesn't overflow the card */
+}
+
+.rendered .image-card{
+pointer-events: none;
+}
+
+.rendered figure{
+cursor: default;
+-webkit-user-drag: none;
+user-select: none;
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+}
+
+
+
+/* Alignment styles for the image-card */
+.image-card.align-left {
+float: left; /* Align to the left */
+}
+
+.image-card.align-center {
+display: block;
+margin-left: auto;
+margin-right: auto; /* Center align */
+}
+
+.image-card.align-right {
+float: right; /* Align to the right */
+}
+figure {
+
+display: flex;
+flex-direction: column;
+align-items: center;
+margin: 0; /* Remove default margin */
+padding: 0; /* Remove default padding */
+
+}
+
+
+
+figure img {
+
+max-width: 100%; /* Allow the image to retain its original size */
+height: auto; /* Maintain aspect ratio */
+display: block; /* Remove extra space below the image */
+margin: 0; /* Remove default margin */
+padding: 0; 
+pointer-events: none; 
+
+}
+
+figcaption {
+
+font-style: italic;
+text-align: center;
+
+color: #707778; /* Slightly darker text for the caption */
+padding: 0.5rem; /* Add some padding to the caption */
+font-size:  0.875rem;
+font-weight: 400;
+
+width: 100%;
+}
+
+/* Reuse the .image-card class for videos */
+.video-card {
+border: 1px solid #e2e5e6;
+border-radius: 8px;
+background-color: #f3f4f5;
+margin: 0.5rem 1.5rem;
+display: inline-block;
+overflow: hidden;
+max-width: 36%;
+}
+
+.video-card.align-left {
+float: left;
+}
+
+.video-card.align-center {
+display: block;
+margin-left: auto;
+margin-right: auto;
+
+}
+
+.video-card.align-right {
+float: right;
+}
+
+
+/* Hide video elements completely */
+[data-video-hidden] {
+  display: none !important;
+  height: 0 !important;
+  width: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Make captions clearly visible */
+.visible-caption {
+  display: block;
+  margin: 12px 0;
+  padding: 8px 12px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+  border-left: 3px solid #999;
+}
+
+
+figure video {
+  display: none;
+max-width: 100%;
+height: auto;
+display: block;
+margin: auto;
+padding: 0;
+
+}
+
+
+
+.video-figcaption {
+  display:none;
+font-style: italic;
+color:red;
+font-size: 0.875rem;
+font-weight: 400;
+}
+
+.image-figcaption {
+font-style: italic;
+text-align: center;
+color: #707778;
+padding: 0.5rem;
+font-size: 0.875rem;
+font-weight: 400;
+width: 100%;
+}
+ 
+/* Add this to your global or component-specific CSS */
+.annotation-highlight {
+padding: 2px 4px; /* Optional: Add padding for better visibility */
+border-radius: 3px; /* Optional: Add rounded corners */
+}
+
+.rendered .annotation-highlight{
+background-color: transparent !important;
+padding: 0px !important;
+cursor: default !important;
+pointer-events: none !important;
+}
+
+.reference {
+color:#c57642;
+padding: 1px;
+border-radius: 3px;
+margin: 0 0.2em;
+transition: color 0.2s;
+}
+
+ 
+
+#section-references {
+  margin-bottom: 1rem;
+}
+
+.secondary-titles {
+  color: black;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.reference-item {
+  margin-bottom: 0.25rem;
+  color: brown;
+  transition: color 0.2s ease;
+}
+
+ 
+
+
+
+</style>
+
+<html lang="en">
+
+ 
+<body>
+
+  <div class="title">
+    <p> {{projet.titre}} </p>
+  </div>
+
+<div class="container">
+
+
+  <div class="content">
+
+    {{#each projet.sections}}
+    <!-- Section 1 -->
+    {{#if (or this.contenu this.images)}}
+    <div class="section">
+      <div class="section-header">
+        <button class="section-title">
+          {{#if (eq "archeologie" this.type)}}
+          Archéologie
+          {{else}}
+          {{capitalizeFirst this.type}}
+          {{/if}}
+          </button>
+      </div>
+      <div class="section-body tiptap rendered">
+        {{renderTiptap this.contenu}}
+      </div>
+      {{#if this.images}}
+      <div class="gallerie-wrapper">
+        <div class="gallerie-container">
+          {{#each this.images}}
+          <div class="gallerie-image">
+            <img alt="Image 1" class="gallerie-img"  src="{{this.src}}">
+          </div>
+          {{/each}}
+        </div>
+      </div>
+       {{/if}}
+    </div>
+   {{/if}}
+   {{/each}}
+
+{{#if references}}
+<div class="section">
+  <p class="section-title">Références</p>
+  {{#each references}}
+  <div id="ref-1" class="reference">
+    [{{this.number}}] <span>{{this.text}}</span>
+  </div>
+  
+
+  {{/each}}
+</div>
+{{/if}}
+
+  </div>
+
+   <div class="sidebar">
+    <div class="presentation">
+      {{#if projet.photoUrl}}
+      <img class="presentation-img" src= "{{projet.photoUrl}}"  alt="Image">
+      {{/if}}
+      <div class="presentation-label">Présentation</div>
+      
+      <ul class="presentation-list">
+        <li><span>Type de ressource: </span>
+        {{#if projet.type}}
+        {{projet.type}}
+        {{else}}
+        /
+        {{/if}}
+        
+        </li>
+        <li><span>Style architectural: </span>
+
+        {{#if projet.style}}
+        {{projet.style}}
+        {{else}}
+        /
+        {{/if}}
+        
+        </li>
+        <li><span>Date de construction: </span>
+        
+        {{#if projet.dateConstruction}}
+        {{projet.dateConstruction}}
+        {{else}}
+        /
+        {{/if}}
+        
+        </li>
+        <li><span>Localisation: </span>
+        {{#if projet.localisation}}
+        {{projet.localisation}}
+        {{else}}
+        /
+        {{/if}}
+        
+        </li>
+        <li><span>Coordonnées: </span>
+        {{#if projet.latitude}}
+        {{projet.latitude}}°
+        {{else}}
+        /
+        {{/if}} , {{#if projet.longitude}}
+        {{projet.longitude}}°
+        {{else}}
+        /
+        {{/if}}
+       </li>
+      </ul>
+     
+    </div>
+
+    <div class="authors">
+      <div class="authors-label">Auteurs</div>
+      
+        <p class="type-collab">Chef du projet</p>
+      
+          
+      
+      <div class="author">
+        {{#if chef.pfp}}
+        <img class="author-img" src="{{chef.pfp}}" alt="Profile">
+        {{else}}
+                <img class="author-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1024px-Default_pfp.svg.png" alt="Profile">
+        {{/if}}
+        <div class="author-info">
+          <p class="author-name">{{chef.nom}} {{chef.prenom}}</p>
+          <p class="author-role">Expert en {{chef.discipline}}</p>
+        </div>
+      </div>
+ 
+ {{#if (hasMultiple collaborateurs)}}
+    
+
+    
+        <p class="type-collab">Collaborateurs</p>
+   
+
+      {{#each collaborateurs}}
+    {{#if (ne ../chef._id this._id)}}
+      <div class="author">
+        {{#if this.pfp}}
+        <img class="author-img" src="{{this.pfp}}" alt="Profile">
+        {{else}}
+                <img class="author-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1024px-Default_pfp.svg.png" alt="Profile">
+        {{/if}}
+        <div class="author-info">
+          <p class="author-name">{{this.nom}} {{this.prenom}}</p>
+          <p class="author-role">Expert en {{this.discipline}}</p>
+        </div>
+      </div>
+      {{/if}}
+      {{/each}}
+      {{/if}}
+ 
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

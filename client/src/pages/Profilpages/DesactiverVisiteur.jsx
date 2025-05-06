@@ -12,14 +12,16 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import SideNav from "../../components/SideNav";
 import SearchBar from "../../components/SearchBar.jsx";
+import { PuffLoader } from "react-spinners";
 
 
 const DesactiverVisiteur = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [usersData,setUsersData] = useState([]);
   const {id} = useParams();
-    const {authState,setAuthState} = useContext(AuthContext);
-      const navigate = useNavigate();
+  const {authState,setAuthState} = useContext(AuthContext);
+    const navigate = useNavigate();
+    const [loading,setLoading] = useState(true);
       useEffect(() => {
         axios.get("http://localhost:3001/refresh",{withCredentials:true})
             .then((response) => {
@@ -32,30 +34,59 @@ const DesactiverVisiteur = () => {
                 )
                 .catch((error) => {
                     console.log(error);
-                });
+                })
+                .finally(()=>{
+                  setLoading(false);
+                })
             })
             .catch((error) => {
                 console.log(error);
             });
                   
       }, []);
-  
+      const override = {
+        display: "block",
+        position:"absolute",
+        top:"50%",
+        left:"50%",
+        transform:"translate(-50%,-50%)"
+    };
   return (
-     <>
-      <div className="desactvisitsearchbar">
-        <SearchBar />
-       </div>
-      <SideNav />
-      <div className="root1">
-      <HeaderSection />
-      <ProfilInfowithoutlink usersData={usersData} />
-      <AfficherCardVisiteur usersData={usersData} />
-      <button className="desactiver-btn" onClick={() => setShowPopup(true)}>
-        Désactiver le compte
-      </button>
-      {showPopup && <PopDesactiver onClose={() => setShowPopup(false)} usersData={usersData} />}
-      </div>
-     </>
+    <>
+    {
+      loading ? (
+        <PuffLoader
+                    color="#e8c07d"
+                    loading={loading}
+                    cssOverride={override}
+                    size={70}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+      ) : 
+      
+      (
+        <>
+        <div className="desactvisitsearchbar">
+          <SearchBar />
+         </div>
+        <SideNav />
+        <div className="root1">
+        <HeaderSection />
+        <ProfilInfowithoutlink usersData={usersData} />
+        <AfficherCardVisiteur usersData={usersData} />
+        <button className="desactiver-btn" onClick={() => setShowPopup(true)}>
+          Désactiver le compte
+        </button>
+        {showPopup && <PopDesactiver onClose={() => setShowPopup(false)} usersData={usersData} />}
+        </div>
+       </>
+      )
+    }
+    
+    
+    </>
+    
  
   );
 };

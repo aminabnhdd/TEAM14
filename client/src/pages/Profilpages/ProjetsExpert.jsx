@@ -11,6 +11,7 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import SideNav from "../../components/SideNav";
 import SearchBar from "../../components/SearchBar.jsx";
+import { PuffLoader } from "react-spinners";
 
 const ProjetsExpert =() => {
   const [usersData,setUsersData] = useState([]);
@@ -43,7 +44,6 @@ const ProjetsExpert =() => {
                 axios.get(`http://localhost:3001/profil/expert/${updatedUsers[0]._id}/projets`, { headers: { Authorization: `Bearer ${accessToken}` } })
               .then((response) => {
                 setProjects(response.data.projects);
-                setLoading(false);
               })
               .catch((error) => {
                 console.log(error);
@@ -51,15 +51,39 @@ const ProjetsExpert =() => {
               })
               .catch((error) => {
                   console.log(error);
-              });
+              })
+              .finally(()=>{
+                setLoading(false);
+              })
           })
           .catch((error) => {
               console.log(error);
           });
                 
     }, []);
+    const override = {
+      display: "block",
+      position:"absolute",
+      top:"50%",
+      left:"50%",
+      transform:"translate(-50%,-50%)"
+  };
   return(
     <>
+    {
+      loading ? (
+        <PuffLoader
+                    color="#e8c07d"
+                    loading={loading}
+                    cssOverride={override}
+                    size={70}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+      ) : 
+      
+      (
+        <>
       <div className="projetexpertsearchbar">
         <SearchBar />
       </div>
@@ -73,6 +97,12 @@ const ProjetsExpert =() => {
 }
 </div>
     </>
+      )
+    }
+    
+    
+    </>
+    
   );
 }
 export default ProjetsExpert;

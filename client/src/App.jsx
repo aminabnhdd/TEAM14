@@ -37,6 +37,11 @@ import HelpPrnc from "./pages/Help/HelpMain.jsx";
 import HelpMonProfil from "./pages/Help/HelpMonProfil.jsx";
 import HelpNotif from "./pages/Help/HelpNorif.jsx";
 import HelpEditeur from "./pages/Help/HelpEditeur.jsx";
+import ImpressionWeb from "./pages/visualisation/ImpressionWeb.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import ChatBot from './components/ChatBot/ChatBot';
+import NotFound from "./pages/ErrorPages/NotFound.jsx";
+import Forbidden from "./pages/ErrorPages/Forbidden.jsx";
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -51,7 +56,6 @@ function App() {
         <Router>
         <Routes>
           <Route path="/ai" element = {<AnnotationTool />}/>
-          <Route path="/ihateracism" element={<h1>I hate racisme</h1>}/>
           <Route path="/" element={<LandingPage />} />
           <Route path="/connexion" element={<Con />} />
           <Route path="/notifications" element={<Notif/>} />
@@ -64,12 +68,14 @@ function App() {
           <Route path="/restoreprojects" element={<RestoreProjects />} />
           <Route path="/editeur/editable/:sectionId" element={<EditorEditable  />} />
           <Route path="/gallerie" element={<Gallerie/>}/>
+          <Route path="/impression-web" element={<ImpressionWeb/>}/>
           {/* Route for annotatins */}
           <Route path="/editeur/annoter/:sectionId" element={<EditorNonEditable />} />
           <Route path="/visualisation/:projetId" element={<Visualisation />} />
-          <Route path="/projets" element={<LsProjets />} />
-          <Route path="/notifications-admin" element={<NotifAdmin />} />
-          <Route path="/list-utilisateurs" element={<ListUtil />} />
+          <Route path="/projets" element={<ProtectedRoute allowedRoles={"Admin"}><LsProjets /></ProtectedRoute>} />
+          <Route path="/notifications-admin" element={ <ProtectedRoute allowedRoles={"Admin"}><NotifAdmin /></ProtectedRoute> } />
+          <Route path="/list-utilisateurs" element={<ProtectedRoute allowedRoles={"Admin"}><ListUtil /></ProtectedRoute>} />
+          {/*<Route path="chat" element={<ChatBot />}/>*/}
           {/*Profil routes*/ }
           <Route path="/afficher-expert/:id" element={<AfficherExpert />} />
           <Route path="/modifier-expert" element={<ModifierExpert />} />
@@ -84,12 +90,13 @@ function App() {
           <Route path="/discover" element={<Decouvrir />} />
           <Route path="/favoris" element={<Favoris />} />
           <Route path="/mot-de-passe-oublie/:otl" element={<ReiniMotdps />} />
-          <Route path="*" element={<h1>404 Not Found</h1>} />
           {/*Help routes*/ }
           <Route path="/HelpMain" element={<HelpPrnc/>}></Route>
           <Route path="/HelpMonProfil" element={<HelpMonProfil/>}></Route>
           <Route path="/HelpNotif" element={<HelpNotif/>}></Route>
           <Route path="/HelpEditeur" element={<HelpEditeur/>}></Route>
+          <Route path="/forbidden" element={<Forbidden></Forbidden>} />
+          <Route path="*" element={<NotFound></NotFound>} />
         </Routes>
       </Router>
       

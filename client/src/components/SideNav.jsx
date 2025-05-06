@@ -38,7 +38,7 @@ function SideNav(){
         }
 
     const goToLsProjets = () => {
-    navigate("/list-projets") // hna tdir la page li rak hab troh liha
+    navigate("/projets") // hna tdir la page li rak hab troh liha
     }
     const goToLsUtil = () => {
     navigate("/list-utilisateurs")

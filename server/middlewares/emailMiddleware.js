@@ -14,7 +14,7 @@ const sendAccountStatusEmail = async ({ to, username, status }) => {
       <h2>Félicitations, ${username} !</h2>
       <p>Votre demande de création de compte a été approuvée.</p>
       <p>Vous pouvez maintenant vous connecter et utiliser notre plateforme.</p>
-      <a href="https://athar.com" style="display: inline-block; padding: 10px 20px; background-color: #28a745; color: #fff; text-decoration: none; border-radius: 5px;">Se connecter</a>
+      <a href="http://localhost:5173/connexion" style="display: inline-block; padding: 10px 20px; background-color: #e8c07d; color: #fff; text-decoration: none; border-radius: 5px;">Se connecter</a>
       <p>Merci d'utiliser notre service.</p>
     `
     : `
@@ -26,7 +26,7 @@ const sendAccountStatusEmail = async ({ to, username, status }) => {
     `;
 
   const textMessage = status === "accepted"
-    ? `Félicitations ${username} ! Votre compte a été approuvé. Vous pouvez maintenant vous connecter: https://athar.com`
+    ? `Félicitations ${username} ! Votre compte a été approuvé. Vous pouvez maintenant vous connecter: http://localhost:5173/connexion`
     : `Bonjour ${username}, votre demande de compte a été refusée. Si vous avez des questions, contactez-nous: athar.e14.esi@gmail.com`;
 
   try {

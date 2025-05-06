@@ -43,12 +43,23 @@ import PinterestLayout from '../components/PinterestLayout/PinterestLayout';
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import AuthContext from '../helpers/AuthContext';
+import { PuffLoader } from 'react-spinners';
 import { useNavigate } from 'react-router-dom';
 import Pfp from '../components/pfp';
 function Favoris() {
     const [favoriteProjects, setFavoriteProjects] = useState([]);
     const [user, setUser] = useState({});
     const { authState,setAuthState } = useContext(AuthContext);
+    const [loading, setLoading] = useState(true);
+
+
+    const override = {
+    display: "block",
+    position:"absolute",
+    top:"50%",
+    left:"50%",
+    transform:"translate(-50%,-50%)"
+};
 
       
 
@@ -75,6 +86,7 @@ function Favoris() {
                     }
                 });
                 setUser(userResponse.data);
+
                 console.log(userResponse.data);
 
                 // Fetch favorite projects
@@ -86,6 +98,7 @@ function Favoris() {
                 });
 
                 setFavoriteProjects(res.data);
+                setLoading(false); 
             } catch (err) {
                 console.error('Error fetching favorite projects or refreshing token:', err);
             }
@@ -103,6 +116,20 @@ function Favoris() {
     
   
     return (
+        <>
+    {
+      loading ? (
+        <PuffLoader
+                    color="#e8c07d"
+                    loading={loading}
+                    cssOverride={override}
+                    size={70}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+      ) : 
+      
+      (
         <div className='min-h-screen relative flex flex-col'>
          {/* <div
   className={`fixed top-7 right-4 z-5000 w-12 h-12 rounded-full border-2 ${imgUrl ?"border-white" : "border-brown"} 
@@ -132,6 +159,12 @@ function Favoris() {
      </div>
 
    </div>
+      )
+    }
+    
+    
+    </>
+        
     );
 }
 

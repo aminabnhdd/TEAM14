@@ -2,7 +2,7 @@ import SideNav from "../../components/SideNav"
 import TitleBar from "../../components/visualisation/titleBar"
 import LeftSection from "../../components/visualisation/leftSection"
 import RightSection from "../../components/visualisation/rightSection"
-import { useState, useEffect} from "react"
+import { useState, useEffect, useRef} from "react"
 import ListSections from "../../components/visualisation/listSections"
 import DemandeCollaboration from "../../components/visualisation/demandeCollaboration"
 import Footer from "../../components/Footer"
@@ -13,6 +13,11 @@ import RefreshService from "../../services/RefreshService";
 import { useParams } from "react-router-dom";
 import SearchBar from "../../components/SearchBar.jsx";
 import PopAjouterCollaborateur from "../../components/visualisation/popupAjouterCollaborateur.jsx"
+import { MdSmartToy } from 'react-icons/md';
+import ChatBot from "../../components/ChatBot/ChatBot";
+import PuffLoader from "react-spinners/PuffLoader";
+
+
 export default function Visualisation(){
     const { projetId } = useParams();
     const [isExpert, setIsExpert] = useState(null);
@@ -27,13 +32,25 @@ export default function Visualisation(){
     const [collaborateurs,setCollaborateurs] =useState(null);
     const {authState,setAuthState} = useContext(AuthContext);
     const [showPopup, setShowPopup] = useState(false);
+  
+    const [actualReferences,setActualReferences] = useState(null);
+
+    const [isFixed, setIsFixed] = useState(true);
+    
+    const footerRef = useRef();
+
 
     useEffect(() => {
         const fetchProjet = async () => {
           try {
+            
             const response= await  RefreshService.Refresh();
             setAuthState({email:response.email,role:response.role,accessToken:response.accessToken});
             const projetData = await VisuService.getProjet(projetId, response.accessToken);
+
+           
+
+            
             setProjet(projetData.projet);
             setUser(projetData.user);
             setChef(projetData.chef);
@@ -56,7 +73,7 @@ export default function Visualisation(){
 
      const sections = ['description','architecture','histoire','archeologie','autre'];
 
- 
+ console.log('projet==============================',actualReferences);
 
      const sectionsExistantes = projet && projet.sections && Array.isArray(projet.sections)
      ? sections.filter(section => 
@@ -65,16 +82,47 @@ export default function Visualisation(){
      : [];
       
 
+    useEffect(() => {
+        const handleScroll = () => {
+          if (!footerRef.current) return;
+    
+          const footerTop = footerRef.current.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+    
+          if (footerTop <= windowHeight - 100) { // 100px BEFORE footer enters
+            setIsFixed(false);
+          } else {
+            setIsFixed(true);
+          }
+          console.log("position is : ", isFixed);
+        };
+    
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+      const override = {
+        display: "block",
+        position:"absolute",
+        top:"50%",
+        left:"50%",
+        transform:"translate(-50%,-50%)"
+        };
 
-
+      
 
        return (
+        
 
         <>
          {loading ? (
-   <div className="flex justify-center items-center h-screen">
-     <p>Loading section...</p>
-   </div>
+   <PuffLoader
+   color="#e8c07d"
+   loading={loading}
+   cssOverride={override}
+   size={70}
+   aria-label="Loading Spinner"
+   data-testid="loader"
+/>
  ) : (<>
           <div className="flex relative max-w-full ">
             <SideNav className="" />
@@ -82,7 +130,12 @@ export default function Visualisation(){
                 <SearchBar/>
                <main className="">
                 <div className="mt-5 bg w-[86%] mx-auto mb-10">
-                  <TitleBar isExpert={isExpert} projet={projet} />
+                  <TitleBar isExpert={isExpert} 
+                       projet={projet}
+                      chef={chef}
+                      collaborateurs={collaborateurs}
+                      references={actualReferences}/>
+
                   <div className="flex align-items justify-between mt-[30px]">
                     <LeftSection
                       projet={projet}
@@ -94,6 +147,7 @@ export default function Visualisation(){
                       user={user}
                       collaborateurs={collaborateurs}
                       sectionsExistantes={sectionsExistantes}
+                      setActualReferences={setActualReferences}
                     />
                     <RightSection
                       projet={projet}
@@ -117,13 +171,15 @@ export default function Visualisation(){
             <DemandeCollaboration projet={projet} user={user} isExpert={isExpert} isCollaborateur={isCollaborateur} collaborateurs={collaborateurs}  />
           
             
-             </div> <Footer/>
+             </div> 
+             <ChatBot projetId={projetId} isFixed={isFixed} />
+             <Footer ref={footerRef}/>
              {showPopup && (
         <PopAjouterCollaborateur onClose={() => setShowPopup(false)} projet={projet} setProjet={setProjet} collaborateurs={collaborateurs} setCollaborateurs={setCollaborateurs} />
       )}
              </>)}
-             
-
+           
+      
         </>
       );
     }

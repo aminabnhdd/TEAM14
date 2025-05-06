@@ -2,7 +2,7 @@ import "../../PagesStyles/Pages Admin Styles/ListUtil.css"
 import {useState,useEffect, useContext} from "react"
 import SearchBar from "../../components/SearchBar"
 import SideNavAdmin from "../../components/SideNav/SideNavAdmin"
-
+import PuffLoader from "react-spinners/PuffLoader"
 import imjjjjjj from "../../assets/person.png"
 import axios from "axios"
 import AuthContext from '../../helpers/AuthContext'
@@ -16,6 +16,7 @@ function ListUtil() {
 
     const [notificationsConflit, setNotificationsConflit] = useState([]) 
     const [notificationsCol , setNotificationsCol] = useState([])
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     const handleSeenProjet = (id,type) => {
@@ -31,6 +32,13 @@ function ListUtil() {
         setNotificationsCol(updated);
     }
       };
+      const override = {
+        display: "block",
+        position:"absolute",
+        top:"50%",
+        left:"50%",
+        transform:"translate(-50%,-50%)"
+        };
 
     const [searchQuery, setSearchQuery] = useState("");
       
@@ -49,7 +57,7 @@ function ListUtil() {
         document.querySelector(".transptext:first-child")?.classList.add("active");
         axios.get("http://localhost:3001/refresh", { withCredentials: true })
         .then((res) => {
-            // if (res.data.error) return navigate("/connexion")
+            if (res.data.error) return navigate("/connexion")
             setAuthState({email:res.data.email,role:res.data.role,accessToken:res.data.accessToken});
             axios.get("http://localhost:3001/admin/search/experts",{headers: {Authorization: `Bearer ${res.data.accessToken}`}})
             .then((res)=>{
@@ -63,6 +71,7 @@ function ListUtil() {
             .then((res)=>{
                 console.log(res.data)
                 setNotificationsCol(res.data.map((el) => ({...el, seen: false,imge:imjjjjjj,util:`${el.nom} ${el.prenom}`,type:"visiteur"})));
+                setLoading(false);
             })
             .catch((error)=>{
                 console.error("Error fetching experts:", error);
@@ -96,7 +105,21 @@ const [col,setCol] = useState(false)
 
  return(
 
-    <div className="main-notif">
+    <>
+    {
+      loading ? (
+        <PuffLoader
+                    color="#e8c07d"
+                    loading={loading}
+                    cssOverride={override}
+                    size={70}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+      ) : 
+      
+      (
+        <div className="main-notif">
         <div className="navigation-bar-LsUtil">
                 <SideNavAdmin />
             </div>
@@ -158,6 +181,13 @@ const [col,setCol] = useState(false)
             </div>
         </div>
     </div>
+      )
+    }
+    
+    
+    </>
+
+    
 )
 }
 

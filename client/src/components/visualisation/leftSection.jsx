@@ -18,7 +18,7 @@ export default function LeftSection(props){
            })} 
            <AjouterSection  user={props.user} isCollaborateur={props.isCollaborateur} isChef={props.isChef} sectionsExistantes={props.sectionsExistantes} projet={props.projet} setProjet={props.setProjet} />
            <div className="flex justify-between">
-           <ReferencesSection  projet={props.projet} />
+           <ReferencesSection  projet={props.projet} setActualReferences={props.setActualReferences}/>
            {props.isAdmin || props.isChef && <ArchiverProjet user={props.user} projet={props.projet} setProjet={props.setProjet} />}
            </div>
 

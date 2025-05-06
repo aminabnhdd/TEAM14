@@ -28,6 +28,8 @@ router.get('', async(req, res) => {
 
 });
 
+
+//create projet
 router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.single("image"), async (req, res) => {
     try {
 
@@ -79,7 +81,7 @@ router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.si
     }
 });
 
-
+// modifier projet get request
 router.get("/modifier/:id",  validateToken, validateRole(expertRole, adminRole),async (req, res) => {
     try {
         const { id } = req.params;
@@ -106,7 +108,7 @@ router.get("/modifier/:id",  validateToken, validateRole(expertRole, adminRole),
     
 });
 
-
+// archiver projet
 router.put('/archive/:projectID',validateToken,validateRole(expertRole,adminRole),async (req,res)=>{
     try {
 
@@ -130,7 +132,7 @@ router.put('/archive/:projectID',validateToken,validateRole(expertRole,adminRole
     }
 });
 
-
+// restaurer projet archiver
 router.put('/restore/:projectID',validateToken ,async (req,res)=>{
     try {
 
@@ -155,7 +157,7 @@ router.put('/restore/:projectID',validateToken ,async (req,res)=>{
     }
 });
 
-
+// search by keywords
 router.get("/search", async (req, res) => {
     const { keyword } = req.query;
   
@@ -174,7 +176,7 @@ router.get("/search", async (req, res) => {
     }
   });
 
-
+// search by filters
   router.get('/search/filters', async (req, res) => {
     try {
         const filter = req.query.filters; 
@@ -215,7 +217,7 @@ router.get("/search", async (req, res) => {
     }
 });
 
-
+//  get favorites
 router.get('/favorites', validateToken, async (req, res) => { 
     try {
         const user = await userModel.find({_id:req.user.id}); 
@@ -281,7 +283,7 @@ router.get("/mesprojets-archiver", validateToken, async (req, res) => {
   }
 );
 
-
+// modifier(editer) projet
 router.put('/modify/:projectID', validateToken, validateRole(expertRole, adminRole), upload.single("image"), async (req, res) => {
     try {
         let project = await projectModel.findById(req.params.projectID);
@@ -367,7 +369,7 @@ router.get('/projet/:projetId', validateToken, async (req, res) => {
 });
 
 
-
+// ajouter section 
 router.post("/ajoutersection", validateToken, async (req, res) => {
     try {
         const { projetId, type } = req.body;
@@ -429,8 +431,8 @@ router.put('/:projetId/collaborateurs', validateToken, async(req, res) => {
 
 
 });
-//email thing and all 
 
+//email thing and all 
 router.get('/:projectId/collaborateurs/:email', validateToken, async(req, res) => {
     const { email } = req.params;
     const { projectId } = req.params;
@@ -465,7 +467,6 @@ router.get('/:projectId/collaborateurs/:email', validateToken, async(req, res) =
 });
 
 //request to delete collaborator
-
 router.delete("/:projectId/collaborateurs/:expertId", validateToken, validateProjectOwner, async(req, res) => {
     const { projectId, expertId } = req.params;
 
@@ -489,11 +490,10 @@ router.delete("/:projectId/collaborateurs/:expertId", validateToken, validatePro
 })
 
 //request to join the collaborators of a project
-
 router.post("/:projectId/demande", validateToken,  async(req, res) => {
     const { projectId } = req.params;
     const  expertId  = req.user.id; 
-console.log("the expert id",expertId);
+    console.log("the expert id",expertId);
     try {
         const project = await projectModel.findByIdAndUpdate(
             projectId, { $push: { demandes: { expert: expertId, status: "pending" } } }, { new: true }
@@ -528,7 +528,6 @@ console.log("the expert id",expertId);
 
 
 //request for the project owner to validate or not the demandes of collaborating on  the prject
-
 router.post("/:projectId/validate/:expertId", validateToken, validateProjectOwner, async(req, res) => {
     const { projectId, expertId } = req.params;
     const { status } = req.body;
@@ -560,7 +559,7 @@ router.post("/:projectId/validate/:expertId", validateToken, validateProjectOwne
     }
 })
 
-
+// wth is this
 router.get("/search", async(req, res) => {
     const { keyword } = req.body; // Get keyword from query params
 
@@ -578,7 +577,6 @@ router.get("/search", async(req, res) => {
 });
 
 //request to delete collaborator
-
 router.delete("/:projectId/collaborateurs/:expertId", validateToken, validateProjectOwner, async(req, res) => {
     const { projectId, expertId } = req.params;
 
@@ -602,8 +600,6 @@ router.delete("/:projectId/collaborateurs/:expertId", validateToken, validatePro
 })
 
 //request to join the collaborators of a project
-
-
 router.post("/:projectId/:sectionId/demande", validateToken, validateProjectOwner, async(req, res) => {
     const { projectId,sectionId } = req.params;
     const { expertId } = req.body; //expertId in the body of the request because one project can have several demandes there is no bijection
@@ -689,6 +685,8 @@ router.get("/search", async(req, res) => {
     }
 });
 
+
+// modifier projet 
 router.put("/update/:id", upload.single("image"), validateToken, async (req, res) => {
     try {
       const { id } = req.params;
@@ -760,6 +758,8 @@ router.put("/update/:id", upload.single("image"), validateToken, async (req, res
     }
     
 })
+
+// remove from favorites
 router.put('/favourite/remove', validateToken, async(req, res) =>{
     const userId = req.user.id;
     const {projectId} = req.body;
@@ -784,6 +784,8 @@ router.put('/favourite/remove', validateToken, async(req, res) =>{
     }
     
 })
+
+// wth is this 
 router.get('/favourite/', validateToken, async (req, res) => {
     const userId = req.user.id;
 
@@ -814,7 +816,6 @@ router.get('/export-projet/:id', validateToken,validateRole(expertRole),async (r
             return res.status(404).json({ message: 'Projet non trouvé' });
         }
 
-        // Nettoyage éventuel
         delete projet.__v;
 
         const jsonData = JSON.stringify(projet, null, 2);
@@ -841,7 +842,7 @@ router.get('/export-projet/:id', validateToken,validateRole(expertRole),async (r
         res.status(500).json({ message: 'Erreur serveur' });
     }
 });
-router.post('/import-projet', validateToken, validateRole(expertRole), async (req, res) => {
+router.post('/import-projet', async (req, res) => {
     try {
       const projetData = req.body;
   

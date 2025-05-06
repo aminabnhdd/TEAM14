@@ -10,6 +10,7 @@ import axios from "axios"
 import AuthContext  from "../../helpers/AuthContext"
 import { useNavigate } from "react-router-dom"
 import { useContext } from "react"
+import PuffLoader from "react-spinners/PuffLoader"
 
 
 import imjjjjjj from "../../assets/person.png"
@@ -27,7 +28,7 @@ function NotifAdmin() {
 
     const {authState,setAuthState} = useContext(AuthContext);
     const navigate = useNavigate();
-    
+    const [loading, setLoading] = useState(true);
     
     const handleSeenConflit = (id,type) => {
         if (type === "expert") {
@@ -43,7 +44,14 @@ function NotifAdmin() {
             setNotificationsCol(updated);
         
     }
-}
+}   
+const override = {
+    display: "block",
+    position:"absolute",
+    top:"50%",
+    left:"50%",
+    transform:"translate(-50%,-50%)"
+    };
     
 
     useEffect(() => {
@@ -61,6 +69,7 @@ function NotifAdmin() {
                 console.log(res.data)
                 setNotificationsConflit(res.data.filter((el) => el.type === "validerExpert").map((el) => ({...el, seen: false,imge: imjjjjjj,genre:"expert"})));
                 setNotificationsCol(res.data.filter((el) => el.type === "validerVisiteur").map((el) => ({...el, seen: false,imge: imjjjjjj,genre:"visiteur"})));
+                setLoading(false);
             })
             .catch((error)=>{
                 console.error("Error fetching notifications:", error);
@@ -147,7 +156,21 @@ const [poop3,setPoop3] = useState(false)
 
  return(
 
-    <div className="main-notif">
+    <>
+    {
+      loading ? (
+        <PuffLoader
+                    color="#e8c07d"
+                    loading={loading}
+                    cssOverride={override}
+                    size={70}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+      ) : 
+      
+      (
+        <div className="main-notif">
         <div className="navigation-bar-notifAd">
             <SideNavAdmin/>
         </div>
@@ -181,7 +204,7 @@ const [poop3,setPoop3] = useState(false)
                             <img className="notif-icon-notifAd" src={element.imge} alt="Notification Icon" />
                             <p className="notif-message-notifAd"><span 
                             onClick={()=>{navigate(`/desactiver-expert/${element.sendeId._id}`)}}                               
-                            className="userName underline cursor-pointer">{element.sendeId.nom } {element.sendeId.prenom}</span> souhaite créer un compte {element.genre}</p>
+                            className="userName underline cursor-pointer">{element.sendeId?.nom || "" } {element.sendeId?.prenom || ""}</span> souhaite créer un compte {element.genre}</p>
                             </div>
                             <div className="notwtabwdom-notifAd">
                             <span className="notif-time-notifAd">{getTime(element.time)}</span>
@@ -201,7 +224,7 @@ const [poop3,setPoop3] = useState(false)
                             <p className="notif-message-notifAd">
                             <span 
                             onClick={()=>{navigate(`/desactiver-visiteur/${element.sendeId._id}`)}}                               
-                            className="userName underline cursor-pointer">{element.sendeId.nom } {element.sendeId.prenom}</span> souhaite créer un compte {element.genre} </p>
+                            className="userName underline cursor-pointer">{element.sendeId?.nom || "" } {element.sendeId?.prenom || ""}</span> souhaite créer un compte {element.genre} </p>
                             </div>
                             <div className="notwtabwdom-notifAd">
                             <span className="notif-time-notifAd">{getTime(element.time)}</span>
@@ -218,6 +241,13 @@ const [poop3,setPoop3] = useState(false)
             </div>
         </div>
     </div>
+      )
+    }
+    
+    
+    </>
+
+    
  )
 }
 

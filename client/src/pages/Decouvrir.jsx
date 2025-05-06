@@ -9,6 +9,7 @@ import { useState, useEffect, useContext } from 'react';
 import axios from "axios";
 import AuthContext from '../helpers/AuthContext';
 import Pfp from '../components/pfp';
+import { BarLoader, PuffLoader } from 'react-spinners';
 
 function Decouvrir() {
   const [projects, setProjects] = useState([]);
@@ -16,6 +17,16 @@ function Decouvrir() {
   const [user, setUser] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
+
+  const override = {
+    display: "block",
+    position:"absolute",
+    top:"50%",
+    left:"50%",
+    transform:"translate(-50%,-50%)"
+};
 
   // Get initial search query from URL
   const initialQuery = searchParams.get('query') || "";
@@ -39,6 +50,7 @@ function Decouvrir() {
           headers: { Authorization: `Bearer ${response.data.accessToken}` }
         });
         setUser(response2.data);
+        setLoading(false);
       } catch (error) {
         console.log(error);
         navigate('/connexion');
@@ -112,8 +124,23 @@ function Decouvrir() {
     navigate(`/modifier-${authState.role === "Expert" ? "expert" : "visiteur"}`);
   };
 
+
   return (
-    <div className='min-h-screen relative flex flex-col'>
+    <>
+    {
+      loading ? (
+        <PuffLoader
+                    color="#e8c07d"
+                    loading={loading}
+                    cssOverride={override}
+                    size={70}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+      ) : 
+      
+      (
+        <div className='min-h-screen relative flex flex-col'>
       <Pfp fixed={true}/>
       <div className="flex-1 flex relative max-w-full">
         <SideNav className="" />
@@ -130,6 +157,12 @@ function Decouvrir() {
       </div>
       <Footer/>
     </div>
+      )
+    }
+    
+    
+    </>
+    
   )
 }
 

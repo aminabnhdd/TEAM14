@@ -25,29 +25,30 @@ const SectionService = {
       console.log("contenu not stringified",contenu)
       console.log("contenu stringified:", JSON.stringify(contenu));
   
-      const filePromises = imageChanges.map(async (image, index) => {
+      for (const [index, image] of imageChanges.entries()) {
         if (image.src.startsWith("blob:")) {
           try {
+            
             const response = await fetch(image.src);
             const blob = await response.blob();
             const file = new File([blob], `uploaded_image_${index}.png`, { type: blob.type });
-  
+
             formData.append("images", file);
             console.log(`Added File: ${file.name}, Type: ${file.type}, Size: ${file.size}`);
           } catch (error) {
             console.error("Failed to fetch blob:", error);
           }
-      }else {
-        try {
-          formData.append("images", image.src); 
-          console.log(`Added Existing Image: ${image.src}`);
-        } catch (error) {
-          console.error("Error handling old image:", error);
-        }
-      }});
-  
-      
-      await Promise.all(filePromises);
+        } else {
+          try {
+            formData.append("images", image.src);
+            console.log(`Added Existing Image: ${image.src}`);
+          } catch (error) {
+            console.error("Error handling old image:", error);
+          }
+        }
+      }
+
+      // await Promise.all(filePromises);
   
       // Debugging: Log formData entries
       for (let pair of formData.entries()) {

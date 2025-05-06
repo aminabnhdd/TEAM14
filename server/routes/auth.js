@@ -13,6 +13,13 @@ const AdminRole = process.env.ADMIN_ROLE;
 const ExpertRole = process.env.EXPERT_ROLE;
 
 
+const getRole = (role) => {
+    if (role === process.env.ADMIN_ROLE) return "Admin";
+    if (role === process.env.EXPERT_ROLE) return "Expert";
+    if (role === process.env.VISITOR_ROLE) return "Visiteur";
+    return "Unknown";
+}
+
 
 router.post('/signup/visitor',async (req,res)=>{
     try {
@@ -112,7 +119,7 @@ router.post('/login',async (req,res)=>{
 
     
     res.cookie('jwt',refreshToken,{ httpOnly:true,maxAge:1000*3600*24,sameSite:'lax',secure:false});
-    res.json({refreshToken:refreshToken,accessToken:accessToken,prenom:user.prenom,nom:user.nom,id:user._id,role:user.role});
+    res.json({refreshToken:refreshToken,accessToken:accessToken,prenom:user.prenom,nom:user.nom,id:user._id,role: getRole(user.role) });
 
 
 });

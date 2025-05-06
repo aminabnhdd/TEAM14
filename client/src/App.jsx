@@ -33,6 +33,10 @@ import ProjetsExpert2 from "./pages/Profilpages/ProjetsExpert2.jsx";
 import AnnotationTool from "./pages/AI/annotAI.jsx"
 import Decouvrir from "./pages/Decouvrir";
 import Favoris from "./pages/Favoris";
+import HelpPrnc from "./pages/Help/HelpMain.jsx";
+import HelpMonProfil from "./pages/Help/HelpMonProfil.jsx";
+import HelpNotif from "./pages/Help/HelpNorif.jsx";
+import HelpEditeur from "./pages/Help/HelpEditeur.jsx";
 import ImpressionWeb from "./pages/visualisation/ImpressionWeb.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ChatBot from './components/ChatBot/ChatBot';
@@ -86,6 +90,11 @@ function App() {
           <Route path="/discover" element={<Decouvrir />} />
           <Route path="/favoris" element={<Favoris />} />
           <Route path="/mot-de-passe-oublie/:otl" element={<ReiniMotdps />} />
+          {/*Help routes*/ }
+          <Route path="/HelpMain" element={<HelpPrnc/>}></Route>
+          <Route path="/HelpMonProfil" element={<HelpMonProfil/>}></Route>
+          <Route path="/HelpNotif" element={<HelpNotif/>}></Route>
+          <Route path="/HelpEditeur" element={<HelpEditeur/>}></Route>
           <Route path="/forbidden" element={<Forbidden></Forbidden>} />
           <Route path="*" element={<NotFound></NotFound>} />
         </Routes>

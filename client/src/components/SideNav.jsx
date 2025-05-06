@@ -33,6 +33,9 @@ function SideNav(){
     const goToNotifExpert = () => {
         navigate("/notifications") // hna tdir la page li rak hab troh liha
         }
+    const goToHelpMain = () => {
+        navigate("/HelpMain") // hna tdir la page li rak hab troh liha
+        }
 
     const goToLsProjets = () => {
     navigate("/projets") // hna tdir la page li rak hab troh liha
@@ -132,7 +135,7 @@ function SideNav(){
                     <div className="lowerIcon1">
                     <span className="tooltip">Aide</span>
 
-                    <FaQuestionCircle className="lastIcon" />
+                    <FaQuestionCircle className="lastIcon" onClick={goToHelpMain} />
                     </div>
                     
                 </div>

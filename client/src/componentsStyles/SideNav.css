@@ -1,6 +1,6 @@
 .side-nav {
     position: relative;
-    width: 6%;
+    width: 5%;
     height: 100vh;
     margin: 0;
     padding: 0;
@@ -18,11 +18,6 @@
     z-index: 3000; /* make sure it's above base content */
 }
 
-@media (max-width: 768px) {
-    .side-nav {
-    width: 13%;
-  }
-}
 
 
 

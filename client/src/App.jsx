@@ -39,7 +39,7 @@ import HelpNotif from "./pages/Help/HelpNorif.jsx";
 import HelpEditeur from "./pages/Help/HelpEditeur.jsx";
 import ImpressionWeb from "./pages/visualisation/ImpressionWeb.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
-import ChatBot from "./components/ChatBot/ChatBot.jsx";
+// import ChatBot from "./components/ChatBot/ChatBot.jsx";
 import NotFound from "./pages/ErrorPages/NotFound.jsx";
 import Forbidden from "./pages/ErrorPages/Forbidden.jsx";
 

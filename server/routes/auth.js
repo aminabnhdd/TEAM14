@@ -68,7 +68,7 @@ router.post('/signup/expert', upload.single('image'), async (req, res) => {
             prenom,
             role: ExpertRole,
             discipline,
-            labo,
+            labo : labo === "undefined" ? "" : labo,
             etablissement,
             niveau,
             email,
@@ -95,6 +95,18 @@ router.post('/signup/expert', upload.single('image'), async (req, res) => {
         res.status(500).json({ error: "Server error" });
     }
 });
+
+router.post('/mail/exists',async(req,res)=>{
+    try {
+        const {email} = req.body;
+        const foundUser = await userModel.findOne({email:email});
+        if(foundUser) return res.status(200).json({email:"Cet email est déja pris"});
+        return res.status(200).json({message:"email libre"});
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+})
 
 router.post('/login',async (req,res)=>{
 

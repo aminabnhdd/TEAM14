@@ -287,7 +287,7 @@ function Notif() {
                             </div>
                             <div className="secondary-notif flex col-flex min-h-full">
 
-                                <div className="teqsam flex-1">
+                                <div className="teqsam ">
                                     <SearchBar title="Rechercher un projet dans le site" />
                                     <div className=" textos">
                                         <h1 className="hnotif">Notifications</h1>
@@ -390,7 +390,7 @@ function Notif() {
                                         </div>
                                     </div>
                                 </div>
-                                <Footer/>
+                                {/* <Footer/> */}
                             </div>
                         </div>
                     )

@@ -741,7 +741,7 @@ router.put("/update/:id", upload.single("image"), validateToken, async (req, res
     try{
 
         
-        const user = await expertModel.findById(userId);
+        const user = await userModel.findById(userId);
         console.log(user);
         if (!user) {
             return res.status(404).json({ message: "Error." });
@@ -767,7 +767,7 @@ router.put('/favourite/remove', validateToken, async(req, res) =>{
     const {projectId} = req.body;
 
     try{     
-        const user = await expertModel.findById(userId);
+        const user = await userModel.findById(userId);
         if (!user) {
             return res.status(404).json({ message: "Error." });
         }
@@ -792,7 +792,7 @@ router.get('/favourite/', validateToken, async (req, res) => {
     const userId = req.user.id;
 
     try {
-        const user = await expertModel.findById(userId).populate('favorites');
+        const user = await userModel.findById(userId).populate('favorites');
         if (!user) {
             return res.status(404).json({ message: "User not found." });
         }

@@ -179,7 +179,7 @@ function NotifAdmin() {
                             <div className="secondary-notif-notifAd flex-1 flex col-flex min-h-full">
 
 
-                                <div className="teqsam flex-1">
+                                <div className="teqsam ">
                                     <SearchBar title="Rechercher un projet dans le site" />
 
                                     <div className=" textos-notifAd">
@@ -241,7 +241,7 @@ function NotifAdmin() {
                                         </div>
                                     </div>
                                 </div>
-                                <Footer/>
+                                {/* <Footer/> */}
                             </div>
                          
                    

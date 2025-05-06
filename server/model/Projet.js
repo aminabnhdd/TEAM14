@@ -14,12 +14,12 @@ const projetSchema = new mongoose.Schema({
     },
     latitude: {
         type: String,
-        unique: true,
+         
         trim: true
     },
     longitude: {
         type: String,
-        unique: true,
+       
         trim: true
     },
     localisation: {

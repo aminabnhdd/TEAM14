@@ -1,0 +1,46 @@
+.not {
+    margin: auto;
+    width: 65%;
+    margin-bottom: 60px;
+  }
+  
+  .ow2 {
+    margin-top: 15px;
+    padding-left: 40px;
+    list-style-type: decimal;
+  }
+  
+  .ow3 {
+    margin-top: 10px;
+    padding-left: 30px;
+    list-style-type: disc;
+    font-size: 18px;
+  }
+  
+  .lili2 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  .lili3 {
+    margin-bottom: 8px;
+    text-decoration: underline;
+  }
+  
+  .inforp2 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 17px;
+  }
+  
+  .explique {
+    font-size: 16px;
+    font-weight: normal;
+    text-decoration: none;
+    width: 91%;
+    display: block;
+    margin-top: 4px;
+    margin-left: 10px;
+  }
+  

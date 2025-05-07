@@ -23,7 +23,7 @@ function HelpEditeur () {
     </Section>
 
 
-    <Section title="Comment est l'interface d'édition ?" style={{position:"relative"}}>
+    <Section title="Comment est l'interface d'édition ?" className="isemryadh">
       <img src={desktop8} alt="" className="idono"/>
       <ul className="ow">
         <span className="inforp"><strong> Section édition </strong> </span>

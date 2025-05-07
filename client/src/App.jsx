@@ -33,6 +33,11 @@ import ProjetsExpert2 from "./pages/Profilpages/ProjetsExpert2.jsx";
 import AnnotationTool from "./pages/AI/annotAI.jsx"
 import Decouvrir from "./pages/Decouvrir";
 import Favoris from "./pages/Favoris";
+import HelpPrnc from "./pages/Help/HelpMain.jsx";
+import HelpMonProfil from "./pages/Help/HelpMonProfil.jsx";
+import HelpNotif from "./pages/Help/HelpNorif.jsx";
+import HelpEditeur from "./pages/Help/HelpEditeur.jsx";
+
 function App() {
   const [authState, setAuthState] = useState({
     email: "",
@@ -80,6 +85,11 @@ function App() {
           <Route path="/favoris" element={<Favoris />} />
           <Route path="/mot-de-passe-oublie/:otl" element={<ReiniMotdps />} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
+          {/*Help routes*/ }
+          <Route path="/HelpMain" element={<HelpPrnc/>}></Route>
+          <Route path="/HelpMonProfil" element={<HelpMonProfil/>}></Route>
+          <Route path="/HelpNotif" element={<HelpNotif/>}></Route>
+          <Route path="/HelpEditeur" element={<HelpEditeur/>}></Route>
         </Routes>
       </Router>
       

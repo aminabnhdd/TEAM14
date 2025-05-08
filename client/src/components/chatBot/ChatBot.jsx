@@ -112,7 +112,7 @@ function ChatBot({ projetId, isFixed }) {
                     : 'mr-auto bg-[color:var(--color-white)] rounded-bl-[var(--border-radius-0)] shadow-sm border border-[color:var(--color-neutral-300)]'
                 }`}
               >
-                <p>{msg.text}</p>
+  <p>{msg.text}</p>
               </div>
             ))}
 

@@ -84,6 +84,7 @@ const AfficherExpert  = () => {
     <InfosProjets id = {id} />
     <ProfilInfowithoutlink usersData={usersData} />
     <AffichCardExpert usersData={usersData} />
+    <br/>
     </div>
     </>
       )

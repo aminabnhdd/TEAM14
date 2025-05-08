@@ -3,6 +3,8 @@ import axios from 'axios';
 import { FiSend } from "react-icons/fi";
 import { MdSmartToy, MdClose } from 'react-icons/md';
 import "./ChatBot.css"
+import Tooltip from '../editeur/tooltip';
+import ReactMarkdown from 'react-markdown';
 
 function ChatBot({ projetId, isFixed }) {
   const [query, setQuery] = useState('');
@@ -79,6 +81,7 @@ function ChatBot({ projetId, isFixed }) {
 
   return (
     <div ref={wrapperRef} className={`fixed right-4 bottom-4 transition-all duration-300 z-10000`}>
+      
       {isVisible && (
         <div className="relative w-[40vw] h-[90vh] bg-[color:var(--color-neutral-100)] rounded-[var(--border-radius-8)] flex flex-col overflow-hidden shadow-xl">
           <button
@@ -112,7 +115,13 @@ function ChatBot({ projetId, isFixed }) {
                     : 'mr-auto bg-[color:var(--color-white)] rounded-bl-[var(--border-radius-0)] shadow-sm border border-[color:var(--color-neutral-300)]'
                 }`}
               >
+{msg.role === 'ai' ? (
+  <div className="prose prose-sm">
+    <ReactMarkdown>{msg.text}</ReactMarkdown>
+  </div>
+) : (
   <p>{msg.text}</p>
+)}
               </div>
             ))}
 
@@ -149,15 +158,17 @@ function ChatBot({ projetId, isFixed }) {
             </div>
           </div>
         </div>
-      )}
+      )} 
+      
 
       {!isVisible && (
+        <Tooltip element = {
         <button 
           onClick={toggleVisiblity}
           className="border border-neutral-400 bg-white rounded-full w-14 h-14 cursor-pointer flex justify-center items-center hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300"
         >
           <MdSmartToy className="text-[1.5rem] text-[#2d2d2d]" />
-        </button>
+        </button> } text="Chat-bot" position="right-10 top-0 "/>
       )}
     </div>
   );

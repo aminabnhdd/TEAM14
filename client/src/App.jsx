@@ -37,12 +37,11 @@ import HelpPrnc from "./pages/Help/HelpMain.jsx";
 import HelpMonProfil from "./pages/Help/HelpMonProfil.jsx";
 import HelpNotif from "./pages/Help/HelpNorif.jsx";
 import HelpEditeur from "./pages/Help/HelpEditeur.jsx";
+import HelpMesProjets from "./pages/Help/HelpMesProjets.jsx";
 import ImpressionWeb from "./pages/visualisation/ImpressionWeb.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
-import ChatBot from "./components/ChatBot/ChatBot.jsx";
 import NotFound from "./pages/ErrorPages/NotFound.jsx";
 import Forbidden from "./pages/ErrorPages/Forbidden.jsx";
-
 function App() {
   const [authState, setAuthState] = useState({
     email: "",
@@ -95,6 +94,7 @@ function App() {
           <Route path="/HelpMonProfil" element={<HelpMonProfil/>}></Route>
           <Route path="/HelpNotif" element={<HelpNotif/>}></Route>
           <Route path="/HelpEditeur" element={<HelpEditeur/>}></Route>
+          <Route path="/HelpProjets" element={<HelpMesProjets/>}></Route>
           <Route path="/forbidden" element={<Forbidden></Forbidden>} />
           <Route path="*" element={<NotFound></NotFound>} />
         </Routes>

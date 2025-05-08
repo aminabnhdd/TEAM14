@@ -96,7 +96,6 @@ console.log("HERE IS THE PROJET ID ",projet._id);
           editor.isActive("reference") ? "text-black" : "text-neutral-500"
         }`}
         onClick={() => setShowPopup(!showPopup)}
-        title="Insérer une référence"
       >
         <FontAwesomeIcon icon={faQuoteLeft} className="w-5 h-5" />
       </button>

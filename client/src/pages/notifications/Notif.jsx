@@ -228,6 +228,7 @@ function Notif() {
         axios.put(`http://localhost:3001/notifications/read/${notif._id}`, {}, { headers: { Authorization: `Bearer ${authState.accessToken}` } })
             .then((response) => {
                 console.log(response.data);
+                
             })
             .catch((error) => {
                 console.log(error);
@@ -330,7 +331,7 @@ function Notif() {
                                                             <span className="notif-time">{getTime(element.time)}</span>
                                                             <div className="tabwdom">
                                                                 <img className="tab" src={element.tab}></img>
-                                                                <p className="dom">{element.dom}</p>
+                                                                <p className="dom" onClick={()=>navigate(`/editeur/annoter/${element.sectionId}`)}>{element.dom}</p>
                                                             </div>
                                                             <button className="det-button" onClick={() => { setNotifConf(element); handleDetailsClick(element.type); setNotif(element) }}>
                                                                 Détails
@@ -356,7 +357,7 @@ function Notif() {
                                                             <span className="notif-time">{getTime(element.time)}</span>
                                                             <div className="tabwdom">
                                                                 <img className="tab" src={element.tab}></img>
-                                                                <p className="dom">{element.dom}</p>
+                                                                <p className="dom"  onClick={()=>navigate(`/visualisation/${element.projetId}`)}>{element.dom}</p>
                                                             </div>
                                                             <button className="det-button" onClick={() => { setNotifCol(element); handleSeen(element._id, "col"); handleDetailsClick2(element.type); setNotif(element) }}>Détails</button>
                                                         </div>
@@ -376,7 +377,7 @@ function Notif() {
                                                             <span className="notif-time">{getTime(element.time)}</span>
                                                             <div className="tabwdom">
                                                                 <img className="tab" src={element.tab}></img>
-                                                                <p className="dom">{element.dom}</p>
+                                                                <p className="dom" onClick={()=>navigate(`/visualisation/${element.projetId}`)}>{element.dom }</p>
                                                             </div>
                                                             <button className="det-button" onClick={() => { setNotifDem(element); handleDetailsClick3(element.type); handleSeen(element._id, "dem"); setNotif(element) }}>Détails</button>
                                                         </div>

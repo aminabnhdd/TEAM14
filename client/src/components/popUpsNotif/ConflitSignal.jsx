@@ -34,7 +34,9 @@ function ConflitSignal ({popUp,close,notif,handleSeen}) {
             </div>
             <img className="close-btn" src={i} alt="fd" onClick={close}/>
             <div className="ktiba">
-            <p><span className="gris">Par: </span>{notif.sender} <br />
+            <p><span className="gris">Par: </span>
+            <span className="underline cursor-pointer" onClick={()=>navigate(`/afficher-expert/${notif.senderId}`)}>{notif.sender} </span><br />
+  
             <span className="gris">Sujet:</span> 
               {notif.content}</p>
             </div>

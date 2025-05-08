@@ -183,6 +183,7 @@ router.get("/", validateToken, async (req, res) => {
           recepient: (rec?.nom || "") + " " + (rec?.prenom || ""),
           projet: projet?.titre || "",
           chat: conflit?.lien || "",
+          sectionId: section._id || "",
           dom: conflit ? conflit.sectionId.type : section ? section.type : user.discipline,
         };
       })
@@ -222,7 +223,7 @@ router.put(
           time: new Date(),
           read: false,
         });
-      } else {
+      } else { 
         const refuseNotif = await notificationModel.create({
           type: "demandeRefuse",
           projetId: notif.projetId,

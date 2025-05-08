@@ -81,17 +81,18 @@
 .tooltip {
     position: absolute;
     z-index: 999999;
-    left: 80px;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
+    left: 70px;
+    background-color: white;
+    color: black;
     padding: 6px 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 14px;
     white-space: nowrap;
     opacity: 0;
     visibility: hidden;
+    border: 1.75px solid #C57642;
     transition: opacity 0.3s ease, transform 0.3s ease;
-    transform: translateX(-10px);
+    transform: translateX(-10px) ;
 }
 
 /* Show tooltip on hover */

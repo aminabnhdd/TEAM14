@@ -4,6 +4,7 @@ import arrRight from "../../assets/arrow-right-solid.svg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../ComponentsStyles/Insctiptions styles/NewInsEx.css"
+import axios from "axios";
 
 function NewInsEx({  fn, swipeDirection }) {
   const navigate = useNavigate();
@@ -42,6 +43,9 @@ navigate("/connexion");
     }
     if (!formData.password.trim() || formData.password.length < 6) {
       newErrors.password = "Mot de passe doit contenir 6 caractères";
+    }
+    if (errors.email) {
+      newErrors.email = "Cet email est déja pris";
     }
     setErrors(newErrors);
 
@@ -103,6 +107,17 @@ navigate("/connexion");
               onBlur={(e) => {
                 e.target.style.border = errors[id] ? "" : "1px solid #A0A5A6";
                 e.target.style.outline = "none"; 
+                if (id !== "email") return;
+                if(!formData.email) return;
+                axios.post("http://localhost:3001/auth/mail/exists",{email:formData.email})
+                .then((res)=>{
+                  console.log(res.data);
+                  setErrors({...errors,email:res.data.email})
+                  return;
+                })
+                .catch((err)=>{
+                  alert(err);
+                })
               }}
             />
             {errors[id] && <p className="err_message">{errors[id]}</p>}

@@ -1,9 +1,10 @@
 import "../../ComponentsStyles/popUpsNotif styles/ConflitChat.css"
 import i from "../../assets/x.png"
 import link from "../../assets/Link 2.svg"
-
+import { useNavigate } from "react-router-dom"
 
 function ConflitChat ({popUp,close,notif}) {
+    const navigate = useNavigate();
     return(
        popUp &&
        (
@@ -14,7 +15,8 @@ function ConflitChat ({popUp,close,notif}) {
                 </div>
                 <img className="close-btn" src={i} alt="fd" onClick={close} />
                 <div className="ktiba">
-                <p><span className="gris">Par: </span>{notif.sender} <br />
+                <p><span className="gris">Par: </span>
+                <span className="underline cursor-pointer" onClick={()=>navigate(`/afficher-expert/${notif.senderId}`)}>{notif.sender} </span><br />
                 <span className="gris">Sujet:</span> <br /> 
                 {notif.content}</p>
                 </div>

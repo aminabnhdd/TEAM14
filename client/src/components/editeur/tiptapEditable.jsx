@@ -31,9 +31,11 @@ import { ReferenceNode } from "./nodes/referencesNode";
 
 export default function TiptapEditable({ setEditor,section,projet,saved , setSaved ,references,setReferences})  {
 
-  
+  useEffect(()=>
+  localStorage.setItem(`editorContent-${section._id}`, JSON.stringify(section.contenu)))
 
   const newLocal = `Éditer le contenu de la section ${section.type}...`;
+  
   console.log("this is contenu", section.contenu);
   const editor = useEditor({
     editable: true,

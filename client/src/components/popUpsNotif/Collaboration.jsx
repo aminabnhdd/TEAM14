@@ -14,7 +14,7 @@ function Collaboration ({popUp,close,notif}) {
         .then((response)=>{
             console.log(response.data)
             navigate("/notifications")
-            
+            window.location.reload()
             
         })
         .catch((error)=>{
@@ -32,9 +32,11 @@ function Collaboration ({popUp,close,notif}) {
             </div>
             <img className="close-btn2" src={i} alt="fd" onClick={close} />
             <div className="ktibaa">
-            <p><span className="gris">Par: </span>{notif.sender}<br />
+            <p><span className="gris">Par: </span><span className = "underline cursor-pointer" onClick={()=>navigate(`/afficher-expert/${notif.senderId}`)} >{notif.sender}</span><br />
             <span className="gris">Projet:</span> 
-            {notif.projet}</p>
+            <span className = "underline cursor-pointer" onClick={()=>navigate(`/visualisation/${notif.projetId}`)} >{notif.projet}</span></p>           
+           
+            
             </div>
             
             <div className="batens">

@@ -1,8 +1,11 @@
 import "../../ComponentsStyles/popUpsNotif styles/Refus.css"
 import i from "../../assets/x.png"
+import { useNavigate } from "react-router-dom"
 
 function Refus  ({popUp,close,notif}) {
-return (
+    const navigate = useNavigate();
+    
+return ( 
     popUp &&
     (<div className="main-bac-notif">
             <div className="notif-pop3">
@@ -12,9 +15,11 @@ return (
                 </div>
                 <img className="close-btn2" src={i} alt="fd" onClick={close} />
                 <div className="ktiba3">
-                <p><span className="gris">Par: </span>{notif.sender}<br />
+                <p><span className="gris">Par: </span>
+                <span className = "underline cursor-pointer" onClick={()=>navigate(`/afficher-expert/${notif.senderId}`)} >{notif.sender}</span><br />
+                <br />
                 <span className="gris">Projet:</span> 
-                {notif.projet}</p>
+                <span className = "underline cursor-pointer" onClick={()=>navigate(`/visualisation/${notif.projetId}`)} >{notif.projet}</span></p>
                 </div>
                 
             </div>

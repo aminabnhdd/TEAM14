@@ -51,7 +51,7 @@ export default function RightSection(props) {
 
     const handleScroll = () => {
       const markerRect = bottomMarker.getBoundingClientRect();
-      const shouldBeSticky = markerRect.top <= height;
+      const shouldBeSticky = (markerRect.top <= height && height>window.innerHeight);
 
       stickyBox.classList.toggle("sticky", shouldBeSticky);
       stickyBox.classList.toggle("top-0", shouldBeSticky);

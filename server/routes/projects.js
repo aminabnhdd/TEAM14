@@ -219,28 +219,6 @@ router.get("/search", async (req, res) => {
     }
 });
 
-//  get favorites
-router.get('/favorites', validateToken, async (req, res) => { 
-    try {
-        const user = await userModel.find({_id:req.user.id}); 
-        const projects = await projectModel.find({ _id: { $in: user.favorites } ,archive: false});
-        res.json(projects);
-    } catch (error) {
-        console.error(error);
-        res.sendStatus(500);    
-    }
- }); 
-
-
- router.get('/all', validateToken, async (req, res) => {
-    try {
-        const projects = await projectModel.find();
-        res.json(projects);
-    } catch (error) {
-        console.error(error);
-        res.sendStatus(500);
-    }
-});
 
 // get mes projets
 router.get("/mesprojets", validateToken, async (req, res) => {
@@ -285,39 +263,7 @@ router.get("/mesprojets-archiver", validateToken, async (req, res) => {
   }
 );
 
-// modifier(editer) projet
-router.put('/modify/:projectID', validateToken, validateRole(expertRole, adminRole), upload.single("image"), async (req, res) => {
-    try {
-        let project = await projectModel.findById(req.params.projectID);
-        if (!project) return res.status(404).json({ err: "Project not found" });
-
-        const projet = req.body;
-        let photoUrl = project.photoUrl; 
-
-
-        if (req.file) {
-            if (project.photoUrl) {
-                const oldImagePublicId = project.photoUrl.split('/').pop().split('.')[0]; 
-                await cloudinary.uploader.destroy(oldImagePublicId); 
-            }
-            const result = await cloudinary.uploader.upload(req.file.path);
-            photoUrl = result.secure_url;
-        }
-
-
-        project = await projectModel.findByIdAndUpdate(
-            req.params.projectID,
-            { ...projet, photoUrl },
-            { new: true } 
-        );
-
-        res.json(project);
-    } catch (error) {
-        console.error("Error modifying project:", error);
-        return res.status(500).json({ err: "Internal Server Error" });
-    }
-});
-
+// VISUALISER RESSOURCE
 router.get('/projet/:projetId', validateToken, async (req, res) => {
     try {
         const { projetId } = req.params;
@@ -403,8 +349,7 @@ router.post("/ajoutersection", validateToken, async (req, res) => {
 
 
 
-//request to add a collaborator to the project
-
+//request to add a collaborator to the project (CHEF DE PROJET USES THIS)
 router.put('/:projetId/collaborateurs', validateToken, async(req, res) => {
     const { projetId } = req.params;
     const {userId} = req.body; 
@@ -468,28 +413,6 @@ router.get('/:projectId/collaborateurs/:email', validateToken, async(req, res) =
     }
 });
 
-//request to delete collaborator
-router.delete("/:projectId/collaborateurs/:expertId", validateToken, validateProjectOwner, async(req, res) => {
-    const { projectId, expertId } = req.params;
-
-    try {
-        const project = await projectModel.findByIdAndUpdate(
-            projectId, { $pull: { collaborateurs: expertId } }, { new: true }
-        );
-
-        if (!project) {
-            return res.status(404).json({ message: "Project not found" });
-        }
-
-        res.send("expert removed from the collaborators of the project");
-        res.json(project);
-    } catch {
-        console.log(error);
-        return res.sendStatus(500);
-    }
-
-
-})
 
 //request to join the collaborators of a project
 router.post("/:projectId/demande", validateToken,  async(req, res) => {
@@ -561,45 +484,6 @@ router.post("/:projectId/validate/:expertId", validateToken, validateProjectOwne
     }
 })
 
-// wth is this
-router.get("/search", async(req, res) => {
-    const { keyword } = req.body; // Get keyword from query params
-
-    if (!keyword) {
-        return res.status(400).json({ message: "Keyword is required" });
-    }
-
-    try {
-        const results = await projectModel.find({ keyword });
-
-        res.json(results);
-    } catch (error) {
-        res.status(500).json({ message: "Server error", error: error.message });
-    }
-});
-
-//request to delete collaborator
-router.delete("/:projectId/collaborateurs/:expertId", validateToken, validateProjectOwner, async(req, res) => {
-    const { projectId, expertId } = req.params;
-
-    try {
-        const project = await projectModel.findByIdAndUpdate(
-            projectId, { $pull: { collaborateurs: expertId } }, { new: true }
-        );
-
-        if (!project) {
-            return res.status(404).json({ message: "Project not found" });
-        }
-
-        res.send("expert removed from the collaborators of the project");
-        res.json(project);
-    } catch {
-        console.log(error);
-        return res.sendStatus(500);
-    }
-
-
-})
 
 //request to join the collaborators of a project
 router.post("/:projectId/:sectionId/demande", validateToken, validateProjectOwner, async(req, res) => {
@@ -638,54 +522,6 @@ router.post("/:projectId/:sectionId/demande", validateToken, validateProjectOwne
     }
 
 })
-
-//request for the project owner to validate or not the demandes of collaborating on  the prject
-
-router.post("/:projectId/validate/:expertId", validateToken, validateProjectOwner, async(req, res) => {
-    const { projectId, expertId } = req.params;
-    const { status } = req.body;
-
-    try {
-        const project = await projectModel.findById(projectId);
-
-        if (!project) {
-            return res.status(404).json({ message: "Project not found" });
-        }
-
-        //check if the logged in user corresponds to the owner of the project
-        if (project.chef.toString() !== req.user.id) {
-            return res.status(403).json({ message: "You are not authorized to manage this project" });
-        }
-
-        const demande = projectModel.demandes.find(request => request.expertId.toString() == expertId);
-        demande.status = status;
-
-        if (!demande) {
-            return res.status(404).json({ message: "Demand not found for this expert" });
-        }
-
-        res.send(action);
-    } catch (error) {
-        console.log(error);
-        return res.sendStatus(500);
-    }
-})
-
-
-router.get("/search", async(req, res) => {
-    const { keyword } = req.body; // Get keyword from query params
-
-    if (!keyword) {
-        return res.status(400).json({ message: "Keyword is required" });
-    }
-
-    try {
-        const results = await projectModel.find({ keyword });
-        res.json(results);
-    } catch (error) {
-        res.status(500).json({ message: "Server error", error: error.message });
-    }
-});
 
 
 // modifier projet 
@@ -787,7 +623,7 @@ router.put('/favourite/remove', validateToken, async(req, res) =>{
     
 })
 
-// wth is this 
+// get favourites
 router.get('/favourite/', validateToken, async (req, res) => {
     const userId = req.user.id;
 

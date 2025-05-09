@@ -40,9 +40,9 @@ function annoterSection(){
                     {props.isCollaborateur && 
                         <div >
                         {canEdit() ?
-                        <button onClick={editSection} className="main-text text-brown hover:underline cursor-pointer px-4" >Editer</button>
+                        <button onClick={editSection} className="main-text text-brown hover:underline cursor-pointer px-4" >Éditer</button>
                         : 
-                        <button className="main-text text-neutral-500 px-4" >Editer</button>}
+                        <button className="main-text text-neutral-500 px-4" >Éditer</button>}
                         <button onClick={annoterSection} className="main-text text-brown hover:underline cursor-pointer pl-4 border-l border-neutral-400" >Annoter</button>
                     </div>}
                     

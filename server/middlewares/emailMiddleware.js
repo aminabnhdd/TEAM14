@@ -111,4 +111,39 @@ const sendAccDis = async ({to,username})=>{
   }
 }
 
-module.exports = {sendAccountStatusEmail,sendAccDis,sendPasswordForgotten};
+
+const sendCodeEmail = async ({ to, code }) => {
+  if (!to || !code) {
+    throw new Error("Missing email parameters");
+  }
+
+  const subject = "Votre code de vérification";
+
+  const htmlMessage = `
+    <h2>Bonjour,</h2>
+    <p>Voici votre code de vérification :</p>
+    <div style="font-size: 24px; font-weight: bold; background: #f4f4f4; padding: 10px 20px; display: inline-block; border-radius: 5px; color: #333;">${code}</div>
+    <p>Ce code est valide pour une durée limitée.</p>
+    <p>Merci d'utiliser notre service.</p>
+  `;
+
+  const textMessage = `Votre code de vérification est : ${code}`;
+
+  try {
+    await transporter.sendMail({
+      from: `"Support Admin" <${process.env.EMAIL}>`,
+      to,
+      subject,
+      text: textMessage,
+      html: htmlMessage,
+    });
+
+    console.log(`Code envoyé à ${to}`);
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de l'email:", error);
+    throw new Error("Échec de l'envoi du code de vérification");
+  }
+};
+
+
+module.exports = {sendAccountStatusEmail,sendAccDis,sendPasswordForgotten,   sendCodeEmail};

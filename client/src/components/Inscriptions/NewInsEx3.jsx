@@ -7,11 +7,13 @@ import Demande from "../popUps/Demande";
 import "../../ComponentsStyles/Insctiptions styles/NewInsEx3.css";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import VerificationCode from "../popUps/VerificationCode";
 
 function NewInsEx3({ prevPopUp2,swipeDirection }) {
     const navigate = useNavigate();
 
-
+    const [showVerification, setShowVerification] = useState(false);
+    const [emailExist, setEmailExist] = useState(false);
     const onX = () =>{
         setAppX(false)
         setPreview(null)
@@ -100,30 +102,70 @@ function NewInsEx3({ prevPopUp2,swipeDirection }) {
         if (fileInputRef.current) fileInputRef.current.value = "";
     };
 
-    const handleSubmit = () => {
-        if (files.length === 0) {
-            setBorderStyle("1.6px dashed red");
-            setErrorMessage("Veuillez ajouter un fichier.");
-
-        } else {
-            const data = new FormData();
-            for (const key in formData) {
-                if (formData[key] !== null) {
-                    data.append(key, formData[key]);
-                } 
-            }
-            axios
-            .post("http://localhost:3001/auth/signup/expert", data,{headers:{"Content-Type":"multipart/form-data"}})
-            .then((res) => {
-                console.log(res.data);
-                setPopDem(true);
-            })
-            .catch((err) => {
-                console.log(err);
+    const handleSubmit = async () => {
+          try {
+            const response = await axios.post("http://localhost:3001/auth/send-verification-code", {
+              email: formData.email,
+              data: formData
             });
             
+            if (response.data.success) {
+              setShowVerification(true);
+            }
+          } catch (err) {
+            if (err.response && err.response.data.error === 'email already taken') {
+              setEmailExist(true);
+            } else {
+              console.error(err);
+              alert("Erreur lors de l'envoi du code de vérification");
+            }
+          }
+      };
+
+      const handleVerify = async (code) => {
+        try {
+          const response = await axios.post("http://localhost:3001/auth/verify-code", {
+            email: formData.email,
+            code: code,
+          });
+      
+          if (response.data === "Code right") {
+            if (files.length === 0) {
+              setBorderStyle("1.6px dashed red");
+              setErrorMessage("Veuillez ajouter un fichier.");
+            } else {
+              const data = new FormData();
+      
+              // Append form data
+              for (const key in formData) {
+                if (formData[key] !== null) {
+                  data.append(key, formData[key]);
+                }
+              }
+      
+      
+              try {
+                const res = await axios.post(
+                  "http://localhost:3001/auth/signup/expert",
+                  data,
+                  {
+                    headers: { "Content-Type": "multipart/form-data" },
+                  }
+                );
+                console.log(res.data);
+                setShowVerification(false);
+                setPopDem(true);
+              } catch (uploadError) {
+                console.error(uploadError);
+                alert("Erreur lors de l'inscription");
+              }
+            }
+          }
+        } catch (err) {
+          throw new Error(err.response?.data?.error || "Code incorrect ou expiré");
         }
-    };
+      };
+
     const [errorMessage, setErrorMessage] = useState("");
 
 
@@ -195,6 +237,13 @@ function NewInsEx3({ prevPopUp2,swipeDirection }) {
                 </div>
                 <button className="cnct-btn" onClick={handleSubmit}>S'inscrire</button>
             </div>
+            <VerificationCode 
+              popUp={showVerification} 
+              onClose={() => setShowVerification(false)}
+              email={formData.email}
+              onVerify={handleVerify}
+            />
+
             {<Demande popUp={popDem} foncone={() => setPopDem(false)} />}
         
         </motion.div>

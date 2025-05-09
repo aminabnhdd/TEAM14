@@ -14,8 +14,20 @@ import desktop10 from "../../assets/Group 8.jpg"
 import desktop20 from "../../assets/Screenshot 2025-05-08 062058.png"
 import desktop30 from "../../assets/Group 11.jpg"
 
+import { useEffect } from "react"
+import { useLocation } from "react-router-dom"
 
 function HelpEditeur () {
+  const location = useLocation();
+  useEffect(() => {
+    const hash = location.hash;
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
     return(
         <div className="main-help2">
         <div className="space5">
@@ -32,7 +44,7 @@ function HelpEditeur () {
     </Section>
 
 
-    <Section title="Comment est l'interface d'édition ?" className="isemryadh">
+    <Section title="Comment est l'interface d'édition ?" className="isemryadh" id="fonct">
       <img src={desktop8} alt="" className="idono"/>
       <ul className="ow">
         <span className="inforp"><strong> Section édition </strong> </span>
@@ -100,7 +112,7 @@ function HelpEditeur () {
       </ul>
     </Section>
 
-    <Section title="Comment accéder à la page Annoter Section ?">
+    <Section title="Comment accéder à la page Annoter Section ?" >
     <p className="inforp">La page Annoter Section est divisée en trois sections principales :<strong> Contenu, Galerie, Annotations / Conflits.</strong>  Elle est accessible via le bouton editer situé en face du titre de la section. Un bouton “Retourner au projet” est également disponible pour revenir facilement à la vue principale du projet.</p>   
     <img src={desktop20} alt="" style={{height:"60%",width:"50%",margin:"auto"}}/>
     <br />
@@ -113,7 +125,7 @@ function HelpEditeur () {
       <p className="inforp">Dès qu’une annotation ou un conflit est disponible, la section Annotations / Conflits devient <strong>dépliable</strong> ou <strong>repliable</strong>, permettant à l’utilisateur d’afficher ou de masquer la liste des éléments concernés pour la section en cours.</p>
     </Section>
 
-    <Section title="Comment ajouter une annotation ?">
+    <Section title="Comment ajouter une annotation ?" id="annoter">
   <div style={{ overflow: "hidden" }}>
     <img
       src={desktop7}
@@ -142,7 +154,7 @@ function HelpEditeur () {
   </div>
 </Section>
 
-    <Section title="Comment ajouter un conflit ?">
+    <Section title="Comment ajouter un conflit ?" id="conflit">
   <div style={{ overflow: "hidden" }}>
     <img
       src={desktop30}
@@ -175,11 +187,11 @@ function HelpEditeur () {
 );
 };
 
-const Section = ({ title, children }) => (
-<div className="help-section">
-  <h2 className="section-title">{title}</h2>
-  {children}
-</div>
+const Section = ({ title, children, id }) => (
+  <div className="help-section" id={id}>
+    <h2 className="section-title">{title}</h2>
+    {children}
+  </div>
 );
 
 

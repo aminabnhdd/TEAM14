@@ -75,4 +75,35 @@ const handleImages = async (req, res, next) => {
   }
 };
 
-module.exports = { upload, handleImages };
+const handleSingleFileUpload = async (req, res, next) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+
+    const fileBuffer = await fs.readFile(req.file.path);
+    const isImage = req.file.mimetype.startsWith("image/");
+    const resourceType = isImage ? "image" : "raw";
+
+    const result = await new Promise((resolve, reject) => {
+      cloudinary.uploader.upload_stream(
+        {
+          folder: "uploads",
+          resource_type: resourceType,
+        },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      ).end(fileBuffer);
+    });
+
+    req.uploadedFileUrl = result.secure_url; 
+    next();
+  } catch (error) {
+    console.error("Upload error:", error);
+    res.status(500).json({ message: "File upload failed" });
+  }
+};
+
+module.exports = { upload, handleImages ,handleSingleFileUpload};

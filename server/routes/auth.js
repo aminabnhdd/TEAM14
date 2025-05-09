@@ -5,7 +5,7 @@ const notificationModel = require('../model/Notification');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cloudinary = require('../config/cloudinary');
-const { upload } = require('../middlewares/multerMiddleware');
+const { upload,handleSingleFileUpload } = require('../middlewares/multerMiddleware');
 const {sendPasswordForgotten} = require('../middlewares/emailMiddleware');
 const crypto = require('crypto');
 
@@ -52,7 +52,7 @@ router.post('/signup/visitor',async (req,res)=>{
 
 });
 
-router.post('/signup/expert', upload.single('image'), async (req, res) => {
+router.post('/signup/expert', upload.single('image'),handleSingleFileUpload, async (req, res) => {
     try {
         const { nom, prenom, discipline, labo, etablissement, niveau, email, password } = req.body;
 
@@ -61,7 +61,6 @@ router.post('/signup/expert', upload.single('image'), async (req, res) => {
 
         const hashedPwd = await bcrypt.hash(password, 10);
 
-        const result = await cloudinary.uploader.upload(req.file.path);
 
         const user = await expertModel.create({
             nom,
@@ -73,7 +72,7 @@ router.post('/signup/expert', upload.single('image'), async (req, res) => {
             niveau,
             email,
             password: hashedPwd,
-            fileUrl: result.secure_url 
+            fileUrl: req.uploadedFileUrl 
         });
 
         const notif = await notificationModel.create({

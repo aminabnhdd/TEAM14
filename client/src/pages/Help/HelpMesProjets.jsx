@@ -31,7 +31,7 @@ function HelpMesProjets () {
     <div className="rest-help2">
         
     <Section title="Comment accéder à mes projets ?">
-      <p className="inforp2">Vous pouvez accéder à vos projets, ainsi qu’aux projets auxquels vous collaborez, en cliquant sur l’icône <strong>Projets</strong> dans la barre de navigation</p>
+      <p className="inforp2">Vous pouvez accéder à vos projets, ainsi qu'aux projets auxquels vous collaborez, en cliquant sur l'icône <strong>Mes projets</strong> dans la barre de navigation.</p>
       <img src={desktop4} alt="ol" className="not" style={{marginBottom:"0"}}/>
       
     </Section>
@@ -44,12 +44,12 @@ function HelpMesProjets () {
         <br />
       <img src={desktop3} alt="ol" className="not" style={{marginBottom:"0"}}/>
       <br />
-      <p className="inforp"><strong>Remarque: </strong><br/> Vous pouvez ajouter des mots clès pour faciliter la recherche dans la page <strong>decouvrir</strong> </p>
+      <p className="inforp"><strong>Remarque: </strong><br/> Vous pouvez ajouter des mots clès pour faciliter la recherche dans la page <strong>Découvrir</strong> </p>
       <img src={desktop5} alt="" style={{width:"55%"}} />
       
     </Section>
     <Section title="Comment restaurer un projet ?" id="restore">
-      <p className="inforp2">En cliquant sur <strong>Restaurer un projet</strong>, l’expert accède à deux types de restauration </p>
+      <p className="inforp2">En cliquant sur <strong>Restaurer un projet</strong>, l’expert accède à deux types de restauration: </p>
       <ul className="ow">
         <li className="lili"><strong>Restaurer un projet archivé :</strong> permet de récupérer un projet précédemment archivé </li>
         <li className="lili"><strong>Restaurer localement :</strong> permet d’importer un projet sauvegardé sur l’ordinateur.</li>

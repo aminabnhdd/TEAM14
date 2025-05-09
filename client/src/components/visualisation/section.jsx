@@ -10,7 +10,7 @@ const [sectionOpen,setSectionOpen] = useState(true);
 function toggleOpen(){
     setSectionOpen(!sectionOpen);
 }
-
+console.log(props);
 const canEdit = () => {
     if (props.isChef) return true;
     if (props.section.type === 'description') return props.isChef;
@@ -50,7 +50,7 @@ function annoterSection(){
                 { sectionOpen &&
                 <>
                 <TiptapRenderer  content={props.section.contenu} />
-                {props.section.images.length>0 && <Gallerie slides={props.section.images} isExpert={props.isExpert} />}
+                {props.section.images.length>0 && <Gallerie slides={props.section.images} isExpert={props.isExpert} projetId={props.section.projetId}/>}
                 </>
                 }
 

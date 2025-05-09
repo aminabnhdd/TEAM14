@@ -15,7 +15,7 @@ import { Icon } from "@iconify/react";
 
 import { useNavigate } from "react-router-dom";
 
-const Gallerie = ({ slides,isExpert =true }) => {
+const Gallerie = ({ slides,isExpert =true , projetId}) => {
   const [index, setIndex] = useState(-1);
   const navigate = useNavigate();
   return (
@@ -32,7 +32,7 @@ const Gallerie = ({ slides,isExpert =true }) => {
               onClick={(e) => {
                 e.stopPropagation();
 
-                navigate("/ai", { state: { src: slide.src } });
+                navigate("/ai", { state: { src: slide.src, projetId } });
               }}
             >
               <Icon icon="mingcute:pic-ai-line" width="24" height="24" />

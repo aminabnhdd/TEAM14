@@ -93,7 +93,7 @@ useEffect(() => {
         }}
       >
         <FiSearch style={{ marginRight: "0.5rem", color: "#C57642" }} />
-        <span style={{ color: "#999" }}>Rechercher un problème ?</span>
+        <span style={{ color: "#999" }}>Rechercher un problème</span>
       </div>
 
       {/* DROPDOWN */}

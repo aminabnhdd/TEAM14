@@ -16,7 +16,7 @@ import { useRef } from "react";
 function HelpPrnc() {
 
 const questions = [
-  { text: "Comment modifier mes informations personnelles ?", link: "/HelpMonProfil#pinfo" },
+  { text: "Comment modifier mes informations personnelles/professionnelles ?", link: "/HelpMonProfil#pinfo" },
   { text: "Comment gérer les notifications ?", link: "/HelpNotif" },
   { text: "Quelles sont les fonctionnalités de l’éditeur ?", link: "/HelpEditeur#fonct" },
   { text: "Comment ajouter une annotation ?", link: "/HelpEditeur#annoter" },

@@ -238,12 +238,6 @@ export default function EditorEditable() {
             <div className="mt-5 bg w-[86%] mx-auto mb-10">
               <div className="flex justify-between align-items mb-5">
                 <h1 className="titles text-black">Éditer section</h1>
-                <DropDownButton
-                  annotVisible={annotVisible}
-                  setAnnotVisible={setAnnotVisible}
-                  annotExist={annotExist}
-                  conflitExist={conflitExist}
-                />
               </div>
               <div className="flex justify-between">
                 {/* Left Section */}
@@ -258,7 +252,7 @@ export default function EditorEditable() {
                                         }`}
                 >
                   <div className="flex justify-between mb-5">
-                    <h1 className="secondary-titles text-dune">
+                    <h1 className="secondary-titles capitalize text-dune">
                     {((section?.type ==  'archeologie') ? 'archéologie': section?.type)
                        
                         || "Loading..."}

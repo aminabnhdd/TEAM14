@@ -8,6 +8,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const PopDesactiver = ({ onClose, onLogout ,usersData}) => {
   const {authState} = useContext(AuthContext);
+  const navigate = useNavigate();
  return (
   <div className="fixed inset-0 z-[4000] flex items-center justify-center bg-black/30">
     <div className="relative z-[11000] w-[32%] p-8 flex flex-col gap-6 bg-white rounded-[29px] animate-fadeIn">
@@ -39,6 +40,7 @@ const PopDesactiver = ({ onClose, onLogout ,usersData}) => {
             .then((response) => {
               console.log(response.data);
               onClose();
+              navigate("/list-utilisateurs");
             })
             .catch((error) => {
               console.log(error);

@@ -88,8 +88,7 @@ useEffect(() => {
           cursor: "text",
           background: "white",
           margin:"auto",
-          width: "100%",
-          maxWidth: "500px",
+          width: "42%",
         }}
       >
         <FiSearch style={{ marginRight: "0.5rem", color: "#C57642" }} />
@@ -108,8 +107,7 @@ useEffect(() => {
             background: "white",
             border: "1px solid #ccc",
             borderRadius: "10px",
-            width: "100%",
-            maxWidth: "500px",
+            width: "43%",
             boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
             zIndex: 20,
           }}
@@ -146,19 +144,19 @@ useEffect(() => {
                     <div className="contain-squares">
                         <div className="sqrHelp" onClick={goToHelpMonProfil}>
                            <span className="scr"><CgProfile color="#C57642" /></span> 
-                          <p>Mon Profil </p>  
+                          <p className="insqr">Mon Profil </p>  
                         </div>
                         <div className="sqrHelp" onClick={goToHelpProjets}>
                           <span className="scr" ><GrProjects color="#C57642"/></span>
-                          <p> Projets </p> 
+                          <p className="insqr"> Projets </p> 
                         </div>
                         <div className="sqrHelp" onClick={goToHelpNotif}>
                             <span className="scr" >< AiOutlineNotification color="#C57642"/></span>
-                          <p>Notifications </p>  
+                          <p className="insqr">Notifications </p>  
                         </div>
                         <div className="sqrHelp" onClick={goToHelpEditeur}>
                             <span className="scr">< TbEdit color="#C57642"/></span>
-                          <p>Editeur </p>  
+                          <p className="insqr">Editeur </p>  
                         </div>
                     </div>
                     

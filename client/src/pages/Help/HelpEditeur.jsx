@@ -45,7 +45,6 @@ function HelpEditeur () {
 
 
     <Section title="Comment est l'interface d'édition ?" className="isemryadh" id="fonct">
-      <img src={desktop8} alt="" className="idono"/>
       <ul className="ow">
         <span className="inforp"><strong> Section édition </strong> </span>
         <br />
@@ -55,10 +54,11 @@ function HelpEditeur () {
         <li className="lili"><strong>Listes :</strong> liste ordonnée, liste non ordonnée</li>
         <li className="lili"><strong>Outils de modification :</strong> annuler, rétablir</li>
         <li className="lili"><strong> Structure de texte :</strong> paragraphe, citation</li>
+      <img src={desktop8} alt="" style={{width:"80%",margin:"auto",height:"450px"}}/>
         <br />
         <br />
         <li className="lili"><strong> Alignement du texte :</strong> alignement à gauche, à droite, centré et justifié</li>
-        <img src={desktop9} alt="" style={{width:"50%",marginLeft:"2px"}} />
+        <img src={desktop9} alt="" style={{width:"80%",margin:"auto",height:"450px"}} />
         <br />
         <br />
         <li className="lili"><strong>Liens : </strong>En cliquant sur Insérer un lien, une fenêtre pop-up s’ouvre, permettant d’ajouter une URL. Une fois le lien inséré, il apparaît souligné et en couleur. Il est également possible de le modifier ou de le supprimer ultérieurement.</li>

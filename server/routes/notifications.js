@@ -21,6 +21,16 @@ oauth2Client.setCredentials({
 
 const calendar = google.calendar({ version: "v3", auth: oauth2Client });
 
+router.get('/number',validateToken,async(req,res)=>{
+  try {
+    const userId = req.user.id;
+    const notifications = await notificationModel.find({ recepientId: userId, read: false });
+    return res.status(200).json({ number: notifications.length });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Erreur serveur" });
+  }
+})
 router.put("/valider/:conflitId", validateToken, async (req, res) => {
   try {
     const { conflitId } = req.params;
@@ -260,4 +270,5 @@ router.put("/read/:notifId", validateToken, async (req, res) => {
     return res.status(500).json({ message: "Erreur serveur" });
   }
 });
+
 module.exports = router;

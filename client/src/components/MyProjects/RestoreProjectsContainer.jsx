@@ -65,7 +65,7 @@ const RestoreProjectsContainer = () => {
             </div>
           </div>
         </div>
-      )): <p className="pt-2 main-text" >Aucune projet archivé.</p>}
+      )): <p className="pt-2 main-text" >Aucun projet archivé.</p>}
 
       {selectedProject && (
         <PopupRestore

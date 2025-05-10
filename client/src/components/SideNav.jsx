@@ -53,13 +53,28 @@ function SideNav(){
     const goToNotifAdmin = () => {
     navigate("/notifications-admin")
     }
-    useEffect(()=>{
-        console.log("isExpert : ",isExpert," // isAdmin : ",isAdmin);
-        axios.get("http://localhost:3001/notifications/number", {headers:{Authorization:`Bearer ${authState.accessToken}`}}).then((response) => {
-           setNumber(response.data.number);
-            console.log("number : ",response.data.number);
+  useEffect(() => {
+    console.log("isExpert : ", isExpert, " // isAdmin : ", isAdmin);
+    
+    // Create the function that fetches the data
+    const fetchData = () => {
+        axios.get("http://localhost:3001/notifications/number", {
+            headers: { Authorization: `Bearer ${authState.accessToken}` }
+        }).then((response) => {
+            setNumber(response.data.number);
+            console.log("number : ", response.data.number);
         });
-    },[authState.accessToken]);
+    };
+
+    // Call it immediately
+    fetchData();
+    
+    // Then set up the interval
+    const intervalId = setInterval(fetchData, 5000); // 5000ms = 5 seconds
+
+    // Clear the interval when the component unmounts or when dependencies change
+    return () => clearInterval(intervalId);
+}, [authState.accessToken, isExpert, isAdmin]); // Add all dependencies used in the effect
     
 
     return(
@@ -107,7 +122,7 @@ function SideNav(){
                             </div>
 
                         <div className='nav-link'>
-                            {hasNotif && <div className='new-notif '></div>}
+                            {(number>0) && <div className='new-notif '>{number}</div>}
                             <span className="tooltip">Notifications</span>
                             <FaBell className="iconus"  onClick={goToNotifExpert}/>
                             </div>
@@ -127,7 +142,7 @@ function SideNav(){
                             </div>
 
                             <div className='nav-link'>
-                            {hasNotif && <div className='new-notif'></div>}
+                            {(number>0) && <div className='new-notif'>{number}</div>}
                             <span className="tooltip">Notifications</span>
                             <FaBell className="iconus"  onClick={goToNotifAdmin}/>
                             </div>

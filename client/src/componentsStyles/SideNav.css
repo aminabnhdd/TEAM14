@@ -17,12 +17,19 @@
     overflow: visible; /* allow tooltip overflow */
     z-index: 3000; /* make sure it's above base content */
 }.new-notif {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   position: absolute;
   border-radius: 100px;
   right: 30%;
-  animation: zoomInOut 1.5s ease-in-out infinite, colorPulse 1s ease-in-out infinite;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 10px;
+  animation: zoomInOut 1.5s ease-in-out infinite;
+  pointer-events: none; 
 }
 
 @keyframes zoomInOut {
@@ -33,15 +40,7 @@
     transform: scale(1.2);
   }
 }
-
-@keyframes colorPulse {
-  0%, 100% {
-    background-color: red;
-  }
-  50% {
-    background-color: rgb(232, 2, 2);
-  }
-}
+ 
 
 
 

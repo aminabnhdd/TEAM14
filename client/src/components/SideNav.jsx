@@ -5,10 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import img from "../assets/Screenshot 2025-03-03 at 8.36.18 PM 1.png"
 import { useState, useEffect, useContext } from "react";
 import AuthContext from '../helpers/AuthContext';
+import axios from 'axios';
 
 
 function SideNav(){
     const { authState,setAuthState } = useContext(AuthContext);
+    const [number, setNumber] = useState(0);
 
     const isExpert = authState.role === "Expert";
     const isAdmin = authState.role === "Admin";
@@ -53,7 +55,11 @@ function SideNav(){
     }
     useEffect(()=>{
         console.log("isExpert : ",isExpert," // isAdmin : ",isAdmin);
-    },[]);
+        axios.get("http://localhost:3001/notifications/number", {headers:{Authorization:`Bearer ${authState.accessToken}`}}).then((response) => {
+           setNumber(response.data.number);
+            console.log("number : ",response.data.number);
+        });
+    },[authState.accessToken]);
     
 
     return(

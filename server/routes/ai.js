@@ -11,10 +11,38 @@ const annotationAIModel = require('../model/AnnotationAI');
 const cloudinary = require('../config/cloudinary');
 const validateToken = require("../middlewares/authMiddleware");
 const sectionModel = require("../model/section");
-
+const projetModel = require("../model/Projet");
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const visionClient = new ImageAnnotatorClient();
+
+function generateProjetSummary(projet) {
+  const {
+      titre,
+      type,
+      latitude,
+      longitude,
+      localisation,
+      style,
+      dateConstruction,
+      keywords
+  } = projet;
+
+  let summary = `Projet: "${titre}"\n`;
+  summary += `Type: ${type}\n`;
+
+  if (dateConstruction) summary += `Date de construction: ${dateConstruction}\n`;
+  if (localisation) summary += `Localisation: ${localisation}\n`;
+  if (latitude && longitude) summary += `Coordonnées: ${latitude}, ${longitude}\n`;
+  if (style) summary += `Style architectural: ${style}\n`;
+
+
+  if (keywords?.length) {
+      summary += `Mots-clés: ${keywords.join(", ")}\n`;
+  }
+
+  return summary;
+}
 
 function toFormattedText(text) {
   const lines = text.split('\n').slice(1); // skip the first line
@@ -60,12 +88,15 @@ async function analyzeWithGemini(imageBuffer, prompt) {
 
 router.post('/api/analyze/gemini', upload.single('image'), async (req, res) => {
   try {
-    const { photourl } = req.body; 
+    const { photourl,projetId} = req.body; 
     console.log('Received request with file:', req.file);
     if (!req.file) return res.status(400).json({ error: "No image provided" });
-   
+    const projet = await projetModel.findById(projetId);
+ if (!projet) {
+   return res.status(404).json({ message: 'Projet not found' });
+ }
     const { prompt } = req.body;
-    const result = await analyzeWithGemini(req.file.buffer, prompt);
+    const result = await analyzeWithGemini(req.file.buffer, prompt + generateProjetSummary(projet) );
     console.log(result)
     let imageUrl = "";
     if (req.file) {

@@ -4,20 +4,17 @@ import axios from "axios";
 import "../../ComponentsStyles/Insctiptions styles/NewInsVs.css"
 import { useNavigate } from "react-router-dom";
 import Demande from "../popUps/Demande";
+import VerificationCode from "../popUps/VerificationCode";
 
-function NewInsvs () {
+function NewInsvs() {
   const navigate = useNavigate();
-
-  // Navigation to login page
-  const goToConnexion = () => {
-    navigate("/connexion");
-  }
-
-  // States
-  const [visible, setVisible] = useState(false); // Show/hide password
-  const [popDem, setPopDem] = useState(false);   // Show Demande popup
-  const [emailExist, setEmailExist] = useState(false); // Duplicate email error
-  const [typo, setTypo] = useState("password"); // Input type for password field
+  const goToConnexion = () => navigate("/connexion");
+  
+  const [visible, setVisible] = useState(false);
+  const [popDem, setPopDem] = useState(false);
+  const [showVerification, setShowVerification] = useState(false);
+  const [emailExist, setEmailExist] = useState(false);
+  const [typo, setTypo] = useState("password");
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
@@ -41,7 +38,6 @@ function NewInsvs () {
   // Basic form validation
   const validateForm = () => {
     let newErrors = {};
-
     if (!formData.nom.trim()) newErrors.nom = "Nom est requis";
     if (!formData.prenom.trim()) newErrors.prenom = "Prénom est requis";
     if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
@@ -58,42 +54,77 @@ function NewInsvs () {
   // Handle form submission
   const handleSubmit = () => {
     if (validateForm()) {
-      axios.post("http://localhost:3001/auth/signup/visitor", formData)
-        .then((res) => {
-          console.log(res.data);
-          if (!(res.data.error === 'email already taken')) {
-            setEmailExist(false);
-            setPopDem(true);
-          } else {
-            setEmailExist(true);
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-          alert("Erreur lors de l'inscription");
+      try {
+        // First send the verification code
+        const response = await axios.post("http://localhost:3001/auth/send-verification-code", {
+          email: formData.email,
+          data: formData
         });
+        
+        if (response.data.success) {
+          setShowVerification(true);
+        }
+      } catch (err) {
+        if (err.response && err.response.data.error === 'email already taken') {
+          setEmailExist(true);
+        } else {
+          console.error(err);
+          alert("Erreur lors de l'envoi du code de vérification");
+        }
+      }
+    }
+  };
+
+  const handleVerify = async (code) => {
+    try {
+      const response = await axios.post("http://localhost:3001/auth/verify-code", {
+        email: formData.email,
+        code: code
+      });
+  
+      if (response.data === "Code right") {
+        // Only proceed with signup if the form is still valid
+        if (validateForm()) {
+          try {
+            const res = await axios.post("http://localhost:3001/auth/signup/visitor", formData);
+  
+            if (res.data.error === 'email already taken') {
+              setEmailExist(true);
+            } else {
+              setEmailExist(false);
+              setPopDem(true); // Show confirmation popup
+            }
+          } catch (signupError) {
+            console.error(signupError);
+            alert("Erreur lors de l'inscription");
+          }
+        }
+  
+        // Hide the verification popup regardless
+        setShowVerification(false);
+      }
+    } catch (err) {
+      throw new Error(err.response?.data?.error || "Code incorrect ou expiré");
     }
   };
 
   return (
     <>
       <div className="inscription-form-one">
-        {/* Header Text */}
         <div className="texts-one">
           <p className="bien-one">Bienvenue sur </p>
           <p className="athar-one">ATHAR</p>
           <p className="compte-one">
-            Vous avez déjà un compte ?  
-            <span className="connexion-one" onClick={goToConnexion}> Connectez-vous.</span>
+            Vous avez déjà un compte ?  <span className="connexion-one" onClick={goToConnexion}> Connectez-vous.</span>
           </p>
         </div>
 
-        {/* Form Fields */}
         <form className="info-one">
           {["nom", "prenom", "email", "telephone"].map((id) => (
             <div key={id} className="form-group-one">
               <label className="label-one" htmlFor={id}>
-                {id.charAt(0).toUpperCase() + id.slice(1)}{id !== "telephone" && <span className="redstar"> *</span>}
+                {id.charAt(0).toUpperCase() + id.slice(1)}
+                {id !== "telephone" && <span className="redstar"> *</span>}
               </label>
               <input
                 className={`input-one ${(errors[id] || (emailExist && id === 'email')) ? "input-error" : ""}`}
@@ -103,21 +134,19 @@ function NewInsvs () {
                 value={formData[id]}
                 onChange={handleChange}
                 onFocus={(e) => {
-                  e.target.style.border = "1px solid #E8C07D";
-                  e.target.style.outline = "0.5px solid #E8C07D";
+                  e.target.style.border = "1px solid #E8C07D"; 
+                  e.target.style.outline = "0.5px solid #E8C07D"; 
                 }}
                 onBlur={(e) => {
                   e.target.style.border = errors[id] ? "" : "1px solid #A0A5A6";
-                  e.target.style.outline = "none";
-                }}
+                  e.target.style.outline = "none"; 
+                }}          
               />
-              {/* Show validation or duplicate email error */}
               {errors[id] && <p className="err_message">{errors[id]}</p>}
-              {(emailExist && id === 'email') && <p className="err_message">Cet email est déjà pris</p>}
+              {(emailExist && id === 'email') && <p className="err_message">Cet email est déja pris</p>}
             </div>
           ))}
 
-          {/* Password Field with Toggle */}
           <div className="form-group-one">
             <label className="label-one" htmlFor="password">Mot de passe<span className="redstar"> *</span></label>
             <input
@@ -128,13 +157,13 @@ function NewInsvs () {
               value={formData.password}
               onChange={handleChange}
               onFocus={(e) => {
-                e.target.style.border = "1px solid #E8C07D";
-                e.target.style.outline = "0.5px solid #E8C07D";
+                e.target.style.border = "1px solid #E8C07D"; 
+                e.target.style.outline = "0.5px solid #E8C07D"; 
               }}
               onBlur={(e) => {
                 e.target.style.border = "1px solid #A0A5A6";
-                e.target.style.outline = "none";
-              }}
+                e.target.style.outline = "none"; 
+              }} 
             />
             {errors.password && <p className="err_message">{errors.password}</p>}
             <div className="eye-one" onClick={TogglePass}>
@@ -142,15 +171,21 @@ function NewInsvs () {
             </div>
           </div>
         </form>
-
-        {/* Submit Button */}
+        
         <button className="btn1-one" onClick={handleSubmit}>S'inscrire</button>
       </div>
-
-      {/* Confirmation Popup */}
-      {<Demande popUp={popDem} foncone={() => setPopDem(false)} />}
+      
+      <VerificationCode 
+        popUp={showVerification} 
+        onClose={() => setShowVerification(false)}
+        email={formData.email}
+        onVerify={handleVerify}
+      />
+      
+      <Demande popUp={popDem} foncone={() => setPopDem(false)} />
     </>
   );
 }
 
 export default NewInsvs;
+;

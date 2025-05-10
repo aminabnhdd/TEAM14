@@ -5,10 +5,10 @@ const notificationModel = require('../model/Notification');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cloudinary = require('../config/cloudinary');
-const { upload } = require('../middlewares/multerMiddleware');
-const {sendPasswordForgotten} = require('../middlewares/emailMiddleware');
+const { upload,handleSingleFileUpload } = require('../middlewares/multerMiddleware');
+const {sendPasswordForgotten,sendCodeEmail} = require('../middlewares/emailMiddleware');
 const crypto = require('crypto');
-
+const VerificationCode = require('../model/VerificationCode')
 const AdminRole = process.env.ADMIN_ROLE;
 const ExpertRole = process.env.EXPERT_ROLE;
 
@@ -19,6 +19,7 @@ const getRole = (role) => {
     if (role === process.env.VISITOR_ROLE) return "Visiteur";
     return "Unknown";
 }
+const generateCode = () => Math.floor(100000 + Math.random() * 900000).toString();
 
 
 router.post('/signup/visitor',async (req,res)=>{
@@ -52,7 +53,7 @@ router.post('/signup/visitor',async (req,res)=>{
 
 });
 
-router.post('/signup/expert', upload.single('image'), async (req, res) => {
+router.post('/signup/expert', upload.single('image'),handleSingleFileUpload, async (req, res) => {
     try {
         const { nom, prenom, discipline, labo, etablissement, niveau, email, password } = req.body;
 
@@ -61,7 +62,6 @@ router.post('/signup/expert', upload.single('image'), async (req, res) => {
 
         const hashedPwd = await bcrypt.hash(password, 10);
 
-        const result = await cloudinary.uploader.upload(req.file.path);
 
         const user = await expertModel.create({
             nom,
@@ -73,7 +73,7 @@ router.post('/signup/expert', upload.single('image'), async (req, res) => {
             niveau,
             email,
             password: hashedPwd,
-            fileUrl: result.secure_url 
+            fileUrl: req.uploadedFileUrl 
         });
 
         const notif = await notificationModel.create({
@@ -184,7 +184,77 @@ router.post('/pwd-forgotten/change-pwd/:link',async (req,res)=>{
     }
 
 });
+router.post('/verify-code', async (req, res) => {
+    try {
+        const { email, code } = req.body;
 
+        // Find the verification code entry
+        const entry = await VerificationCode.findOne({ email });
+        
+        if (!entry) {
+            return res.status(400).json({ error: "Aucun code trouvé pour cet email" });
+        }
+
+        // Check if code is expired
+        const now = new Date();
+        if (entry.expiresAt < now) {
+            await VerificationCode.deleteOne({ email }); // Clean up expired code
+            return res.status(400).json({ error: "Code expiré" });
+        }
+
+        if (entry.code !== code) {
+            return res.status(400).json({ error: "Code incorrect" });
+        }
+
+        await VerificationCode.deleteOne({ email });
+        
+        res.status(201).json("Code right");
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Erreur serveur" });
+    }
+});
+
+router.post('/send-verification-code', async (req, res) => {
+    try {
+        const { email, data } = req.body;
+        
+        // Check if email already exists
+        const foundUser = await userModel.findOne({ email });
+        if (foundUser) return res.status(400).json({ error: 'email already taken' });
+
+        // Generate and save verification code
+        const code = generateCode();
+        const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes from now
+        
+        // Delete any existing codes for this email first
+        await VerificationCode.deleteMany({ email });
+        
+        // Create new code
+        await VerificationCode.create({ 
+            email,
+            code,
+            expiresAt,
+            data
+        });
+
+        // Send the email
+        await sendCodeEmail({ to: email, code });
+
+        res.json({ 
+            success: true,
+            message: "Code de vérification envoyé",
+            expiresAt: expiresAt.toISOString() 
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ 
+            error: "Erreur serveur",
+            details: error.message 
+        });
+    }
+});
 module.exports = router;
 
 

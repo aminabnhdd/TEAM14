@@ -15,11 +15,11 @@ import { useLocation } from "react-router-dom";
 const AnnotationTool = () => {
   const { authState, setAuthState } = useContext(AuthContext);
   const location = useLocation();
-  const { src: photourl } = location.state || {};
+  const { src: photourl, projetId : projetId } = location.state || {};
   const [requestCount, setRequestCount] = useState(0);
   const [isChef, setIsChef] = useState(null);
   const [annotations, setAnnotations] = useState([]);
-
+  console.log(projetId);
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -87,8 +87,7 @@ const AnnotationTool = () => {
   5. Le style architectural (avec références culturelles ou régionales si possible)
   6. Toute information contextuelle ou culturelle pertinente
   
-  Le texte doit être cohérent, fluide et rédigé comme un vrai commentaire ou rapport professionnel destiné à un public cultivé.
-  ;`;
+  Le texte doit être cohérent, fluide et rédigé comme un vrai commentaire ou rapport professionnel destiné à un public cultivé. De plus voici des informations contextuelles: `;
 
   const getCroppedImgBlob = async () => {
     const canvas = document.createElement("canvas");
@@ -132,6 +131,8 @@ const AnnotationTool = () => {
       formData.append("image", blob, "architecture.jpg");
       formData.append("prompt", DEFAULT_PROMPT);
       formData.append("photourl", photourl);
+      formData.append("projetId", projetId );
+console.log(projetId);
       const response = await axios.post(
         "http://localhost:3001/ai/api/analyze/gemini",
         formData,

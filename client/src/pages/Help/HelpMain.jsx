@@ -8,6 +8,8 @@ import { FiSearch } from "react-icons/fi";
 import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useRef } from "react";
 
 
 
@@ -16,16 +18,32 @@ function HelpPrnc() {
 const questions = [
   { text: "Comment modifier mes informations personnelles ?", link: "/HelpMonProfil#pinfo" },
   { text: "Comment gérer les notifications ?", link: "/HelpNotif" },
-  { text: "Comment utiliser l’éditeur ?", link: "/HelpEditeur" },
-  { text: "Où trouver mes projets ?", link: "/HelpProjets" },
+  { text: "Quelles sont les fonctionnalités de l’éditeur ?", link: "/HelpEditeur#fonct" },
+  { text: "Comment ajouter une annotation ?", link: "/HelpEditeur#annoter" },
+  { text: "Comment signaler un conflit ?", link: "/HelpEditeur#conflit" },
+  { text: "Comment créer un projet ?", link: "/HelpProjets#creation" },
+  { text: "Comment restaurer un projet ?", link: "/HelpProjets#restore" },
 ];
 
 const [open, setOpen] = useState(false);
+const dropdownRef = useRef(null);
 
 const handleClick = (link) => {
-    setOpen(false);
-    navigate(link);
+  setOpen(false);
+  navigate(link);
 };
+
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setOpen(false);
+    }
+  };
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
 
     const navigate = useNavigate()
 
@@ -55,9 +73,8 @@ const handleClick = (link) => {
                     <p className="specialAth">ATHAR <span className="supbro">support</span></p>
                     <div className="wrapkho">
                         <p className="Howcanwehelp">Comment pouvons-nous vous aider ?  </p>
-
                         
-    <div className="search-dropdown-container" style={{ position: "relative", width: "100%" }}>
+    <div className="search-dropdown-container" style={{ position: "relative", width: "100%" }}  ref={dropdownRef}>
       {/* BARRE DE RECHERCHE VISUELLE */}
       <div
         className="searchbar-help"
@@ -68,15 +85,14 @@ const handleClick = (link) => {
           border: "2px solid #C57642",
           borderRadius: "40px",
           padding: "0.7rem 1rem",
-          cursor: "pointer",
+          cursor: "text",
           background: "white",
           margin:"auto",
-          width: "100%",
-          maxWidth: "500px",
+          width: "42%",
         }}
       >
         <FiSearch style={{ marginRight: "0.5rem", color: "#C57642" }} />
-        <span style={{ color: "#999" }}>Rechercher un problème ?</span>
+        <span style={{ color: "#999" }}>Rechercher un problème</span>
       </div>
 
       {/* DROPDOWN */}
@@ -91,50 +107,56 @@ const handleClick = (link) => {
             background: "white",
             border: "1px solid #ccc",
             borderRadius: "10px",
-            width: "100%",
-            maxWidth: "500px",
+            width: "43%",
             boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
             zIndex: 20,
           }}
         >
           {questions.map((q, i) => (
-            <li
-              key={i}
-              onClick={() => handleClick(q.link)}
-              style={{
-                padding: "0.75rem 1rem",
-                cursor: "pointer",
-                fontSize: "14px",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "#E8C07D")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "white")}
-            >
-              {q.text}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  
-                    </div>
-                </div>
+          <li
+            key={i}
+            onClick={() => handleClick(q.link)}
+            style={{  
+              padding: "0.75rem 1rem",
+              cursor: "pointer",
+              fontSize: "14px",
+              transition: "background 0.19 ease", // Smooth transition
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "#C57642";
+              e.currentTarget.style.color = "white";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "white";
+              e.currentTarget.style.color = "black";
+            }}
+          >
+            {q.text}
+          </li>
+        ))}
+                </ul>
+              )}
+            </div>
+            
+                            </div>
+                        </div>
                 <div className="wutiwant">
                     <div className="contain-squares">
                         <div className="sqrHelp" onClick={goToHelpMonProfil}>
                            <span className="scr"><CgProfile color="#C57642" /></span> 
-                          <p>Mon Profil </p>  
+                          <p className="insqr">Mon Profil </p>  
                         </div>
                         <div className="sqrHelp" onClick={goToHelpProjets}>
                           <span className="scr" ><GrProjects color="#C57642"/></span>
-                          <p> Projets </p> 
+                          <p className="insqr"> Projets </p> 
                         </div>
                         <div className="sqrHelp" onClick={goToHelpNotif}>
                             <span className="scr" >< AiOutlineNotification color="#C57642"/></span>
-                          <p>Notifications </p>  
+                          <p className="insqr">Notifications </p>  
                         </div>
                         <div className="sqrHelp" onClick={goToHelpEditeur}>
                             <span className="scr">< TbEdit color="#C57642"/></span>
-                          <p>Editeur </p>  
+                          <p className="insqr">Éditeur </p>  
                         </div>
                     </div>
                     

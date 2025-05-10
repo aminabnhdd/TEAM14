@@ -237,7 +237,7 @@ export default function EditorEditable() {
           <main>
             <div className="mt-5 bg w-[86%] mx-auto mb-10">
               <div className="flex justify-between align-items mb-5">
-                <h1 className="titles text-black">Editer section</h1>
+                <h1 className="titles text-black">Éditer section</h1>
                 <DropDownButton
                   annotVisible={annotVisible}
                   setAnnotVisible={setAnnotVisible}

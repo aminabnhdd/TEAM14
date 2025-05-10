@@ -22,6 +22,7 @@ async function UpdateProject(projetId,newProject,token) {
         return response.data;
     } catch (error) {
         console.error("Error updating project:", error.response?.data || error.message);
+        alert(error.response?.data?.err || "Une erreur est survenue, essayez de rafraichir la page");
     }
 }
 

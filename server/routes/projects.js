@@ -18,7 +18,7 @@ const referenceModel = require("../model/Reference");
 
 
 
-//request to get all the projects
+// Request to get all the projects
 router.get('', async(req, res) => {
     try {
         const projects = await projectModel.find({archive: false});
@@ -27,23 +27,22 @@ router.get('', async(req, res) => {
         console.error("Error fetching projects ", error);
         res.status(500).json({ message: "server error" });
     }
-
 });
 
-
-//create projet
-router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.single("image"), async (req, res) => {
+// Create a new project
+router.post('/add', validateToken, validateRole(expertRole, adminRole), upload.single("image"), async (req, res) => {
     try {
-
-        const { titre, type, latitude, longitude, localisation, style, dateConstruction,keywords } = req.body;
+        const { titre, type, latitude, longitude, localisation, style, dateConstruction, keywords } = req.body;
         const userID = req.user?.id;
         let imageUrl = "";
+
+        // Handle image upload with Cloudinary if a file is uploaded
         if (req.file) {
           const result = await cloudinary.uploader.upload(req.file.path);
           imageUrl = result.secure_url;
         }
 
-
+        // Check for missing or unauthorized user ID
         if (!userID) return res.status(401).json({ err: "Unauthorized - No user ID" });
 
         if (!titre || !type) {
@@ -51,12 +50,10 @@ router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.si
         }
 
         const found = await projectModel.findOne({ titre });
-        if (found){alert('Il existe déja un projet avec ce titre') ; return res.status(403).json({ err: "Title already used" });}
-
+        if (found) return res.status(403).json({ err: "Titre déja utilisé" });
 
         const author = await expertModel.findById(userID);
         if (!author) return res.status(404).json({ err: "Expert not found!" });
-
 
         const project = await projectModel.create({
             titre,
@@ -83,8 +80,8 @@ router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.si
     }
 });
 
-// modifier projet get request
-router.get("/modifier/:id",  validateToken, validateRole(expertRole, adminRole),async (req, res) => {
+// Modify a project (GET request to retrieve data for modification)
+router.get("/modifier/:id", validateToken, validateRole(expertRole, adminRole), async (req, res) => {
     try {
         const { id } = req.params;
         const project = await projectModel.findById(id);
@@ -107,123 +104,107 @@ router.get("/modifier/:id",  validateToken, validateRole(expertRole, adminRole),
     } catch (error) {
         res.status(500).json({ message: "Server error", error });
     }
-    
 });
 
-// archiver projet
-router.put('/archive/:projectID',validateToken,validateRole(expertRole,adminRole),async (req,res)=>{
+// Archive a project (PUT request)
+router.put('/archive/:projectID', validateToken, validateRole(expertRole, adminRole), async (req, res) => {
     try {
-
         const userID = req.user.id;
-
         const projectID = req.params.projectID;
         const found = await projectModel.findById(projectID);
-        if (!found) return res.status(404).json({err:"project not found "});
+        if (!found) return res.status(404).json({ err: "project not found " });
 
         const author = await expertModel.findById(userID);
-        if (!author) return res.status(404).json({err:"expert not found !"});
+        if (!author) return res.status(404).json({ err: "expert not found !" });
 
         found.archive = true;
         found.archivePar = userID;
         await found.save();
-        
-        res.status(200).json({msg:"project archived successfuly",project:found});
+
+        res.status(200).json({ msg: "project archived successfully", project: found });
     } catch (error) {
         console.log(error);
         return res.sendStatus(500);
     }
 });
 
-// restaurer projet archiver
-router.put('/restore/:projectID',validateToken ,async (req,res)=>{
+// Restore an archived project (PUT request)
+router.put('/restore/:projectID', validateToken, async (req, res) => {
     try {
-
         const userID = req.user.id;
-
         const projectID = req.params.projectID;
 
         const found = await projectModel.findById(projectID);
-        if (!found) return res.status(404).json({err:"project not found "});
+        if (!found) return res.status(404).json({ err: "project not found " });
 
         const author = await expertModel.findById(userID);
-        if (!author) return res.status(404).json({err:"expert not found !"});
+        if (!author) return res.status(404).json({ err: "expert not found !" });
 
         found.archive = false;
         found.archivePar = null;
         await found.save();
 
-        res.status(200).send({msg:"restored successfully",project:found});
+        res.status(200).send({ msg: "restored successfully", project: found });
     } catch (error) {
         console.log(error);
         return res.sendStatus(500);
     }
 });
 
-// search by keywords
+// Search projects by keywords
 router.get("/search", async (req, res) => {
     const { keyword } = req.query;
-  
-    if (!keyword) {
-      return res.status(400).json({ message: "Keyword is required" });
-    }
-  
-    try {
-      const results = await projectModel.find({
-        keywords: { $regex: keyword, $options: "i" }, // case-insensitive
-      });
-  
-      res.json(results);
-    } catch (error) {
-      res.status(500).json({ message: "Server error", error: error.message });
-    }
-  });
 
-// search by filters
-  router.get('/search/filters', async (req, res) => {
+    if (!keyword) {
+        return res.status(400).json({ message: "Keyword is required" });
+    }
+
     try {
-        const filter = req.query.filters; 
+        const results = await projectModel.find({
+            keywords: { $regex: keyword, $options: "i" }, // case-insensitive search
+        });
+
+        res.json(results);
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+});
+
+// Search projects by filters (using sections)
+router.get('/search/filters', async (req, res) => {
+    try {
+        const filter = req.query.filters;
 
         if (!filter) {
             return res.status(400).json({ error: "Filter is required." });
         }
 
-        
-
-        // const sections = await sectionModel.find({
-        //     type: { $in: filter },
-        //     "contenu.content.0": { $exists: true } 
-        //   });
-          
-          const rawSections = await sectionModel.find({
+        const rawSections = await sectionModel.find({
             type: { $in: filter }
-          }).lean();
-          
-          const sections = rawSections.filter(section => {
+        }).lean();
+
+        const sections = rawSections.filter(section => {
             const outer = section?.contenu?.content;
             const inner = outer?.[0]?.content;
-          
+
             return Array.isArray(inner) && inner.some(e => e?.text?.trim());
-          });
+        });
 
         const sectionIds = sections.map(section => section._id);
 
-       
-
-        const projects = await projectModel.find({ sections: { $in: sectionIds },archive: false });
+        const projects = await projectModel.find({ sections: { $in: sectionIds }, archive: false });
 
         res.json(projects);
-
     } catch (error) {
         console.error(error);
         res.sendStatus(500);
     }
 });
 
-
-// get mes projets
+// Get the expert's projects
 router.get("/mesprojets", validateToken, async (req, res) => {
     try {
-      const expertId = req.user.id;
+        const expertId = req.user.id;
         const expert = await expertModel.findById(expertId);    
         if (!expert) {              
             return res.status(404).json({ message: "Expert not found" });
@@ -234,34 +215,31 @@ router.get("/mesprojets", validateToken, async (req, res) => {
               { chef: expertId },
               { collaborateurs: expertId }
             ]
-          });
+        });
 
-      return res.status(200).json({ projects });
-      
+        return res.status(200).json({ projects });
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Erreur serveur", error: error.message });
+        console.error(error);
+        return res.status(500).json({ message: "Erreur serveur", error: error.message });
     }
-  }
-);
-// get mes projets archiver
+});
+
+// Get archived projects of an expert
 router.get("/mesprojets-archiver", validateToken, async (req, res) => {
     try {
-      const expertId = req.user.id;
+        const expertId = req.user.id;
         const expert = await expertModel.findById(expertId);    
         if (!expert) {              
             return res.status(404).json({ message: "Expert not found" });
         }
-      const projects = await projectModel.find({ chef: expertId ,archive: true});
+        const projects = await projectModel.find({ chef: expertId , archive: true });
 
-      return res.status(200).json({ projects });
-      
+        return res.status(200).json({ projects });
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Erreur serveur", error: error.message });
+        console.error(error);
+        return res.status(500).json({ message: "Erreur serveur", error: error.message });
     }
-  }
-);
+});
 
 // VISUALISER RESSOURCE
 router.get('/projet/:projetId', validateToken, async (req, res) => {
@@ -533,6 +511,10 @@ router.put("/update/:id", upload.single("image"), validateToken, async (req, res
       const project = await projectModel.findById(id);
       if (!project) {
         return res.status(404).json({ err: "Project not found" });
+      }
+      const found = await projectModel.findOne({ titre: projet.titre });
+      if(projet.titre !== project.titre && found){
+        return res.status(403).json({ err: "Titre déja utilisé" });
       }
   
       let photoUrl = project.photoUrl;

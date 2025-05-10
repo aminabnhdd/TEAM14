@@ -1,3 +1,4 @@
+// Importation des modules nécessaires
 const express = require("express");
 require("dotenv").config();
 const router = express.Router();
@@ -9,18 +10,27 @@ const validateToken = require("../middlewares/authMiddleware");
 const { expertModel, userModel } = require("../model/user");
 const { google } = require("googleapis");
 const mongoose = require('mongoose');
+
+// Configuration du client OAuth2 pour l'API Google Calendar
 const oauth2Client = new google.auth.OAuth2(
   process.env.CLIENT_ID,
   process.env.CLIENT_SECRET,
   "http://localhost:3001/oauth2callback"
 );
 
+// Configuration des identifiants avec le refresh token stocké dans les variables d'environnement
 oauth2Client.setCredentials({
   refresh_token: process.env.REFRESH_TOKEN,
 });
 
+// Initialisation de l'API Google Calendar
 const calendar = google.calendar({ version: "v3", auth: oauth2Client });
 
+/**
+ * Route GET '/number' - Récupère le nombre de notifications non lues pour l'utilisateur connecté
+ * Middleware: validateToken - Vérifie que l'utilisateur est authentifié
+ * Réponse: Nombre de notifications non lues
+ */
 router.get('/number',validateToken,async(req,res)=>{
   try {
     const userId = req.user.id;
@@ -31,6 +41,21 @@ router.get('/number',validateToken,async(req,res)=>{
     return res.status(500).json({ message: "Erreur serveur" });
   }
 })
+
+/**
+ * Route PUT '/valider/:conflitId' - Valide ou refuse un conflit signalé
+ * Middleware: validateToken - Vérifie que l'utilisateur est authentifié
+ * Paramètres: 
+ *   - conflitId: ID du conflit à valider
+ * Corps de la requête:
+ *   - decision: 'accept' ou 'refuse'
+ *   - notifId: ID de la notification à traiter
+ *   - time: Heure de la réunion (si accepté)
+ *   - date: Date de la réunion (si accepté)
+ * Actions:
+ *   - Si refusé: Supprime la notification et le conflit
+ *   - Si accepté: Crée un événement Google Calendar avec les parties concernées, met à jour le conflit et crée des notifications
+ */
 router.put("/valider/:conflitId", validateToken, async (req, res) => {
   try {
     const { conflitId } = req.params;
@@ -57,17 +82,20 @@ router.put("/valider/:conflitId", validateToken, async (req, res) => {
       .findById(conflit.projetId)
       .populate("collaborateurs"); 
 
+      // Recherche l'expert responsable de la discipline correspondant au type de section
       let expert = projet.collaborateurs.find(
         (collab) =>
           collab.discipline &&
           collab.discipline.toLowerCase() == section.type.toLowerCase()
       );
+      // Pour les sections de type 'autre' ou 'description', le chef de projet est l'expert
       if (section.type == 'autre' || section.type =='description'){
         expert =  await expertModel.findById(projet.chef);
       }
 
+      // Configuration de l'événement Google Calendar pour la réunion
       const startDateTime = new Date(`${date}T${time}:00`);
-      const endDateTime = new Date(startDateTime.getTime() + 60 * 60000);
+      const endDateTime = new Date(startDateTime.getTime() + 60 * 60000); // Durée de 1 heure
       const event = {
         summary: "Conflit Consultation",
         description: `Meeting programmé par le chef du projet. Le sujet du conflit est: ${conflit.content}`,
@@ -88,18 +116,21 @@ router.put("/valider/:conflitId", validateToken, async (req, res) => {
         },
       };
 
+      // Création de l'événement dans Google Calendar
       const response = await calendar.events.insert({
         calendarId: "primary",
         resource: event,
         conferenceDataVersion: 1,
-        sendUpdates: "all",
+        sendUpdates: "all", // Envoie des emails aux participants
       });
 
+      // Mise à jour du conflit avec le lien de la réunion
       conflit.valide = true;
       conflit.lien = response.data.hangoutLink;
       await conflit.save();
 
       console.log(section);
+      // Mise à jour ou ajout du conflit dans la section
       const index = section.conflits.findIndex(
         (id) => id.toString() === conflit._id.toString()
       );
@@ -114,6 +145,7 @@ router.put("/valider/:conflitId", validateToken, async (req, res) => {
 
       await section.save();
 
+      // Création d'un ensemble unique d'IDs de personnes concernées par le conflit
       const people = Array.from(
         new Set(
           [projet.chef, conflit.signaleur, expert]
@@ -122,6 +154,7 @@ router.put("/valider/:conflitId", validateToken, async (req, res) => {
         )
       ).map(id => new mongoose.Types.ObjectId(id));
       
+      // Création des notifications pour toutes les personnes concernées
       const notifications = people.map((person) => ({
         type: "conflitValide",
         projetId: conflit.projetId,
@@ -147,6 +180,13 @@ router.put("/valider/:conflitId", validateToken, async (req, res) => {
   }
 });
 
+/**
+ * Route GET '/:notifId' - Marque une notification spécifique comme lue et la récupère
+ * Middleware: validateToken - Vérifie que l'utilisateur est authentifié
+ * Paramètres:
+ *   - notifId: ID de la notification à récupérer
+ * Réponse: Notification marquée comme lue
+ */
 router.get("/:notifId", validateToken, async (req, res) => {
   try {
     const { notifId } = req.params;
@@ -170,13 +210,20 @@ router.get("/:notifId", validateToken, async (req, res) => {
   }
 });
 
+/**
+ * Route GET '/' - Récupère toutes les notifications de l'utilisateur connecté
+ * Middleware: validateToken - Vérifie que l'utilisateur est authentifié
+ * Réponse: Liste des notifications avec informations complémentaires (expéditeur, projet, etc.)
+ */
 router.get("/", validateToken, async (req, res) => {
   try {
     const userId = req.user.id;
+    // Récupération des notifications triées par date (les plus récentes d'abord)
     const notifications = await notificationModel
       .find({ recepientId: userId })
       .sort({ time: -1 });
 
+    // Enrichissement des données de notification avec des informations complémentaires
     const updatedNotifications = await Promise.all(
       notifications.map(async (notif) => {
         const user = await userModel.findById(notif.sendeId);
@@ -207,6 +254,18 @@ router.get("/", validateToken, async (req, res) => {
   }
 });
 
+/**
+ * Route PUT '/collaboration/valider/:notifId' - Accepte ou refuse une demande de collaboration
+ * Middleware: validateToken - Vérifie que l'utilisateur est authentifié
+ * Paramètres:
+ *   - notifId: ID de la notification de demande de collaboration
+ * Corps de la requête:
+ *   - decision: 'accept' ou 'refuse'
+ * Actions:
+ *   - Si acceptée: Ajoute le demandeur aux collaborateurs du projet et crée une notification d'acceptation
+ *   - Si refusée: Crée une notification de refus
+ *   - Dans les deux cas, supprime la notification de demande originale
+ */
 router.put(
   "/collaboration/valider/:notifId",
   validateToken,
@@ -256,6 +315,14 @@ router.put(
     }
   }
 );
+
+/**
+ * Route PUT '/read/:notifId' - Marque une notification comme lue
+ * Middleware: validateToken - Vérifie que l'utilisateur est authentifié
+ * Paramètres:
+ *   - notifId: ID de la notification à marquer comme lue
+ * Réponse: Message de confirmation
+ */
 router.put("/read/:notifId", validateToken, async (req, res) => {
   try {
     const { notifId } = req.params;

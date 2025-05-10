@@ -16,27 +16,37 @@ const { handleImages } = require('../middlewares/multerMiddleware');
 const { upload } = require('../middlewares/multerMiddleware');
 const { route } = require("./auth");
 
-// Sauvegarder section
+/**
+ * Route PUT pour mettre à jour une section avec contenu et images
+ * Nécessite un token d'authentification valide
+ * Supporte l'upload de plusieurs images
+ */
 router.put("/editable/:sectionId", upload.array("images"), validateToken, handleImages, async (req, res) => {
     try {
         const sectionId = req.params.sectionId;
         let contenu = req.body.contenu;
+        
+        // Parse le contenu JSON envoyé
         try {
             contenu = contenu ? JSON.parse(contenu) : "";
         } catch (error) {
             console.error("Invalid JSON in contenu:", error);
             return res.status(400).json({ message: "Invalid format for contenu" });
         }
+        
+        // Recherche de la section dans la base de données
         const section = await sectionModel.findById(sectionId);
         if (!section) {
             return res.status(404).json({ message: "Section not found" });
         }
 
-        // Update text content
+        // Mise à jour du contenu
         section.contenu = contenu;
 
+        // Mise à jour des images traitées par le middleware handleImages
         section.images = req.uploadedImages;
 
+        // Sauvegarde des modifications
         await section.save();
 
         return res.status(200).json({ message: "Section updated successfully", section });
@@ -45,17 +55,25 @@ router.put("/editable/:sectionId", upload.array("images"), validateToken, handle
         return res.status(500).json({ message: "Erreur serveur" });
     }
 });
-// get section 
-    router.get("/editable/:sectionId", validateToken, async (req, res) => {
+
+/**
+ * Route GET pour récupérer les détails d'une section 
+ * Inclut ses annotations, conflits et informations du projet associé
+ * Nécessite un token d'authentification valide
+ */
+router.get("/editable/:sectionId", validateToken, async (req, res) => {
     try {
         const sectionId = req.params.sectionId;
         const expertId = req.user.id;
+        
+        // Vérification que l'expert existe
         const expert = await expertModel.findById(expertId);
        
         if (!expert){
             return res.status(404).json({ message: "Expert not found" });
         }
 
+        // Recherche de la section avec population des relations
         const section = await sectionModel.findById(sectionId)
             .populate({
                 path: "annotations",
@@ -63,7 +81,7 @@ router.put("/editable/:sectionId", upload.array("images"), validateToken, handle
             })
             .populate({
                 path: "conflits",
-                match: { resolu: false, valide: true },
+                match: { resolu: false, valide: true }, // Uniquement les conflits non résolus et validés
                 populate: { path: "signaleur" }
             })
             .populate({
@@ -82,6 +100,7 @@ router.put("/editable/:sectionId", upload.array("images"), validateToken, handle
         const projet = section.projetId;
         const userChef = projet.chef;
 
+        // Retourne la section et toutes ses données associées
         return res.status(200).json({
             section,
             images: section.images,
@@ -93,39 +112,45 @@ router.put("/editable/:sectionId", upload.array("images"), validateToken, handle
         });
     } catch (error) {
         console.error("Server error:", error);
-        return res.status(500).json({ message: "Erreur serveur" });
-    }
+        return res.status(500).json({ message: "Erreur serveur" });
+    }
 });
 
-// Signaler conflit
+/**
+ * Route POST pour signaler un conflit sur une section
+ * Nécessite un token d'authentification valide et être collaborateur du projet
+ * Crée une notification pour le chef de projet
+ */
 router.post("/conflits/:projetId/:sectionId", validateToken, isCollaborator, async (req, res) => {
     try {
         const { projetId, sectionId } = req.params;
         const { content } = req.body;
         const expertId = req.user.id;
 
+        // Vérification que la section existe
         const section = await sectionModel.findById(sectionId);
         if (!section) {
             return res.status(404).json({ message: "Section non trouvée" });
         }
 
+        // Vérification que le projet existe
         const projet = await projetModel.findById(projetId);
-
         if (!projet) {
             return res.status(404).json({ message: "Projet non trouvé" });
         }
 
+        // Création du conflit
         const conflit = new conflitModel({
             projetId,
             sectionId,
-            signaleur:expertId,
+            signaleur: expertId,
             resolu: false,
             valide: false,
             content,
         });
         await conflit.save();
 
-
+        // Création d'une notification pour le chef de projet
         const notification = new notificationModel({
             type: "conflitSignale",
             projetId,
@@ -136,13 +161,15 @@ router.post("/conflits/:projetId/:sectionId", validateToken, isCollaborator, asy
             content,
             time: new Date(),
             read: false
-
         });
 
-        await notification.save()
+        await notification.save();
+        
+        // Ajout du conflit à la section
         section.conflits = section.conflits || [];
         section.conflits.push(conflit._id);
         await section.save();
+        
         return res.status(201).json({ 
             message: "Conflit signalé et notifications envoyées.",
             conflit 
@@ -154,7 +181,12 @@ router.post("/conflits/:projetId/:sectionId", validateToken, isCollaborator, asy
     }
 });
 
-// Résoudre conflit
+/**
+ * Route PUT pour résoudre un conflit
+ * Nécessite un token d'authentification valide
+ * Seul le signaleur du conflit ou le chef de projet peut résoudre le conflit
+ * Crée des notifications pour tous les collaborateurs
+ */
 router.put("/conflits/:conflitId/resolu", validateToken, async (req, res) => {
     try {
         const { conflitId } = req.params;
@@ -201,18 +233,23 @@ router.put("/conflits/:conflitId/resolu", validateToken, async (req, res) => {
     }
 });
 
-// Annoter section
+/**
+ * Route POST pour créer une annotation sur une section
+ * Nécessite un token d'authentification valide et être collaborateur du projet
+ */
 router.post("/annoter/:projetId/:sectionId", validateToken, isCollaborator, async (req, res) => {
     try {
       const { content } = req.body;
       const { projetId, sectionId } = req.params;
       const expertId = req.user.id;
   
+      // Vérification que la section existe
       const section = await sectionModel.findById(sectionId);
       if (!section) {
         return res.status(404).json({ message: "Section non trouvée." });
       }
   
+      // Création de l'annotation
       const annotation = new annotationModel({
         projetId,
         sectionId,
@@ -220,9 +257,11 @@ router.post("/annoter/:projetId/:sectionId", validateToken, isCollaborator, asyn
         content,
       });
   
+      // Sauvegarde et population des données de l'auteur
       const savedAnnotation = await annotation.save();
       const populatedAnnotation = await savedAnnotation.populate("auteur", "nom prenom");
   
+      // Ajout de l'annotation à la section
       section.annotations.push(savedAnnotation._id);
       await section.save();
   
@@ -236,20 +275,27 @@ router.post("/annoter/:projetId/:sectionId", validateToken, isCollaborator, asyn
     }
   });
 
-// Mettre à jour section apres annotation
+/**
+ * Route PUT pour mettre à jour le contenu d'une section après annotation
+ * Nécessite un token d'authentification valide et être collaborateur du projet
+ */
 router.put("/annoter/:projetId/:sectionId/update", validateToken, isCollaborator, async (req, res) => {
     try {
       const { editor_content } = req.body;
-      const {  sectionId } = req.params;
+      const { sectionId } = req.params;
       const expertId = req.user.id;
   
+      // Vérification que la section existe
       const section = await sectionModel.findById(sectionId);
       if (!section) {
         return res.status(404).json({ message: "Section non trouvée." });
       }
   
+      // Mise à jour du contenu
       section.contenu = JSON.parse(editor_content);
       await section.save();
+      
+      // Récupération de la section mise à jour avec toutes les relations
       const populatedSection = await sectionModel.findById(sectionId)
         .populate({
           path: "annotations",
@@ -279,20 +325,23 @@ router.put("/annoter/:projetId/:sectionId/update", validateToken, isCollaborator
     }
   });
 
-  // Ajouter une référence
+/**
+ * Route POST pour ajouter une référence à un projet
+ * Nécessite un token d'authentification valide et être collaborateur du projet
+ */
 router.post("/references/:projetId", validateToken, isCollaborator, async (req, res) => {
     try {
-        const { projetId} = req.params;
-        const { number,text } = req.body;
+        const { projetId } = req.params;
+        const { number, text } = req.body;
         const expertId = req.user.id;
 
-
+        // Vérification que le projet existe
         const projet = await projetModel.findById(projetId);
-
         if (!projet) {
             return res.status(404).json({ message: "Projet non trouvé" });
         }
 
+        // Création de la référence
         const reference = new referenceModel({
             projetId,
             number,
@@ -301,6 +350,7 @@ router.post("/references/:projetId", validateToken, isCollaborator, async (req, 
 
         await reference.save();
 
+        // Ajout de la référence au projet
         projet.references.push(reference._id);
         await projet.save();
 

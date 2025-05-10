@@ -50,9 +50,9 @@ function SearchBar({ onSearch, title, fixed = false, admin = false }) {
     const handleSearchIconClick = (e) => {
         e.stopPropagation(); // Prevent event bubbling to parent div
         handleSearch();
-    };
+    }; 
     
-    const title2 = title || "Rechercher un projet dans le site...";
+    const title2 = title || "Rechercher un projet par mots-clés...";
 
     return (
         <div className="rsearch-div sticky top-0 right-0">

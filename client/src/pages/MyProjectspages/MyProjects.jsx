@@ -67,7 +67,7 @@ import RefreshService from "../../services/RefreshService";
   {/* Top Part */}
   <div style={{ flex: 1 }}>
     <div className="myprojectssearchbar">
-      <SearchBar title="Rechercher un projet dans le site..." />
+      <SearchBar   />
     </div>
     <SideNav />
     <div className="root1">

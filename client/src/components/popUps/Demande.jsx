@@ -1,7 +1,5 @@
-
-// popup to instruct the user to wait for admin validation after sign up
-
 import "../../ComponentsStyles/popUps styles/Demande.css";
+import imj from "../../assets/x.png";
 import { useNavigate } from "react-router-dom";
 function Demande({popUp,foncone}) {
     
@@ -10,33 +8,24 @@ function Demande({popUp,foncone}) {
         foncone();
         navigate('/')
 
-    }return (
-  popUp && (
-    <div className="fixed inset-0 z-[4000] flex items-center justify-center bg-black/30">
-      <div className="relative z-[11000] w-[32%] p-8 flex flex-col gap-6 bg-white rounded-[29px] animate-fadeIn">
-        {/* Close Button */}
-        <button
-          className="absolute top-4 right-5 text-black text-2xl font-normal hover:text-warning cursor-pointer"
-          onClick={close}
-        >
-          &times;
-        </button>
-
-        {/* Title */}
-        <div className="text-center font-semibold text-[22px]">
-          <p>Demande de création de compte envoyée !</p>
-        </div>
-
-        {/* Message */}
-        <div className="text-md text-black text-center leading-relaxed">
-          <p>Votre demande de création de compte a été transmise à l'<span className="text-dune">administrateur</span>.</p>
-          <p>Un <span className="text-success">email de confirmation</span> vous sera envoyé dès que votre compte aura été approuvé.</p>
-          <p>Merci de patienter et de <span className="text-warning">vérifier</span> votre boîte de réception pour la suite.</p>
-        </div>
-      </div>
-    </div>
-  )
-);
+    }
+    return (
+        popUp && (
+            <div className="main-background2">
+            <div className="popUp2-main-message">
+                <div className="popUp2-main-div">
+                    <p className="popUp2-h1-title">Demande de création de compte envoyée !</p>
+                    <p className="popUp2-main-paragraph">
+                        <p className="popUp2-paragraph">Votre demande de création de compte a été transmise à l’<span className="popUp2-admin">administrateur.</span></p>
+                        <p className="popUp2-paragraph">Un <span className="popUp2-email">email de confirmation</span> vous sera envoyé dès que votre compte aura été approuvé.</p>
+                        <p className="popUp2-paragraph">Merci de patienter et de <span className="popUp2-verification">vérifier</span> votre boîte de réception pour la suite.</p>
+                    </p>
+                </div>
+                <img className="popUp2-close-button" src={imj} alt="xx" onClick={close} />
+            </div>
+            </div>
+        )
+    );
 }
 
 export default Demande;

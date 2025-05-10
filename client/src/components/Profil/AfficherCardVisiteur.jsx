@@ -1,4 +1,8 @@
-import React from "react";
+
+
+// show all of the informations of a visitor
+
+
 import "../../componentsStyles/ProfilStyles/AfficherCardVisiteur.css";
 
 const AfficherVisiteur = ({ usersData }) => {

@@ -1,4 +1,11 @@
-import React from "react";
+
+
+
+// show all of the informations of the expert
+// he is the one who can see this component
+
+
+
 import { FaRegEdit } from "react-icons/fa";
 import "../../componentsStyles/ProfilStyles/ModifCardVisiteur.css";
 import { useNavigate } from "react-router-dom";

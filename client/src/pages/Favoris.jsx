@@ -1,4 +1,7 @@
 
+// page favoris
+// shows all the projects the user set as favorites
+// allows the user to toggle favorite status of each project and navigate to it
 
 
 import Footer from '../components/Footer';
@@ -27,7 +30,7 @@ function Favoris() {
     transform:"translate(-50%,-50%)"
 };
 
-
+   // get favorite projects of the user
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -74,6 +77,7 @@ function Favoris() {
     }, [setAuthState]);
 
     
+// search function to pass to the searchbar component
 const handleSearch = async (query) => {
 
   if (!query.trim()) {
@@ -110,14 +114,6 @@ const handleSearch = async (query) => {
 };
 
     
-
-
-//     const navigate = useNavigate();
-//   const handleClick = () => {
-//     navigate(`/modifier-${authState.role === "Expert" ? "expert" : "visiteur"}`); // Change this to your desired route
-//     };
-
-//     const imgUrl = user.pfp ;
     
   
     return (
@@ -136,15 +132,7 @@ const handleSearch = async (query) => {
       
       (
         <div className='min-h-screen relative flex flex-col'>
-         {/* <div
-  className={`fixed top-7 right-4 z-5000 w-12 h-12 rounded-full border-2 ${imgUrl ?"border-white" : "border-brown"} 
-             bg-white flex items-center justify-center cursor-pointer rounded-full
-            hover:scale-105 transition-transform duration-200`}
-  onClick={handleClick}
->
-  {imgUrl ? <img src={imgUrl} className='rounded-full' /> :
-  <FaUser className="text-brown w-6 h-6" /> }
-</div> */}<Pfp fixed={true}/>
+       <Pfp fixed={true}/>
      <div className="flex-1 flex relative  max-w-full ">
        <SideNav className="" />
        <div className="flex-1 w-full bg-white main-content">

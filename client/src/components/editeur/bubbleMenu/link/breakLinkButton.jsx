@@ -1,6 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkSlash} from "@fortawesome/free-solid-svg-icons";
 
+// button to remove a link from text in the tiptap editor, 
+
 export default function BreakLinkButton(props){
     return (
     <button className="p-1 hover:bg-neutral-100 rounded"

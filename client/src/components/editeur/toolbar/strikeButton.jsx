@@ -1,3 +1,6 @@
+
+// strike button in the tiptap editor, makes the selected text striked
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStrikethrough} from "@fortawesome/free-solid-svg-icons";
 

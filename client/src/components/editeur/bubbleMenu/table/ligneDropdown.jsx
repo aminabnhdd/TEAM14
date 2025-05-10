@@ -2,6 +2,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown  } from "@fortawesome/free-solid-svg-icons";
 
 
+// dropdown list that allows the user to perform modifications in a line in a table in the tiptap editor, appears in the table bubble menu
+
+
 export default function LigneDropdown(props){
     return (
     <div className="relative inline-block py-[6px] hover:bg-neutral-100">

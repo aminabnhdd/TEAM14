@@ -1,3 +1,7 @@
+
+// personalized image figure in the tiptap editor
+// contains a figure with an image in it, as well as a caption 
+
 import { Node } from '@tiptap/core';
 
 export const ImageFigure = Node.create({

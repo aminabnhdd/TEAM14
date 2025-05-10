@@ -1,12 +1,12 @@
-import React from "react";
+// Save Visiteur Page
+// allows the visitor to modify his informations and save them
+
 import InfoHeader from "../../components/Profil/Infosheader";
 import ProfilInfosave from "../../components/Profil/ProfilInfosave";
 import FormVisiteur from "../../components/Profil/FormVisiteur";
 import "../../pagesStyles/ProfilpagesStyle/SaveVisiteur.css";
 import { useState,useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import SideNav from "../../components/SideNav";
 import {useContext} from "react";
 import AuthContext from "../../helpers/AuthContext";

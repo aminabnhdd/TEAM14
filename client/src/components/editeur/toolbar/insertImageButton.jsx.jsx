@@ -1,3 +1,6 @@
+
+// button to insert an image in the tiptap editor
+
 import { useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';

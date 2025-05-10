@@ -1,3 +1,7 @@
+// Visitor Signup Page
+// - Allows the user to enter personal and professional information
+// - Sends a validation request to the admin for approval
+
 import image from "../../assets/Group 38.png";
 import image2 from "../../assets/Screenshot 2025-03-03 at 8.53.06 AM 2.png";
 import "../../PagesStyles/Pages inscriptions styles/InsVs.css";

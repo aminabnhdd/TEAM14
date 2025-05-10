@@ -1,3 +1,7 @@
+
+// button in editeur page to save the content of the tiptap editor and the gallery
+
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import SectionService from "../../services/sectionService";
@@ -10,6 +14,8 @@ export default function SaveButton({ editor, section, images }) {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
+
+    // saving the content of editor and gallery
     const handleSave = async () => {
         if (isLoading) return; // Prevent multiple clicks
         

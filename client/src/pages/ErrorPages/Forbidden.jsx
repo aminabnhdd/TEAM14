@@ -1,3 +1,7 @@
+// Forbidden Page
+// This page appears if the user tries to access a Route he doesn't have access to
+
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 

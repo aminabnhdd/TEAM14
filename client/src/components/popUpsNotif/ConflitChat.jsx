@@ -1,3 +1,7 @@
+
+// popup to indicate that a conflict was signaled
+// it contains a link to a meet for the differnt recepients to join
+
 import "../../ComponentsStyles/popUpsNotif styles/ConflitChat.css"
 import i from "../../assets/x.png"
 import link from "../../assets/Link 2.svg"
@@ -5,6 +9,7 @@ import { useNavigate } from "react-router-dom"
 
 function ConflitChat ({popUp,close,notif}) {
     const navigate = useNavigate();
+    // popup displays the expert who signaled the conflict and the subject of the conflict
     return(
        popUp &&
        (
@@ -22,6 +27,8 @@ function ConflitChat ({popUp,close,notif}) {
                 </div>
                 
                 <button className="batens2"  onClick={() => window.open(notif.chat, "_blank")}>
+
+                    {/*link for the meet */}
                     <p className="baten5">Lien vers meet</p>
                     <img className="linkimg" src={link} alt="walter white" />
                     

@@ -1,7 +1,8 @@
+// notifications page for admin
+
+
 import "../../PagesStyles/Pages Admin Styles/NotifAdmin.css"
 import { useState, useEffect } from "react"
-import Collaboration from "../../components/popUpsNotif/Collaboration"
-import ConflitRes from "../../components/popUpsNotif/ConflitRes"
 import SearchBar from "../../components/SearchBar" 
 import SideNav from "../../components/SideNav"
 import Validation from "../../components/popUpsNotif/Validation"
@@ -30,6 +31,8 @@ function NotifAdmin() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
 
+
+    // set the notification to seen
     const handleSeenConflit = (id, type) => {
         if (type === "expert") {
             const updated = notificationsConflit.map(n =>
@@ -55,6 +58,7 @@ function NotifAdmin() {
     };
 
 
+    // Get all of the admin notifications
     useEffect(() => {
         // Make "Conflits" active at the beginning
         document.querySelectorAll(".transptext").forEach(el => {
@@ -106,7 +110,7 @@ function NotifAdmin() {
     };
 
 
-
+    // close expert validation popup 
     const close = () => {
         setPoop(false);
         axios.put(`http://localhost:3001/notifications/read/${notif._id}`, {}, { headers: { Authorization: `Bearer ${authState.accessToken}` } })
@@ -118,6 +122,7 @@ function NotifAdmin() {
             });
     }
 
+    // close visitor validation popup
     const close3 = () => {
         setPoop3(false);
         axios.put(`http://localhost:3001/notifications/read/${notif._id}`, {}, { headers: { Authorization: `Bearer ${authState.accessToken}` } })
@@ -128,7 +133,9 @@ function NotifAdmin() {
                 console.log(error);
             });
     }
-    const getTime = (time) => {
+
+    // get how long ago was the creation of the notification
+        const getTime = (time) => {
 
         let creationTime = new Date(time).getTime();
         let actualTime = new Date().getTime();
@@ -179,7 +186,7 @@ function NotifAdmin() {
                             <div className="secondary-notif-notifAd flex-1 flex col-flex min-h-full">
 
 
-                                <div className="teqsam ">
+                                <div className="teqsam flex-1">
                                     <SearchBar title="Rechercher un projet dans le site" />
 
                                     <div className=" textos-notifAd">
@@ -200,6 +207,8 @@ function NotifAdmin() {
                                             <div className="line-notifAd"></div>
                                             <div className="notifications-notifAd">
 
+
+                                                {/*validation experts */}
                                                 {conflit && ((notificationsConflit.length > 0) ? notificationsConflit.map(element => (
                                                     <div key={element.id} className="note-notifAd" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
                                                         <div className="iconwmessage-notifAd">
@@ -218,6 +227,7 @@ function NotifAdmin() {
                                                     </div>
                                                 )) : <p className="pt-2 main-text mt-3" >Aucune notification.</p>)}
 
+                                                {/*validation visiteurs */}
 
                                                 {col && (notificationsCol.length > 0 ? notificationsCol.map(element => (
                                                     <div key={element.id} className="note-notifAd" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
@@ -241,7 +251,7 @@ function NotifAdmin() {
                                         </div>
                                     </div>
                                 </div>
-                                {/* <Footer/> */}
+                                 <Footer/> 
                             </div>
                          
                    

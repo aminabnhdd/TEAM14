@@ -5,20 +5,19 @@ import "../../ComponentsStyles/Insctiptions styles/NewInsVs.css"
 import { useNavigate } from "react-router-dom";
 import Demande from "../popUps/Demande";
 
-
-
 function NewInsvs () {
+  const navigate = useNavigate();
 
-  const navigate = useNavigate() ;
-
+  // Navigation to login page
   const goToConnexion = () => {
     navigate("/connexion");
   }
-  
-    const [visible, setVisible] = useState(false);
-        const [popDem, setPopDem] = useState(false);
-    const[emailExist,setEmailExist] = useState(false);
-  const [typo, setTypo] = useState("password");
+
+  // States
+  const [visible, setVisible] = useState(false); // Show/hide password
+  const [popDem, setPopDem] = useState(false);   // Show Demande popup
+  const [emailExist, setEmailExist] = useState(false); // Duplicate email error
+  const [typo, setTypo] = useState("password"); // Input type for password field
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
@@ -26,17 +25,20 @@ function NewInsvs () {
     telephone: "",
     password: "",
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({}); // Validation errors
 
+  // Toggle visibility of password
   const TogglePass = () => {
     setVisible(!visible);
     setTypo(typo === "password" ? "text" : "password");
   };
 
+  // Update form field state
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  // Basic form validation
   const validateForm = () => {
     let newErrors = {};
 
@@ -53,16 +55,17 @@ function NewInsvs () {
     return Object.keys(newErrors).length === 0;
   };
 
+  // Handle form submission
   const handleSubmit = () => {
     if (validateForm()) {
       axios.post("http://localhost:3001/auth/signup/visitor", formData)
         .then((res) => {
-          
           console.log(res.data);
-          if (!(res.data.error == 'email already taken')){
+          if (!(res.data.error === 'email already taken')) {
             setEmailExist(false);
-          setPopDem(true);}else{
-            setEmailExist(true)
+            setPopDem(true);
+          } else {
+            setEmailExist(true);
           }
         })
         .catch((err) => {
@@ -72,74 +75,82 @@ function NewInsvs () {
     }
   };
 
-    return(<>
-     <div className="inscription-form-one">
-              <div className="texts-one">
-                <p className="bien-one">Bienvenue sur </p>
-                <p className="athar-one">ATHAR</p>
-                <p className="compte-one">
-                  Vous avez déjà un compte ?  <span className="connexion-one" onClick={goToConnexion}> Connectez-vous.</span>
-                </p>
-              </div>
+  return (
+    <>
+      <div className="inscription-form-one">
+        {/* Header Text */}
+        <div className="texts-one">
+          <p className="bien-one">Bienvenue sur </p>
+          <p className="athar-one">ATHAR</p>
+          <p className="compte-one">
+            Vous avez déjà un compte ?  
+            <span className="connexion-one" onClick={goToConnexion}> Connectez-vous.</span>
+          </p>
+        </div>
 
-              <form className="info-one">
-                {["nom", "prenom", "email", "telephone"].map((id) => (
-                  <div key={id} className="form-group-one">
-                    <label className="label-one" htmlFor={id}>{id.charAt(0).toUpperCase() + id.slice(1)}{id!=="telephone" && <span className="redstar"> *</span>}</label>
-                    <input
-                      className={`input-one ${(errors[id] || emailExist && (id == 'email'
-                      )) ? "input-error" : ""}`}
-                      type={id === "email" ? "email" : "text"}
-                      id={id}
-                      placeholder={id}
-                      value={formData[id]}
-                      onChange={handleChange}
-                      onFocus={(e) => {
-                        e.target.style.border = "1px solid #E8C07D"; 
-                        e.target.style.outline = "0.5px solid #E8C07D"; 
-                      }}
-                      onBlur={(e) => {
-                        e.target.style.border = errors[id] ? "" : "1px solid #A0A5A6";
-                        e.target.style.outline = "none"; 
-                      }}          
-                    />
-                    {errors[id] && <p className="err_message">{errors[id]}</p>}
-                    { (emailExist && (id == 'email'
-                      ) )&& <p className="err_message">Cet email est déja pris</p>}
-                  </div>
-                ))}
-
-                <div className="form-group-one">
-                  <label className="label-one" htmlFor="password">Mot de passe<span className="redstar"> *</span></label>
-                  <input
-                    className={`input-one ${errors.password ? "input-error" : ""}`}
-                    type={typo}
-                    id="password"
-                    placeholder="mot de passe"
-                    value={formData.password}
-                    onChange={handleChange}
-                    onFocus={(e) => {
-                      e.target.style.border = "1px solid #E8C07D"; 
-                      e.target.style.outline = "0.5px solid #E8C07D"; 
-                    }}
-                    onBlur={(e) => {
-                      e.target.style.border = "1px solid #A0A5A6";
-                      e.target.style.outline = "none"; 
-                    }} />
-                  {errors.password && <p className="err_message">{errors.password}</p>}
-                  <div className="eye-one" onClick={TogglePass}>
-                  {visible ? <FiEyeOff /> : <FiEye />}
-                  </div>
-                </div>
-              </form>
-              
-
-              <button className="btn1-one" onClick={handleSubmit}>S'inscrire</button>
-                         
-              
+        {/* Form Fields */}
+        <form className="info-one">
+          {["nom", "prenom", "email", "telephone"].map((id) => (
+            <div key={id} className="form-group-one">
+              <label className="label-one" htmlFor={id}>
+                {id.charAt(0).toUpperCase() + id.slice(1)}{id !== "telephone" && <span className="redstar"> *</span>}
+              </label>
+              <input
+                className={`input-one ${(errors[id] || (emailExist && id === 'email')) ? "input-error" : ""}`}
+                type={id === "email" ? "email" : "text"}
+                id={id}
+                placeholder={id}
+                value={formData[id]}
+                onChange={handleChange}
+                onFocus={(e) => {
+                  e.target.style.border = "1px solid #E8C07D";
+                  e.target.style.outline = "0.5px solid #E8C07D";
+                }}
+                onBlur={(e) => {
+                  e.target.style.border = errors[id] ? "" : "1px solid #A0A5A6";
+                  e.target.style.outline = "none";
+                }}
+              />
+              {/* Show validation or duplicate email error */}
+              {errors[id] && <p className="err_message">{errors[id]}</p>}
+              {(emailExist && id === 'email') && <p className="err_message">Cet email est déjà pris</p>}
             </div>
-             {<Demande popUp={popDem} foncone={() => setPopDem(false)} />}</>
-    )
+          ))}
+
+          {/* Password Field with Toggle */}
+          <div className="form-group-one">
+            <label className="label-one" htmlFor="password">Mot de passe<span className="redstar"> *</span></label>
+            <input
+              className={`input-one ${errors.password ? "input-error" : ""}`}
+              type={typo}
+              id="password"
+              placeholder="mot de passe"
+              value={formData.password}
+              onChange={handleChange}
+              onFocus={(e) => {
+                e.target.style.border = "1px solid #E8C07D";
+                e.target.style.outline = "0.5px solid #E8C07D";
+              }}
+              onBlur={(e) => {
+                e.target.style.border = "1px solid #A0A5A6";
+                e.target.style.outline = "none";
+              }}
+            />
+            {errors.password && <p className="err_message">{errors.password}</p>}
+            <div className="eye-one" onClick={TogglePass}>
+              {visible ? <FiEyeOff /> : <FiEye />}
+            </div>
+          </div>
+        </form>
+
+        {/* Submit Button */}
+        <button className="btn1-one" onClick={handleSubmit}>S'inscrire</button>
+      </div>
+
+      {/* Confirmation Popup */}
+      {<Demande popUp={popDem} foncone={() => setPopDem(false)} />}
+    </>
+  );
 }
 
-export default NewInsvs
+export default NewInsvs;

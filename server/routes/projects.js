@@ -51,7 +51,7 @@ router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.si
         }
 
         const found = await projectModel.findOne({ titre });
-        if (found) return res.status(403).json({ err: "Title already used" });
+        if (found){alert('Il existe déja un projet avec ce titre') ; return res.status(403).json({ err: "Title already used" });}
 
 
         const author = await expertModel.findById(userID);

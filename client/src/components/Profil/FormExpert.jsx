@@ -1,4 +1,8 @@
-import React, { useEffect, useState, useContext } from "react";
+
+// form for the editor to change his informations
+
+
+import { useEffect, useState, useContext } from "react";
 import "../../componentsStyles/ProfilStyles/FormExpert.css";
 import { FiSave } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +10,8 @@ import axios from "axios";
 import AuthContext from "../../helpers/AuthContext";
 
 const FormExpert = ({ image }) => {
+  
+  // define the fields that the user is allowed to modify
   const allowedFields = [
     "nom", "prenom", "email", "etablissement", "labo", "telephone", "niveau", "discipline", "image"
   ];
@@ -22,6 +28,7 @@ const FormExpert = ({ image }) => {
   const { authState, setAuthState } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  // get the old informations
   useEffect(() => {
     axios.get("http://localhost:3001/refresh", { withCredentials: true })
       .then((response) => {
@@ -43,6 +50,7 @@ const FormExpert = ({ image }) => {
       });
   }, []);
 
+  // handle the changes
   const handleChange = (e) => {
     const { name, value } = e.target;
   
@@ -67,6 +75,7 @@ const FormExpert = ({ image }) => {
   };
   
 
+  // check for erros
   const validate = () => {
     const requiredFields = ["email", "etablissement", "niveau"];
     const newErrors = {};
@@ -78,6 +87,8 @@ const FormExpert = ({ image }) => {
     return newErrors;
   };
 
+
+  // submit the new user informations
   const handleSubmit = () => {
     setSubmitted(true);
     const validationErrors = validate();
@@ -206,7 +217,7 @@ const FormExpert = ({ image }) => {
               className="capitalize"
               type="text"
               name="discipline"
-              value={user.discipline === "archeologie" ? "archéologie" : user.discipline}
+              value={user.discipline}
               onChange={handleChange}
               readOnly
             />
@@ -214,6 +225,7 @@ const FormExpert = ({ image }) => {
         </div>
       </div>
 
+      {/* display errors if they exist*/}
       {(submitted && Object.keys(errors).length > 0 || formError) && (
         <p className="error-message text-right">
           {formError || "Veuillez remplir tous les champs nécessaires."}

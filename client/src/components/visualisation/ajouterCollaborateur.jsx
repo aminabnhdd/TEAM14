@@ -1,6 +1,8 @@
-import { useState } from "react";
+// Add collaborator button
+// Available for chef de projet if there exists in the project a section that doesnt have a collaborator yet
+// Displays a popup for the chef to enter the email of the expert he wants to add
+
 import addIcon from "../../assets/add-symbol.png";
-import PopAjouterCollaborateur from "./popupAjouterCollaborateur";
 export default function AjouterCollaborateur(props) {
     
   const ajouterCollab = () => {

@@ -4,6 +4,8 @@ import BreakLinkButton from "./breakLinkButton";
 import EditLinkButton from "./editLinkButton";
 import OpenLinkButton from "./openLinkButton";
 
+// floating menu that appears when clicking on an inserted link in the tiptap editor, it appears in the link bubble menu
+
 export default function BubbleMenuLink(props) {
   if (!props.editor) return null;
 

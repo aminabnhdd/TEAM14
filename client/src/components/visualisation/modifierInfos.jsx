@@ -1,3 +1,6 @@
+// modify project informations button
+// available to chef de project to change the informations of the project
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +11,8 @@ export default function ModifyInfos(props){
  
         const navigate = useNavigate();
       
+
+        // navigate to modify project page
         const handleModify = () => {
             
             navigate(`/modifier-projet/${props.projet._id}`);  

@@ -1,3 +1,6 @@
+
+//popup to indicate that a user wasnt accepted as a collaborator in a project by chef de projet
+
 import "../../ComponentsStyles/popUpsNotif styles/Refus.css"
 import i from "../../assets/x.png"
 import { useNavigate } from "react-router-dom"
@@ -5,6 +8,8 @@ import { useNavigate } from "react-router-dom"
 function Refus  ({popUp,close,notif}) {
     const navigate = useNavigate();
     
+
+// popup displays the name of chef and title of project
 return ( 
     popUp &&
     (<div className="main-bac-notif">
@@ -17,7 +22,7 @@ return (
                 <div className="ktiba3">
                 <p><span className="gris">Par: </span>
                 <span className = "underline cursor-pointer" onClick={()=>navigate(`/afficher-expert/${notif.senderId}`)} >{notif.sender}</span><br />
-                <br />
+                 <div className="h-2"></div>
                 <span className="gris">Projet:</span> 
                 <span className = "underline cursor-pointer" onClick={()=>navigate(`/visualisation/${notif.projetId}`)} >{notif.projet}</span></p>
                 </div>

@@ -1,3 +1,7 @@
+
+// popup to enter a new password
+
+
 import { useState } from "react";
 import "../../ComponentsStyles/popUps styles/ReiniMdp.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
@@ -18,6 +22,7 @@ function ReiniMdp({otl}) {
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
 
+    // make the password visible
     const TogglePass = () => {
         setVisible(!visible);
         setTypo(typo === "password" ? "text" : "password");
@@ -32,6 +37,7 @@ function ReiniMdp({otl}) {
         setFormData({ ...formData, [e.target.id]: e.target.value });
     };
 
+    // check for erros
     const validateForm = () => {
         let newErrors = {};
 
@@ -49,6 +55,8 @@ function ReiniMdp({otl}) {
         return Object.keys(newErrors).length === 0;
     };
 
+
+    // submit the new password
     const handleSubmit = () => {
         if (validateForm()) {
             axios.post(`http://localhost:3001/auth/pwd-forgotten/change-pwd/${otl}`, { password: formData.password })
@@ -74,6 +82,7 @@ function ReiniMdp({otl}) {
             <form className="popUp5-info">
                 <div className="popUp5-form-group">
                     <label className="popUp5-label" htmlFor="password">Mot de passe</label>
+                    {/* new password */}
                     <input
                         className={`popUp5-input eye-pass ${errors.password ? "input-error" : ""}`}
                         type={typo}
@@ -97,6 +106,8 @@ function ReiniMdp({otl}) {
                 </div>
                 <div className="popUp5-form-group">
                     <label className="popUp5-label" htmlFor="password2">Confirmer le mot de passe</label>
+                   {/* confirm new password */}
+
                     <input
                         className={`popUp5-input eye-pass ${errors.password2 ? "input-error" : ""}`}
                         type={typo2}

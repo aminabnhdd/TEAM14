@@ -1,3 +1,5 @@
+// Annotation of a part of an illustration using AI
+
 import React, { useState, useRef, useEffect } from "react";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
@@ -71,6 +73,8 @@ const AnnotationTool = () => {
   useEffect(() => {
     localStorage.setItem("requestCount", requestCount.toString());
   }, [requestCount]);
+
+  // the prompt that is sent
   const DEFAULT_PROMPT = `Tu es un expert en architecture et tu t'exprimes uniquement en français, avec un ton professionnel, fluide et naturel, comme un architecte humain le ferait.
   
   À partir de l'image fournie, rédige une analyse complète de l'élément architectural représenté. Le texte doit être structuré sous forme de paragraphes clairs, sans énumérations ni puces. Utilise des titres en gras pour chaque partie (ex : **1. Nom et Type**, etc.).
@@ -113,6 +117,8 @@ const AnnotationTool = () => {
     });
   };
 
+
+  // analyze the selected part of the image
   const analyzeSelection = async () => {
     if (!completedCrop) return;
     if (requestCount >= 10) {
@@ -153,6 +159,7 @@ const AnnotationTool = () => {
     }
   };
 
+  // Annotation approved by the chef de projet
   const approveAnnotation = async (id) => {
     try {
       const response = await axios.post(
@@ -172,12 +179,15 @@ const AnnotationTool = () => {
       console.error("Approval failed:", error);
     }
   };
+
+  // go to the next annotation
   const nextAnnotation = () => {
     if (activeTab < annotations.length - 1) {
       setActiveTab(activeTab + 1);
     }
   };
 
+  // go to the previous annotation
   const prevAnnotation = () => {
     if (activeTab > 0) {
       setActiveTab(activeTab - 1);

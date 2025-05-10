@@ -2,8 +2,11 @@ import { BubbleMenu } from "@tiptap/react";
 import DeleteImageButton from "./deleteImageButton";
 import Tooltip from "../../tooltip";
 import imageLeft from "../../../../assets/image-left.png";
-import imageCenter from "../../../../assets/image-center.png"; // Import the center alignment image
-import imageRight from "../../../../assets/image-right.png"; // Import the right alignment image
+import imageCenter from "../../../../assets/image-center.png";
+import imageRight from "../../../../assets/image-right.png";
+
+
+// floating menu that appears when clicking on an image inside the tiptap editor
 
 export default function BubbleMenuImage(props) {
   if (!props.editor) {
@@ -55,31 +58,31 @@ export default function BubbleMenuImage(props) {
       }}
     >
       <div className="bg-white small-remark bubble-menu border rounded-[12px] border-neutral-400 flex items-center gap-1 px-2 ">
-      <Tooltip element={<button
+        <Tooltip element={<button
           onClick={() => alignFigure("left")}
           className="p-1 pt-2  hover:bg-neutral-100 rounded"
           aria-label="Align left"
-        >
+        > {/* align the image to the left of the text*/}
           <img src={imageLeft} alt="Align left" className="w-4 h-4" />
         </button>} text="Aligner l'image à gauche" />
-      <Tooltip element={<button
+        <Tooltip element={<button
           onClick={() => alignFigure("center")}
           className="p-1 pt-2 hover:bg-neutral-100 rounded"
           aria-label="Align center"
-        >
+        > {/* center the image in its own line*/}
           <img src={imageCenter} alt="Align center" className="w-4 h-4" />
         </button>} text="Centrer l'image  " />
-      <Tooltip element={<button
+        <Tooltip element={<button
           onClick={() => alignFigure("right")}
           className="p-1 pt-2 hover:bg-neutral-100 rounded"
           aria-label="Align right"
-        >
+        >{/* align the image to the right of the text*/}
           <img src={imageRight} alt="Align right" className="w-4 h-4" />
         </button>} text="Aligner l'image à droite" />
 
-        
-        
-        
+
+
+
         <Tooltip element={<DeleteImageButton editor={props.editor} />} text="Supprimer l'image" />
 
       </div>

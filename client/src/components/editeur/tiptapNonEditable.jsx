@@ -1,3 +1,9 @@
+
+// tiptap editor for annoter section page
+// the text can't be modified in this version of the editor
+// only annotations can be added
+
+
 import React, { useEffect, useRef, useState } from "react";
 import '../../componentsStyles/editeur/tiptap.css';
 import { EditorContent, useEditor } from "@tiptap/react";
@@ -25,6 +31,8 @@ export default function TiptapNonEditable({ setEditor, section, annotations, set
 
   const editor = useEditor({
     editable: false,
+
+    // get all of the extentions needed to display the content of the editor
     extensions: [
       StarterKit,
       Underline,
@@ -56,7 +64,7 @@ export default function TiptapNonEditable({ setEditor, section, annotations, set
         draggable: false,
       }),
       ReferenceNode,
-      AnnotationMark, // Ensure AnnotationMark is included
+      AnnotationMark, // Ensure AnnotationMark is included 
     ],
     //get content from data base instead
     content: section.contenu

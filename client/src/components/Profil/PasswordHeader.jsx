@@ -1,4 +1,6 @@
-import React from "react";
+
+// header of the modifier mdp page
+
 import "../../componentsStyles/ProfilStyles/PasswordHeader.css";
 
 const PasswordHeader = () => {

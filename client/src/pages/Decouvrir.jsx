@@ -1,3 +1,7 @@
+// Page decouvrir
+// displays all the existing projects 
+// allow filtering the projects and research by keywords
+
 import PinterestLayout from '../components/PinterestLayout/PinterestLayout';
 import SearchBar from '../components/SearchBar/SearchBar';
 import SideNav from '../components/SideNav';
@@ -31,6 +35,7 @@ function Decouvrir() {
   // Get initial search query from URL
   const initialQuery = searchParams.get('query') || "";
 
+  // fetch all of the projects
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -87,6 +92,7 @@ function Decouvrir() {
     }
   };
 
+  // applying the filters
   const fetchFilteredProjects = async (filter) => {
     try {
       let url = 'http://localhost:3001/projects/search/filters';
@@ -115,6 +121,7 @@ function Decouvrir() {
     }
   };
 
+  // assign a random size to each of the project cards 
   function getRandomSize() {
     const sizes = ["small", "medium", "large"];
     return sizes[Math.floor(Math.random() * sizes.length)];

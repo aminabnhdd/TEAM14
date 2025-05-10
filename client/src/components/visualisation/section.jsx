@@ -1,3 +1,7 @@
+// one section in visualisation du projet
+// -contains rendered tiptap text and gallery
+// -allows the collaborators to edit their sections and annotate any section
+
 import TiptapRenderer from "./titapRenderer"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +15,7 @@ function toggleOpen(){
     setSectionOpen(!sectionOpen);
 }
 
+// check what sections the user has the right to edit
 const canEdit = () => {
     if (props.isChef) return true;
     if (props.section.type === 'description') return props.isChef;

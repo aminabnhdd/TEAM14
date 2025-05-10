@@ -1,3 +1,6 @@
+
+// popup for chef de projet to accept or reject a collaboration request
+
 import "../../ComponentsStyles/popUpsNotif styles/Collaboration.css"
 import i from "../../assets/x.png"
 import axios from "axios"
@@ -8,6 +11,8 @@ import { useNavigate } from "react-router-dom"
 function Collaboration ({popUp,close,notif}) {
     const navigate = useNavigate();
     const {authState} = useContext(AuthContext);
+   
+   // treatment of the request
     const colab = (action) => {
         console.log(authState);
         axios.put(`http://localhost:3001/notifications/collaboration/valider/${notif._id}`,{decision:action},{headers:{Authorization:`Bearer ${authState.accessToken}`}})    
@@ -21,6 +26,8 @@ function Collaboration ({popUp,close,notif}) {
             console.log(error)
         })
     }
+
+// popup display's the expert's name and the project's title
  return(
     popUp &&
     (   

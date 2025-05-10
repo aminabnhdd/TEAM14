@@ -68,7 +68,7 @@ router.post('/signup/expert', upload.single('image'), async (req, res) => {
             prenom,
             role: ExpertRole,
             discipline,
-            labo : labo === "undefined" ? "" : labo,
+            labo : (labo === "undefined") ? "" : labo,
             etablissement,
             niveau,
             email,

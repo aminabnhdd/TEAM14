@@ -1,4 +1,8 @@
-import React from "react";
+// Modifier Visiteur Page
+// - Allows the Visitor to view his own profile
+// - Contains the user's personal informations
+// - Allows the user to change his informations
+
 import InfoHeaderBtn from "../../components/Profil/Infoheaderbtn.jsx";
 import ProfilInfolink from "../../components/Profil/ProfilInfolink.jsx";
 import ModifCardVisiteur from "../../components/Profil/ModifCardVisiteur.jsx";
@@ -18,6 +22,8 @@ const ModifierVisiteur = () => {
   const navigate = useNavigate();
   const {authState,setAuthState} = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
+
+  // fetch the user's informations
   useEffect(() => {
     axios.get("http://localhost:3001/refresh",{withCredentials:true})
         .then((response) => {

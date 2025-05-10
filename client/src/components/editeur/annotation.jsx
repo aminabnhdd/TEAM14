@@ -1,3 +1,7 @@
+
+// display of one annotation
+// show the author of the annotation and its content
+
 import defaultPfp from "../../assets/Default_pfp.svg.png"
 
 

@@ -5,6 +5,8 @@ import LigneDropdown from "./ligneDropdown";
 import DeleteTableDropdown from "./deleteTableDropdown";
 import Tooltip from "../../tooltip";
 
+// floating menu that appears when clicking on a table in the tiptap editor
+
 export default function BubbleMenuTable(props) {
   if (!props.editor) return null;
 

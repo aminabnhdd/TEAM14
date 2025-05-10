@@ -1,3 +1,6 @@
+
+// filters that only show projects with section renseignée
+
 import './Filters.css';
 import {useState, useEffect} from 'react';
 
@@ -5,6 +8,7 @@ function Filters({fetchFilteredProjects}) {
  // Run when filters change
     const [activeFilter, setActiveFilter] = useState("Tout");
  
+    //activate the filter
     const HandleFilterClick = (filter) => {
         setActiveFilter(filter);
         };

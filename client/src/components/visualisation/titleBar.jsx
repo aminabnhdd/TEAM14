@@ -1,3 +1,7 @@
+
+// TitleBar in visualisation du projet
+// Offers different printing and saving options
+
 import PrintWeb from "./printWeb"
 import PrintPDF from "./printfPDF"
 import SaveIntern from "./saveIntern"

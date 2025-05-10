@@ -1,3 +1,7 @@
+
+// link button in the tiptap editor
+// shows a popup that allows the user to insert a link
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { useCallback, useState } from "react";

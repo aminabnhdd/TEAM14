@@ -1,3 +1,6 @@
+// Password Reset Page
+// - Accessed via a secure link sent to the user's email after a forgotten password request
+// - Allows the user to set a new password
 
 import "../../PagesStyles/PagesConnexionStyles/Connex.css"
 import image2 from "../../assets/Screenshot 2025-03-03 at 8.53.06 AM 2.png";

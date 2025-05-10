@@ -1,9 +1,11 @@
 import { BubbleMenu } from "@tiptap/react";
-import DeleteVideoButton from "./deleteVideoButton"; // Updated delete button
+import DeleteVideoButton from "./deleteVideoButton";  
 import Tooltip from "../../tooltip";
 import imageLeft from "../../../../assets/image-left.png";
-import imageCenter from "../../../../assets/image-center.png"; // Import the center alignment image
-import imageRight from "../../../../assets/image-right.png"; // Import the right alignment image
+import imageCenter from "../../../../assets/image-center.png";  
+import imageRight from "../../../../assets/image-right.png"; 
+
+// floating menu that appears when clicking in a video in the tiptap editor
 
 export default function BubbleMenuVideo(props) {
   if (!props.editor) {
@@ -61,7 +63,7 @@ export default function BubbleMenuVideo(props) {
       }}
     >
       <div className="bg-white small-remark bubble-menu border rounded-[12px] border-neutral-400 flex items-center gap-1 px-2 ">
-        {/* Align Left Button */}
+        {/* align the video to the left of the text */}
         <Tooltip
           element={
             <button
@@ -75,7 +77,7 @@ export default function BubbleMenuVideo(props) {
           text="Aligner la vidéo à gauche"
         />
 
-        {/* Align Center Button */}
+        {/* center the video in its own line */}
         <Tooltip
           element={
             <button
@@ -89,7 +91,7 @@ export default function BubbleMenuVideo(props) {
           text="Centrer la vidéo"
         />
 
-        {/* Align Right Button */}
+        {/* align the video to the right of the tex*/}
         <Tooltip
           element={
             <button

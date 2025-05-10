@@ -1,3 +1,5 @@
+/*add loading animation in titlebar compontent*/
+
 @keyframes zoomInOut {
     0%, 100% {
       transform: scale(1);

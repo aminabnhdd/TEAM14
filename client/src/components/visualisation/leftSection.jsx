@@ -1,3 +1,8 @@
+
+// Left section of visualisation of project
+// Contains the different sections of the projet, the references, and archiver button
+
+
 import Section from "./section";
 import ReferencesSection from "./referencesSection";
 import ArchiverProjet from "./archiverProjet";
@@ -19,7 +24,7 @@ export default function LeftSection(props){
            <AjouterSection  user={props.user} isCollaborateur={props.isCollaborateur} isChef={props.isChef} sectionsExistantes={props.sectionsExistantes} projet={props.projet} setProjet={props.setProjet} />
            <div className="flex justify-between">
            <ReferencesSection  projet={props.projet} setActualReferences={props.setActualReferences}/>
-           {props.isAdmin || props.isChef && <ArchiverProjet user={props.user} projet={props.projet} setProjet={props.setProjet} />}
+           {(props.isAdmin || props.isChef) && <ArchiverProjet user={props.user} projet={props.projet} setProjet={props.setProjet} isAdmin={props.isAdmin} />}
            </div>
 
     </div>

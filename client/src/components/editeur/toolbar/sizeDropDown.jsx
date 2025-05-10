@@ -1,4 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// dropdown to change the size of the selected text in tiptap editor
+
 
 export default function SizeDropdown(props){
     return (

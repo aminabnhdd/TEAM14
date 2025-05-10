@@ -1,3 +1,6 @@
+
+// button to insert a video in the tiptap editor
+
 import { useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVideo } from "@fortawesome/free-solid-svg-icons";

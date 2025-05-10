@@ -1,52 +1,59 @@
+
+// popup to chose whether to sign up as an expert or as visiteur
+
 import "../../componentsStyles/LandingPage/InsChoice.css";
-import imej from "../../assets/x.png";
 import { useNavigate } from "react-router-dom";
 
 function InsChoice({ popUp, setPopUp }) {
-    const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
-    return (
-        <>
-            {popUp && (
-                <div className="popUp3-main-container">
-                    <div className="popUp3-main-div">
-                        <div className="popUp3-titles">
-                            <p className="popUp3-big-title">Inscription en tant que:</p>
-                            <p className="popUp3-small-title">
-                                Voulez-vous vous inscrire en tant qu’expert ou visiteur?
-                            </p>
-                        </div>
-                        <div className="popUp3-buttons">
-                            <button
-                                className="popUp3-btn5"
-                                onClick={() => {
-                                    setPopUp(false); // Close pop-up
-                                    navigate("/signup/expert"); // Navigate to expert signup
-                                }}
-                            >
-                                Expert
-                            </button>
-                            <button
-                                className="popUp3-btn6"
-                                onClick={() => {
-                                    setPopUp(false); 
-                                    navigate("/signup/visiteur");
-                                }}
-                            >
-                                Visiteur
-                            </button>
-                        </div>
-                    </div>
-                    <img
-                        className="popUp3-close-button"
-                        src={imej}
-                        alt="x"
-                        onClick={() => setPopUp(false)}
-                    />
-                </div>
-            )}
-        </>
-    );
+  return (
+    <>
+      {popUp && (
+        <div className="fixed inset-0 z-[4000] flex items-center justify-center bg-black/30">
+          <div className="relative z-[11000] w-[32%] p-8 flex flex-col gap-6 bg-white rounded-[29px] animate-fadeIn">
+            {/* Close Button */}
+            <button
+              className="absolute top-4 right-5 text-black text-2xl font-normal hover:text-warning cursor-pointer"
+              onClick={() => setPopUp(false)}
+            >
+              &times;
+            </button>
+
+            {/* Titles */}
+            <div className="text-center">
+              <p className="font-semibold text-[22px] mb-2">Inscription en tant que:</p>
+              <p className="text-md text-black leading-relaxed">
+                Voulez-vous vous inscrire en tant qu'expert ou visiteur?
+              </p>
+            </div>
+
+            {/* Buttons */}
+            <div className="flex justify-center gap-8 mt-2">
+              <button
+                onClick={() => {
+                  setPopUp(false);
+                  navigate("/signup/expert");
+                }}
+                className="flex w-[40%] py-3 justify-center items-center rounded-[27px] bg-dune text-black font-semibold transition-all hover:brightness-105 hover:scale-102 cursor-pointer"
+              >
+                Expert
+              </button>
+              <button
+                onClick={() => {
+                  setPopUp(false);
+                  navigate("/signup/visiteur");
+                }}
+                className="flex w-[40%] py-3 justify-center items-center rounded-[27px] bg-dune text-black font-semibold transition-all hover:brightness-105 hover:scale-102 cursor-pointer"
+              >
+                Visiteur
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
 }
 
 export default InsChoice;

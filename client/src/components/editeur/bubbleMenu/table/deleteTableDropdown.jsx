@@ -1,6 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown  } from "@fortawesome/free-solid-svg-icons";
 
+
+// button to delete a table in the tiptap editor, appears in the table bubble menu
+
 export default function DeleteTableDropdown(props){
     return (
       

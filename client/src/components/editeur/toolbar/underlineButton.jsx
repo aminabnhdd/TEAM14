@@ -1,3 +1,7 @@
+
+// underline button in the tiptap editor, makes the selected text underlined
+
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUnderline } from "@fortawesome/free-solid-svg-icons"; // ✅ Fixed icon name
 

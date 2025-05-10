@@ -1,20 +1,19 @@
-import React , {useContext , useState,useEffect } from "react";
+
+// component containing all of the projects of a user
+
 import "../../componentsStyles/MyProjectsStyles/MyProjectsContainer.css";
 import { useNavigate } from "react-router-dom";
-import Footer from "../Footer";
 import DEFAULT_IMAGE_URL from "../../assets/cover.png"; 
  
 const MyProjectsContainer = ({myProjects}) => {
   const navigate = useNavigate();
 
-
-
-  
-
-
+  // send the user to page creer projet
   const handleAddProjectClick = () => {
     navigate("/create-projet");
   };
+
+  // send the user to the visualisation of the project
   const handleProjectClick = (projetId) => {
     navigate(`/visualisation/${projetId}`);
   };
@@ -27,6 +26,7 @@ const MyProjectsContainer = ({myProjects}) => {
         <p>Créer un nouveau projet</p>
       </div>
       
+      {/* display all of the projects of the user */}
       {myProjects.map((project) => (
         <div key={project._id} className="project-card" onClick={() => handleProjectClick(project._id)}>
           <div className="image-container">

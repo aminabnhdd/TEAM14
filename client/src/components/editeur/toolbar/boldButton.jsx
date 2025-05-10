@@ -1,4 +1,6 @@
 
+// bold button in the tiptap editor, makes the selected text bold
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBold} from "@fortawesome/free-solid-svg-icons";
 

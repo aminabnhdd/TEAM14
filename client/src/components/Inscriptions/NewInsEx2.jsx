@@ -1,56 +1,59 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
-import arrRight from "../../assets/arrow-right-solid.svg";
-import arrLeft from "../../assets/arrow-left-solid.svg";
-import "../../ComponentsStyles/Insctiptions styles/NewInsEx2.css";
-import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion"; // For animations
+import { useState } from "react"; // React state hook
+import arrRight from "../../assets/arrow-right-solid.svg"; // Right arrow icon
+import arrLeft from "../../assets/arrow-left-solid.svg"; // Left arrow icon
+import "../../ComponentsStyles/Insctiptions styles/NewInsEx2.css"; // CSS styles
+import { useNavigate } from "react-router-dom"; // For navigation
 
+function NewInsEx2({ prevPopUp, fn, swipeDirection }) {
+  const navigate = useNavigate(); // Hook to programmatically navigate
 
-function NewInsEx2({ prevPopUp, fn,swipeDirection}) {
-  const navigate = useNavigate();
+  // Initialize form data with saved values from localStorage if they exist
   const [formData, setFormData] = useState({
-    expertise: JSON.parse(localStorage.getItem("formData2"))?.expertise || "" ,
-    etablissement:JSON.parse(localStorage.getItem("formData2"))?.etablissement || "",
-    discipline:JSON.parse(localStorage.getItem("formData2"))?.discipline || "",
+    expertise: JSON.parse(localStorage.getItem("formData2"))?.expertise || "",
+    etablissement: JSON.parse(localStorage.getItem("formData2"))?.etablissement || "",
+    discipline: JSON.parse(localStorage.getItem("formData2"))?.discipline || "",
   });
-  const [errors, setErrors] = useState({});
 
+  const [errors, setErrors] = useState({}); // Object to store validation errors
 
+  // Navigate to the login page
   const goToConnexion = () => {
     navigate("/connexion");
-  }
-  
+  };
 
+  // Handle input changes and update form data
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  // Validate required fields
   const validateForm = () => {
     let newErrors = {};
     if (!formData.discipline.trim()) newErrors.discipline = "Discipline requise";
     if (!formData.etablissement.trim()) newErrors.etablissement = "Etablissement requis";
     if (!formData.expertise.trim()) newErrors.expertise = "Niveau d'expertise requis";
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return Object.keys(newErrors).length === 0; // Form is valid if no errors
   };
 
+  // Save form data and proceed to the next step
   const handleSubmit = () => {
     if (validateForm()) {
       if (localStorage.getItem("formData2")) {
         localStorage.removeItem("formData2");
-        
       }
       localStorage.setItem("formData2", JSON.stringify(formData));
-      fn();
+      fn(); // Call the next step function
     }
   };
 
+  // Go back to the previous popup
   const handleBack = () => {
-    setTimeout(prevPopUp);
+    setTimeout(prevPopUp); // Slight delay for animation smoothness
   };
-  
+
   return (
-    
     <motion.div
       className="inscription-form-three"
       initial={{ x: swipeDirection === "right" ? -100 : 100, opacity: 0 }}
@@ -58,7 +61,7 @@ function NewInsEx2({ prevPopUp, fn,swipeDirection}) {
       exit={{ x: swipeDirection === "left" ? 100 : -100, opacity: 0 }}
       transition={{ duration: 0.35, ease: "easeInOut" }}
     >
-    
+      {/* Header and welcome text */}
       <div className="texts-three">
         <p className="bien-three">Bienvenue sur </p>
         <p className="athar-three">ATHAR</p>
@@ -67,98 +70,105 @@ function NewInsEx2({ prevPopUp, fn,swipeDirection}) {
         </p>
       </div>
 
+      {/* Main form */}
       <form className="info-three">
-      {["expertise", "etablissement", "laboratoire"].map((field) => (
-  <div key={field} className="form-group-three">
-    <label className="label-three" htmlFor={field}>
-      {field === "expertise"
-        ? "Niveau d'expertise"
-        : field.charAt(0).toUpperCase() + field.slice(1)}
-      {field !== "laboratoire" && <span className="redstar"> *</span>}
-    </label>
-    {(field == "expertise") ? 
-      <div className="select-wrapper">
-    <select
-      className={`input-three-select ${errors[field] ? "input-error" : ""}`}
+        {/* Dynamic fields: expertise, etablissement, laboratoire */}
+        {["expertise", "etablissement", "laboratoire"].map((field) => (
+          <div key={field} className="form-group-three">
+            <label className="label-three" htmlFor={field}>
+              {field === "expertise"
+                ? "Niveau d'expertise"
+                : field.charAt(0).toUpperCase() + field.slice(1)}
+              {field !== "laboratoire" && <span className="redstar"> *</span>}
+            </label>
 
-      id={field}
-      placeholder={field === "expertise" ? "niveau d'expertise" : field}
-      value={formData[field]}
-      required
-      onChange={handleChange}
-      onFocus={(e) => {
-        e.target.style.border = "1px solid #E8C07D";
-        e.target.style.outline = "0.5px solid #E8C07D";
-      }}
-      onBlur={(e) => {
-        e.target.style.border = errors[field] ? "" : "1px solid #A0A5A6";
-        e.target.style.outline = "none";
-      }}>
-    <option className="opt"  value="">Sélectionnez votre niveau d'expertise</option>
-    <option value="Niveau initial">Niveau initial</option>
-    <option className="opt" value="Niveau intermédiaire">Niveau intermédiaire</option>
-    <option className="opt" value="Niveau avancé">Niveau avancé</option>
-    <option className="opt" value="Niveau expert">Niveau expert</option>
+            {/* Select input for expertise, text input for others */}
+            {(field === "expertise") ? (
+              <div className="select-wrapper">
+                <select
+                  className={`input-three-select ${errors[field] ? "input-error" : ""}`}
+                  id={field}
+                  placeholder="niveau d'expertise"
+                  value={formData[field]}
+                  required
+                  onChange={handleChange}
+                  onFocus={(e) => {
+                    e.target.style.border = "1px solid #E8C07D";
+                    e.target.style.outline = "0.5px solid #E8C07D";
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.border = errors[field] ? "" : "1px solid #A0A5A6";
+                    e.target.style.outline = "none";
+                  }}
+                >
+                  <option className="opt" value="">Sélectionnez votre niveau d'expertise</option>
+                  <option value="Niveau initial">Niveau initial</option>
+                  <option className="opt" value="Niveau intermédiaire">Niveau intermédiaire</option>
+                  <option className="opt" value="Niveau avancé">Niveau avancé</option>
+                  <option className="opt" value="Niveau expert">Niveau expert</option>
+                </select>
+                <i className="fa-solid fa-chevron-down dropdown-icon-container"></i>
+              </div>
+            ) : (
+              <input
+                className={`input-three ${errors[field] ? "input-error-select" : ""}`}
+                type="text"
+                id={field}
+                placeholder={field}
+                value={formData[field]}
+                onChange={handleChange}
+                onFocus={(e) => {
+                  e.target.style.border = "1px solid #E8C07D";
+                  e.target.style.outline = "0.5px solid #E8C07D";
+                }}
+                onBlur={(e) => {
+                  e.target.style.border = errors[field] ? "" : "1px solid #A0A5A6";
+                  e.target.style.outline = "none";
+                }}
+              />
+            )}
+            {errors[field] && <p className="err_message">{errors[field]}</p>}
+          </div>
+        ))}
 
-        </select>
-    <i className="fa-solid fa-chevron-down dropdown-icon-container"></i></div>
-    :
-    <input
-      className={`input-three ${errors[field] ? "input-error-select" : ""}`}
-      type="text"
-      id={field}
-      placeholder={field === "expertise" ? "niveau d'expertise" : field}
-      value={formData[field]}
-      onChange={handleChange}
-      onFocus={(e) => {
-        e.target.style.border = "1px solid #E8C07D";
-        e.target.style.outline = "0.5px solid #E8C07D";
-      }}
-      onBlur={(e) => {
-        e.target.style.border = errors[field] ? "" : "1px solid #A0A5A6";
-        e.target.style.outline = "none";
-      }}
-    />}
-    {errors[field] && <p className="err_message">{errors[field]}</p>}
-  </div>
-))}
-
-        
+        {/* Discipline select field (outside the map loop) */}
         <div className="form-group-three">
           <label className="label-three" htmlFor="discipline">
             Discipline<span className="redstar"> *</span>
           </label>
           <div className="select-wrapper">
-
-          <select
-            className={`input-three-select ${errors.discipline ? "input-error-select" : ""}`}
-            id="discipline"
-            required
-            value={formData.discipline}
-            onChange={handleChange}
-            onFocus={(e) => {
-              e.target.style.border = "1px solid #E8C07D";
-              e.target.style.outline = "0.5px solid #E8C07D";
-            }}
-            onBlur={(e) => {
-              e.target.style.border = errors.discipline ? "" : "1px solid #A0A5A6";
-              e.target.style.outline = "none";
-            }}
-          >
-            <option className="opt" value="">Sélectionnez une discipline</option>
-            <option className="opt" value="archeologie">Archéologie</option>
-            <option className="opt" value="histoire">Histoire</option>
-            <option className="opt" value="architecture">Architecture</option>
-          </select>
-              <i className="fa-solid fa-chevron-down dropdown-icon-container"></i>
+            <select
+              className={`input-three-select ${errors.discipline ? "input-error-select" : ""}`}
+              id="discipline"
+              required
+              value={formData.discipline}
+              onChange={handleChange}
+              onFocus={(e) => {
+                e.target.style.border = "1px solid #E8C07D";
+                e.target.style.outline = "0.5px solid #E8C07D";
+              }}
+              onBlur={(e) => {
+                e.target.style.border = errors.discipline ? "" : "1px solid #A0A5A6";
+                e.target.style.outline = "none";
+              }}
+            >
+              <option className="opt" value="">Sélectionnez une discipline</option>
+              <option className="opt" value="archeologie">Archéologie</option>
+              <option className="opt" value="histoire">Histoire</option>
+              <option className="opt" value="architecture">Architecture</option>
+            </select>
+            <i className="fa-solid fa-chevron-down dropdown-icon-container"></i>
           </div>
           {errors.discipline && <p className="err_message">{errors.discipline}</p>}
         </div>
       </form>
 
+      {/* Submit (Next) button */}
       <div className="rr-three">
         <img src={arrRight} alt="rr" onClick={handleSubmit} />
       </div>
+
+      {/* Back button */}
       <div className="lr-three">
         <img src={arrLeft} alt="ll" onClick={handleBack} />
       </div>

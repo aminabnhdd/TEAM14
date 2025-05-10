@@ -1,3 +1,6 @@
+
+// personalized figure node in the tiptap editor
+
 import { mergeAttributes, Node } from "@tiptap/core";
 
 export const Figure = Node.create({

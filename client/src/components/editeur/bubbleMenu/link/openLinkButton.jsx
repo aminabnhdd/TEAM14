@@ -1,3 +1,6 @@
+
+// button that allows the user to open the link, appears in the link bubble menu
+
 export default function OpenLinkButton(props){
     return (
         <button

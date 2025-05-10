@@ -1,3 +1,6 @@
+
+// common questions and their answers in the landing page
+
 import React, { useState } from "react";
 import Accordion from "./Accordion";
 import "../../../componentsStyles/LandingPage/FAQ.css";
@@ -6,10 +9,12 @@ import "../../../componentsStyles/LandingPage/FAQ.css";
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);
 
+
+  // when opening one question
   const handleAccordionClick = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
-/*add question about validatoon*/
+
   return (
     <section id="faq">
     <div className="faq-container">

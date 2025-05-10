@@ -1,3 +1,6 @@
+
+// action buttons in the page creer projet
+
 import React from "react";
 import "../../componentsStyles/CreateProjectStyles/ProjectActions.css";
 import { useNavigate } from "react-router-dom";
@@ -5,7 +8,9 @@ import { useNavigate } from "react-router-dom";
 const ProjectActions = ({ onCreate, isLoading }) => {
   const navigate = useNavigate();
   
-  const Annuler = () => {
+  // go back to the project without saving
+  const
+   Annuler = () => {
     if (isLoading) return; // Prevent action during loading
     navigate("/mesprojets");
     console.log("Annuler le projet");
@@ -32,13 +37,3 @@ const ProjectActions = ({ onCreate, isLoading }) => {
 };
 
 export default ProjectActions;
-/* 
-  -- Explication du composant ProjectActions --
-  1. Ce composant permet à l'utilisateur d'effectuer des actions liées à la création d'un projet.
-  2. Il contient deux boutons :
-     - "Annuler" : Ce bouton devra plus tard rediriger l'utilisateur vers une autre page une fois que 
-     la navigation sera mise en place.
-     - "Créer le projet" : Ce bouton déclenche la fonction `onCreate`, qui est passée en prop et 
-     va inclure la vérification des champs obligatoires avant l'envoi des données, ainsi que 
-    l'affichage d'erreurs en cas de saisie incomplète .
-*/  

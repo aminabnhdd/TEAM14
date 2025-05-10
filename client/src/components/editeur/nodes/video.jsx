@@ -1,3 +1,6 @@
+
+// personalized video node in tiptap editor (tiptap editor doesn't support videos by default)
+
 import { mergeAttributes, Node } from "@tiptap/core";
 
 export const Video = Node.create({

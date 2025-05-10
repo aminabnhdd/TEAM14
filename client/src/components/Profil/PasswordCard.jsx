@@ -1,3 +1,7 @@
+
+// component that allows the user to change his password
+
+
 import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import "../../componentsStyles/ProfilStyles/PasswordCard.css";
@@ -16,12 +20,16 @@ export default function PasswordChange() {
   const [authState, setAuthState] = useState({email:"",role:"",accessToken:""});
   const navigate = useNavigate();
 
+
+  // make the password visible
   const togglePasswordVisibility = (field) => {
     if (field === "old") setShowOldPassword(!showOldPassword);
     if (field === "new") setShowNewPassword(!showNewPassword);
     if (field === "confirm") setShowConfirmPassword(!showConfirmPassword);
   };
 
+
+  // handle the changes 
   const handleChange = () => {
     if (newPassword !== confirmPassword) {
       setError("Les nouveaux mots de passe ne correspondent pas. Veuillez les saisir à nouveau.");
@@ -61,6 +69,8 @@ export default function PasswordChange() {
       <div className="input-group-password">
         <label htmlFor="old-password">Ancien mot de passe</label>
         <div className="password-wrapper">
+
+          {/* old password */}
           <input
             id="old-password"
             type={showOldPassword ? "text" : "password"}
@@ -77,6 +87,9 @@ export default function PasswordChange() {
       <div className="input-group-password">
         <label htmlFor="new-password">Nouveau mot de passe</label>
         <div className="password-wrapper">
+
+                    {/* new password */}
+
           <input
             id="new-password"
             type={showNewPassword ? "text" : "password"}
@@ -93,6 +106,9 @@ export default function PasswordChange() {
       <div className="input-group-password">
         <label htmlFor="confirm-password">Confirmez le nouveau mot de passe</label>
         <div className="password-wrapper">
+
+                    {/* confirmation of the new password */}
+
           <input
             id="confirm-password"
             type={showConfirmPassword ? "text" : "password"}

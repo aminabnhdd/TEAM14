@@ -1,3 +1,7 @@
+
+// ordered list button to change text into an ordered list in the tiptap editor 
+
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faListOl} from "@fortawesome/free-solid-svg-icons";
 

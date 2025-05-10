@@ -1,3 +1,7 @@
+
+// component that allows the user to insert one or multiple images in the section's gallerie in the editor page
+
+
 import { useRef, useEffect } from "react";
 
 export default function AddImage({ images, setImages }) {
@@ -10,6 +14,8 @@ export default function AddImage({ images, setImages }) {
     };
   }, [images]);
 
+
+  // get the image from the user's machine
   const handleFileChange = (e) => {
     const files = e.target.files;
     if (files.length > 0) {

@@ -1,6 +1,7 @@
+// presentation of the main informations about the project
+
 import ModifyInfos from "./modifierInfos"
 import "../../componentsStyles/visualisation/presentation.css"
-import { Proportions } from "lucide-react";
 export default function Presentation(props){
     console.log(props.projet.longitude);
     return (

@@ -1,3 +1,6 @@
+
+// redo button, allows the user to get back what he undid in the tiptap editor
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRedo} from "@fortawesome/free-solid-svg-icons";
 

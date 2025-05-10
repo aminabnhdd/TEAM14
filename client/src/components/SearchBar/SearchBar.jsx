@@ -1,3 +1,6 @@
+
+// search bar used in discover and favoris
+
 import { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useSearchParams } from "react-router-dom";
@@ -21,6 +24,8 @@ function SearchBar({ onSearch }) {
     return () => clearTimeout(timer);
   }, [query, setSearchParams]);
 
+
+  // perform the search each time the content of the search bar changes
   const handleChange = (e) => {
     const newQuery = e.target.value;
     setQuery(newQuery);

@@ -16,6 +16,31 @@
     transition: width 0.3s ease;
     overflow: visible; /* allow tooltip overflow */
     z-index: 3000; /* make sure it's above base content */
+}.new-notif {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  border-radius: 100px;
+  right: 30%;
+  animation: zoomInOut 1.5s ease-in-out infinite, colorPulse 1s ease-in-out infinite;
+}
+
+@keyframes zoomInOut {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes colorPulse {
+  0%, 100% {
+    background-color: red;
+  }
+  50% {
+    background-color: rgb(232, 2, 2);
+  }
 }
 
 
@@ -81,25 +106,23 @@
 .tooltip {
     position: absolute;
     z-index: 999999;
-    left: 70px;
-    background-color: white;
-    color: black;
+    left: 80px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
     padding: 6px 10px;
-    border-radius: 10px;
+    border-radius: 5px;
     font-size: 14px;
     white-space: nowrap;
     opacity: 0;
     visibility: hidden;
-    border: 1.75px solid #C57642;
     transition: opacity 0.3s ease, transform 0.3s ease;
-    transform: translateX(-10px) ;
+    transform: translateX(-10px);
 }
 
 /* Show tooltip on hover */
 .nav-link:hover .tooltip, .lowerIcon1:hover .tooltip {
-    opacity: 1;
+    opacity: 0.8;
     visibility: visible;
     transform: translateX(0);
     
 }
-

@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown  } from "@fortawesome/free-solid-svg-icons";
 
+// dropdown list that allows the user to perform modifications in a cell in a table in the tiptap editor, appears in the table bubble menu
 
 export default function CelluleDropdown(props){
     return (

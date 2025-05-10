@@ -1,6 +1,8 @@
+
+// profile picture sticky icon
+
 import { useState, useEffect, useContext } from "react";
 import AuthContext from '../helpers/AuthContext';
-import defaultPfp from "../assets/Default_pfp.svg.png";
 import { useNavigate } from "react-router-dom";
 import { FaUser } from 'react-icons/fa';
 import axios from "axios";
@@ -11,10 +13,12 @@ export default function Pfp({fixed,admin=false}) {
   const [user, setUser] = useState({});
   const imgUrl = user.pfp;
 
+  // navigate to the user's profile informations page
   const handleClick = () => {
     navigate(`/modifier-${authState.role === "Expert" ? "expert" : "visiteur"}`);
   };
 
+  // get the user infos
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -41,6 +45,7 @@ export default function Pfp({fixed,admin=false}) {
                 hover:scale-105 transition-transform duration-200`}
       onClick={handleClick}
     >
+      {/* if the user has no pfp use a default icon */}
       {imgUrl ? (
         <img src={imgUrl} className='rounded-full w-full h-full object-cover' alt="User Profile" />
       ) : (

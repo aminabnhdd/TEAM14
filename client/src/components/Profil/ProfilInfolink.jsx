@@ -1,13 +1,22 @@
-import React from "react";
+// display the main informations of a user in profile page
+
 import "../../componentsStyles/ProfilStyles/ProfilInfolink.css";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import AuthContext from '../../helpers/AuthContext';
+
+
 
 const DEFAULT_IMAGE_URL = "https://img.freepik.com/vecteurs-premium/icone-profil-utilisateur-dans-style-plat-illustration-vectorielle-avatar-membre-fond-isole-concept-entreprise-signe-autorisation-humaine_157943-15752.jpg?semt=ais_hybrid"
 
 const ProfilInfolink = ({ usersData }) => {
 
-  console.log(usersData)
+    const { authState,setAuthState } = useContext(AuthContext);
 
+    const isExpert = authState.role === "Expert";
+    const isAdmin = authState.role === "Admin";
+
+ 
   const navigate = useNavigate();
   return usersData.map((user) => (
     <div key={user._id} className="profil-card">
@@ -16,7 +25,7 @@ const ProfilInfolink = ({ usersData }) => {
         <img src={user.pfp || DEFAULT_IMAGE_URL } alt="Avatar" className="avatar" />
         <div className="profil-info">
           <span className="profil-name">{user.nom || "Non renseigné"} {user.prenom || "Non renseigné"}</span>
-          <span className="profil-job">{user.role || "Non renseigné"}</span>
+          <span className="profil-job capitalize">{(isAdmin ? 'admin' :((user.role== 'archeologie')?'archéologie':user.role))|| "Non renseigné"}</span>
         </div>
       </div>
 

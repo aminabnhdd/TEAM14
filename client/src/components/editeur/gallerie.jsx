@@ -1,3 +1,7 @@
+
+// gallery to display the images inserted in a section
+// used the lightbox library
+
 import { useState } from "react";
 import "../../componentsStyles/editeur/gallerie.css";
 import Lightbox from "yet-another-react-lightbox";
@@ -49,6 +53,7 @@ const Gallerie = ({ slides,isExpert =true }) => {
         ))}
       </div>
 
+        {/* full screen display that allow zoom and download */}
       <Lightbox
         plugins={[Captions, Download, Fullscreen, Zoom, Thumbnails]}
         captions={{

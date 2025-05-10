@@ -181,9 +181,10 @@ router.get("/", validateToken, async (req, res) => {
           senderId: user?._id,
           sender: (user?.nom || "") + " " + (user?.prenom || ""),
           recepient: (rec?.nom || "") + " " + (rec?.prenom || ""),
+          userDom: rec ? rec.discipline : "",
           projet: projet?.titre || "",
           chat: conflit?.lien || "",
-          sectionId: section._id || "",
+          sectionId: section ? section._id : "",
           dom: conflit ? conflit.sectionId.type : section ? section.type : user.discipline,
         };
       })

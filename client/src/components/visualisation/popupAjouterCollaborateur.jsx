@@ -1,3 +1,6 @@
+// Button Ajouter collaborateur
+// Allows Chef de projet to add a collaborator in a discipline that doesn't have a collaborator yet in the project
+
 import { useState } from "react";
 import VisuService from "../../services/VisuService";
 import  AuthContext from "../../helpers/AuthContext.jsx"
@@ -8,6 +11,8 @@ const PopAjouterCollaborateur = ({ onClose,projet,setProjet,collaborateurs,setCo
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
     const {authState} = useContext(AuthContext);
+
+
 
   const handleSubmit = async (e) => {
     try{
@@ -60,7 +65,7 @@ const PopAjouterCollaborateur = ({ onClose,projet,setProjet,collaborateurs,setCo
         user._id]}
     })
      
-
+    // add the new collaborator
     setCollaborateurs((prevCollaborateurs)=>{
       return(
         [...prevCollaborateurs,
@@ -81,50 +86,54 @@ const PopAjouterCollaborateur = ({ onClose,projet,setProjet,collaborateurs,setCo
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[4001]">
-      <div className="bg-white rounded-[36px] shadow-lg w-120 px-10 py-7 relative border border-black">
-        {/* Close Button */}
-        <button
-          className="absolute top-4 right-6 text-black text-2xl cursor-pointer hover:text-warning"
-          onClick={onClose}
-        >
-          &times;
-        </button>
+  <div className="fixed inset-0 z-[4000] flex items-center justify-center bg-black/30">
+    <div className="relative z-[11000] w-[32%] p-8 flex flex-col gap-6 bg-white rounded-[29px] animate-fadeIn">
+      {/* Close Button */}
+      <button
+        className="absolute top-4 right-5 text-black text-2xl font-normal hover:text-warning cursor-pointer"
+        onClick={onClose}
+      >
+        &times;
+      </button>
 
-        {/* Popup Title */}
-        <h2 className=" big-remark text-center text-black mb-5">Ajouter un collaborateur</h2>
-        <p className="mb-2 main-text ">Entrez l'adresse email de l'expert</p>
-        {/* Email Input Form */}
-        <form onSubmit={handleSubmit}>
-            
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)
-            }
-            placeholder="Adresse email"
-            className={`w-full main-text px-4 py-2 border border-neutral-300 rounded-xl text-neutral-500 focus:outline-none focus:ring-1 focus:ring-dune ${error && 'focus:ring-warning'}`}
-          />
-            {error && <p className="text-warning small-remark mt-1" >{error}</p>}
-          {/* Action Buttons */}
-          <div className="flex justify-around gap-3 mt-5">
-            <button
-              type="submit"
-              className="buttons text-black bg-dune py-4 w-42 mt-3 rounded-[36px] items-center justify-center hover:brightness-105 hover:scale-102 transition-all duration-300 cursor-pointer"
-            >
-              Ajouter
-            </button>
-            <button
-              onClick={onClose}
-              className="buttons text-black bg-neutral-100 py-4 w-42 mt-3 rounded-[36px] items-center justify-center hover:brightness-95 hover:scale-102 transition-all duration-300 cursor-pointer"
-            >
-              Annuler
-            </button>
-          </div>
-        </form>
+      {/* Popup Title */}
+      <div className="text-center font-semibold text-[22px]">
+        <p>Ajouter un collaborateur</p>
       </div>
+      <p className="text-md text-black">Entrez l'adresse email de l'expert</p>
+
+      {/* Email Input Form */}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Adresse email"
+          className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 ${
+            error ? 'border-warning focus:ring-warning' : 'border-neutral-300 focus:ring-dune'
+          }`}
+        />
+        {error && <p className="text-warning text-sm mt-1">{error}</p>}
+
+        {/* Action Buttons */}
+        <div className="flex justify-center gap-8 mt-4">
+          <button
+            type="submit"
+            className="flex w-[40%] cursor-pointer py-3 justify-center items-center rounded-[27px] bg-success hover:scale-102 hover:brightness-105 text-white font-semibold transition-colors"
+          >
+            Ajouter
+          </button>
+          <button
+            onClick={onClose}
+            className="flex w-[40%] cursor-pointer py-3 justify-center items-center rounded-[27px] bg-warning hover:scale-102 hover:brightness-105 text-white font-semibold transition-colors"
+          >
+            Annuler
+          </button>
+        </div>
+      </form>
     </div>
-  );
+  </div>
+)
 };
 
 export default PopAjouterCollaborateur;

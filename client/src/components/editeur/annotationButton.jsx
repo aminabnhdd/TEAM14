@@ -1,3 +1,8 @@
+
+// button that allow the user to add an annotation
+// a popup will show up to allow the user to insert text
+// the annotation will be linked to the selected text in tiptap, where if the user clicks on it, it will scroll down to the annotation
+
 import annoterIcon from "../../assets/message.png";
 import { useState } from "react";
 import PopAnnotation from "./popupAnnot";
@@ -24,7 +29,7 @@ export default function AnnotationButton({
         return;
       }
  
-
+      // create an annotation
       const respon = await AnnotationService.Annoter(
         section._id,
         projet._id,

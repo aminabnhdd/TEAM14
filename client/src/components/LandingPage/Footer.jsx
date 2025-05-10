@@ -1,3 +1,6 @@
+
+// footer for landing pge
+
 import React from "react";
 import "../../componentsStyles/LandingPage/Footer.css";
 

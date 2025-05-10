@@ -1,4 +1,6 @@
-import React from "react";
+// Projets Expert Page
+// - Allows an admin or an expert to view another's expert created projects
+
 import ProjetsInfos2 from "../../components/Profil/ProjetsInfos2.jsx";
 import ProfilInfowithoutlink from "../../components/Profil/ProfilInfowithoutlink.jsx";
 import ProjectsContainer from "../../components/Profil/ProjectsContainer.jsx";

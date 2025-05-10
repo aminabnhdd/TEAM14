@@ -1,4 +1,7 @@
-import React from "react";
+// Projets Expert Page
+// - Allows an admin or an expert to view another's expert created projects
+
+
 import ProjetsInfos from "../../components/Profil/ProjetsInfos.jsx";
 import ProfilInfowithoutlink from "../../components/Profil/ProfilInfowithoutlink.jsx";
 import ProjectsContainer from "../../components/Profil/ProjectsContainer.jsx";
@@ -20,6 +23,8 @@ const ProjetsExpert =() => {
   const [loading,setLoading] = useState(true);
   const { id } = useParams();
     const navigate = useNavigate();
+
+    // fetch the user's projects
     useEffect(() => {
       axios.get("http://localhost:3001/refresh",{withCredentials:true})
           .then((response) => {

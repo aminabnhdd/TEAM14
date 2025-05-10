@@ -1,3 +1,6 @@
+
+// contains a question in faq section that opens to reveal the answer
+
 import React from "react";
 import "../../../componentsStyles/LandingPage/Accordion.css";
 

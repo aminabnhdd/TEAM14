@@ -1,3 +1,8 @@
+
+
+// gallery to display the images inserted in a section, whith a delete button for each image, and an add buton
+// used the lightbox library
+
 import { useState } from 'react';
 import '../../componentsStyles/editeur/gallerie.css';
 import Lightbox from 'yet-another-react-lightbox';
@@ -34,6 +39,7 @@ const GallerieEditable = ({ slides, setSlides, section }) => {
               className="gallerie-img"
             />
             <div className="">
+              {/*button to delete an image from the gallerie */}
               <DeleteGallerie 
                 slides={slides} 
                 setSlides={setSlides} 

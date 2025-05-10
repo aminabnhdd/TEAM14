@@ -1,3 +1,8 @@
+
+// button to signal a conflict in the annoter section page
+// a popup will appear for the user to write the content of the conflict
+// another popup will appear later to indicate to the user that he has to wait for the approval of chef de projet before his conflict is displayed
+
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useState } from "react";
@@ -12,7 +17,8 @@ export default function SignalerConflit({conflits,setConflits,user,projet,sectio
     const [showPopup2, setShowPopup2] = useState(false);
     const {authState} = useContext(AuthContext);
     const [isChef,setIsChef] =useState(false);
-    // setIsChef(props.user._id === props.projet.chef._id);
+
+      // create the conflict after the popup is closed
       const handleSignalerConflit = async (content) => {
         try {
 

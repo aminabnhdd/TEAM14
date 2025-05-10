@@ -1,4 +1,4 @@
-
+/* animation for tooltip */
 @keyframes fadeOut {
     0% { opacity: 0; }
     20% { opacity: 0; }

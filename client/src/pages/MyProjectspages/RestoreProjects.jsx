@@ -1,3 +1,9 @@
+
+// Restorer projet Page
+// -Allows the user to restore an archived project from the website
+// -Allows the user to restore a saved project both locally from his machine or from google drive
+
+
 import React, { useEffect } from "react";
 import RestoreProjectsHeader from "../../components/MyProjects/RestoreProjectsHeader.jsx";
 import RestoreProjectsContainer from  "../../components/MyProjects/RestoreProjectsContainer.jsx";

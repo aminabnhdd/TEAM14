@@ -1,3 +1,13 @@
+/*
+    Notifications page for experts
+    1- Conflict notifications:
+        a- Validation of a conflict by chef de projet
+        b- Signaling a the validation of a conflict 
+        c- Signaling the resolution of a conflict 
+    2- Collaboration requests for chef de projet
+    3- Results of the collaboration request
+*/
+
 import "../../PagesStyles/notifications styles/Notif.css"
 import { useState, useEffect } from "react"
 import ConflitSignal from "../../components/popUpsNotif/ConflitSignal"
@@ -47,6 +57,7 @@ function Notif() {
     };
 
 
+    // get the user's notifications
     useEffect(() => {
         // Make "Conflits" active at the beginning
         document.querySelectorAll(".transptext").forEach(el => {
@@ -108,6 +119,8 @@ function Notif() {
 
     }, []);
 
+
+    // get the duraction since the notification was created
     const getTime = (time) => {
 
         let creationTime = new Date(time).getTime();
@@ -153,6 +166,7 @@ function Notif() {
         setDem(true);
     };
 
+    // open the popup
     const handleDetailsClick = (type) => {
         if (type === "conflitResolu") {
             setPoop(true);
@@ -175,6 +189,7 @@ function Notif() {
         if (type === "demandeAccepte") setPoop5(true)
     }
 
+    // set a notification to read
     const handleSeen = (id, type) => {
         if (type === "conflit") {
             const updatedNotifications = notificationsConflit.map(notification =>
@@ -193,16 +208,21 @@ function Notif() {
             setNotificationsDem(updatedNotifications);
         }
     };
+
+    // close signaler conflit popup
     const close = () => {
         setPoop(false);
         axios.put(`http://localhost:3001/notifications/read/${notif._id}`, {}, { headers: { Authorization: `Bearer ${authState.accessToken}` } })
             .then((response) => {
                 console.log(response.data);
+
             })
             .catch((error) => {
                 console.log(error);
             });
     }
+
+    // close conflit a ete signale conflit
     const close1 = () => {
         setPoop1(false);
         axios.put(`http://localhost:3001/notifications/read/${notif._id}`, {}, { headers: { Authorization: `Bearer ${authState.accessToken}` } })
@@ -213,6 +233,8 @@ function Notif() {
                 console.log(error);
             });
     }
+
+    // close conflict resolved
     const close2 = () => {
         setPoop2(false);
         axios.put(`http://localhost:3001/notifications/read/${notif._id}`, {}, { headers: { Authorization: `Bearer ${authState.accessToken}` } })
@@ -223,17 +245,21 @@ function Notif() {
                 console.log(error);
             });
     }
+
+    // close demande de collaboration popup
     const close3 = () => {
         setPoop3(false);
         axios.put(`http://localhost:3001/notifications/read/${notif._id}`, {}, { headers: { Authorization: `Bearer ${authState.accessToken}` } })
             .then((response) => {
                 console.log(response.data);
-                
+
             })
             .catch((error) => {
                 console.log(error);
             });
     }
+
+    // close demande refusee
     const close4 = () => {
         setPoop4(false);
         axios.put(`http://localhost:3001/notifications/read/${notif._id}`, {}, { headers: { Authorization: `Bearer ${authState.accessToken}` } })
@@ -244,6 +270,8 @@ function Notif() {
                 console.log(error);
             });
     }
+
+    // close demande acceptee
     const close5 = () => {
         setPoop5(false);
         axios.put(`http://localhost:3001/notifications/read/${notif._id}`, {}, { headers: { Authorization: `Bearer ${authState.accessToken}` } })
@@ -286,9 +314,9 @@ function Notif() {
                             <div className="navigation-bar">
                                 <SideNav />
                             </div>
-                            <div className="secondary-notif flex col-flex min-h-full">
+                            <div className="secondary-notif flex-1 flex col-flex  min-h-full">
 
-                                <div className="teqsam ">
+                                <div className="teqsam flex-1">
                                     <SearchBar title="Rechercher un projet dans le site" />
                                     <div className=" textos">
                                         <h1 className="hnotif">Notifications</h1>
@@ -321,6 +349,7 @@ function Notif() {
                                             <div className="line-riadh  "></div>
                                             <div className="notifications">
 
+                                                {/* conflict notifications */}
                                                 {conflit && (notificationsConflit.length > 0 ? notificationsConflit.map(element => (
                                                     <div key={element._id} className="note" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
                                                         <div className="iconwmessage">
@@ -331,9 +360,9 @@ function Notif() {
                                                             <span className="notif-time">{getTime(element.time)}</span>
                                                             <div className="tabwdom">
                                                                 <img className="tab" src={element.tab}></img>
-                                                                <p className="dom" onClick={()=>navigate(`/editeur/annoter/${element.sectionId}`)}>{element.dom}</p>
+                                                                <p className="dom capitalize" onClick={() => navigate(`/editeur/annoter/${element.sectionId}`)}>{(element.dom == 'archeologie') ? 'archéologie' : element.dom}</p>
                                                             </div>
-                                                            <button className="det-button" onClick={() => { setNotifConf(element); handleDetailsClick(element.type); setNotif(element) }}>
+                                                            <button className="det-button" onClick={() => { setNotifConf(element); handleSeen(element._id, "conflit"); handleDetailsClick(element.type); setNotif(element) }}>
                                                                 Détails
                                                             </button>
                                                         </div>
@@ -345,6 +374,10 @@ function Notif() {
                                                 {<ConflitRes popUp={poop} close={close} notif={notifConf} />}
                                                 {<ConflitSignal popUp={poop1} close={close1} notif={notifConf} handleSeen={handleSeen} />}
                                                 {<ConflitChat popUp={poop2} close={close2} notif={notifConf} />}
+
+
+                                                 {/* collaboration requests notifications */}
+
                                                 {col && (notificationsCol.length > 0 ? notificationsCol.map(element => (
                                                     <div key={element._id} className="note" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
                                                         <div className="iconwmessage">
@@ -357,7 +390,7 @@ function Notif() {
                                                             <span className="notif-time">{getTime(element.time)}</span>
                                                             <div className="tabwdom">
                                                                 <img className="tab" src={element.tab}></img>
-                                                                <p className="dom"  onClick={()=>navigate(`/visualisation/${element.projetId}`)}>{element.dom}</p>
+                                                                <p className="dom capitalize" onClick={() => navigate(`/visualisation/${element.projetId}`)}>{(element.dom == 'archeologie') ? 'archéologie' : element.dom}</p>
                                                             </div>
                                                             <button className="det-button" onClick={() => { setNotifCol(element); handleSeen(element._id, "col"); handleDetailsClick2(element.type); setNotif(element) }}>Détails</button>
                                                         </div>
@@ -366,6 +399,8 @@ function Notif() {
 
                                                 )) : <p className="pt-2 main-text mt-3" >Aucune notification.</p>)}
                                                 {<Collaboration popUp={poop3} close={close3} notif={notifCol} />}
+
+                                                 {/* collaboration requests' results notifications */}
 
                                                 {dem && (notificationsDem.length > 0 ? notificationsDem.map(element => (
                                                     <div key={element._id} className="note" style={{ background: element.read ? '#f1f1f1' : 'white' }}>
@@ -377,7 +412,7 @@ function Notif() {
                                                             <span className="notif-time">{getTime(element.time)}</span>
                                                             <div className="tabwdom">
                                                                 <img className="tab" src={element.tab}></img>
-                                                                <p className="dom" onClick={()=>navigate(`/visualisation/${element.projetId}`)}>{element.dom }</p>
+                                                                <p className=" dom capitalize" onClick={() => navigate(`/visualisation/${element.projetId}`)}>{(element.userDom == 'archeologie') ? 'archéologie' : element.userDom}</p>
                                                             </div>
                                                             <button className="det-button" onClick={() => { setNotifDem(element); handleDetailsClick3(element.type); handleSeen(element._id, "dem"); setNotif(element) }}>Détails</button>
                                                         </div>
@@ -391,7 +426,7 @@ function Notif() {
                                         </div>
                                     </div>
                                 </div>
-                                {/* <Footer/> */}
+                                <Footer />
                             </div>
                         </div>
                     )

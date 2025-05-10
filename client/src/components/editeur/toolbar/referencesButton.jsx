@@ -1,19 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import AnnotationService from "../../../services/AnnotationService";
-import  AuthContext from "../../../helpers/AuthContext.jsx"
-import {useContext} from "react"
+import AuthContext from "../../../helpers/AuthContext.jsx";
 
-    
-
-export default function ReferencesButton({ editor,projet, references, setReferences }) {
+export default function ReferencesButton({ editor, projet, references, setReferences }) {
   const [showPopup, setShowPopup] = useState(false);
   const [author, setAuthor] = useState("");
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const popupRef = useRef(null);
-  const {authState} = useContext(AuthContext);
+  const { authState } = useContext(AuthContext);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -25,19 +23,15 @@ export default function ReferencesButton({ editor,projet, references, setReferen
   }, []);
 
   const insertReferenceNode = (refId, refNumber) => {
-
     editor.chain().focus().insertContent({
       type: "reference",
       attrs: {
-        id:refId,
- 
+        id: refId,
         number: refNumber,
-  
       },
     }).run();
-  
-    setShowPopup(false);
 
+    setShowPopup(false);
   };
 
   const handleInsertReference = (refId) => {
@@ -45,48 +39,34 @@ export default function ReferencesButton({ editor,projet, references, setReferen
     if (refIndex === -1) return;
 
     const updatedReferences = [...references];
-
-    
     setReferences(updatedReferences);
     setShowPopup(false);
-   insertReferenceNode(references[refIndex]._id,references[refIndex].number)
- 
-
+    insertReferenceNode(references[refIndex]._id, references[refIndex].number);
   };
 
   const handleCreateReference = async () => {
-    try{
-      console.log(authState);
-    // Concatenate fields, filtering out empty ones
-    const referenceParts = [
-      author,
-      title,
-      date
-    ].filter(part => part.trim() !== "");
+    try {
+      const referenceParts = [author, title, date].filter(part => part.trim() !== "");
+      if (referenceParts.length === 0) return;
 
-    if (referenceParts.length === 0) return;
-console.log("HERE IS THE PROJET ID ",projet._id);
-    const respon = await AnnotationService.Reference(
-      projet._id,references.length + 1,
-       referenceParts.join(", "),
-       authState.accessToken
-    );
-    const newRef = respon.reference;
+      const respon = await AnnotationService.Reference(
+        projet._id,
+        references.length + 1,
+        referenceParts.join(", "),
+        authState.accessToken
+      );
 
-    setReferences([...references, newRef]);
-    
-      
-
-    setAuthor("");
-    setTitle("");
-    setDate("");
-    
-    insertReferenceNode(newRef._id, newRef.number);
-  } catch (error) {
-    console.error("Error Reference:", error);
-  } finally {
-    setShowPopup(false); 
-  }
+      const newRef = respon.reference;
+      setReferences([...references, newRef]);
+      setAuthor("");
+      setTitle("");
+      setDate("");
+      insertReferenceNode(newRef._id, newRef.number);
+    } catch (error) {
+      console.error("Error Reference:", error);
+    } finally {
+      setShowPopup(false);
+    }
   };
 
   return (
@@ -101,29 +81,29 @@ console.log("HERE IS THE PROJET ID ",projet._id);
       </button>
 
       {showPopup && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[3000]">
-          <div className="bg-white rounded-[20px] shadow-lg w-full max-w-[460px] px-10 py-7 relative border border-black">
-            {/* Close Button */}
+        <div className="fixed inset-0 z-[4000] flex items-center justify-center bg-black/30">
+          <div className="relative z-[11000] w-[32%] p-8 flex flex-col gap-6 bg-white rounded-[29px] animate-fadeIn">
+            <div className="text-center font-semibold text-[22px] mb-3 text-black">
+              <p>Insérer une référence</p>
+            </div>
+
             <button
-              className="absolute top-3 right-5 text-black hover:text-gray-600 text-2xl cursor-pointer"
+              className="absolute top-5 right-5 text-black text-[25px] hover:text-warning cursor-pointer"
               onClick={() => setShowPopup(false)}
             >
               &times;
             </button>
 
-            {/* Popup Title */}
-            <h2 className="text-black mb-5 text-xl font-medium">Insérer une référence</h2>
-
-            <div className="mb-3">
-              <h3 className="font-medium text-sm mb-2 text-brown">Sélectionner une référence existante</h3>
-              <div className="max-h-50 overflow-y-auto">
+            <div className="text-[13px] font-medium text-justify z-[1100] text-black">
+              <p>Sélectionner une référence existante :</p>
+              <div className="max-h-30 overflow-y-auto mt-2">
                 {references.length === 0 ? (
-                  <p className="text-md text-gray-500">Aucune référence existante</p>
+                  <p className="text-sm text-gray-500">Aucune référence existante</p>
                 ) : (
                   references.map((ref) => (
                     <div
                       key={ref._id}
-                      className="p-3  hover:bg-neutral-100 rounded-lg cursor-pointer text-md flex justify-between items-center mb-1 transition-colors duration-200"
+                      className="p-2 hover:bg-neutral-100 rounded-lg cursor-pointer text-sm flex justify-between items-center  transition-colors duration-200 text-neutral-500"
                       onClick={() => handleInsertReference(ref._id)}
                     >
                       <span className="font-medium">[{ref.number}] {ref.text.substring(0, 25)}{ref.text.length > 25 ? "..." : ""}</span>
@@ -132,49 +112,46 @@ console.log("HERE IS THE PROJET ID ",projet._id);
                 )}
               </div>
             </div>
-            
-            <div className="border-t border-gray-200 pt-4">
-              <h3 className="font-medium text-sm mb-3 text-brown">Créer une nouvelle référence</h3>
-              
-              <div className="flex flex-col space-y-3">
-  <input
-    type="text"
-    value={author}
-    onChange={(e) => setAuthor(e.target.value)}
-    placeholder="Auteur"
-    className="flex-1 px-4 py-2 border border-neutral-300 rounded-xl text-neutral-700 focus:outline-none focus:ring-1 focus:ring-dune"
-  />
-  <input
-    type="text"
-    value={title}
-    onChange={(e) => setTitle(e.target.value)}
-    placeholder="Titre"
-    className="flex-1 px-4 py-2 border border-neutral-300 rounded-xl text-neutral-700 focus:outline-none focus:ring-1 focus:ring-dune"
-  />
-  <input
-    type="text"
-    value={date}
-    onChange={(e) => setDate(e.target.value)}
-    placeholder="Date de publication"
-    className="flex-1 px-4 py-2 border border-neutral-300 rounded-xl text-neutral-700 focus:outline-none focus:ring-1 focus:ring-dune"
-  />
-</div>
 
+            <div className="flex flex-col gap-3 pt-2 border-t border-gray-200">
+              <p className="font-medium text-sm text-black">Créer une nouvelle référence :</p>
 
-              <div className="flex justify-around gap-3 mt-5">
-                <button
-                  onClick={handleCreateReference}
-                  className="text-black bg-dune py-3 w-40 rounded-[36px] items-center justify-center hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer"
-                >
-                  Ajouter
-                </button>
-                <button
-                  onClick={() => setShowPopup(false)}
-                  className="text-black bg-neutral-100 py-3 w-40 rounded-[36px] items-center justify-center hover:brightness-105 hover:shadow-lg hover:scale-102 transition-all duration-300 cursor-pointer"
-                >
-                  Annuler
-                </button>
-              </div>
+              <input
+                type="text"
+                value={author}
+                onChange={(e) => setAuthor(e.target.value)}
+                placeholder="Auteur"
+                className="px-4 py-2 border border-neutral-300 rounded-xl text-black focus:outline-none focus:ring-1 focus:ring-dune"
+              />
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Titre"
+                className="px-4 py-2 border border-neutral-300 rounded-xl text-black focus:outline-none focus:ring-1 focus:ring-dune"
+              />
+              <input
+                type="text"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                placeholder="Date de publication"
+                className="px-4 py-2 border border-neutral-300 rounded-xl text-black focus:outline-none focus:ring-1 focus:ring-dune"
+              />
+            </div>
+
+            <div className="flex justify-center gap-8 mt-3">
+              <button
+                onClick={handleCreateReference}
+                className="flex w-[40%] py-3 justify-center items-center rounded-[27px] bg-success hover:scale-102 hover:brightness-105 text-white font-semibold transition-colors cursor-pointer"
+              >
+                Ajouter
+              </button>
+              <button
+                onClick={() => setShowPopup(false)}
+                className="flex w-[40%] py-3 justify-center items-center rounded-[27px] bg-warning text-white font-semibold transition-colors hover:brightness-105 hover:scale-102 cursor-pointer"
+              >
+                Annuler
+              </button>
             </div>
           </div>
         </div>

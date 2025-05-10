@@ -1,4 +1,6 @@
-import React from "react";
+
+// component for switching between the user's informations and his projects
+
 import "../../componentsStyles/ProfilStyles/InfosProjets.css";
 import { useNavigate } from "react-router-dom"; 
 

@@ -1,3 +1,6 @@
+// Page Editer Section
+
+
 import { useState, useEffect, useRef } from "react";
 import TiptapEditable from "../../components/editeur/tiptapEditable";
 import Conflicts from "../../components/editeur/conflicts";
@@ -58,7 +61,7 @@ export default function EditorEditable() {
 
         const response= await  RefreshService.Refresh();
        
-setAuthState({email:response.email,role:response.role,accessToken:response.accessToken});
+       setAuthState({email:response.email,role:response.role,accessToken:response.accessToken});
 
 
         const sectionData = await SectionService.getSection(
@@ -72,6 +75,8 @@ setAuthState({email:response.email,role:response.role,accessToken:response.acces
             src: image,
           }));
         }
+
+        // get the user,project, section, and the conflicts, annotations, images,  refrences, images of the section
         setSection(sectionData.section || {});
         setUser(sectionData.userEditing || {});
         setUserChef(sectionData.userChef || {});
@@ -94,10 +99,13 @@ setAuthState({email:response.email,role:response.role,accessToken:response.acces
   const [annotExist, setAnnotExist] = useState(false);
   const [conflitExist, setConflitExist] = useState(false);
 
+
+  // check whether at least one annotation exists
   useEffect(() => {
     setAnnotExist(annotations.length > 0);
   }, [annotations]);
 
+  // check whether at least 1 conflict exists
   useEffect(() => {
     setConflitExist(conflits.length > 0);
   }, [conflits]);
@@ -128,6 +136,8 @@ setAuthState({email:response.email,role:response.role,accessToken:response.acces
     number: index + 1, // Override the number with position
   }));
 
+
+  // make sure to use the right reference numer
   const updateReferenceNumbers = () => {
     if (!editor) return;
 
@@ -180,7 +190,9 @@ setAuthState({email:response.email,role:response.role,accessToken:response.acces
     updateReferenceNumbers();
   }, [references]);
 
-  //////////////////////////
+ 
+
+  // scroll to reference element when the refererence node is clicked inside the editor
 
   window.scrollToReference = function (id) {
     const element = document.getElementById(id);

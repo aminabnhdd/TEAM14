@@ -1,4 +1,8 @@
-import React from "react";
+// Modifier Expert Page
+// - Allows the expert to view his own profile
+// - Contains the user's personal and professional informations
+// - Allows the user to change his informations
+
 import ProfilInfolink from "../../components/Profil/ProfilInfolink.jsx";
 import ModifExpertCard from "../../components/Profil/ModifCardExpert.jsx";
 import InfoHeaderBtn from "../../components/Profil/Infoheaderbtn.jsx";

@@ -1,3 +1,5 @@
+// popup for chef de projet to accept or refuse a new signaled conflict
+
 import "../../ComponentsStyles/popUpsNotif styles/ConflitSignal.css"
 import i from "../../assets/x.png"
 import axios from "axios"
@@ -5,6 +7,7 @@ import  AuthContext from "../../helpers/AuthContext"
 import {useContext, useState} from "react"
 import { useNavigate } from "react-router-dom"
 import MeetTime from "./MeetTime"
+
 
 function ConflitSignal ({popUp,close,notif,handleSeen}) {
     const navigate = useNavigate()

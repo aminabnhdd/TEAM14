@@ -1,3 +1,5 @@
+// footer compontent at the bottom of pages
+
 import logo from "../assets/Screenshot 2025-03-03 at 8.36.18 PM 1.png"
 import '../componentsStyles/Footer.css'
 

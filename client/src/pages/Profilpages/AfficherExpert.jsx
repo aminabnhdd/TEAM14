@@ -1,3 +1,7 @@
+// Afficher Profil Page
+// - Allows an expert to view another expert’s profile
+// - Contains the expert's personal and professional informations
+
 import React, { useState } from "react";
 import InfosProjets from "../../components/Profil/InfosProjets.jsx";
 import ProfilInfowithoutlink from "../../components/Profil/ProfilInfowithoutlink.jsx";
@@ -19,6 +23,8 @@ const AfficherExpert  = () => {
   const { id } = useParams(); 
   const [loading, setLoading] = useState(true);
   const { authState,setAuthState } = useContext(AuthContext);
+
+  // fetch the user data
   useEffect(() => {
     axios.get("http://localhost:3001/refresh",{withCredentials:true})
         .then((response) => {

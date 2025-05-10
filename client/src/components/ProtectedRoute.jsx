@@ -1,3 +1,6 @@
+// This component restricts access to certain routes based on user role.
+// If the user's role is not in allowedRoles, they are redirected to the "forbidden" page.
+
 import { Navigate } from "react-router-dom";
 import AuthContext from "../helpers/AuthContext";
 import { useContext } from "react";

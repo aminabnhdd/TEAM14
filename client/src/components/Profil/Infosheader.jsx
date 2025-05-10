@@ -1,4 +1,6 @@
-import React from "react";
+
+// header for modifier profil page
+
 import "../../componentsStyles/ProfilStyles/Infosheader.css";
 
 const InfoHeader = () => {

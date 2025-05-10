@@ -1,3 +1,5 @@
+
+// toolbar of the tiptap editor, contains all of the buttons that allow the user to modify and style text, and insert links, tables, images, videos...
 import React from "react";
 import '../../../componentsStyles/editeur/tiptap.css'
 import Tooltip from "../tooltip.jsx";

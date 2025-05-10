@@ -1,3 +1,8 @@
+
+// display of one conflict
+// show the author of the conflict and its content
+
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck} from "@fortawesome/free-solid-svg-icons";
 import ConflitService from "../../services/ConflitService";
@@ -8,10 +13,10 @@ import defaultPfp from "../../assets/Default_pfp.svg.png"
 export default function Conflict(props){
     const {authState} = useContext(AuthContext);
     
+
+    // remove the conflict after marking it as solved
     const resoudreConflit = async () => {
         try {
-            
-            
             await ConflitService.resoudreConflit(props.conflit._id,authState.accessToken);
     
             props.setConflits((prevConflits) => {
@@ -46,11 +51,12 @@ export default function Conflict(props){
   className="text-neutral-500 text-md  text-justify mb-3 overflow-hidden"
   style={{
     display: "-webkit-box",
-    WebkitLineClamp: 3, // Change this number to the number of lines you want
+    WebkitLineClamp: 3, 
     WebkitBoxOrient: "vertical",
     overflow: "hidden",
   }}
 >{props.conflit.content}</p>   
+    {/* check whether the user has the right to mark the conflict as solved */}
     {(props.projet.chef._id === props.user._id|| props.conflit.signaleur._id ===props.user._id) && <button onClick={resoudreConflit} className="main-text text-center w-full text-success cursor-pointer hover:underline">
     <FontAwesomeIcon icon={faCircleCheck} className=" w-4 h-4 mr-2" />Résoudre conflit
     </button>}

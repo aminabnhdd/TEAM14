@@ -1,4 +1,6 @@
-import React from 'react';
+// Not Found Page
+// This page appears if the Route doesn't exist
+
 import { useNavigate } from 'react-router-dom';
 
 const NotFound = () => {

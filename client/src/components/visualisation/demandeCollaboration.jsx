@@ -1,3 +1,8 @@
+// Button to request collaborating in a project
+// A popup appears to confirm
+// A notification will be sent to the chef to wait for his response
+// This button is only shown to an expert if the project lacks a collaborator with his discipline
+
 import { useState, useEffect, useRef } from "react";
 import VisuService from "../../services/VisuService";
 import  AuthContext from "../../helpers/AuthContext.jsx"

@@ -1,3 +1,6 @@
+
+// sign in popup in connexion page
+
 import { useState } from "react";
 import "../../ComponentsStyles/popUps styles/Connexion.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
@@ -19,15 +22,18 @@ function Connect({   mdpPopUp }) {
     const [formData, setFormData] = useState({ email: "", password: "" });
     const [errors, setErrors] = useState({});
 
+    // make password visible
     const TogglePass = () => {
         setVisible(!visible);
         setTypo(typo === "password" ? "text" : "password");
     };
 
+    
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
     };
 
+    // check if there are no errors to sign in 
     const validateForm = () => {
         let newErrors = {};
 
@@ -43,6 +49,7 @@ function Connect({   mdpPopUp }) {
     };
 
 
+    // sign in 
     const handleSubmit = () => {
         let newErrors = {}; 
        

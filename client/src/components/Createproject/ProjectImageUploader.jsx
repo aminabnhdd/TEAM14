@@ -1,19 +1,24 @@
+
+// modify the project image in the page creer projet
+
 import React, { useState, useEffect } from "react";
 import { ImagePlus, X } from "lucide-react";
 import "../../componentsStyles/CreateProjectStyles/ProjectImageUploader.css";
 
 const ProjectImageUploader = ({ onImageChange }) => {
   
+  // handle the deletion of an image
   const handleRemoveImage = (event) => {
-    event.preventDefault(); // Add this
+    event.preventDefault();  
     event.stopPropagation(); // This prevents the event from bubbling up
     setImage(null);
-    setFile(null); // Also clear the file state
+    setFile(null); 
     onImageChange(null);
   };
 
   const [image, setImage] = useState(null);
 
+ // add a new image 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {

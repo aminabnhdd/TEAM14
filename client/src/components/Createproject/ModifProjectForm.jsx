@@ -1,4 +1,7 @@
-import React, { useState, useEffect,useContext } from "react";
+
+// form that user fills to modify the informations of a project
+
+import React, { useState, useEffect, useContext } from "react";
 import { ChevronDown } from "lucide-react";
 import "../../componentsStyles/CreateprojectStyles/ModifProjectForm.css";
 import { FetchProjectData } from "../../services/FetchProjectData.js";
@@ -8,13 +11,14 @@ import RefreshService from "../../services/RefreshService";
 
 const ALLOWED_SECTION_TYPES = ["Kasbahs", "Palais", "Mosquées", "Temples", "Autre"];
 
-const ModifProjectForm = ({ error, onDataChange,projetId }) => {
+const ModifProjectForm = ({ error, onDataChange, projetId }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const {authState,setAuthState} = useContext(AuthContext);
+  const { authState, setAuthState } = useContext(AuthContext);
   const [selectedType, setSelectedType] = useState("");
   const [customType, setCustomType] = useState("");
- const [newKeyword, setNewKeyword] = useState("");
+  const [newKeyword, setNewKeyword] = useState("");
 
+  // initialize the data to default
   const [formData, setFormData] = useState({
     titre: "",
     type: "",
@@ -26,16 +30,17 @@ const ModifProjectForm = ({ error, onDataChange,projetId }) => {
     keywords: [],
   });
 
+  //fetch the data 
   useEffect(() => {
     const fetchData = async () => {
-      try{
-        const response1= await  RefreshService.Refresh();
-setAuthState({email:response1.email,role:response1.role,accessToken:response1.accessToken})
-console.log("the token: ",response1.accessToken)
-console.log("here does ths work");
+      try {
+        const response1 = await RefreshService.Refresh();
+        setAuthState({ email: response1.email, role: response1.role, accessToken: response1.accessToken })
+        console.log("the token: ", response1.accessToken)
+        console.log("here does ths work");
 
-         const data = await FetchProjectData(projetId,response1.accessToken);
-         if (data) {
+        const data = await FetchProjectData(projetId, response1.accessToken);
+        if (data) {
           // Check if keywords is an array with a single concatenated string
           let keywords = [];
           if (Array.isArray(data.keywords) && data.keywords.length === 1) {
@@ -44,7 +49,7 @@ console.log("here does ths work");
           } else {
             keywords = data.keywords; // Already an array of keywords
           }
-  
+
           setFormData({
             titre: data.titre || "",
             type: data.type || "",
@@ -60,18 +65,19 @@ console.log("here does ths work");
       } catch (err) {
         console.error("Erreur lors updating du projet :", err);
       }
-  
-      
+
+
     };
     fetchData();
   }, []);
 
 
+  // show the errors
   useEffect(() => {
     console.log("Updated Form Data:", formData);
     console.log("Error State:", error);
   }, [formData, error]);
-  
+
   useEffect(() => {
     if (formData?.type !== "Autre") {
       setCustomType("");
@@ -87,12 +93,13 @@ console.log("here does ths work");
       setCustomType(formData.type);
     }
   }, [selectedType, formData.type]);
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // for the personalized select element
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
   };
@@ -109,19 +116,21 @@ console.log("here does ths work");
     }
   };
 
-  
 
+  // add a keyword
   const addKeyword = () => {
-    if (newKeyword.trim() ) {
-      if (!formData.keywords.includes(newKeyword.trim())){
-      setFormData({
-        ...formData,
-        keywords: [...formData.keywords, newKeyword.trim()]
-      });}
+    if (newKeyword.trim()) {
+      if (!formData.keywords.includes(newKeyword.trim())) {
+        setFormData({
+          ...formData,
+          keywords: [...formData.keywords, newKeyword.trim()]
+        });
+      }
       setNewKeyword("");
     }
   };
 
+  // delete a keyword
   const removeKeyword = (index) => {
     setFormData({
       ...formData,
@@ -230,15 +239,15 @@ console.log("here does ths work");
           />
         </label>
       </div>
-      
+
       <div className="">
         <label className="font-medium ">Mots-clés</label>
 
         {/* Keywords list */}
         <div className="flex flex-wrap gap-2 mb-2">
           {formData.keywords.map((keyword, index) => (
-            
-            keyword && 
+
+            keyword &&
             <div
               key={index}
               className="flex items-center gap-2 px-3 py-1 bg-neutral-200 rounded-full text-sm"
@@ -255,7 +264,7 @@ console.log("here does ths work");
           ))}
         </div>
 
-        {/* Input + Add button */}
+        {/* Input + Add button for keywords*/}
         <div className="flex gap-2 mb-2">
           <input
             type="text"
@@ -279,7 +288,7 @@ console.log("here does ths work");
         </div>
       </div>
 
-    
+
     </div>
   );
 };

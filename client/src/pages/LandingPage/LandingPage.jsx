@@ -1,3 +1,7 @@
+
+// The Landing Page of the website
+
+
 import { useState } from "react";
 import Navbar from "../../components/LandingPage/Navbar";
 import Footer from "../../components/LandingPage/Footer";
@@ -12,11 +16,14 @@ function LandingPage() {
   const { state } = useLocation(); 
   const [popUp, setPopUp] = useState(state?.popUp || false);
 
+
+  // Open sign up popup
   const openPopUp = () => {
     console.log("Opening Pop-Up"); // Debugging log
     setPopUp(true);
   };
 
+  // Close sign up popup
   const closePopUp = () => {
     console.log("Closing Pop-Up"); // Debugging log
     setPopUp(false);

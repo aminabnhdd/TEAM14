@@ -1,3 +1,7 @@
+
+// drop down button to align the text in the tiptap editor
+// allows to align the text to the left, right, and center, and also to justify it
+
 import { useState, useRef, useEffect } from "react"; // Import useEffect and useRef
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

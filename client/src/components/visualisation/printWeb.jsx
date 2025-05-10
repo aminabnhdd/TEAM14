@@ -1,3 +1,5 @@
+// Render a Web Page with the contents of the projects in printable format
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";

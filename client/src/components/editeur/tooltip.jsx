@@ -1,3 +1,7 @@
+
+// tooltip to clarify what each button is for
+
+
 import '../../componentsStyles/editeur/tooltip.css'
 export default function  Tooltip({element,text,position='left-1/2 top-full'}){
     return(

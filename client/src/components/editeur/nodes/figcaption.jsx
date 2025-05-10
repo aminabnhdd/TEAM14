@@ -1,3 +1,7 @@
+
+// personalized figure caption node in the tiptap editor
+// used in both image and video figures to display a caption
+
 import { mergeAttributes, Node } from '@tiptap/core';
 
 export const Figcaption = Node.create({

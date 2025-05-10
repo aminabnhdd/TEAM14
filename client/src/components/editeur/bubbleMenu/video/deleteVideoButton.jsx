@@ -2,6 +2,9 @@ import { useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
+
+// button to delete a video in the tiptap editor, appears in the video bubble menu
+
 export default function DeleteVideoButton({ editor }) {
   const handleDelete = useCallback(() => {
     if (editor) {

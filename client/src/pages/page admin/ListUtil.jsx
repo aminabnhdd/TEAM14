@@ -1,3 +1,8 @@
+// Users List Page
+// - Allows the admin to view and search through all users on the platform
+// - Has two sections: Expert users and visitors
+
+
 import "../../PagesStyles/Pages Admin Styles/ListUtil.css"
 import { useState, useEffect, useContext } from "react"
 import SearchBar from "../../components/SearchBar"

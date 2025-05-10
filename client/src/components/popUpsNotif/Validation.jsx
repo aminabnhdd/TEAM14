@@ -1,3 +1,6 @@
+
+// popup for the admin to validate a sign up request from a visitor
+
 import i from "../../assets/x.png"
 import axios from "axios"
 import React, { useContext } from "react"
@@ -8,6 +11,7 @@ function Validation ({popUp,close,notif}) {
     const {authState,setAuthState} = useContext(AuthContext);
     const navigate = useNavigate();
 
+    // handling the acceptation or refusal
     const handleValidation = (action) => {
         axios.put(`http://localhost:3001/admin/${notif.sendeId._id}`, { action : action },{headers: {Authorization: `Bearer ${authState.accessToken}`}})
         .then((res) => {

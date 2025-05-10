@@ -1,3 +1,7 @@
+
+// header for page favoris
+
+
 import './HeaderFavourites.css';
 
 function HeaderFavourites(){

@@ -1,3 +1,6 @@
+
+// header component for modifier profil page
+
 import React , { useState } from "react";
 import { MdOutlineLogout } from "react-icons/md";
 import "../../componentsStyles/ProfilStyles/Infoheaderbtn.css";
@@ -10,6 +13,8 @@ const InfoHeaderBtn = () => {
     <div className="account-page-container">
       <header className="account-header">
         <h1 className="account-title">Mon compte</h1>
+
+        {/* logout button */}
         <button className="account-logout-btn" onClick={() => setShowLogoutPopup(true)}>
           <MdOutlineLogout className="logout-icon" /> Se déconnecter
         </button>

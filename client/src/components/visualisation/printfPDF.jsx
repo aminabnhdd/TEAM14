@@ -1,3 +1,6 @@
+//Button PrintPDF
+//Downloads a PDF that can be printed
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import { useState, useContext } from 'react';

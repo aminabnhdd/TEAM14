@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import PopLink from "../../popupLink";// Reuse the existing PopLink component
+import PopLink from "../../popupLink";
+
+
+// button that opens a popup to allow the user to change the link, appears in the link bubble menu
 
 export default function EditLinkButton(props) {
   const [showPopup, setShowPopup] = useState(false);

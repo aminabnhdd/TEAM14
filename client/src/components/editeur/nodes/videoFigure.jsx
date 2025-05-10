@@ -1,3 +1,7 @@
+
+// personalized video figure in the tiptap editor
+// contains a video as well as a caption
+
 import { mergeAttributes, Node } from "@tiptap/core";
 
 export const VideoFigure = Node.create({

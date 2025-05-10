@@ -1,3 +1,5 @@
+// Menu of the sections of the project in the form of a popup
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList} from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect, useRef } from "react";
@@ -7,6 +9,7 @@ export default function ListSections(props) {
   const [listOpen, setListOpen] = useState(false);
   const dropdownRef = useRef(null);
 
+  // scroll to the section with the correct id
   useEffect(() => {
     const handleScroll = () => {
       setIsSticky(window.scrollY > 130);

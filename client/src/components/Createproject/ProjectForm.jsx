@@ -1,3 +1,6 @@
+
+// form that the user fills to create a new project in page creer projet
+
 import React, { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import "../../componentsStyles/CreateProjectStyles/ProjectForm.css";
@@ -10,6 +13,7 @@ const ProjectForm = ({ error, onDataChange }) => {
   const [customType, setCustomType] = useState("");
   const [newKeyword, setNewKeyword] = useState("");
 
+  // initialize the data to default
   const [formData, setFormData] = useState({
     titre: "",
     type: "",
@@ -21,6 +25,7 @@ const ProjectForm = ({ error, onDataChange }) => {
     keywords: []
   });
 
+  //update the form data
   useEffect(() => {
     onDataChange(formData);
   }, [formData, onDataChange]);
@@ -30,6 +35,7 @@ const ProjectForm = ({ error, onDataChange }) => {
     setFormData({ ...formData, [name]: value });
   };
 
+  // for the personalized select element
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   const handleSelect = (type) => {
@@ -44,6 +50,7 @@ const ProjectForm = ({ error, onDataChange }) => {
     }
   };
 
+  // add a keyword
   const addKeyword = () => {
     if (newKeyword.trim() ) {
       if (!formData.keywords.includes(newKeyword.trim())){
@@ -53,10 +60,10 @@ const ProjectForm = ({ error, onDataChange }) => {
       });}
       setNewKeyword("");
     }
-    console.log(formData.keywords,'/-///-/-/---------////////////////');
 
   };
 
+  //remove a keyword
   const removeKeyword = (index) => {
     setFormData({
       ...formData,

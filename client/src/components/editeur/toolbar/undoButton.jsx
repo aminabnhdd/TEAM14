@@ -1,3 +1,6 @@
+
+// undo button in the tiptap editor, allows the user to undo the last modification he made in the editor
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUndo} from "@fortawesome/free-solid-svg-icons";
 

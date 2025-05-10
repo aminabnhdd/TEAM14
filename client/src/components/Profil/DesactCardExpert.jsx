@@ -1,4 +1,9 @@
-import React from "react";
+
+
+// show all of the informations of an expert
+// also show the document that proves his level of expertise
+// this component can only be viewed by an admin
+
 import "../../componentsStyles/ProfilStyles/DesactCardExpert.css";
 
 const DesactivExpert = ({ usersData }) => {

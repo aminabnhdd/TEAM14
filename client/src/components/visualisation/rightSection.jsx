@@ -1,3 +1,5 @@
+// right section of the project, contains the presentation and authors sections
+
 import Presentation from "./presentation";
 import Auteurs from "./auteurs";
 import { useEffect, useRef, useState } from "react";
@@ -6,6 +8,13 @@ export default function RightSection(props) {
   const stickyBoxRef = useRef(null);
   const [height, setHeight] = useState(0);
   const resizeObserverRef = useRef(null);
+
+  
+
+  // Logic to position the right section at the correct height
+
+
+
 
   // Function to update height
   const updateHeight = () => {

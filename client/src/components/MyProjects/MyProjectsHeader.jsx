@@ -1,4 +1,6 @@
-import React from "react";
+
+// header of the page mes projets
+
 import { useNavigate } from "react-router-dom"; 
 import { FiRotateCcw } from "react-icons/fi";
 import "../../componentsStyles/MyProjectsStyles/MyProjectsHeader.css";

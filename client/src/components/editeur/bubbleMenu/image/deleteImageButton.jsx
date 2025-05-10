@@ -1,6 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
+
+// button to delete an image inside the tiptap editor, it appears in the image bubble menu
+
 export default function DeleteImageButton(props) {
   return (
     <button

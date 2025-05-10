@@ -1,3 +1,6 @@
+
+// popup to enter an email adress to reinisialize password
+
 import { useState } from "react";
 import closeButton from "../../assets/x.png";
 import "../../ComponentsStyles/popUps styles/MdpOublie.css";
@@ -10,6 +13,8 @@ function MdpOublie({ carti, fun, fun2 }) {
         setFormData({ ...formData, [e.target.id]: e.target.value });
     };
 
+
+    // check for errors
     const validateForm = () => {
         let newErrors = {};
         if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
@@ -19,6 +24,7 @@ function MdpOublie({ carti, fun, fun2 }) {
         return Object.keys(newErrors).length === 0;
     };
 
+    // submit to get the email
     const handleSubmit = () => {
         if (validateForm()) {
             axios.post("http://localhost:3001/auth/pwd-forgotten/send-link", { email: formData.email })
@@ -28,7 +34,7 @@ function MdpOublie({ carti, fun, fun2 }) {
             })
             .catch((error) => {
                 if(error.status === 404) return setErrors({email:"il n'y a pas d'utilisateur avec cet email"});
-                alert(error.response);
+                alert("Assurez vous d'utiliser l'adresse email correcte");
                 console.log(error);
             })
         }

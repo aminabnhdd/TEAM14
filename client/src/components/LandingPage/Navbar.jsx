@@ -1,3 +1,6 @@
+
+// navbar component for the landing page
+
 import "../../componentsStyles/LandingPage/Navbar.css";
 import logo from '../../assets/Screenshot 2025-03-03 at 8.36.18 PM 1.png';
 import React, { useState, useEffect } from "react";
@@ -7,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 const Navbar = ({ openPopUp }) => {  // Receive openPopUp as a prop
   const [activeSection, setActiveSection] = useState("");
   const navigate = useNavigate();
+
+  // highlight the section title in the nav bar when scrolling to that section
   useEffect(() => {
     const sections = document.querySelectorAll("section");
     const observer = new IntersectionObserver(

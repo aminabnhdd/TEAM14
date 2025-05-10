@@ -1,3 +1,5 @@
+/* styling the tiptap nodes and marks */
+
 .tiptap ul, ol {
   padding-left: 1.5rem;
   margin: 1rem 0;
@@ -154,9 +156,12 @@ overflow: hidden; /* Ensure the image doesn't overflow the card */
 cursor: grab; /* Change cursor to indicate draggability */
 }
 
+/* dont allow dragging the image outside the editable tiptap component */
 .rendered .image-card{
 pointer-events: none;
 }
+
+/* dont allow dragging or modifying the figure outside the editable tiptap component */
 
 .rendered figure{
 cursor: default;
@@ -271,7 +276,8 @@ padding: 2px 4px; /* Optional: Add padding for better visibility */
 border-radius: 3px; /* Optional: Add rounded corners */
 }
 
-.rendered .annotation-highlight{
+/* hide the annotations outside the tiptap component in annoter projet page*/
+.rendered .annotation-highlight, .editable .annotation-highlight{
 background-color: transparent !important;
 padding: 0px !important;
 cursor: default !important;

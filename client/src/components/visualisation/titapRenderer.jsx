@@ -1,3 +1,8 @@
+
+// Render the content of the tiptap editor in a section
+// Results in HTML component
+
+
 import React, { useMemo } from 'react';
 import { generateHTML } from '@tiptap/html';
 import StarterKit from "@tiptap/starter-kit";

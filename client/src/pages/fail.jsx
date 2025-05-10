@@ -1,3 +1,6 @@
+
+// Manages all different popups and submits the data to create the new user profil
+
 import InsVs from "../components/Inscriptions/InsVs";
 import InsEx from "../components/Inscriptions/InsEx";
 import InsEx2 from "../components/Inscriptions/InsEx2";

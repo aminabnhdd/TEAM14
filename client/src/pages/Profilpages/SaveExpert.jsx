@@ -1,4 +1,6 @@
-import React from "react";
+// Save Expert Page
+// allows the expert to modify his informations and save them
+
 import InfoHeader from "../../components/Profil/Infosheader";
 import ProfilInfosave from "../../components/Profil/ProfilInfosave";
 import FormExpert from "../../components/Profil/FormExpert";

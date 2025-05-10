@@ -1,3 +1,7 @@
+// Web Print View
+// - Simplified, print-friendly version of the project visualization page
+// - Displays content without interactive elements (e.g., buttons, actions)
+
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';

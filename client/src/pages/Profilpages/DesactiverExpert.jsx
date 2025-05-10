@@ -1,3 +1,8 @@
+// Desactiver Expert Page
+// - Allows the admin to view an expert’s profile
+// - Contains the expert's personal and professional informations
+// - Enables the admin to deactivate the user's account
+
 import React , { useState } from "react";
 import InfosProjets2 from "../../components/Profil/InfosProjets2.jsx";
 import ProfilInfowithoutlink from "../../components/Profil/ProfilInfowithoutlink.jsx";
@@ -29,6 +34,8 @@ const DesactiverExpert = () => {
     left:"50%",
     transform:"translate(-50%,-50%)"
 };
+
+  // fetch the user data
     useEffect(() => {
       axios.get("http://localhost:3001/refresh",{withCredentials:true})
           .then((response) => {

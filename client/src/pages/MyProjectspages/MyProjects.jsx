@@ -1,3 +1,7 @@
+// My Projects page
+// -contains all of the projects in which the user is a collaborator
+
+
 import React from "react";
 import MyProjectsHeader from "../../components/MyProjects/MyProjectsHeader.jsx";
 import MyProjectsContainer from "../../components/MyProjects/MyProjectsContainer.jsx";
@@ -10,11 +14,12 @@ import { useNavigate } from "react-router-dom";
 import mesProjets  from "../../services/mesProjets.js"; 
 import AuthContext from '../../helpers/AuthContext'
 import RefreshService from "../../services/RefreshService";
-import Footer from "../../components/Footer.jsx";
-const MyProjects = () => {
+ const MyProjects = () => {
   const [myProjects, setMyProjects] = useState([]);
   const {authState,setAuthState} = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
+
+  // get the list of projects
   useEffect(() => {
     const getProjects = async () => {
       try {

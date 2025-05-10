@@ -1,4 +1,8 @@
 
+
+// italic button in the tiptap editor, makes the selected text italic
+
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faItalic} from "@fortawesome/free-solid-svg-icons";
 

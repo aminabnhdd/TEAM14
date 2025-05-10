@@ -1,4 +1,9 @@
-// extensions/reference.js
+
+// personalized references node in the tiptap editor
+// contains the number of the reference  and its id
+// scrolls to the reference in the bottom of the project when clicking on it
+
+
 import { Node } from "@tiptap/core";
 
 export const ReferenceNode = Node.create({
@@ -37,7 +42,7 @@ export const ReferenceNode = Node.create({
         "data-reference": "",
         "data-reference-id": HTMLAttributes.id,
         "data-reference-number": HTMLAttributes.number,
-         "class": "reference",
+         "class": "reference",                                        // to style the reference
          onclick: `window.scrollToReference('${HTMLAttributes.id}')`, // Call the global function
 
       },

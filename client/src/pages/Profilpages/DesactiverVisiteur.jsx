@@ -1,3 +1,8 @@
+// Desactiver Visiteur Page
+// - Allows the admin to view a visitor’s profile
+// - Contains  the visitor's personal information 
+// - Enables the admin to deactivate the user's account
+
 import React , { useState }  from "react";
 import ProfilInfowithoutlink from "../../components/Profil/ProfilInfowithoutlink.jsx";
 import AfficherCardVisiteur from  "../../components/Profil/AfficherCardVisiteur.jsx";
@@ -22,6 +27,8 @@ const DesactiverVisiteur = () => {
   const {authState,setAuthState} = useContext(AuthContext);
     const navigate = useNavigate();
     const [loading,setLoading] = useState(true);
+
+    // fetch the user data
       useEffect(() => {
         axios.get("http://localhost:3001/refresh",{withCredentials:true})
             .then((response) => {

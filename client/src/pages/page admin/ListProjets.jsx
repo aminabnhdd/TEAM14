@@ -1,3 +1,6 @@
+// Projects List Page
+// - Allows the admin to view and search through all projects on the platform
+
     import "../../PagesStyles/Pages Admin Styles/ListProjets.css"
     import {useState,useEffect} from "react"
     import SearchBar from "../../components/SearchBar"
@@ -84,7 +87,7 @@
                     <div className=" textos-lsPrjct">
                         <h1 className="hnotif">Listes des projets</h1>
                         <div>
-                        <p className="pnotif-lsPrjct">Gérez les projets. Examinez chaque ressource, visualisez le chef du projet, les <br />
+                        <p className="pnotif-lsPrjct">Gérez les projets. Examinez chaque ressource, visualisez les 
                         collaborateurs et gardez un œil sur le projet.</p>
                         </div>
                     </div>

@@ -1,3 +1,6 @@
+
+// card for one functionality in the landing page
+
 import React from "react";
 import "../../componentsStyles/LandingPage/FeatureCard.css";
 

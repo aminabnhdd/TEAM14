@@ -1,7 +1,8 @@
-import React from "react";
+
+// display all the projects that the user has created
+
 import "../../componentsStyles/ProfilStyles/ProjectsContainer.css";
-import axios from "axios";
-import { useEffect, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 
 import DEFAULT_IMAGE_URL from '../../assets/cover.png'
@@ -9,6 +10,8 @@ import DEFAULT_IMAGE_URL from '../../assets/cover.png'
 const ProjectsContainer = ({ projets = [] }) => { 
   console.log("Received projets:", projets);
   const navigate = useNavigate(); 
+
+  // navigate to the clicked project
   const handleProjectClick = (projectId) => {
     navigate(`/visualisation/${projectId}`); // ✅ Navigate on click
   };

@@ -1,3 +1,6 @@
+// section that contains all of the authors of the porject including chef and collaborators
+
+
 import { Auteur } from "./auteur"
 import AjouterCollaborateur from "./ajouterCollaborateur"
 export default function Auteurs(props){
@@ -16,8 +19,10 @@ export default function Auteurs(props){
             </li>
         </ul>
  
-
+        {/* card for chef de projet*/}
         <Auteur user={props.chef} utilisateur={props.utilisateur} isAdmin={props.isAdmin} />
+
+        {/* only display collaborateurs if there is at least one of them*/}
 
         {props.projet.collaborateurs.length>1 &&
         <ul>
@@ -25,6 +30,8 @@ export default function Auteurs(props){
                 Collaborateurs
             </li>
         </ul>}
+                {/* cards for the other collaborators*/}
+
         {props.collaborateurs.length>1 &&   props.collaborateurs.map ((collaborateur)=>{
             if (props.chef._id !== collaborateur._id)
             return(

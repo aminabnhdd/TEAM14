@@ -1,3 +1,6 @@
+
+// button to insert a table in the tiptap editor
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTable} from "@fortawesome/free-solid-svg-icons";
 

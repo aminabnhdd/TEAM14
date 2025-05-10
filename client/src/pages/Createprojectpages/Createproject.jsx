@@ -31,7 +31,7 @@ const CreateProject = () => {
           role: response.role,
           accessToken: response.accessToken,
         });
-      } catch (err) {
+      } catch (err) { 
         console.error("Erreur lors du refresh :", err);
       }
     };

@@ -13,6 +13,7 @@ function SideNav(){
     const isExpert = authState.role === "Expert";
     const isAdmin = authState.role === "Admin";
 
+    const [hasNotif,setHasNotif] = useState(true);
 
     const navigate = useNavigate()
   
@@ -100,6 +101,7 @@ function SideNav(){
                             </div>
 
                         <div className='nav-link'>
+                            {hasNotif && <div className='new-notif '></div>}
                             <span className="tooltip">Notifications</span>
                             <FaBell className="iconus"  onClick={goToNotifExpert}/>
                             </div>
@@ -119,6 +121,7 @@ function SideNav(){
                             </div>
 
                             <div className='nav-link'>
+                            {hasNotif && <div className='new-notif'></div>}
                             <span className="tooltip">Notifications</span>
                             <FaBell className="iconus"  onClick={goToNotifAdmin}/>
                             </div>
@@ -145,7 +148,7 @@ function SideNav(){
                 </div>
                 </div>
         
-        
+         
     )
 };
 

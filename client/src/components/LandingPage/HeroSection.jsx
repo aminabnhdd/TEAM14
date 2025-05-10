@@ -1,3 +1,6 @@
+
+// hero section in landing page
+
 import React from "react";
 import "../../componentsStyles/LandingPage/HeroSection.css";
 

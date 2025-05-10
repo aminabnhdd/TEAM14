@@ -1,3 +1,8 @@
+
+// button to archive the project
+// only chef de project and admin are allowed to use it
+// a confirmation popup appears if it is clicked
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArchive} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -7,11 +12,11 @@ import  AuthContext from "../../helpers/AuthContext.jsx"
 import {useContext} from "react"
 
 export default function ArchiverProjet(props){
- 
-    const navigate = useNavigate();
+     const navigate = useNavigate();
     const [showConfirmation, setShowConfirmation] = useState(false);
     const {authState} = useContext(AuthContext);
 
+    // archiver le projet
     const archive = async (event) =>{
         try{
         event.stopPropagation();
@@ -31,6 +36,7 @@ export default function ArchiverProjet(props){
         console.error("Error Annotation:", error);
     }}
 
+    // open the confirmation popup
     const openConfirmation = (event) => {
         event.stopPropagation();
         setShowConfirmation(true);
@@ -51,43 +57,50 @@ console.log(props.projet.archive);
         Le projet est archivé</button>}
 
         {showConfirmation && (
-                <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[4001]">
-                    <div className="bg-white rounded-[36px] shadow-lg w-120 px-10 py-7 relative border border-black">
-                        {/* Close Button */}
-                        <button
-                            className="absolute top-4 right-6 text-black text-2xl hover:text-warning cursor-pointer"
-                            onClick={() => setShowConfirmation(false)}
-                        >
-                            &times;
-                        </button>
+  <div className="fixed inset-0 z-[4000] flex items-center justify-center bg-black/30">
+    <div className="relative z-[11000] w-[32%] p-8 flex flex-col gap-6 bg-white rounded-[29px] animate-fadeIn">
+      {/* Close Button */}
+      <button
+        className="absolute top-4 right-5 text-black text-2xl font-normal hover:text-warning cursor-pointer"
+        onClick={() => setShowConfirmation(false)}
+      >
+        &times;
+      </button>
 
-                        {/* Popup Title */}
-                        <h2 className="big-remark text-center text-black mb-5">Confirmation</h2>
+      {/* Popup Title */}
+      <div className="text-center font-semibold text-[22px]">
+        <p>Confirmation</p>
+      </div>
 
-                        {/* Confirmation Message */}
-                        <p className="main-text text-warning mb-5 text-justify">Êtes-vous sûr de vouloir archiver ce projet ?</p>
-                        <p className="main-text mb-5 text-justify">
-                        Aucun collaborateur ni visiteur ne pourra consulter ou modifier ce projet tant qu'il est archivé.  
-                        Vous aurez toutefois la possibilité de le récupérer depuis la liste des projets archivés.
-                        </p>
-                        {/* Action Buttons */}
-                        <div className="flex justify-around gap-3 mt-5">
-                            <button 
-                                onClick={archive}
-                                className="buttons text-white bg-warning py-4 w-42 mt-3 rounded-[36px] items-center justify-center hover:brightness-105  hover:scale-102 transition-all duration-300 cursor-pointer"
-                            >
-                                Archiver
-                            </button>
-                            <button 
-                                onClick={() => setShowConfirmation(false)}
-                                className="buttons text-black bg-neutral-100 py-4 w-42 mt-3 rounded-[36px] items-center justify-center hover:scale-102 hover:brightness-95 transition-all duration-300 cursor-pointer"
-                            >
-                                Annuler
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
+      {/* Confirmation Message */}
+      <div className="text-md text-black leading-relaxed">
+        <p className="text-warning mb-3">Êtes-vous sûr de vouloir archiver ce projet ?</p>
+        {props.isAdmin ? <p> Aucun collaborateur ni visiteur ne pourra consulter ou modifier ce projet tant qu'il est archivé.  Cette suppression est <span className="text-warning">définitive.</span></p> :
+        <p>
+            
+          Aucun collaborateur ni visiteur ne pourra consulter ou modifier ce projet tant qu'il est archivé.
+          Vous aurez toutefois la possibilité de le récupérer depuis la liste des projets archivés.
+        </p>}
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex justify-center gap-8 mt-2">
+        <button
+          onClick={archive}
+          className="flex w-[40%] py-3 justify-center items-center rounded-[27px] bg-warning hover:scale-102 hover:brightness-105 text-white font-semibold transition-colors cursor-pointer"
+        >
+          Archiver
+        </button>
+        <button
+          onClick={() => setShowConfirmation(false)}
+          className="flex w-[40%] py-3 justify-center items-center rounded-[27px] bg-success hover:scale-102 hover:brightness-105 text-white font-semibold transition-colors cursor-pointer"
+        >
+          Annuler
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
     </>
     )

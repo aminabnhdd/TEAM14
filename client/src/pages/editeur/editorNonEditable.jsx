@@ -1,3 +1,6 @@
+// Page Editer Section
+
+
 import { useState, useEffect, useRef } from "react";
 import TiptapNonEditable from "../../components/editeur/tiptapNonEditable";
 import Conflicts from "../../components/editeur/conflicts";
@@ -15,6 +18,8 @@ import { useParams } from "react-router-dom";
 import SideNav from "../../components/SideNav";
 import SearchBar from "../../components/SearchBar";
 
+
+// when cliking in an annotation Mark, scroll to the annotation element
 window.scrollToAnnotation = function (annotationId) {
   console.log("scrollToAnnotation called with ID:", annotationId);
   const annotationCard = document.getElementById(`annotation-${annotationId}`);
@@ -64,6 +69,8 @@ export default function EditorNonEditable() {
             src: image,
           }));
         }
+         // get the user,project, section, and the conflicts, annotations, images,  refrences, images of the section
+
         setSection(sectionData.section || {});
         setUser(sectionData.userEditing || {});
         setUserChef(sectionData.userChef || {});
@@ -86,9 +93,13 @@ export default function EditorNonEditable() {
   const [annotExist, setAnnotExist] = useState(false);
   const [conflitExist, setConflitExist] = useState(false);
 
+    // check whether at least one annotation exists
+
   useEffect(() => {
     setAnnotExist(annotations.length > 0);
   }, [annotations]);
+
+    // check whether at least one conflict exists
 
   useEffect(() => {
     setConflitExist(conflits.length > 0);
@@ -172,7 +183,8 @@ export default function EditorNonEditable() {
     updateReferenceNumbers();
   }, [references]);
 
-  //////////////////////////
+    // scroll to reference element when the refererence node is clicked inside the editor
+
 
   window.scrollToReference = function (id) {
     const element = document.getElementById(id);

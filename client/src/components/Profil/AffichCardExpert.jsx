@@ -1,4 +1,6 @@
-import React from "react";
+
+// show all of the informations of an expert
+
 import "../../componentsStyles/ProfilStyles/AffichCardExpert.css";
 
 const AffichExpert = ({ usersData }) => {

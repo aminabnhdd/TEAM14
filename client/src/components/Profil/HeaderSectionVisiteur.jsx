@@ -1,4 +1,7 @@
-import React from "react";
+
+
+// header for user informations
+
 import "../../componentsStyles/ProfilStyles/HeaderSectionVisiteur.css";
 
 const HeaderSection = () => {

@@ -1,3 +1,5 @@
+// Includes all the references inserted in the project in all different sections
+
 import { useEffect, useState} from "react";
 
 export default function ReferencesSection(props){
@@ -5,11 +7,13 @@ export default function ReferencesSection(props){
 
   const [references, setReferences] = useState([]);
 
+  // Get the references
   useEffect(() => {
     const newReferences = props.projet.references.filter((ref) => {
       return (!!document.querySelector(`[data-reference-id="${ref._id}"]`))
     });
     
+    // Only get the relevent references
     const filteredReferences = newReferences.map((ref, index) => ({
       ...ref,
       number: index + 1
@@ -18,6 +22,7 @@ export default function ReferencesSection(props){
     setReferences(filteredReferences);
     props.setActualReferences(filteredReferences);
   }, [props.projet.references]);
+
 
 
     const refElement = references.map((ref) => (

@@ -1,22 +1,32 @@
+
+// Project card in pages decouvrir and favoris
+
+
 import "./Card.css";
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 import { useState } from 'react';
 import axios from 'axios';
 import AuthContext from "../../helpers/AuthContext";
-import{useContext} from 'react';
+import { useContext } from 'react';
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import coverImg from '../../assets/cover.png'
-function Card({ size = "medium", data,fav}) {
+
+
+function Card({ size = "medium", data, fav }) {
+
+  //get whether the project in the card is one of the user's favorites to color in the star icon
   const [isFavorited, setIsFavorited] = useState(fav);
-  const { setAuthState} = useContext(AuthContext);
+  const { setAuthState } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
-  const clickCard = () =>{
+  //go to the project when clicking on its card
+  const clickCard = () => {
     navigate(`/visualisation/${data._id}`);
   }
 
+  //when clicking on the star, change the favorite status of the project
   const toggleFavourite = async (project) => {
     const willBeFavorited = !isFavorited;
     setIsFavorited(willBeFavorited);
@@ -49,7 +59,7 @@ function Card({ size = "medium", data,fav}) {
       } catch (err) {
         console.error("Error adding to favorites:", err);
       }
-    } else{
+    } else {
       try {
         const refreshResponse = await axios.get("http://localhost:3001/refresh", {
           withCredentials: true,
@@ -80,32 +90,26 @@ function Card({ size = "medium", data,fav}) {
     }
   };
 
-  /*return (
-    <div className={`card ${size}`} onClick={clickCard}>
-      <img src={data.photoUrl} alt="project" />
-      <p className="text">{data.titre}</p>
-      <div onClick={() => toggleFavourite(data)} className="favourite-icon">
-        {isFavorited ? <AiFillStar color="white" /> : <AiOutlineStar />}
-      </div>
-    </div>
-  );*/
+
 
   useEffect(() => {
     setIsFavorited(fav); // Sync the state with the fav prop if it changes
   }, [fav]);
 
+
+
   return (
-    <div className={`card ${size}`}  onClick={clickCard} >
-      <img src={data.photoUrl ||coverImg} alt="project"/>
+    <div className={`card ${size}`} onClick={clickCard} >
+      <img src={data.photoUrl || coverImg} alt="project" />
       <div className="text-div">
-      <p className="text buttons">{data.titre}</p>
+        <p className="text buttons">{data.titre}</p>  {/* project title that appears when hovering on the card */}
       </div>
       <div onClick={(e) => {
-  e.stopPropagation(); // Prevent card click
-  toggleFavourite(data);
-}} className="favourite-icon">
-  {isFavorited ? <AiFillStar color="white" /> : <AiOutlineStar />}
-</div>
+        e.stopPropagation(); // Prevent card click
+        toggleFavourite(data);
+      }} className="favourite-icon">
+        {isFavorited ? <AiFillStar color="white" /> : <AiOutlineStar />} {/* star icon that is filled if the project is one of the favorites*/}
+      </div>
     </div>
   );
 }

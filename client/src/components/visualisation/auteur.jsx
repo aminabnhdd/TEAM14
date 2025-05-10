@@ -1,3 +1,5 @@
+// component that displays the informations of a collaborator in the project
+
 import { useNavigate } from "react-router-dom";
 import defaultPfp from "../../assets/Default_pfp.svg.png"
 
@@ -8,6 +10,7 @@ export function Auteur (props){
     // const [showConfirmation, setShowConfirmation] = useState(false);
 
    
+    // go to the user's profile when cliking on it
     const visitProfile = (event) => { 
         console.log(props.user,props.utilisateur)
         if (props.isAdmin){
@@ -61,7 +64,7 @@ export function Auteur (props){
                 </div>
                 <div className="max-w-full">
                     <p className="main-text mb-[2px]">{props.user.nom} {props.user.prenom}</p>
-                    <p className="thinner-text">Expert en {props.user.discipline}</p>   
+                    <p className="thinner-text capitalize">Expert en {(props.user.discipline == 'archeologie') ? 'archéologie' :(props.user.discipline)}</p>   
                 </div>
                 {/* {props.isChef &&
                     <button

@@ -1,3 +1,8 @@
+// Add collaborator button
+// Available for collaborators if there is in the project a section that hasn't been created yet and that he has the right to create (same discipline) 
+// Displays a popup for the user to chose the section he wants to add
+
+
 import { useState } from "react";
 import addIcon from "../../assets/add-symbol.png";
 import VisuService from "../../services/VisuService";
@@ -9,11 +14,12 @@ export default function AjouterSection(props) {
   const [selectedSection, setSelectedSection] = useState("");
   const sections = ['description', 'architecture', 'histoire', 'archeologie', 'autre'];
   const {authState} = useContext(AuthContext);
-
   const sectionsNonExistantes = sections.filter((section) =>
     !props.sectionsExistantes.includes(section)
   );
 
+
+  // get the sections he can add
   const filteredSections = sectionsNonExistantes.filter((section) => {
     if (section === 'description') return props.isChef;
     if (section === 'autre') return true;
@@ -22,7 +28,10 @@ export default function AjouterSection(props) {
     if (section === 'archeologie') return props.user.discipline === 'archeologie';
     return false;
   });
+  console.log(props.user.discipline)
 
+
+  // add a new section to the project
   const handleAjouterSection = async (section) => {
     try{
     // Here you would handle adding the section
@@ -68,51 +77,50 @@ export default function AjouterSection(props) {
         </button>
       )}
 
-      {showPopup && (
-        <div className="fixed inset-0 bg-black/80  flex items-center justify-center z-[4001]">
-          <div className="bg-white rounded-[36px]  shadow-lg w-100 px-10 py-7 relative border border-black">
-            {/* Close Button */}
+      {showPopup &&(
+  <div className="fixed inset-0 z-[40000] flex items-center justify-center bg-black/30">
+    <div className="relative z-[11000] w-[28%] p-8 flex flex-col gap-6 bg-white rounded-[29px] animate-fadeIn">
+      {/* Close Button */}
+      <button
+        className="absolute top-4 right-5 text-black text-2xl font-normal hover:text-warning cursor-pointer"
+        onClick={() => setShowPopup(false)}
+      >
+        &times;
+      </button>
+
+      {/* Popup Title */}
+      <div className="text-center font-semibold text-[22px]">
+        <p>Ajouter une section</p>
+      </div>
+      <p className="text-md text-black">Choisissez la section à ajouter</p>
+
+      {/* Sections List */}
+      <div className="space-y-3">
+        {filteredSections.map((section) => (
+          <div key={section} className="flex justify-between items-center">
+            <span className="capitalize text-md text-black">{section}</span>
             <button
-              className="absolute top-4 right-6 text-black text-2xl cursor-pointer hover:text-warning"
-              onClick={() => setShowPopup(false)}
+              onClick={() => handleAjouterSection(section)}
+              className="text-md text-black bg-dune py-2 px-6 rounded-[27px] hover:brightness-105 hover:scale-102 cursor-pointer transition-colors"
             >
-              &times;
+              Ajouter
             </button>
-
-            {/* Popup Title */}
-            <h2 className="text-center big-remark text-black mb-5">Ajouter une section</h2>
-            <p className="mb-4 main-text">Choisissez la section à ajouter</p>
-
-            {/* Sections List */}
-            <div className="space-y-3 mb-5">
-              {filteredSections.map((section) => (
-                <div key={section} className="flex  rounded-[36px]  justify-between items-center">
-                  <span className="capitalize pl-4 main-text">{section}</span>
-                  <button
-                    onClick={() => handleAjouterSection(section)}
-                    className="main-text text-black bg-dune py-2 px-6 rounded-[36px] 
-                    hover:brightness-105  hover:scale-102 transition-all duration-300 cursor-pointer"
-                  >
-                    Ajouter
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            {/* Cancel Button */}
-            <div className="flex justify-center">
-              <button
-                onClick={() => setShowPopup(false)}
-                className="main-text text-black bg-neutral-100 py-3 w-36 rounded-[36px] 
-                items-center justify-center  buttons hover:scale-102  hover:brightness-95
-                transition-all duration-300 cursor-pointer"
-              >
-                Annuler
-              </button>
-            </div>
           </div>
-        </div>
-      )}
+        ))}
+      </div>
+
+      {/* Cancel Button */}
+      <div className="flex justify-center gap-8 mt-2">
+        <button
+          onClick={() => setShowPopup(false)}
+          className="flex w-[40%] py-3 justify-center items-center rounded-[27px] bg-brown text-white font-semibold hover:brightness-105 hover:scale-102 cursor-pointer transition-colors"
+        >
+          Annuler
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </>
   );
 }

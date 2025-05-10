@@ -1,3 +1,5 @@
+/* styling the Chatbot Component*/
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 
@@ -29,7 +31,8 @@
 .bot-wrapper {
     position: relative;
     display: inline-block;
-    z-index: 1000000;
+    z-index: 10000
+    ;
   }
 
 
@@ -37,7 +40,7 @@
 /* Tooltip Styling */
 .tooltip-bot {
     position: absolute;
-    z-index: 999999;
+    z-index: 10001;
     right: 95%;
     background-color: rgba(0, 0, 0, 0.8);
     color: white;

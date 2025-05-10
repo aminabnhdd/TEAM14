@@ -1,4 +1,6 @@
-import React from "react";
+// Changer Mot de Passe Page
+// allows the user to change his password
+
 import PasswordHeader from "../../components/Profil/PasswordHeader.jsx";
 import PasswordCard from "../../components/Profil/PasswordCard.jsx";
 import "../../pagesStyles/ProfilpagesStyle/ChangerMotdePasse.css";

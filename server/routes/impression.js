@@ -79,7 +79,7 @@ router.post('/generateHTML',async(req,res) =>{
             console.error('HTML generation failed:', error);
             res.status(500).json({ 
                 error: 'HTML generation failed',
-                details: process.env.NODE_ENV === 'development' ? error.message : undefined
+                details: ( process.env.NODE_ENV === 'development') ? error.message : undefined
             });
         } 
 
@@ -145,7 +145,7 @@ router.post('/generatePDF', async (req, res) => {
     console.error('PDF generation failed:', error);
     res.status(500).json({ 
       error: 'PDF generation failed',
-      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      details:( process.env.NODE_ENV === 'development') ? error.message : undefined
     });
   }
 });

@@ -67,7 +67,7 @@ function ListUtil() {
                 axios.get("http://localhost:3001/admin/search/experts", { headers: { Authorization: `Bearer ${res.data.accessToken}` } })
                     .then((res) => {
                         console.log(res.data)
-                        setNotificationsConflit(res.data.map((el) => ({ ...el, seen: false, type: "expert", imge: imjjjjjj, util: `${el.nom} ${el.prenom}`, dom: `Expert en ${el.discipline}` })));
+                        setNotificationsConflit(res.data.map((el) => ({ ...el, seen: false, type: "expert", imge: imjjjjjj, util: `${el.nom} ${el.prenom}`, dom: `Expert en ${(el.discipline == 'archeologie')?'archéologie':el.discipline}` })));
                     })
                     .catch((error) => {
                         console.error("Error fetching experts:", error);

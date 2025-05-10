@@ -259,10 +259,9 @@ export default function EditorEditable() {
                 >
                   <div className="flex justify-between mb-5">
                     <h1 className="secondary-titles text-dune">
-                      {section?.type
-                        ? section.type.charAt(0).toUpperCase() +
-                          section.type.slice(1)
-                        : "Loading..."}
+                    {((section?.type ==  'archeologie') ? 'archéologie': section?.type)
+                       
+                        || "Loading..."}
                     </h1>
 
 

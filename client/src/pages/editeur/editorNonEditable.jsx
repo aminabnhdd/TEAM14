@@ -232,11 +232,10 @@ export default function EditorNonEditable() {
                                         `}
                 >
                   <div className="flex justify-between mb-5">
-                    <h1 className="secondary-titles text-dune">
-                      {section?.type
-                        ? section.type.charAt(0).toUpperCase() +
-                          section.type.slice(1)
-                        : "Loading..."}
+                    <h1 className="secondary-titles text-dune capitalize">
+                      {((section?.type ==  'archeologie') ? 'archéologie': section?.type)
+                       
+                        || "Loading..."}
                     </h1>
                     <SignalerConflit
                       conflits={conflits}

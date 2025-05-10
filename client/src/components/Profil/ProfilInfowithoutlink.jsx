@@ -22,7 +22,7 @@ const ProfilInfonolink = ({ usersData }) => {
         <img src={user.pfp || DEFAULT_IMAGE_URL} alt="Avatar" className="avatar" />
         <div className="profil-info">
           <span className="profil-name">{user.nom || "Non renseigné"} {user.prenom || "Non renseigné"}</span>
-          <span className="profil-job capitalize">{(isAdmin ? 'admin' :((user.role== 'archeologie')?'archéologie':user.role))|| "Non renseigné"}</span>
+          <span className="profil-job capitalize">{((user.role== 'archeologie')?'archéologie':user.role)|| "Non renseigné"}</span>
         </div>
       </div>
     </div>

@@ -7,20 +7,28 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import "../../componentsStyles/ProfilStyles/PasswordCard.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import PopMDP from "./popMDP";
+import AuthContext from '../../helpers/AuthContext';
+import { useContext } from "react";
 
 export default function PasswordChange() {
+
+   
+   
+
+
   const [inputOldPassword, setInputOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-
+  const [popup,setPopup] = useState(false);
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [authState, setAuthState] = useState({email:"",role:"",accessToken:""});
   const navigate = useNavigate();
 
-
+ const isExpert = authState.role === "Expert";
   // make the password visible
   const togglePasswordVisibility = (field) => {
     if (field === "old") setShowOldPassword(!showOldPassword);
@@ -46,6 +54,7 @@ export default function PasswordChange() {
             setInputOldPassword("");
             setNewPassword("");
             setConfirmPassword("");
+            setPopup(true);
           })
           .catch((error) => {
             if (error.response) {
@@ -61,6 +70,7 @@ export default function PasswordChange() {
   };
 
   return (
+    <>
     <div className="password-container">
       <h2 className="password-container-title">
         Choisissez un nouveau mot de passe et confirmez-le pour sécuriser votre compte.
@@ -126,6 +136,14 @@ export default function PasswordChange() {
 
       <button className="password-btn" onClick={handleChange}>Changer</button>
     </div>
+     { popup && <PopMDP popUp={popup} foncone={() => {
+      setPopup(false); 
+      if (isExpert){
+      navigate('/modifier-expert'); }
+      else{
+        navigate('/modifier-visiteur')
+      }}}/>}
+     </>
   );
 }
 

@@ -317,7 +317,7 @@ function Notif() {
                             <div className="secondary-notif flex-1 flex col-flex  min-h-full">
 
                                 <div className="teqsam flex-1">
-                                    <SearchBar title="Rechercher un projet dans le site" />
+                                    <SearchBar  />
                                     <div className=" textos">
                                         <h1 className="hnotif">Notifications</h1>
                                         {conflit &&

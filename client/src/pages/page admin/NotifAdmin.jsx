@@ -187,7 +187,7 @@ function NotifAdmin() {
 
 
                                 <div className="teqsam flex-1">
-                                    <SearchBar title="Rechercher un projet dans le site" />
+                                    <SearchBar  />
 
                                     <div className=" textos-notifAd">
                                         <h1 className="hnotif">Notifications</h1>

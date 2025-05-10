@@ -4,7 +4,7 @@ import { FiSend } from "react-icons/fi";
 import { MdSmartToy, MdClose } from 'react-icons/md';
 import "./ChatBot.css"
 import Tooltip from '../editeur/tooltip';
-import ReactMarkdown from 'react-markdown';
+// import ReactMarkdown from 'react-markdown';
 
 function ChatBot({ projetId, isFixed }) {
   const [query, setQuery] = useState('');

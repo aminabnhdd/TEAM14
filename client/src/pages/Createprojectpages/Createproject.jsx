@@ -70,7 +70,7 @@ const CreateProject = () => {
 
     try {
 
-        const response = await addProject(formDataToSend,authState.accessToken);
+        const response = await addProject(formDataToSend,authState.accessToken,setErrorTitle);
         console.log("Projet ajouté :", response);
         navigate("/visualisation/" + response._id);
 
@@ -89,7 +89,7 @@ const CreateProject = () => {
       <ProjectHeader />
       <div className="create-project-content">
         <ProjectImageUploader onImageChange={handleImageChange} />
-        <ProjectForm error={error} onDataChange={handleDataChange} />
+        <ProjectForm error={error} setErrorTitle={setErrorTitle} onDataChange={handleDataChange} />
       </div>
       {error && <div className="error-messagec"><MdErrorOutline className="error-iconc" /> Les champs en rouge doivent être remplis</div>}
       {errorTitle && <div className="error-messagec"><MdErrorOutline className="error-iconc" /> Un projet avec le même titre existe </div>}

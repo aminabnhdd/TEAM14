@@ -51,7 +51,7 @@ router.post('/add', validateToken, validateRole(expertRole, adminRole),upload.si
         }
 
         const found = await projectModel.findOne({ titre });
-        if (found){alert('Il existe déja un projet avec ce titre') ; return res.status(403).json({ err: "Title already used" });}
+        if (found) return res.status(403).json({ err: "Titre déja utilisé" });
 
 
         const author = await expertModel.findById(userID);
@@ -533,6 +533,10 @@ router.put("/update/:id", upload.single("image"), validateToken, async (req, res
       const project = await projectModel.findById(id);
       if (!project) {
         return res.status(404).json({ err: "Project not found" });
+      }
+      const found = await projectModel.findOne({ titre: projet.titre });
+      if(projet.titre !== project.titre && found){
+        return res.status(403).json({ err: "Titre déja utilisé" });
       }
   
       let photoUrl = project.photoUrl;

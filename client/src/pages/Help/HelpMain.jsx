@@ -85,7 +85,7 @@ useEffect(() => {
           border: "2px solid #C57642",
           borderRadius: "40px",
           padding: "0.7rem 1rem",
-          cursor: "pointer",
+          cursor: "text",
           background: "white",
           margin:"auto",
           width: "100%",

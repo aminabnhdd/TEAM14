@@ -29,9 +29,9 @@ function Demande({popUp,foncone}) {
 
         {/* Message */}
         <div className="text-md text-black text-center leading-relaxed">
-          <p>Votre demande de création de compte a été transmise à l'<span className="text-primary">administrateur</span>.</p>
-          <p>Un <span className="text-primary">email de confirmation</span> vous sera envoyé dès que votre compte aura été approuvé.</p>
-          <p>Merci de patienter et de <span className="text-primary">vérifier</span> votre boîte de réception pour la suite.</p>
+          <p>Votre demande de création de compte a été transmise à l'<span className="text-dune">administrateur</span>.</p>
+          <p>Un <span className="text-success">email de confirmation</span> vous sera envoyé dès que votre compte aura été approuvé.</p>
+          <p>Merci de patienter et de <span className="text-warning">vérifier</span> votre boîte de réception pour la suite.</p>
         </div>
       </div>
     </div>

@@ -57,9 +57,8 @@ const RestoreProjectsHeader = () => {
         window.gapi.load("client", async () => {
           await window.gapi.client.init({
             apiKey: API_KEY,
-            discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+            clientId:CLIENT_ID
           });
-
           // Charger Picker
           const pickerScript = document.createElement("script");
           pickerScript.src = "https://apis.google.com/js/picker.js";

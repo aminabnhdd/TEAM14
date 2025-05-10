@@ -183,7 +183,6 @@ function NewInsEx3({ prevPopUp2, swipeDirection }) {
 
     const [errorMessage, setErrorMessage] = useState("");
 
-  const [errorMessage, setErrorMessage] = useState(""); // Controls error msg for file upload
 
   return (
     <motion.div

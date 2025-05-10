@@ -22,20 +22,17 @@ function NewInsvs() {
     telephone: "",
     password: "",
   });
-  const [errors, setErrors] = useState({}); // Validation errors
+  const [errors, setErrors] = useState({});
 
-  // Toggle visibility of password
   const TogglePass = () => {
     setVisible(!visible);
     setTypo(typo === "password" ? "text" : "password");
   };
 
-  // Update form field state
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  // Basic form validation
   const validateForm = () => {
     let newErrors = {};
     if (!formData.nom.trim()) newErrors.nom = "Nom est requis";
@@ -51,8 +48,7 @@ function NewInsvs() {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (validateForm()) {
       try {
         // First send the verification code
@@ -188,4 +184,3 @@ function NewInsvs() {
 }
 
 export default NewInsvs;
-;

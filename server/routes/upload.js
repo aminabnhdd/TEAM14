@@ -3,6 +3,7 @@ const router = express.Router();
 const cloudinary = require('../config/cloudinary');
 const { upload } = require('../middlewares/multerMiddleware');
 
+// route for uploading a file to cloudinary
  router.post('/upload', upload.single('image'), function (req, res) {
   cloudinary.uploader.upload(req.file.path, function (err, result){
     if(err) {

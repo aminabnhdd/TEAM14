@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 const multer = require('multer');
 const cloudinary = require('../config/cloudinary');
-const sectionModel = require("../model/section");
+const sectionModel = require("../model/Section");
 
 
 

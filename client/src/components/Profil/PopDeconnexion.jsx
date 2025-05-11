@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../helpers/AuthContext.jsx";
 import { useContext } from "react";
-import "../../ComponentsStyles/ProfilStyles/PopDeconnexion.css";
+import "../../componentsStyles/ProfilStyles/PopDeconnexion.css";
 const PopDeconnexion = ({ onClose }) => {
   const navigate = useNavigate();
   const { authState, setAuthState } = useContext(AuthContext);

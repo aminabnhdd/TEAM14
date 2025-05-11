@@ -1,4 +1,4 @@
-import "../../ComponentsStyles/popUps styles/Demande.css";
+import "../../componentsStyles/popUps styles/Demande.css";
 import imj from "../../assets/x.png";
 import { useNavigate } from "react-router-dom";
 function Demande({popUp,foncone}) {

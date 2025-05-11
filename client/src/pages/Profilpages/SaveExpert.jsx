@@ -2,7 +2,7 @@
 // allows the expert to modify his informations and save them
 
 import InfoHeader from "../../components/Profil/Infosheader";
-import ProfilInfosave from "../../components/Profil/ProfilInfosave";
+import ProfilInfosave from "../../components/Profil/ProfilInfoSave";
 import FormExpert from "../../components/Profil/FormExpert";
 import "../../pagesStyles/ProfilpagesStyle/SaveExpert.css";
 import { useState, useEffect } from "react";

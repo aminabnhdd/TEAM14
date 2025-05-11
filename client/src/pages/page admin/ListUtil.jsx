@@ -3,7 +3,7 @@
 // - Has two sections: Expert users and visitors
 
 
-import "../../PagesStyles/Pages Admin Styles/ListUtil.css"
+import "../../pagesStyles/Pages Admin Styles/ListUtil.css"
 import { useState, useEffect, useContext } from "react"
 import SearchBar from "../../components/SearchBar"
 import SideNav from "../../components/SideNav"

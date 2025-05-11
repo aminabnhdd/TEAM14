@@ -1,7 +1,7 @@
 
 // popup to indicate that a user was accepted as collaborator in a certain project by the chef du projet
 
-import "../../ComponentsStyles/popUpsNotif styles/Acceptation.css"
+import "../../componentsStyles/popUpsNotif styles/Acceptation.css"
 import i from "../../assets/x.png"
 import { useNavigate } from "react-router-dom"
 

@@ -1,5 +1,5 @@
 import SideNav from "../../components/SideNav"
-import "../../PagesStyles/Help Styles/HelpEditeur.css"
+import "../../pagesStyles/Help Styles/HelpEditeur.css"
 
 import desktop1 from "../../assets/Group 3 (1).jpg"
 import desktop2 from "../../assets/Group 5.jpg"

@@ -2,7 +2,7 @@
 // sign in popup in connexion page
 
 import { useState } from "react";
-import "../../ComponentsStyles/popUps styles/Connexion.css";
+import "../../componentsStyles/popUps styles/Connexion.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import axios from "axios";
 

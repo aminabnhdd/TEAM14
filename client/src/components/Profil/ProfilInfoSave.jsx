@@ -2,7 +2,7 @@
 // display the main informations of a user in profile page
 
 
-import "../../componentsStyles/ProfilStyles/ProfilInfosave.css";
+import "../../componentsStyles/ProfilStyles/ProfilInfoSave.css";
 import { Upload } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";

@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, useContext } from "react";
 import { ImagePlus, X } from "lucide-react";
-import "../../componentsStyles/CreateprojectStyles/ModifProjectImage.css";
+import "../../componentsStyles/CreateProjectStyles/ModifProjectImage.css";
 import { FetchProjectData } from "../../services/FetchProjectData.js";
 import AuthContext from '../../helpers/AuthContext'
 import RefreshService from "../../services/RefreshService";

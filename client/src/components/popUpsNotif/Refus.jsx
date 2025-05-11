@@ -1,7 +1,7 @@
 
 //popup to indicate that a user wasnt accepted as a collaborator in a project by chef de projet
 
-import "../../ComponentsStyles/popUpsNotif styles/Refus.css"
+import "../../componentsStyles/popUpsNotif styles/Refus.css"
 import i from "../../assets/x.png"
 import { useNavigate } from "react-router-dom"
 

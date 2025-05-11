@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {userModel} = require('../model/user');
+const {userModel} = require('../model/User');
 const jwt = require('jsonwebtoken');
 
 // function to convert the role token to a string for the front end

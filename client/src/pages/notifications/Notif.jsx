@@ -8,7 +8,7 @@
     3- Results of the collaboration request
 */
 
-import "../../PagesStyles/notifications styles/Notif.css"
+import "../../pagesStyles/notifications styles/Notif.css"
 import { useState, useEffect } from "react"
 import ConflitSignal from "../../components/popUpsNotif/ConflitSignal"
 import Collaboration from "../../components/popUpsNotif/Collaboration"

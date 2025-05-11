@@ -3,7 +3,7 @@
 
 
 import { useState } from "react";
-import "../../ComponentsStyles/popUps styles/ReiniMdp.css";
+import "../../componentsStyles/popUps styles/ReiniMdp.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";

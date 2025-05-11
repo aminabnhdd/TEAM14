@@ -2,7 +2,7 @@
 // popup to indicate that a conflict was signaled
 // it contains a link to a meet for the differnt recepients to join
 
-import "../../ComponentsStyles/popUpsNotif styles/ConflitChat.css"
+import "../../componentsStyles/popUpsNotif styles/ConflitChat.css"
 import i from "../../assets/x.png"
 import link from "../../assets/Link 2.svg"
 import { useNavigate } from "react-router-dom"

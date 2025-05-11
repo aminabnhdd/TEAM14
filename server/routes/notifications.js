@@ -2,12 +2,12 @@
 const express = require("express");
 require("dotenv").config();
 const router = express.Router();
-const sectionModel = require("../model/section");
+const sectionModel = require("../model/Section");
 const projetModel = require("../model/Projet");
 const notificationModel = require("../model/Notification");
-const conflitModel = require("../model/conflit");
+const conflitModel = require("../model/Conflit");
 const validateToken = require("../middlewares/authMiddleware");
-const { expertModel, userModel } = require("../model/user");
+const { expertModel, userModel } = require("../model/User");
 const { google } = require("googleapis");
 const mongoose = require('mongoose');
 

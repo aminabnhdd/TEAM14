@@ -1,6 +1,6 @@
 // Import React's useState hook and styles
 import { useState } from "react";
-import "../../ComponentsStyles/Insctiptions styles/InsEx2.css";
+import "../../componentsStyles/Insctiptions styles/InsEx2.css";
 
 // Import icons for navigation
 import arrRight from "../../assets/arrow-right-solid.svg";

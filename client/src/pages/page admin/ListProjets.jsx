@@ -1,7 +1,7 @@
 // Projects List Page
 // - Allows the admin to view and search through all projects on the platform
 
-    import "../../PagesStyles/Pages Admin Styles/ListProjets.css"
+    import "../../pagesStyles/Pages Admin Styles/ListProjets.css"
     import {useState,useEffect} from "react"
     import SearchBar from "../../components/SearchBar"
     import SideNav from "../../components/SideNav"

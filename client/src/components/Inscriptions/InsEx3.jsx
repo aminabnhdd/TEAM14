@@ -1,5 +1,5 @@
 // Import CSS and required assets
-import "../../ComponentsStyles/Insctiptions styles/InsEx3.css";
+import "../../componentsStyles/Insctiptions styles/InsEx3.css";
 import image2 from "../../assets/Screenshot 2025-03-03 at 8.53.06 AM 2.png";
 
 import arrLeft from "../../assets/arrow-left-solid.svg";

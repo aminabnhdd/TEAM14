@@ -1,7 +1,7 @@
 
 // popup for chef de projet to accept or reject a collaboration request
 
-import "../../ComponentsStyles/popUpsNotif styles/Collaboration.css"
+import "../../componentsStyles/popUpsNotif styles/Collaboration.css"
 import i from "../../assets/x.png"
 import axios from "axios"
 import  AuthContext from "../../helpers/AuthContext"

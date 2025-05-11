@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import "../../ComponentsStyles/Insctiptions styles/VerificationCode.css";
+import "../../componentsStyles/Insctiptions styles/VerificationCode.css";
 import closeIcon from "../../assets/x.png"; 
 
 

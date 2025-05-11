@@ -3,7 +3,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi"; // Eye icons for password visi
 import arrRight from "../../assets/arrow-right-solid.svg"; // Arrow icon
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // For redirection
-import "../../ComponentsStyles/Insctiptions styles/NewInsEx.css"; // Component styles
+import "../../componentsStyles/Insctiptions styles/NewInsEx.css"; // Component styles
 import axios from "axios"; // For API requests
 
 function NewInsEx({ fn, swipeDirection }) { // fn: callback for next step, swipeDirection: for animation

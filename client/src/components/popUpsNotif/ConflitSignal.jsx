@@ -1,6 +1,6 @@
 // popup for chef de projet to accept or refuse a new signaled conflict
 
-import "../../ComponentsStyles/popUpsNotif styles/ConflitSignal.css"
+import "../../componentsStyles/popUpsNotif styles/ConflitSignal.css"
 import i from "../../assets/x.png"
 import axios from "axios"
 import  AuthContext from "../../helpers/AuthContext"

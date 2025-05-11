@@ -1,5 +1,5 @@
 import SideNav from "../../components/SideNav"
-import "../../PagesStyles/Help Styles/HelpMonprofil.css"
+import "../../pagesStyles/Help Styles/HelpMonprofil.css"
 import desktop2 from "../../assets/Desktop - 44 (3).png"
 import desktop4 from "../../assets/Desktop - 44 (1).png"
 import desktop5 from "../../assets/Desktop - 45.png"

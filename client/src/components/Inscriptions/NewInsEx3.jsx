@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import axios from "axios";
 import ximg from "../../assets/x.png";
 import Demande from "../popUps/Demande";
-import "../../ComponentsStyles/Insctiptions styles/NewInsEx3.css";
+import "../../componentsStyles/Insctiptions styles/NewInsEx3.css";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import VerificationCode from "../popUps/VerificationCode";

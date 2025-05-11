@@ -1,4 +1,4 @@
-import "../../PagesStyles/Help Styles/HelpMainStyles.css"
+import "../../pagesStyles/Help Styles/HelpMainStyles.css"
 import SideNav from "../../components/SideNav"
 import { CgProfile } from "react-icons/cg";
 import { GrProjects } from "react-icons/gr";

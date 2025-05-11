@@ -5,7 +5,7 @@
 
 import image from "../../assets/Group 38.png";
 import image2 from "../../assets/Screenshot 2025-03-03 at 8.53.06 AM 2.png";
-import "../../PagesStyles/Pages inscriptions styles/InsEx.css";
+import "../../pagesStyles/Pages inscriptions styles/InsEx.css";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ import NewInsEx from "../../components/Inscriptions/NewInsEx";
 import NewInsEx2 from "../../components/Inscriptions/NewInsEx2";
 import NewInsEx3 from "../../components/Inscriptions/NewInsEx3";
 import { AnimatePresence } from "framer-motion"; // ⬅️ import AnimatePresence
-import "../../ComponentsStyles/Insctiptions styles/NewInsEx.css";
+import "../../componentsStyles/Insctiptions styles/NewInsEx.css";
 
 function InsEx() {
   const [step, setStep] = useState(1);

@@ -1,4 +1,4 @@
-import "../../ComponentsStyles/popUps styles/LienEnv.css";
+import "../../componentsStyles/popUps styles/LienEnv.css";
 import imj from "../../assets/x.png";
 import { useNavigate } from "react-router-dom";
 

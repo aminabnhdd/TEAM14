@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import axios from "axios";
-import "../../ComponentsStyles/Insctiptions styles/NewInsVs.css"
+import "../../componentsStyles/Insctiptions styles/NewInsVs.css"
 import { useNavigate } from "react-router-dom";
 import Demande from "../popUps/Demande";
 import VerificationCode from "../popUps/VerificationCode";

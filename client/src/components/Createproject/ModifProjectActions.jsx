@@ -3,7 +3,7 @@
 
 import React from "react";
 import { Save, Loader2 } from "lucide-react"; // Added Loader2 for loading spinner
-import "../../componentsStyles/CreateprojectStyles/ModifProjectActions.css";
+import "../../componentsStyles/CreateProjectStyles/ModifProjectActions.css";
 import { useNavigate } from "react-router-dom";
 
 const ModifProjectActions = ({ onModify, projetId, isLoading = false }) => {

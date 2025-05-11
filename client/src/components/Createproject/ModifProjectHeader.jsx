@@ -2,7 +2,7 @@
 // header for page modifier projet
 
 import React from "react";
-import "../../componentsStyles/CreateprojectStyles/ModifProjectHeader.css";
+import "../../componentsStyles/CreateProjectStyles/ModifProjectHeader.css";
 
 const ModifProjectHeader = () => {
   return (

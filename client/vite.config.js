@@ -9,7 +9,12 @@ import svgr from 'vite-plugin-svgr'
 export default defineConfig({
   plugins: [
     tailwindcss(),
-    react(), svgr()]
+    react(), svgr()],
+  
+  server: {
+      host: '0.0.0.0',  // This is the key
+      port: 5173
+    },
 })
 
 

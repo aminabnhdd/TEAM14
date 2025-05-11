@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import closeButton from "../../assets/x.png";
-import "../../ComponentsStyles/popUps styles/MdpOublie.css";
+import "../../componentsStyles/popUps styles/MdpOublie.css";
 import axios from "axios";
 
 function MdpOublie({ carti, fun, fun2 }) {

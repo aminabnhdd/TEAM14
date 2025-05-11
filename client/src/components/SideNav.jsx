@@ -1,4 +1,4 @@
-import '../ComponentsStyles/SideNav.css'
+import '../componentsStyles/SideNav.css'
 import {FaUserCog, FaFolderOpen, FaCompass, FaStar, FaEdit, FaBell } from "react-icons/fa";
 import { FaQuestionCircle } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';

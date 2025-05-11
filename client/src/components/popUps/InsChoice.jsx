@@ -1,7 +1,7 @@
 
 // popup to chose whether to sign up as expert or visiteur
 
-import "../../ComponentsStyles/popUps styles/InsChoice.css";
+import "../../componentsStyles/popUps styles/InsChoice.css";
 import { useState } from "react";
 
 function InsChoice({onClickExpert,onClickVisiteur}) {

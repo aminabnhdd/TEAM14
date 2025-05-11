@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import { useState, useContext } from 'react';
 import AuthContext from "../../helpers/AuthContext";
-import '../../ComponentsStyles/visualisation/titlebar.css'
+import '../../componentsStyles/visualisation/titlebar.css'
 export default function PrintPDF({ projet, references, chef, collaborateurs }) {
   const { authState } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);

@@ -1,7 +1,7 @@
 
 
 import SideNav from "../../components/SideNav"
-import "../../PagesStyles/Help Styles/HelpNotifStyles.css"
+import "../../pagesStyles/Help Styles/HelpNotifStyles.css"
 import desktop3 from "../../assets/Screenshot 2025-05-08 233203.png"
 import desktop4 from "../../assets/Screenshot 2025-05-08 224455.png"
 import desktop5 from "../../assets/Screenshot 2025-05-08 235532.png"

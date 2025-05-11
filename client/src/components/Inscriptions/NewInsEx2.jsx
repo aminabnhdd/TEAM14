@@ -2,7 +2,7 @@ import { motion } from "framer-motion"; // For animations
 import { useState } from "react"; // React state hook
 import arrRight from "../../assets/arrow-right-solid.svg"; // Right arrow icon
 import arrLeft from "../../assets/arrow-left-solid.svg"; // Left arrow icon
-import "../../ComponentsStyles/Insctiptions styles/NewInsEx2.css"; // CSS styles
+import "../../componentsStyles/Insctiptions styles/NewInsEx2.css"; // CSS styles
 import { useNavigate } from "react-router-dom"; // For navigation
 
 function NewInsEx2({ prevPopUp, fn, swipeDirection }) {

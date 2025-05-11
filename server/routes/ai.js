@@ -8,7 +8,7 @@ const { ImageAnnotatorClient } = require('@google-cloud/vision');
 const annotationAIModel = require('../model/AnnotationAI');
 const cloudinary = require('../config/cloudinary');
 const validateToken = require("../middlewares/authMiddleware");
-const sectionModel = require("../model/section");
+const sectionModel = require("../model/Section");
 const projetModel = require("../model/Projet");
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);

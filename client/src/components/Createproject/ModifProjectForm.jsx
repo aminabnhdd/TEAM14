@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, useContext } from "react";
 import { ChevronDown } from "lucide-react";
-import "../../componentsStyles/CreateprojectStyles/ModifProjectForm.css";
+import "../../componentsStyles/CreateProjectStyles/ModifProjectForm.css";
 import { FetchProjectData } from "../../services/FetchProjectData.js";
 import AuthContext from '../../helpers/AuthContext'
 import RefreshService from "../../services/RefreshService";

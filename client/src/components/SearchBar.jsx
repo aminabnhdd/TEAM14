@@ -2,7 +2,7 @@
 // This component is a search bar that could be used in different ways according to the onSearch function passed to it as props
 
 import img from "../assets/material-symbols_search.svg";
-import "../ComponentsStyles/SearchBar.css";
+import "../componentsStyles/SearchBar.css";
 import { useState, useContext } from "react";
 import AuthContext from '../helpers/AuthContext';
 import { useNavigate } from "react-router-dom";

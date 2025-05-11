@@ -1,7 +1,7 @@
 
 // popup to indicate that a conflict was resolved
 
-import "../../ComponentsStyles/popUpsNotif styles/ConflitRes.css"
+import "../../componentsStyles/popUpsNotif styles/ConflitRes.css"
 import i from "../../assets/x.png"
 import { useNavigate } from "react-router-dom"
 

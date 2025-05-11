@@ -1,7 +1,7 @@
 // notifications page for admin
 
 
-import "../../PagesStyles/Pages Admin Styles/NotifAdmin.css"
+import "../../pagesStyles/Pages Admin Styles/NotifAdmin.css"
 import { useState, useEffect } from "react"
 import SearchBar from "../../components/SearchBar" 
 import SideNav from "../../components/SideNav"

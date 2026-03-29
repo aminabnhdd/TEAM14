@@ -188,5 +188,5 @@ npm run dev
 
 ## 📄 Licence
 
-Ce projet est académique (2CP – ENSI).
+Ce projet est académique (2CP – ESI).
 Licence à définir.
